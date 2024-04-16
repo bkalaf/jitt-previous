@@ -9,7 +9,6 @@ import * as Realm from 'realm';
 import { IAddress, IFacility, ISelfStorage } from '../types';
 import { runTransaction } from '../util/runTransaction';
 import { col } from './defs/col';
-import { mapEmbed } from '../util/mapEmbed';
 import { groupCol } from './defs/groupCol';
 
 export const facility: Realm.ObjectSchema = {

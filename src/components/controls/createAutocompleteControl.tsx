@@ -3,9 +3,11 @@ import { AutocompleteElement, Path, useFormContext } from 'react-hook-form-mui';
 import { useQuery } from '@tanstack/react-query';
 import { useRealm } from '../../hooks/useRealm';
 import { getProperty } from '../../common/object';
+import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 
 export function createAutocompleteControl<T extends MRT_RowData, U extends MRT_RowData>(opts: { objectType: string; labelProperty: string }) {
     return function AutocompleteControl(props: Parameters<Exclude<MRT_ColumnDef<T, U | undefined>['Edit'], undefined>>[0]) {
+        useWhyDidIUpdate('AutocompleteContgrol', props);
         const { accessorKey, id, header } = props.column.columnDef;
         const name = accessorKey ?? id;
         const { control } = useFormContext();

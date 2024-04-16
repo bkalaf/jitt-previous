@@ -8,18 +8,18 @@ export function createListCell<T extends MRT_RowData, U>(RowCell: IRowCell<U>) {
         // const value = (row.original as any)[column.columnDef.accessorKey] ?? [] as DBList<U> | U[] ;
         // console.info(cell.column.columnDef, `value`, value)
         return (
-            <Tooltip
+            <Tooltip className='flex'
                 title={<>
-                    <ul className='list-disc list-inside'>
+                    <div className='flex flex-col w-full h-full text-white list-disc list-inside bg-slate-500'>
                         {value.map((el, ix) => (
-                            <li key={ix}>
-                                <RowCell data={el} key={ix} />
-                            </li>
+                            <div key={ix} className='flex justify-start w-full text-base whitespace-pre before:content-["◘_"]'>
+                                <RowCell data={el} key={ix} className='flex w-full text-left indent-1'/>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </>}
             >
-                <>{value.length} items.</>
+                <span>{value.length} items.</span>
             </Tooltip>
         );
     };

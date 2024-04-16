@@ -50,6 +50,7 @@ const objectNames = {
     mercariCategory: 'mercariCategory',
     mercariTaxonomy: 'mercariTaxonomy',
     classifier: 'classifier',
+    attribute: 'attribute',
     brand: 'brand',
     barcode: 'barcode',
     bin: 'bin',

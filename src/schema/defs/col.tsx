@@ -10,6 +10,7 @@ import { measureCol } from './measureCol';
 import { intCol } from './intCol';
 import { pk } from './pk';
 import { listCol } from './listCol';
+import { freeSoloCol } from './freeSoloCol';
 
 export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     string: stringCol(helper),
@@ -22,5 +23,6 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     int: intCol(helper),
     pk: pk(helper),
     list: listCol(helper),
-    measure: measureCol(helper)
+    measure: measureCol(helper),
+    freeSolo: freeSoloCol(helper)
 });

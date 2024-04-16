@@ -98,15 +98,19 @@ export type DetailsTypes = keyof typeof detailsTypes;
 export type IAttribute = {
     path: string;
     unset: boolean;
-    value?: string;
+    value: Realm.Types.Mixed;
 }
 export type IClassifier = {
     _id: BSON.ObjectId;
     taxonomy?: IMercariTaxonomy;
     shortName: string;
-    parent?: IClassifier;
-    name?: string;
-    type: DBList<DetailsTypes>;
+    parent?: Pick<IClassifier, '_id' | 'shortName' | 'name' | 'hashTags' | 'allHashTags' | 'detailTypes' | 'allAttributes'>;
+    name: string;
+    type: DBList<string>;
     attributes: DBList<IAttribute>;
-    readonly fullname: string;
+    hashTags: DBList<IHashTag>;
+    readonly allHashTags: IHashTag[];
+    readonly detailTypes: string[];
+    readonly allAttributes: IAttribute[];
+    subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
 }

@@ -11,3 +11,4 @@ export function groupCol<T extends MRT_RowData, U extends MRT_RowData>(helper: M
         ...groupProps(bgColor, textColor)
     });
 }
+

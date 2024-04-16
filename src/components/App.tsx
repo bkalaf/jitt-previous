@@ -30,7 +30,7 @@ export function App() {
     return (
         <>
             <CssBaseline />
-            <Box component='section' className='flex flex-col justify-around flex-grow w-screen h-screen'>
+            <Box component='section' className='flex flex-col justify-around flex-grow w-screen h-screen max-h-screen max-w-screen'>
                 <AppBar color='primary' position='static'>
                     <Toolbar variant='dense' className='flex items-center justify-start' disableGutters>
                         <img src={logo} alt='logo' className='flex h-14' />
@@ -51,7 +51,7 @@ export function App() {
                             ))}
                     </Breadcrumbs>
                 </Box>
-                <Box className='flex flex-grow w-full h-full overflow-scroll bg-pink-400'>
+                <Box className='flex flex-grow w-full h-full bg-pink-400'>
                     <Outlet />
                 </Box>
                 <AppBar component='footer' position='static' className='flex w-full p-1 bg-black' sx={{ top: 'auto', bottom: 0 }}>

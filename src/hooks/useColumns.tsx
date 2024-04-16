@@ -12,6 +12,8 @@ import { brandColumns } from '../schema/brand';
 import { squareFootageColumns } from '../schema/squareFootage';
 import { mercariCategoryColumns } from '../schema/mercariCategory';
 import { mercariTaxonomyColumns } from '../schema/mercariTaxonomy';
+import { attributeColumns } from '../schema/attribute';
+import { classifierColumns } from '../schema/classifier';
 
 export const columns = {
     selfStorage: selfStorageColumns,
@@ -24,7 +26,9 @@ export const columns = {
     brand: brandColumns,
     squareFootage: squareFootageColumns,
     mercariCategory: mercariCategoryColumns,
-    mercariTaxonomy: mercariTaxonomyColumns
+    mercariTaxonomy: mercariTaxonomyColumns,
+    attribute: attributeColumns,
+    classifier: classifierColumns
 };
 
 export function useColumns<T extends MRT_RowData>() {

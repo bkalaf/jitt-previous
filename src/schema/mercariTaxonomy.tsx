@@ -10,6 +10,7 @@ import { groupCol } from './defs/groupCol';
 import { mercariCategoryColumns } from './mercariCategory';
 import { ObjectId } from 'bson';
 import { runTransaction } from '../util/runTransaction';
+import { HashTagRowCell } from './HashTagRowCell';
 
 export const mercariTaxonomy: Realm.ObjectSchema = {
     name: schemaName($.mercariTaxonomy()),
@@ -32,7 +33,7 @@ export const mercariTaxonomyColumns: MRT_ColumnDef<IMercariTaxonomy>[] = [
     helper.pk(),
     helper.string('fullname', 'Full Name', undefined, { maxLength: 250, readonly: true }),
     helper.date('timestamp', 'Timestamp', (x?: Date) => x != null ? dayjs(x).format('YYYY-MM-DD') : '', { disableFuture: true }),
-    helper.list('hashTags', 'Hash Tags', 'hashTag', ({ data }: {data: IHashTag}) => data.name, hashTagColumns, 'name', false),
+    helper.list('hashTags', 'Hash Tags', 'hashTag', HashTagRowCell, hashTagColumns, 'name', false),
     groupCol(h, 'Category', mercariCategoryColumns, 'category', 'bg-blue-700', 'text-white'),
     groupCol(h, 'SubCategory', mercariCategoryColumns, 'subCategory', 'bg-red-700', 'text-white'),
     groupCol(h, 'SubSubCategory', mercariCategoryColumns, 'subSubCategory', 'bg-orange-700', 'text-white')

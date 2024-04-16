@@ -6,7 +6,7 @@ import { Types } from 'realm';
 
 
 declare global {
-    export type IRowCell<T> = React.FunctionComponent<{ data: T; }>
+    export type IRowCell<T> = React.FunctionComponent<{ data: T; className?: string }>
     export type EnumInfo = { key: string, text: string; }
     export type Predicate<T> = (x: T) => boolean;
     export type Children = React.ReactNode | React.ReactNode[] | undefined;
@@ -17,6 +17,8 @@ declare global {
         getItem(key: string): T;
         setItem(key: string, value: T): void;
     }
+    export type Compared = -1 | 0 | 1;
+    export type AutoOption = { key: string, text: string; }
     export type Updater<T> = (x: T) => T;
     export type DBList<T> = Types.List<T>;
     export type DBDictionary<T> = Types.Dictionary<T>;

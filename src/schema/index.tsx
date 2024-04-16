@@ -1,6 +1,8 @@
 import { address } from './address';
+import { attribute } from './attribute';
 import { Auction } from './auction';
 import { Brand } from './brand';
+import { Classifier } from './classifier';
 import { Facility } from './facility';
 import { HashTag } from './hashTag';
 import { hashTagUsage } from './hashTagUsage';
@@ -21,5 +23,7 @@ export const schema: (Realm.ObjectSchema | Realm.ObjectClass<any>)[] = [
     Brand,
     squareFootage,
     MercariCategory,
-    MercariTaxonomy
+    MercariTaxonomy,
+    attribute,
+    Classifier
 ]

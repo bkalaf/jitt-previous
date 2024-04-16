@@ -1,7 +1,9 @@
 import { BSON } from 'realm';
-import { IAddress, IAuction, IBrand, IFacility, IHashTag, IHashTagUsage, IMercariBrand, IMercariCategory, IMercariTaxonomy, ISelfStorage, ISquareFootage } from './types';
+import { IAddress, IAttribute, IAuction, IBrand, IClassifier, IFacility, IHashTag, IHashTagUsage, IMercariBrand, IMercariCategory, IMercariTaxonomy, ISelfStorage, ISquareFootage } from './types';
 
 export const initialValue = {
+    classifier: (): InitialValue<IClassifier> => ({ _id: new BSON.ObjectId(), type: [], hashTag: [], attributes: [], shortName: '', name: '' }),
+    attribute: (): InitialValue<IAttribute> => ({ path: '', unset: false }),
     mercariCategory: (): InitialValue<IMercariCategory> => ({ name: '', selector: '', hashTags: [] }),
     mercariTaxonomy: (): InitialValue<IMercariTaxonomy> => ({ _id: new BSON.ObjectId(), fullname: '', hashTags: [], category: initialValue.mercariCategory(), subCategory: initialValue.mercariCategory(), subSubCategory: initialValue.mercariCategory() }),
     squareFootage: (): InitialValue<ISquareFootage> => ({ width: 0, length: 0 }),

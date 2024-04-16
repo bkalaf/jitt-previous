@@ -7,6 +7,7 @@ import { col } from './defs/col';
 import { hashTagColumns } from './hashTag';
 import { ObjectId } from 'bson';
 import { distinctByOID } from '../common/array/distinct';
+import { HashTagRowCell } from './HashTagRowCell';
 
 export const brand: Realm.ObjectSchema = {
     name: schemaName($.brand()),
@@ -26,8 +27,8 @@ export const brandColumns: MRT_ColumnDef<IBrand>[] = [
     helper.pk(),
     helper.string('name', 'Name', undefined, { maxLength: 150 }),
     helper.lookup('mercariBrand', 'Mercari Brand', { objectType: 'mercariBrand', labelProperty: 'name' }),
-    helper.list<IHashTag>('hashTags', 'Hash Tags', 'hashTag', ({ data }) => data.name, hashTagColumns, 'name'),
-    helper.list<IHashTag>('allHashTags', 'Hash Tags', 'hashTag', ({ data }) => data.name, hashTagColumns, 'name', true)
+    helper.list<IHashTag>('hashTags', 'Hash Tags', 'hashTag', HashTagRowCell, hashTagColumns, 'name'),
+    helper.list<IHashTag>('allHashTags', 'Hash Tags', 'hashTag', HashTagRowCell, hashTagColumns, 'name', true)
 ];
 
 export class Brand extends Realm.Object<IBrand> implements IBrand {
