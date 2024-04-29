@@ -24,6 +24,15 @@ input,
 select,
 textarea,
 output,
+table,
+tr,
+td,
+thead,
+th,
+tbody,
+tfoot,
+fieldset,
+a,
 form {
     font-family: 'Rubik' !important;
 }

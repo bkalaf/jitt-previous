@@ -8,6 +8,10 @@ import { BSON } from 'realm';
 export function pk<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
     return () => helper.accessor('_id' as any, {
         header: 'ID',
+        size: 50,
+        muiTableBodyCellProps: {
+            className: 'text-center'
+        },
         Cell: function ({ cell }: Parameters<Exclude<MRT_ColumnDef<T, Realm.BSON.ObjectId>['Cell'], undefined>>[0]) {
             const value = cell.getValue<Realm.BSON.ObjectId>().toHexString();
             return (

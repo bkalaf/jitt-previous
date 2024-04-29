@@ -1,4 +1,4 @@
-import { useContxt } from '../contexts/useContxt';
+import { useContxt } from './useContxt';
 import { RealmContext } from '../contexts/RealmContext';
 
 export function useRealm() {

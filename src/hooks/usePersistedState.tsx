@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { MRT_ColumnFiltersState, MRT_ColumnOrderState, MRT_ColumnPinningState, MRT_ColumnSizingState, MRT_DensityState, MRT_GroupingState, MRT_PaginationState, MRT_RowData, MRT_RowSelectionState, MRT_SortingState, MRT_TableState, MRT_VisibilityState } from 'material-react-table';
-import { useCollectionRoute } from './useCollectionRoute';
 import { useForager } from '../contexts/ForagerContext';
 import { useQueryString } from './useQueryString';
+import { useEffectiveCollection } from './useEffectiveCollection';
 
 export const $array = function <T>(): T { return [] as T; };
 export const $object = function <T>(): T { return {} as T; };
@@ -24,9 +24,9 @@ const keys = (collection: string) => ({
     $sorting: [collection, 'sorting'].join('-'),
 })
 
-export function usePersistedState<T extends MRT_RowData>() {
+export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
     const { forager } = useForager();
-    const collection = useCollectionRoute();
+    const collection = useEffectiveCollection(objectType);
     const { _id } = useQueryString<'_id'>();
     const { $columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting } = useMemo(() => keys(collection), [collection])
 

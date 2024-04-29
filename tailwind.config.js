@@ -293,6 +293,8 @@ module.exports = {
             none: 'none'
         },
         cursor: {
+            'alternate-select': 'url("../cursors/blue/alternate-select.cur"), auto',
+            'link-select': 'url("../cursors/blue/link-select.cur"), auto',
             auto: 'auto',
             default: 'default',
             pointer: 'pointer',
@@ -1024,6 +1026,15 @@ module.exports = {
                 // table: { tableLayout: 'auto', borderCollapse: 'separate' },
             });
             addComponents({
+                'th div': {
+                    width: '100%'
+                },
+                // 'thead > tr': {
+                //     borderWidth: '1px',
+                //     borderColor: black,
+                //     divideWidth: '1px',
+                //     divideColor: black
+                // },
                 'input[type="checkbox"].large': {
                     transform: 'scale(1.5)'
                 },

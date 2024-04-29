@@ -22,11 +22,16 @@ export function App() {
     const context = useEnv();
     console.log(context.REALM_APP_ID);
     const location = useLocation();
+    const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
+    const maxHeight = `${mh.toFixed(0)}px`;
     console.log(`location`, location, location.pathname);
-    console.log(`segments`, location.pathname
-                            .slice(1)
-                            .split('/')
-                            .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')]))
+    console.log(
+        `segments`,
+        location.pathname
+            .slice(1)
+            .split('/')
+            .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
+    );
     return (
         <>
             <CssBaseline />
@@ -42,16 +47,20 @@ export function App() {
                 <Box className='flex justify-between w-full p-1 text-white bg-slate-500'>
                     <Breadcrumbs separator='>' className='flex ml-3 text-SvgMachineWashGentleOrDelicate' aria-label='breadcrumbs'>
                         <RRLink to='/'>Home</RRLink>
-                        {location.pathname.length > 1 && location.pathname
-                            .slice(1)
-                            .split('/')
-                            .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
-                            .map(([name, path]) => (
-                                <BreadcrumbItem key={path} name={camelToProper(name)} path={path} />
-                            ))}
+                        {location.pathname.length > 1 &&
+                            location.pathname
+                                .slice(1)
+                                .split('/')
+                                .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
+                                .map(([name, path]) => <BreadcrumbItem key={path} name={camelToProper(name)} path={path} />)}
                     </Breadcrumbs>
                 </Box>
-                <Box className='flex flex-grow w-full h-full bg-pink-400'>
+                <Box
+                    className='flex flex-grow bg-pink-400'
+                    sx={{
+                        maxHeight
+                    }}
+                >
                     <Outlet />
                 </Box>
                 <AppBar component='footer' position='static' className='flex w-full p-1 bg-black' sx={{ top: 'auto', bottom: 0 }}>

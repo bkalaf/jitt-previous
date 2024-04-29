@@ -9,9 +9,14 @@ import { useInitial } from '../../../hooks/useInitial';
 export function createRenderCreateRowDialogContentList<T extends MRT_RowData, U extends MRT_RowData>(objectType: string, cell: MRT_Cell<T, DBList<U> | U[] | undefined>) {
     return function RenderCreateRowDialogContentList({ table, internalEditComponents }: Parameters<Exclude<MRT_TableOptions<U>['renderCreateRowDialogContent'], undefined>>[0]) {
         const init = useInitial(objectType);
-        const onCancel = useCallback(() => {
-            table.setCreatingRow(null);
-        }, [table]);
+        const onCancel = useCallback(
+            (ev: React.MouseEvent) => {
+                ev.stopPropagation();
+                ev.preventDefault();
+                table.setCreatingRow(null);
+            },
+            [table]
+        );
         const { onSuccess, onError } = useInsertIntoList<U>(objectType, cell as any, table);
         return (
             <FormContainer criteriaMode='all' mode='onSubmit' reValidateMode='onChange' defaultValues={init() as DefaultValues<U>} onSuccess={onSuccess} onError={(err: FieldErrors<U>) => onError(new Error(err.root?.message))}>
@@ -22,6 +27,9 @@ export function createRenderCreateRowDialogContentList<T extends MRT_RowData, U 
                         <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
                             Cancel
                         </Button>
+                        {/* <Button className='inline-flex' type='button' color='metal' onClick={}>
+                            Reset
+                        </Button> */}
                         <Button className='inline-flex' type='submit' color='metal'>
                             Submit
                         </Button>
@@ -31,3 +39,4 @@ export function createRenderCreateRowDialogContentList<T extends MRT_RowData, U 
         );
     };
 }
+

@@ -1,5 +1,5 @@
 import { createContext, useMemo } from 'react';
-import { useContxt } from './useContxt';
+import { useContxt } from '../hooks/useContxt';
 import localforage from 'localforage';
 
 export type IForagerContext = {

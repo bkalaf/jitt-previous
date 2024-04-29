@@ -27,3 +27,5 @@ export const detailsTypes = {
     'sporting-goods': 'sporting-goods',
     toys: 'toys'
 };
+
+console.log(Object.keys(detailsTypes).map(x => `'${x}' | `).join(''));

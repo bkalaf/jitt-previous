@@ -4,9 +4,7 @@ import { $ } from './$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { IHashTag, IMercariCategory } from '../types';
 import { col } from './defs/col';
-import { hashTagColumns } from './hashTag';
 import { runTransaction } from '../util/runTransaction';
-import { HashTagRowCell } from './HashTagRowCell';
 
 export const mercariCategory: Realm.ObjectSchema = {
     name: schemaName($.mercariCategory()),
@@ -24,7 +22,7 @@ const helper = col(h);
 export const mercariCategoryColumns: MRT_ColumnDef<IMercariCategory>[] = [
     helper.string('name', 'Name', undefined, { maxLength: 150 }),
     helper.string('selector', 'Selector', undefined, { maxLength: 50 }),
-    helper.list('hashTags', 'HashTags', 'hashTag', HashTagRowCell, hashTagColumns, 'name')
+    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
 ];
 
 export class MercariCategory extends Realm.Object<IMercariCategory> implements IMercariCategory {

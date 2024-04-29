@@ -8,6 +8,10 @@ body {
     font-family: 'Rubik'; 
 } 
 
+th#mrt-row-expand div {
+    display: contents;
+}
+
 /* .active {
     @apply text-white border border-white bg-magenta;
 } */

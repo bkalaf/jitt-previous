@@ -100,17 +100,20 @@ export type IAttribute = {
     unset: boolean;
     value: Realm.Types.Mixed;
 }
+
+export type DetailTypes = 'apparel-bottoms' | 'apparel-bras' | 'apparel-footwear' | 'apparel-tops' | 'apparel' | 'cables-data' | 'cables-power' | 'cables-video' | 'cables' | 'cell-phones' | 'electronics' | 'general' | 'home-goods-dinnerware' | 'home-goods-flatware' | 'home-goods' | 'jewelry' | 'kitchen-appliances' | 'media-books' | 'media-music' | 'media-video-games' | 'media-videos-film' | 'media-videos-tv-series' | 'media-videos' | 'media' | 'sporting-goods-golf-clubs' | 'sporting-goods' | 'toys';
+
 export type IClassifier = {
     _id: BSON.ObjectId;
     taxonomy?: IMercariTaxonomy;
     shortName: string;
     parent?: Pick<IClassifier, '_id' | 'shortName' | 'name' | 'hashTags' | 'allHashTags' | 'detailTypes' | 'allAttributes'>;
     name: string;
-    type: DBList<string>;
+    type: DBList<DetailTypes>;
     attributes: DBList<IAttribute>;
     hashTags: DBList<IHashTag>;
     readonly allHashTags: IHashTag[];
-    readonly detailTypes: string[];
+    readonly detailTypes: DetailTypes[];
     readonly allAttributes: IAttribute[];
-    subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
+    readonly subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
 }

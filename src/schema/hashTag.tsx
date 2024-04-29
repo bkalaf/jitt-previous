@@ -3,9 +3,8 @@ import { $ } from './$';
 import { schemaName } from '../util/schemaName';
 import { IHashTag, IHashTagUsage } from '../types';
 import { col } from './defs/col';
-import { hashTagUsageColumns } from './hashTagUsage';
 import { ObjectId } from 'bson';
-
+import Realm from 'realm';
 export const hashTag: Realm.ObjectSchema = {
     name: schemaName($.hashTag()),
     primaryKey: '_id',
@@ -21,8 +20,8 @@ const helper = col(h);
 
 export const hashTagColumns = [
     helper.pk(),
-    helper.string('name', 'Name', undefined, { maxLength: 150, pattern: /^[a-z0-9]{3, 150}$/, minLength: 3 }),
-    helper.list('usage', 'Usage', 'hashTagUsage', ({ data }: { data: IHashTagUsage }) => [data.from.toDateString(), data.count.toFixed(0)].join(': '), hashTagUsageColumns),
+    helper.string('name', 'Name', undefined, { maxLength: 150, pattern: /^[a-z0-9]{3,150}$/, minLength: 3 }),
+    helper.listOfEmbed('usage', 'Usage', 'hashTagUsage'),
     helper.date('mostRecent', 'Most Recent', (x?: Date) => x?.toDateString(), { readonly: true }),
     helper.int('maxCount', 'Max Count', { readonly: true })
 ] as MRT_ColumnDef<IHashTag>[];

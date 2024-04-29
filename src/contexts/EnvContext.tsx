@@ -6,6 +6,7 @@ export type IEnvContext = {
     REALM_APP_ID: string;
     REALM_USER: string;
     REALM_PASSWORD: string;
+    LOG_LEVEL: ConsoleLoggingLevel;
 };
 
 export const EnvContext = createContext<undefined | IEnvContext>(undefined);
@@ -15,6 +16,7 @@ const MERCARI_PASSWORD = process.env.MERCARI_PASSWORD ?? '';
 const REALM_APP_ID = process.env.REALM_APP_ID ?? '';
 const REALM_USER = process.env.REALM_USER ?? '';
 const REALM_PASSWORD = process.env.REALM_PASSWORD ?? '';
+const LOG_LEVEL = (process.env.LOG_LEVEL ?? 'log') as ConsoleLoggingLevel;
 
 export function useProvideEnvContext(): IEnvContext {
     return useMemo(
@@ -23,7 +25,8 @@ export function useProvideEnvContext(): IEnvContext {
             MERCARI_USER,
             REALM_APP_ID,
             REALM_USER,
-            REALM_PASSWORD
+            REALM_PASSWORD,
+            LOG_LEVEL
         }),
         []
     );
