@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 import { MRT_RowData } from 'material-react-table';
 import { useQuery } from '@tanstack/react-query';
-import { useRealm } from './useRealm';
 import Realm from 'realm';
+import { useLocalRealm } from './useLocalRealm';
 
 function handleFilter<T extends MRT_RowData>(collection: string, db?: Realm, filterString?: string, filterArgs?: any[]) {
     if (filterString == null || filterString.length === 0) {
@@ -13,7 +13,7 @@ function handleFilter<T extends MRT_RowData>(collection: string, db?: Realm, fil
     return Promise.resolve(db.objects<T>(collection).filtered(filterString, ...filterArgs ?? []));
 }
 export function useCollectionQuery<T extends MRT_RowData>(collection: string) {
-    const { db } = useRealm();
+    const db = useLocalRealm();
     const [filterString, filterArgs] = useMemo(() => (collection === 'classifier' ? ['parent == $0', [null] as any[]] : []), [collection]);
     const { data } = useQuery({
         queryKey: [collection],

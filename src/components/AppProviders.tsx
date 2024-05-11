@@ -12,18 +12,20 @@ import { queryClient } from './AppRoot';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
-        <ThemeProvider theme={theme}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <SnackbarProvider maxSnack={10} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} autoHideDuration={4000}>
-                    <EnvProvider>
-                        <RealmProvider>
-                            <QueryClientProvider client={queryClient}>
-                                <ForagerProvider>{children}</ForagerProvider>
-                            </QueryClientProvider>
-                        </RealmProvider>
-                    </EnvProvider>
-                </SnackbarProvider>
-            </LocalizationProvider>
-        </ThemeProvider>
+        <React.Suspense fallback={<div>Laoding...</div>}>
+            <ThemeProvider theme={theme}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <SnackbarProvider maxSnack={10} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} autoHideDuration={4000}>
+                        <EnvProvider>
+                            <RealmProvider>
+                                <QueryClientProvider client={queryClient}>
+                                    <ForagerProvider>{children}</ForagerProvider>
+                                </QueryClientProvider>
+                            </RealmProvider>
+                        </EnvProvider>
+                    </SnackbarProvider>
+                </LocalizationProvider>
+            </ThemeProvider>
+        </React.Suspense>
     );
 }

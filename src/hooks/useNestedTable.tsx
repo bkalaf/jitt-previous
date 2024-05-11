@@ -2,15 +2,15 @@ import { MRT_Cell, MRT_ColumnDef, useMaterialReactTable } from 'material-react-t
 import React, { useCallback, useMemo } from 'react';
 import { useConvert } from './useConvert';
 import { PaperProps, TableContainerProps, TableProps } from '@mui/material';
-import { useRealm } from './useRealm';
 import { createRenderCreateRowDialogContentNested } from '../components/Views/renderProperties/createRenderCreateRowDialogContentNested';
 import { createDictionaryListItem } from '../components/controls/createDictionaryListItem';
 import { createListListItem } from '../components/controls/createListListItem';
 import { generateColumns } from '../components/controls/generateColumns';
+import { useTypes } from './useTypes';
 
 
 export function useNestedTable<TValue>(cell: MRT_Cell<any>, type: 'list' | 'dictionary' | 'set', objectType: string, cols: MRT_ColumnDef<any>[], Component: React.FunctionComponent<{ data: any; }>, labelProperty?: string) {
-    const { types } = useRealm();
+    const types = useTypes();
     const { columns, normalizeValues, defaultValue, toData, name, label, labelProp, insertFunc, deleteFunc, initializer } = generateColumns(cell, types, cols, type, objectType, labelProperty ?? '');
     const convert = useConvert(type, objectType);
     const processInput = useMemo(() => (values: any) => normalizeValues(convert(values)), [convert, normalizeValues]);

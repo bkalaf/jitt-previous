@@ -6,16 +6,16 @@ import { useInitial } from '../../hooks/useInitial';
 import { createRenderEditRowDialogContent } from './renderProperties/createRenderEditRowDialogContent';
 import { getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
 import { useEffectiveCollection } from '../../hooks/useEffectiveCollection';
-import { useRealm } from '../../hooks/useRealm';
 import { createJITTExpandButton, expandAllRows, expandSingleRow } from './JITT_ExpandButton';
 import { TableCellProps, TableRowProps } from '@mui/material';
 import { iconButtonDim } from './expandButtonHW';
 import { createRenderRowActions } from './renderProperties/createRenderRowActions';
+import { useGetTableCanExpand } from './useGetTableCanExpand';
 
 export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT_ColumnDef<T>[], objectType?: string) {
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
-    const { getTableCanExpand } = useRealm();
+    const getTableCanExpand = useGetTableCanExpand();
     const { resetSettings, onColumnFiltersChange, ...opts } = usePersistedState<T>(objectType);
     // const c: MRT_TableOptions<any>['muiTableBodyRowProps'];
     return useMaterialReactTable<T>({
@@ -58,7 +58,7 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         enableColumnDragging: true,
         enableColumnOrdering: true,
         enableColumnPinning: true,
-        enableColumnResizing: true,
+        enableColumnResizing: false,
         enableEditing: true,
         enableExpandAll: true,
         enableExpanding: getTableCanExpand(route),
@@ -112,7 +112,9 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
             return {
                 sx: {
                     display: 'flex',
-                    maxHeight
+                    maxHeight,
+                    overflowX: 'scroll',
+                    overflowY: 'hidden'
                 }
             };
         },

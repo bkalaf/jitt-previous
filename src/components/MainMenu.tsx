@@ -50,6 +50,12 @@ export function MainMenu() {
                             <MainMenuItem segment='mercariTaxonomy' />
                         </MenuList>
                     </CategoryMenuItem>
+                    <CategoryMenuItem direction='right' Component={MenuItem} label='Inventory'>
+                        <MenuList dense>
+                            <MainMenuItem segment='bin' />
+                            <MainMenuItem segment='barcode' />
+                        </MenuList>
+                    </CategoryMenuItem>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Products'>
                         <MenuList dense>
                             <MainMenuItem segment='brand' />

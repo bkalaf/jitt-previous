@@ -1,8 +1,8 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
-import { IHashTag, IHashTagUsage } from '../types';
-import { col } from './defs/col';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
+import { IHashTag, IHashTagUsage } from '../../types';
+import { col } from '../defs/col';
 import { ObjectId } from 'bson';
 import Realm from 'realm';
 export const hashTag: Realm.ObjectSchema = {

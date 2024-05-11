@@ -9,9 +9,11 @@ import { percentCol } from './percentCol';
 import { measureCol } from './measureCol';
 import { intCol } from './intCol';
 import { pk } from './pk';
-import { dbListCol } from './dbListCol';
+import { dbDictCol, dbFlattenedListCol, dbListCol, flagsCol } from './dbListCol';
+import { dbListObjectCol } from './dbListObjectCol';
+import { dbFreeSoloCol } from './dbFreeSoloCol';
+import { dbEnumCol } from './dbEnumCol';
 import { freeSoloCol } from './freeSoloCol';
-import { listObjectCol } from './listObjectCol';
 import { doubleCol } from './doubleCol';
 
 export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
@@ -27,16 +29,13 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     // list: listCol(helper),
     measure: measureCol(helper),
     freeSolo: freeSoloCol(helper),
+    listofEnum: dbEnumCol(helper),
+    listofFreeSolo: dbFreeSoloCol(helper),
     listOfEmbed: dbListCol(helper), //listEmbedCol(helper),
-    listOfObject: listObjectCol(helper),
+    listOfObject: dbListObjectCol(helper),
     listOfPrimitive: dbListCol(helper), // listPrimitiveCol(helper),
-    double: doubleCol(helper)
-    // $list: function <TValue>(name: keyof T & string, header: string, objectType: string, RowCell: IRowCell<TValue>, columns: MRT_ColumnDef<TValue & MRT_RowData>[], labelProperty?: string, readonly = false) {
-    //     return dsCol(helper)(name, header, 'list', objectType, RowCell, columns as MRT_ColumnDef<any>[], labelProperty, readonly);
-    // },
-    // $dictionary: function <TValue>(name: keyof T & string, header: string, objectType: string, RowCell: IRowCell<TValue>, columns: MRT_ColumnDef<TValue & MRT_RowData>[], labelProperty?: string, readonly = false) {
-    //     return dsCol(helper)(name, header, 'dictionary', objectType, RowCell, columns as MRT_ColumnDef<any>[], labelProperty, readonly);
-    // },
-    // $set: function <TValue>(name: keyof T & string, header: string, objectType: string, RowCell: IRowCell<TValue>, columns: MRT_ColumnDef<TValue & MRT_RowData>[], labelProperty?: string, readonly = false) {
-    //     return dsCol(helper)(name, header, 'set', objectType, RowCell, columns as MRT_ColumnDef<any>[], labelProperty, readonly);
+    double: doubleCol(helper),
+    dictionary: dbDictCol(helper),
+    clothingCare: dbFlattenedListCol(helper),
+    flags: flagsCol(helper)
 });

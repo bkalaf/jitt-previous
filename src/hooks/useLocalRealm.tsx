@@ -1,7 +1,9 @@
 import { useRealm } from './useRealm';
 
 export function useLocalRealm() {
-    const { db } = useRealm();
+    console.log('useLocalRealm');
+    const { realmResource } = useRealm();
+    const db = realmResource();
     if (db == null) throw new Error('no db');
     return db;
 }

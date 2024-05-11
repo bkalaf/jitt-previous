@@ -1,15 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="../types.ts" />
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
 import { addressColumns, getCityState, getStreetOnly } from './address';
 import { ObjectId } from 'bson';
 import * as Realm from 'realm';
-import { IAddress, IFacility, ISelfStorage } from '../types';
-import { runTransaction } from '../util/runTransaction';
-import { col } from './defs/col';
-import { groupCol } from './defs/groupCol';
+import { IAddress, IFacility, ISelfStorage } from '../../types';
+import { runTransaction } from '../../util/runTransaction';
+import { col } from '../defs/col';
+import { groupCol } from '../defs/groupCol';
 
 export const facility: Realm.ObjectSchema = {
     name: schemaName($.facility()),

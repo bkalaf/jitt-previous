@@ -1,6 +1,7 @@
 import { Dayjs } from 'dayjs';
 import { BSON, PropertySchema } from 'realm';
 import { getProperty, objectMap } from '../../common/object';
+import Realm from 'realm';
 
 export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int', 'double', 'float', 'decimal128', 'bool', 'date', 'data'].includes(type);
 export const isDataStructure = (type: string) => ['list', 'dictionary', 'set'].includes(type);
@@ -13,23 +14,29 @@ export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
     double: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
     decimal128: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
     float: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
-    date: () => (value?: Date | string | Dayjs) => (value == null ? undefined : value instanceof Date ? value : typeof value === 'string' ? new Date(Date.parse(value)) : 'toDate' in value ? value.toDate() : undefined),
+    date: (value?: Date | string | Dayjs) => (value == null ? undefined : value instanceof Date ? value : typeof value === 'string' ? new Date(Date.parse(value)) : 'toDate' in value ? value.toDate() : undefined),
     bool: (value?: boolean | string) => (value == null ? undefined : typeof value === 'boolean' ? value : value === 'true' ? true : value === 'false' ? false : undefined),
     data: (value?: ArrayBuffer) => value
 });
 export const cnvrt = (types: RealmSchema, objectType?: string) => ({
     ...(cnvrtPrimitives() as Record<'objectId', (value?: any) => any>),
     object: (value?: any, override = false): any => {
+        console.log(`convert object`, objectType, types, value);
         if (objectType == null) throw new Error(`no objectType`);
         const schema = types.find((x) => x.name === objectType);
         if (schema == null) throw new Error(`schema not found for : ${objectType}`);
         const { embedded } = { embedded: false, ...schema };
-        return Object.fromEntries(
-            Object.entries(schema.properties).map(([name, propSchema]) => {
-                if (typeof propSchema === 'string') throw new Error('string type');
-                return [name, ofType(types, propSchema)(getProperty(name, value))];
-            })
-        );
+        return value == null
+            ? value
+            : value instanceof Realm.Object && !(embedded || override)
+            ? value
+            : Object.fromEntries(
+                  Object.entries(schema.properties).map(([name, propSchema]) => {
+                      console.log(`...${name}`);
+                      if (typeof propSchema === 'string') throw new Error('string type');
+                      return [name, ofType(types, propSchema)(getProperty(name, value))];
+                  })
+              );
         // if (override) {
         //     // || embedded
         // }
@@ -61,7 +68,8 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
         }
         const func = $cnvrt(types, objectType).object({ optional: false } as any);
         return Object.fromEntries(Object.entries(value ?? {}).map(([k, v]) => [k, func({ optional: false } as any)(v)]));
-    }
+    },
+    mixed: (value: any) => value
 });
 
 function toConvert(func: (value?: any) => any) {

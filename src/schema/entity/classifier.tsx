@@ -1,14 +1,14 @@
 import Realm from 'realm';
-import { schemaName } from '../util/schemaName';
-import { $ } from './$';
+import { schemaName } from '../../util/schemaName';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-react-table';
-import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from '../types';
-import { col } from './defs/col';
-import { useWhyDidIUpdate } from '../hooks/useWhyDidIUpdate';
-import { createStringControl } from '../components/controls/createStringControl';
+import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from '../../types';
+import { col } from '../defs/col';
+import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
+import { createStringControl } from '../../components/controls/createStringControl';
 import { ObjectId } from 'bson';
-import { runTransaction } from '../util/runTransaction';
-import { distinctBy, distinctByOID } from '../common/array/distinct';
+import { runTransaction } from '../../util/runTransaction';
+import { distinctBy, distinctByOID } from '../../common/array/distinct';
 
 export const classifier: Realm.ObjectSchema = {
     name: schemaName($.classifier()),
@@ -21,12 +21,7 @@ export const classifier: Realm.ObjectSchema = {
         name: $.string(),
         type: $.string.list,
         attributes: $.attribute.list,
-        hashTags: $.hashTag.list,
-        subRows: {
-            type: 'linkingObjects',
-            objectType: 'classifier',
-            property: 'parent'
-        }
+        hashTags: $.hashTag.list
     }
 };
 
@@ -60,7 +55,7 @@ export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
         //     className: fromDepth(props.row.depth)
         // })
     },
-    helper.listOfPrimitive('type', 'Detail Types', 'string'),
+    helper.listofFreeSolo('type', 'Detail Types', 'string', (x: string, y: string) => x.localeCompare(y) as Compared),
     helper.listOfPrimitive('detailTypes', 'ALL Detail Types', 'string', true),
     helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
     helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', 'name', true),
@@ -89,7 +84,12 @@ export class Classifier extends Realm.Object<IClassifier> implements IClassifier
     get allAttributes(): IAttribute[] {
         return distinctBy((left: IAttribute, right: IAttribute) => left.path === right.path, [...(this?.parent?.allAttributes ?? []), ...(this.attributes ?? [])]);
     }
-    subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
+    get subRows(): Realm.Results<any> {
+        // const key = Object.getOwnPropertySymbols(this).find(x => x.toString().includes('#realm'))
+        // if (key == null) throw new Error('cannot find symbol')
+        return this.linkingObjects('classifier', 'parent')
+    }
+    // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
     _id: ObjectId;
     taxonomy?: IMercariTaxonomy | undefined;
     shortName: string;

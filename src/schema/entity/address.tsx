@@ -1,10 +1,10 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
-import { provinces } from './enums/provinces';
-import { countries } from './enums/countries';
-import { IAddress } from '../types';
-import { col } from './defs/col';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
+import { provinces } from '../enums/provinces';
+import { countries } from '../enums/countries';
+import { IAddress } from '../../types';
+import { col } from '../defs/col';
 
 export const address: Realm.ObjectSchema = {
     name: schemaName($.address()),

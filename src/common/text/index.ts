@@ -34,3 +34,6 @@ export const splitWhen = curry(_splitWhen);
 export function camelToProper(str: string) {
     return splitWhen((x) => /[A-Z]/.test(x))(str).map(capitalize).join(' ');
 }
+export function camelToKebab(str: string) {
+    return splitWhen((x) => /[A-Z]/.test(x))(str).map(x => x.toLowerCase()).join('-');
+}

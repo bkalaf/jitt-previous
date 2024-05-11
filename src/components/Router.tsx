@@ -49,9 +49,11 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
         {
             path: '/',
             element: (
-                <ProviderComponent>
-                    <App />
-                </ProviderComponent>
+                <React.Suspense fallback={<div>Loading...</div>}>
+                    <ProviderComponent>
+                        <App />
+                    </ProviderComponent>
+                </React.Suspense>
             ),
             errorElement: <ErrorBoundary />,
             children: [
@@ -71,6 +73,8 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                                 collectionRoute('auction'),
                                 collectionRoute('mercariTaxonomy'),
                                 collectionRoute('classifier'),
+                                collectionRoute('bin'),
+                                collectionRoute('barcode'),
                                 { index: true, element: <div>CATEGORY INDEX</div>, errorElement: <ErrorBoundary /> }
                             ]
                         },

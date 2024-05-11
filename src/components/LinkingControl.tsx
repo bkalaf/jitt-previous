@@ -2,19 +2,19 @@ import { MRT_Cell, MRT_RowData } from 'material-react-table';
 import { AutocompleteElement, useFormContext } from 'react-hook-form-mui';
 import { camelToProper } from '../common/text';
 import { useQuery } from '@tanstack/react-query';
-import { useRealm } from '../hooks/useRealm';
 import { getProperty } from '../common/object';
 import { BSON } from 'realm';
 import { createFilterOptions } from '@mui/material';
 import { useMemo } from 'react';
 import { useWhyDidIUpdate } from '../hooks/useWhyDidIUpdate';
+import { useLocalRealm } from '../hooks/useLocalRealm';
 
 export function LinkingControl<T extends MRT_RowData & { _id: BSON.ObjectId }, U extends MRT_RowData & { _id: BSON.ObjectId }>(props: { objectType: string; labelProperty: string; cell: MRT_Cell<T, DBList<U> | U[] | undefined> }) {
     useWhyDidIUpdate('LinkingControl', props);
     const name = props.cell.column.columnDef.accessorKey ?? props.cell.column.columnDef.id ?? 'n\\a';
     const label = props.cell.column.columnDef.header ?? camelToProper(name);
     const { control } = useFormContext();
-    const { db } = useRealm();
+    const db = useLocalRealm();
     const { data, isLoading } = useQuery({
         queryKey: [props.objectType, props.labelProperty],
         queryFn: () => {

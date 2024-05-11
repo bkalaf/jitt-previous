@@ -1,8 +1,8 @@
-import { $ } from './$';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { schemaName } from '../util/schemaName';
-import { ISelfStorage } from '../types';
-import { col } from './defs/col';
+import { schemaName } from '../../util/schemaName';
+import { ISelfStorage } from '../../types';
+import { col } from '../defs/col';
 
 export const selfStorage: Realm.ObjectSchema = {
     name: schemaName($.selfStorage()),

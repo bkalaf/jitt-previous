@@ -1,10 +1,10 @@
 import Realm from 'realm';
-import { schemaName } from '../util/schemaName';
-import { $ } from './$';
+import { schemaName } from '../../util/schemaName';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { IHashTag, IMercariCategory } from '../types';
-import { col } from './defs/col';
-import { runTransaction } from '../util/runTransaction';
+import { IHashTag, IMercariCategory } from '../../types';
+import { col } from '../defs/col';
+import { runTransaction } from '../../util/runTransaction';
 
 export const mercariCategory: Realm.ObjectSchema = {
     name: schemaName($.mercariCategory()),

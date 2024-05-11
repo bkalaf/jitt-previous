@@ -1,8 +1,8 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
-import { ISquareFootage } from '../types';
-import { col } from './defs/col';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
+import { ISquareFootage } from '../../types';
+import { col } from '../defs/col';
 
 export const squareFootage = {
     name: schemaName($.squareFootage()),

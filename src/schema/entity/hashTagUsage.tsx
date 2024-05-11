@@ -1,8 +1,8 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { IHashTagUsage } from '../types';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
-import { col } from './defs/col';
+import { IHashTagUsage } from '../../types';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
+import { col } from '../defs/col';
 
 export const hashTagUsage = {
     name: schemaName($.hashTagUsage()),

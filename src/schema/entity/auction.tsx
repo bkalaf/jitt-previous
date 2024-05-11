@@ -1,15 +1,15 @@
 import * as Realm from 'realm';
-import { $ } from './$';
-import { schemaName } from '../util/schemaName';
+import { $ } from '../$';
+import { schemaName } from '../../util/schemaName';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { AuctionSite, IAuction, IFacility } from '../types';
-import { col } from './defs/col';
-import { auctionSites } from './enums/auctionSite';
+import { AuctionSite, IAuction, IFacility } from '../../types';
+import { col } from '../defs/col';
+import { auctionSites } from '../enums/auctionSite';
 import { ObjectId } from 'bson';
 import dayjs from 'dayjs';
-import { runTransaction } from '../util/runTransaction';
+import { runTransaction } from '../../util/runTransaction';
 import { squareFootageColumns } from './squareFootage';
-import { groupCol } from './defs/groupCol';
+import { groupCol } from '../defs/groupCol';
 
 export const auction: Realm.ObjectSchema = {
     name: schemaName($.auction()),

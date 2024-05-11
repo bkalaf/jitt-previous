@@ -1,11 +1,11 @@
 import { Realm } from 'realm';
-import { schemaName } from '../util/schemaName';
-import { $ } from './$';
+import { schemaName } from '../../util/schemaName';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { IBrand, IHashTag, IMercariBrand } from '../types';
-import { col } from './defs/col';
+import { IBrand, IHashTag, IMercariBrand } from '../../types';
+import { col } from '../defs/col';
 import { ObjectId } from 'bson';
-import { distinctByOID } from '../common/array/distinct';
+import { distinctByOID } from '../../common/array/distinct';
 
 export const brand: Realm.ObjectSchema = {
     name: schemaName($.brand()),

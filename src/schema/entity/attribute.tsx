@@ -1,9 +1,9 @@
 import Realm from 'realm';
-import { schemaName } from '../util/schemaName';
-import { $ } from './$';
+import { schemaName } from '../../util/schemaName';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { col } from './defs/col';
-import { IAttribute } from '../types';
+import { col } from '../defs/col';
+import { IAttribute } from '../../types';
 
 export const attribute: Realm.ObjectSchema = {
     name: schemaName($.attribute()),

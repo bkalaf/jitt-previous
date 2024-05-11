@@ -1,9 +1,9 @@
 import Realm from 'realm';
-import { schemaName } from '../util/schemaName';
-import { $ } from './$';
+import { schemaName } from '../../util/schemaName';
+import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { IMercariBrand } from '../types';
-import { col } from './defs/col';
+import { IMercariBrand } from '../../types';
+import { col } from '../defs/col';
 
 export const mercariBrand: Realm.ObjectSchema = {
     name: schemaName($.mercariBrand()),

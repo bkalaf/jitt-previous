@@ -3,22 +3,28 @@ import { AutocompleteElement, useFormContext } from 'react-hook-form-mui';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { useCallback, useMemo } from 'react';
 import { createFilterOptions, FilterOptionsState } from '@mui/material';
+import { distinctBy } from '../../common/array/distinct';
 
-export function createFreeSoloControl<T extends MRT_RowData, U extends string>(comparator: (x: U, y: U) => Compared, required = false, readonly = false) {
+export function createFreeSoloControl<T extends MRT_RowData, U extends string>(comparator: (x: U, y: U) => Compared, required = false, readonly = false, multiple = false) {
     return function FreeSoloControl(props: Parameters<Exclude<MRT_ColumnDef<T, U | undefined>['Edit'], undefined>>[0]) {
         useWhyDidIUpdate('FreeSoloControl', props);
         const { column } = props;
         const { accessorKey, id, header } = column.columnDef;
         const name = accessorKey ?? id ?? 'n/a';
         const { control, setValue } = useFormContext();
-        const options = useMemo(
-            () =>
-                Object.keys(column.getFacetedUniqueValues() as Record<U, number>)
-                    .map((x) => ({ key: x, text: x }))
-                    .sort((x, y) => x.text.localeCompare(y.text)),
-            []
-        );
+        const options = useMemo(() => {
+            console.log(`column.getFacetedUniqueValues`, column.getFacetedUniqueValues());
+            const keys = Array.from((column.getFacetedUniqueValues() as Map<U, number>).keys());
+            const reduced = multiple
+                ? distinctBy(
+                      (x, y) => x.localeCompare(y) === 0,
+                      ((keys as any) as string[][]).reduce((pv, cv) => [...pv, ...cv], [])
+                  )
+                : keys;
+            return reduced.map((x) => ({ key: x, text: x })).sort((x, y) => x.text.localeCompare(y.text));
+        }, [column]);
         const isOptionEqualToValue = useCallback((option: AutoOption, value: string) => {
+            console.log(`isOptionEqual`, option, value);
             return comparator(option.key as U, value as U) === 0;
         }, []);
         const filterOpts = useMemo(
@@ -43,9 +49,13 @@ export function createFreeSoloControl<T extends MRT_RowData, U extends string>(c
             }
             return filtered;
         }, []);
-        const onChange = useCallback((event: React.SyntheticEvent, value: string) => {
-            setValue(name, value);
-        }, []);
+        const onChange = useCallback(
+            (event: React.SyntheticEvent, value: AutoOption) => {
+                console.log(`onchange`, name, value, event);
+                setValue(name, Array.isArray(value) ? value.map(x => x.key) : value.key);
+            },
+            [name, setValue]
+        );
         const getOptionLabel = useCallback((x: AutoOption | { inputValue: string } | string) => (typeof x === 'string' ? x : 'inputValue' in x ? x.inputValue : x.text), []);
         return (
             <AutocompleteElement
@@ -53,6 +63,8 @@ export function createFreeSoloControl<T extends MRT_RowData, U extends string>(c
                 control={control}
                 label={header}
                 options={options}
+                multiple={multiple}
+                showCheckbox={multiple}
                 autocompleteProps={{
                     onChange: onChange,
                     freeSolo: true,

@@ -19,6 +19,12 @@ declare global {
     export type ListItemCellComponent<T> = (value: T) => React.FunctionComponent<{}>
 
     export type EnumInfo = { key: string, text: string; };
+    export type ExtendedEnumInfo = {
+        text: string;
+        key: string;
+        classes: string;
+        selector: string;
+    };
     export type Predicate<T> = (x: T) => boolean;
     export type Children = React.ReactNode | React.ReactNode[] | undefined;
     export type Length<T extends any[]> = T['length'];

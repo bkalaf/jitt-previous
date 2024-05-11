@@ -5,7 +5,7 @@ import { createIntCell } from '../../components/Cells/createIntCell';
 import { calculateSize, calculateSizes } from '../../components/Views/calculateSize';
 
 export function intCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
-    return function (name: keyof T & string, $header: string, opts: { min?: number; max?: number; readonly?: boolean; required?: boolean }): MRT_ColumnDef<T, number> {
+    return function (name: keyof T & string, $header: string, opts: { min?: number; max?: number; readonly?: boolean; required?: boolean }): MRT_ColumnDef<T> {
         const header = $header ?? camelToProper(name);
         const maxLength = 10;
 
@@ -15,6 +15,6 @@ export function intCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
             Cell: createIntCell() as any,
             Edit: createStringControl<T, number>({ type: 'number', step: 0, readonly: false, ...(opts ?? {}) }),
             maxSize: calculateSize(15)
-        }) as MRT_ColumnDef<T, number>;
+        }) as MRT_ColumnDef<T>;
     };
 }

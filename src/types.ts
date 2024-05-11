@@ -1,6 +1,12 @@
 import { BSON } from 'realm';
 import { auctionSites } from './schema/enums/auctionSite';
 import { detailsTypes } from './schema/enums/detailsTypes';
+import { BarcodeType } from './schema/enums/barcodeTypes';
+import { ProductColors } from './schema/enums/productColors';
+import { BleachingKeys, DryCleanKeys, DryingKeys, GentleOrDelicateKeys, IroningKeys, PermanentPressKeys, TumbleDryKeys, WashKeys, WashTemperatureKeys } from './schema/laundryCare';
+import { FabricTypes } from './schema/enums/fabric';
+import { Flags } from './schema/enums/flags';
+import { Genders } from './schema/enums/genders';
 
 export type ISelfStorage = {
     _id: BSON.ObjectId;
@@ -117,3 +123,93 @@ export type IClassifier = {
     readonly allAttributes: IAttribute[];
     readonly subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
 }
+
+export type IBarcode = {
+    _id: BSON.ObjectId;
+    isValidated: boolean;
+    type: BarcodeType;
+    value: string;
+    readonly scanValue: string;
+    equalTo(value: string | IBarcode): boolean;
+}
+
+export type IBin = {
+    _id: BSON.ObjectId;
+    barcode: IBarcode;
+    inventoryLabelPrinted: boolean;
+    name: string;
+    notes?: string;
+}
+
+export type IIncludedItem = {
+    qty: number;
+    name: string;
+}
+
+export type ICustomItemField = {
+    name: string;
+    id: string;
+    value: string;
+}
+
+
+
+export type IClothingCare = {
+    bleaching: DBList<BleachingKeys>;
+    dryClean: DBList<DryCleanKeys>;
+    drying: DBList<DryingKeys>;
+    gentleOrDelicate: DBList<GentleOrDelicateKeys>;
+    ironing: DBList<IroningKeys>;
+    permanentPress: DBList<PermanentPressKeys>;
+    tumbleDry: DBList<TumbleDryKeys>;
+    wash: DBList<WashKeys>;
+    washTemperature: DBList<WashTemperatureKeys>;
+}
+
+export type FabricComposition = Partial<Record<FabricTypes, number>>;
+
+export type IMadeOfSection = {
+    name?: string;
+    section: FabricComposition;
+}
+
+export type MadeOf = DBDictionary<IMadeOfSection>;
+
+export type IProduct = {
+    _id: BSON.ObjectId;
+    asins: DBList<string>;
+    brand?: IBrand;
+    classifier?: IClassifier;
+    includes: DBList<IIncludedItem>;
+    customAttributes: DBList<ICustomItemField>;
+    features: DBList<string>;
+    flags: DBList<Flags>;
+    hashTags: DBList<IHashTag>;
+    height?: number;
+    width?: number;
+    length?: number;
+    weight?: number;
+    modelNo?: string;
+    notes?: string;
+    title?: string;
+    upcs: DBList<IBarcode>;
+    circa?: string;
+    color?: DBList<ProductColors>;
+    description?: string;
+    // details: IProductDetails;
+    // apparel
+    madeOf: DBList<IMadeOfSection>;
+    gender?: Genders;
+    cutNo?: string;
+    styleNo?: string;
+    text?: string;
+    rnNo?: number;
+    clothingCare?: IClothingCare;
+    readonly allHashTags: IHashTag[];
+    readonly detailTypes: DetailTypes[];
+};
+export type IProductDetails = {
+    type: DBList<string>;
+    discriminator: string;
+}
+

@@ -1,4 +1,4 @@
-import { MaterialReactTable, MRT_RowData, MRT_TableOptions } from 'material-react-table';
+import { MaterialReactTable, MRT_RowData } from 'material-react-table';
 import { Box } from '@mui/material';
 import { useCollectionQuery } from '../../hooks/useCollectionQuery';
 import { useColumns } from '../../hooks/useColumns';
@@ -15,7 +15,7 @@ export function CollectionView<T extends MRT_RowData>() {
     const table = useData(data, columns);
     
     return (
-        <Box component='section' className='table-fixed border-seperate overflow-scroll'>
+        <Box component='section' className='overflow-scroll table-fixed border-seperate'>
             <MaterialReactTable table={table} />
         </Box>
     );

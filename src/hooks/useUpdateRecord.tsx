@@ -1,26 +1,26 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { MRT_RowData, MRT_TableInstance } from 'material-react-table';
 import { useMutation } from '@tanstack/react-query';
-import { useRealm } from './useRealm';
 import { UpdateMode } from 'realm';
-import { convert } from '../schema/conversion/cnvrt';
 import { useCollectionRoute } from './useCollectionRoute';
 import { FieldErrors } from 'react-hook-form';
 import { useUpdater } from './useUpdater';
 import { useFailureNotification } from './useFailureNotification';
 import { useSuccessNotification } from './useSuccessNotification';
+import { useLocalRealm } from './useLocalRealm';
+import { useConvert } from './useConvert';
 
 export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<T>) {
     const collection = useCollectionRoute();
-    const { types, db } = useRealm();
-    const $convert = useMemo(() => convert(types, collection), [collection, types]);
+    const convert = useConvert('object', collection);
+    const db = useLocalRealm();
     const [, updater] = useUpdater<T>();
     const { mutateAsync } = useMutation({
         mutationFn: (values: T) => {
             return new Promise<RealmObj<T>>((resolve) => {
                 if (db == null) throw new Error('no db');
                 console.log(`values`, values);
-                const converted = $convert(values);
+                const converted = convert(values);
                 db.write(() => {
                     const result = db.create<T>(collection, converted, UpdateMode.All);
                     return resolve(updater(db, result));
