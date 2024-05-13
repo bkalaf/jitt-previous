@@ -48,7 +48,7 @@ export function createFreeSoloControl<T extends MRT_RowData, U extends string>(c
                 });
             }
             return filtered;
-        }, []);
+        }, [filterOpts]);
         const onChange = useCallback(
             (event: React.SyntheticEvent, value: AutoOption) => {
                 console.log(`onchange`, name, value, event);

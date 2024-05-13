@@ -10,4 +10,3 @@ export const productColors: Record<keyof typeof aliasColors, ExtendedEnumInfo> =
     }] as [string, ExtendedEnumInfo];
 })) as Record<keyof typeof aliasColors, ExtendedEnumInfo>;
 
-export type ProductColors = keyof typeof aliasColors;

@@ -1,5 +1,5 @@
 import { IBarcode } from '../../types';
-import { BarcodeType, barcodeTypes } from '../enums/barcodeTypes';
+import { barcodeTypes } from '../enums/barcodeTypes';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { classifyBarcode } from '../../util/classifyBarcode';
@@ -9,11 +9,13 @@ import { calculateUPCCheckDigit } from '../../util/calculateUPCCheckDigit';
 import { is } from '../../common/is';
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { col } from '../defs/col';
+import { barcodeFormatter } from './barcodeFormatter';
+import { BarcodeTypes } from '../enums';
 
 export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
     _id: BSON.ObjectId;
     isValidated: boolean;
-    type: BarcodeType;
+    type: BarcodeTypes;
     value: string;
     get scanValue(): string {
         return this.value.slice(0, this.value.length - 1);
@@ -74,12 +76,6 @@ export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
 const h = createMRTColumnHelper<IBarcode>();
 const helper = col(h);
 
-function barcodeFormatter(x?: unknown) {
-    const barcode = x as IBarcode | string | undefined;
-    if (barcode == null) return '';
-    const chars = is.string(barcode) ? barcode.split('') : barcode.value.split('');
-    return [chars[0] === '0' ? undefined : chars[0], chars[1], chars.slice(2, 7).join(''), chars.slice(7, 12).join(''), chars[12]].filter((x) => x != null).join('-');
-}
 export const barcodeColumns: MRT_ColumnDef<IBarcode>[] = [
     helper.pk(),
     helper.string('value', 'Value', barcodeFormatter, { maxLength: 13, required: true }),

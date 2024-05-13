@@ -9,5 +9,3 @@ export const barcodeTypes = {
     'sku': 'sku',
     'unknown': 'unknown'
 };
-
-export type BarcodeType = keyof typeof barcodeTypes;

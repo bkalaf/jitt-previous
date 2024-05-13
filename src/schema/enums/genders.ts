@@ -28,4 +28,3 @@ export const aliasGenders = {
 
 // as Record<keyof typeof _genders | keyof typeof aliasGenders, { text: string, key: string; }>
 export const genders = _genders;
-export type Genders = keyof typeof genders;

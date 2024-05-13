@@ -4,7 +4,6 @@ import { $ } from '../$';
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { IClothingCare } from '../../types';
 import { col } from '../defs/col';
-import { ClothingCareMap } from '../laundryCare';
 
 export const clothingCare: Realm.ObjectSchema = {
     name: schemaName($.clothingCare()),
@@ -26,14 +25,14 @@ const h = createMRTColumnHelper<IClothingCare>();
 const helper = col(h);
 
 export const clothingCareColumns: MRT_ColumnDef<IClothingCare>[] = [
-    helper.clothingCare('bleaching', 'Bleaching'),
-    helper.clothingCare('dryClean', 'Dry Clean'),
-    helper.clothingCare('drying', 'Drying'),
-    helper.clothingCare('gentleOrDelicate', 'Gentle Or Delicate'),
-    helper.clothingCare('ironing', 'Ironing'),
-    helper.clothingCare('permanentPress', 'Permanent Press'),
-    helper.clothingCare('tumbleDry', 'Tumble Dry'),
-    helper.clothingCare('wash', 'Wash'),
-    helper.clothingCare('washTemperature', 'Wash Temperature'),
+    helper.clothingCare('bleaching', 'Bleaching', 'bleaching'),
+    helper.clothingCare('dryClean', 'Dry Clean', 'dryClean'),
+    helper.clothingCare('drying', 'Drying', 'drying'),
+    helper.clothingCare('gentleOrDelicate', 'Gentle Or Delicate', 'gentleOrDelicate'),
+    helper.clothingCare('ironing', 'Ironing', 'ironing'),
+    helper.clothingCare('permanentPress', 'Permanent Press', 'permanentPress'),
+    helper.clothingCare('tumbleDry', 'Tumble Dry', 'tumbleDry'),
+    helper.clothingCare('wash', 'Wash', 'wash'),
+    helper.clothingCare('washTemperature', 'Wash Temperature', 'washTemperature'),
 
 ]

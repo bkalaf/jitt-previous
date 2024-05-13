@@ -41,6 +41,8 @@ export function createRenderRowActionMenuItems<T extends MRT_RowData>() {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const deleteTransactiton = useCallback(
             (ev: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+                ev.preventDefault();
+                ev.stopPropagation();
                 const func = () => mutateOnDelete(row as MRT_Row<any>);
                 runTransaction(realm, func);
             },

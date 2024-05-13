@@ -1,7 +1,6 @@
 import { Dayjs } from 'dayjs';
-import { BSON, PropertySchema } from 'realm';
+import Realm, { BSON, PropertySchema } from 'realm';
 import { getProperty, objectMap } from '../../common/object';
-import Realm from 'realm';
 
 export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int', 'double', 'float', 'decimal128', 'bool', 'date', 'data'].includes(type);
 export const isDataStructure = (type: string) => ['list', 'dictionary', 'set'].includes(type);

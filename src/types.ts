@@ -1,12 +1,13 @@
 import { BSON } from 'realm';
 import { auctionSites } from './schema/enums/auctionSite';
 import { detailsTypes } from './schema/enums/detailsTypes';
-import { BarcodeType } from './schema/enums/barcodeTypes';
-import { ProductColors } from './schema/enums/productColors';
 import { BleachingKeys, DryCleanKeys, DryingKeys, GentleOrDelicateKeys, IroningKeys, PermanentPressKeys, TumbleDryKeys, WashKeys, WashTemperatureKeys } from './schema/laundryCare';
 import { FabricTypes } from './schema/enums/fabric';
-import { Flags } from './schema/enums/flags';
-import { Genders } from './schema/enums/genders';
+import { Flags, ProductColors, Genders, ClosureTypes, FitTypes, LegStyles, GarmentLengths, LifestyleTypes, PocketTypes, RiseTypes, BootTypes, ShoeHeelTypes, ShoeWidths, StrapTypes, ToeStyles, SwimsuitBottomStyles, SwimsuitTopStyles, BacklineTypes, CollarTypes, CuffTypes, DressTypes, NeckTypes, SleeveTypes, SuitTypes, BookGenres, BookTypes, Languages, ESRBRatings, ConsoleTypes, MusicFormatTypes, MusicGenres, HeightMaps, BarcodeTypes, MovieGenres, MovieRatings, TVRatings, VideoFormatTypes, VideoTypes, AmperageUnits, ConnectorGenders, PowerTypes, BatteryTypes, AspectRatios, CellCarriers, OperatingSystems, DinnerwareTypes, ShapeTypes, ApplianceTypes, ClubTypes, FlexTypes, HandOrientations, IronTypes, ShaftTypes, WedgeTypes, MetalTypes, ItemConditions, ItemDispositions, Shippers, SleeveLengths } from './schema/enums';
+
+export type Int = number;
+export type Double = number;
+export type Opt<T> = T | undefined;
 
 export type ISelfStorage = {
     _id: BSON.ObjectId;
@@ -127,7 +128,7 @@ export type IClassifier = {
 export type IBarcode = {
     _id: BSON.ObjectId;
     isValidated: boolean;
-    type: BarcodeType;
+    type: BarcodeTypes;
     value: string;
     readonly scanValue: string;
     equalTo(value: string | IBarcode): boolean;
@@ -175,41 +176,212 @@ export type IMadeOfSection = {
 
 export type MadeOf = DBDictionary<IMadeOfSection>;
 
+export type Seconds = Int;
+export type ITrack = {
+    feat: DBList<string>;
+    index: Opt<number>;
+    name: Opt<string>;
+    runtimeSecs: Opt<Seconds>;
+}
+export type IConnector = {
+    connectorGender?: Opt<ConnectorGenders>;
+    innerWidth?: Opt<Double>;
+    outerWidth?: Opt<Double>;
+    type?: Opt<string>;
+}
+export type ICurrentSetting = {
+    amperage?: Opt<Double>;
+    amperageUnit?: Opt<AmperageUnits>;
+    voltage?: Opt<Double>;
+    wattage?: Opt<Double>;
+}
+
+export type IMinMax<T extends Int | Double> = {
+    min?: Opt<T>;
+    max?: Opt<T>;
+}
+
 export type IProduct = {
     _id: BSON.ObjectId;
     asins: DBList<string>;
-    brand?: IBrand;
-    classifier?: IClassifier;
+    brand?: Opt<IBrand>;
+    classifier?: Opt<IClassifier>;
     includes: DBList<IIncludedItem>;
     customAttributes: DBList<ICustomItemField>;
     features: DBList<string>;
     flags: DBList<Flags>;
     hashTags: DBList<IHashTag>;
-    height?: number;
-    width?: number;
-    length?: number;
-    weight?: number;
-    modelNo?: string;
-    notes?: string;
-    title?: string;
+    height?: Opt<Double>;
+    width?: Opt<Double>;
+    length?: Opt<Double>;
+    weight?: Opt<Double>;
+    modelNo?: Opt<string>;
+    notes?: Opt<string>;
+    title?: Opt<string>;
     upcs: DBList<IBarcode>;
-    circa?: string;
-    color?: DBList<ProductColors>;
-    description?: string;
-    // details: IProductDetails;
+    circa?: Opt<string>;
+    color: DBList<ProductColors>;
+    description?: Opt<string>;
     // apparel
     madeOf: DBList<IMadeOfSection>;
-    gender?: Genders;
-    cutNo?: string;
-    styleNo?: string;
-    text?: string;
-    rnNo?: number;
-    clothingCare?: IClothingCare;
+    gender?: Opt<Genders>;
+    cutNo?: Opt<string>;
+    styleNo?: Opt<string>;
+    text?: Opt<string>;
+    rnNo?: Opt<Int>;
+    clothingCare?: Opt<IClothingCare>;
+    // // apparel-bottom
+    closureType?: Opt<ClosureTypes>;
+    fitType?: Opt<FitTypes>;
+    inseamSize?: Opt<Double>;
+    legStyle?: Opt<LegStyles>;
+    lengthSize?: Opt<Double>;
+    lengthType?: Opt<GarmentLengths>;
+    lifestyleType?: Opt<LifestyleTypes>;
+    pocketType?: Opt<PocketTypes>;
+    riseType?: Opt<RiseTypes>;
+    size?: Opt<Int>;
+    waistSize?: Opt<Double>;
+    // // apparel-footwear
+    bootType?: Opt<BootTypes>;
+    footSize?: Opt<Double>;
+    heelHeight?: Opt<Double>;
+    heightMapType?: Opt<HeightMaps>;
+    shoeHeelType?: Opt<ShoeHeelTypes>;
+    shoeWidth?: Opt<ShoeWidths>;
+    strapType?: Opt<StrapTypes>;
+    toeStyle?: Opt<ToeStyles>;
+    // // apparel-bras 
+    bustSize?: Opt<Double>;
+    swimsuitBottomStyle?: Opt<SwimsuitBottomStyles>;
+    swimsuitTopStyle?: Opt<SwimsuitTopStyles>;
+    // // apparel-tops 
+    backlineType?: Opt<BacklineTypes>;
+    chestSize?: Opt<Double>;
+    collarType?: Opt<CollarTypes>;
+    cuffType?: Opt<CuffTypes>;
+    dressType?: Opt<DressTypes>;
+    neckSize?: Opt<Double>;
+    neckType?: Opt<NeckTypes>;
+    sleeveSize?: Opt<Double>;
+    sleeveType?: Opt<SleeveTypes>;
+    sleeveLength?: Opt<SleeveLengths>;
+    suitType?: Opt<SuitTypes>;
+    // // media 
+    awards: DBList<string>;
+    copyright?: Opt<string>;
+    mediaSubtitle?: Opt<string>;
+    mediaTitle?: Opt<string>;
+    // // media-books
+    authors: DBList<string>;
+    blurb?: Opt<string>;
+    bookGenre?: Opt<BookGenres>;
+    bookType?: Opt<BookTypes>;
+    edition?: Opt<Int>;
+    illustrators: DBList<string>;
+    language?: Opt<Languages>;
+    pages?: Opt<Int>;
+    publishers: DBList<string>;
+    // // media-videos
+    collectionOf: DBList<string>;
+    count?: Opt<Int>;
+    directedBy: DBList<string>;
+    videoFormat?: Opt<VideoFormatTypes>;
+    videoGenre?: Opt<MovieGenres>;
+    movieRating?: Opt<MovieRatings>;
+    runtime?: Opt<Int>;
+    starring: DBList<string>;
+    tvRating?: Opt<TVRatings>;
+    videoType?: Opt<VideoTypes>;
+    // // media-video-games
+    ESRBRating?: Opt<ESRBRatings>;
+    consoleType?: Opt<ConsoleTypes>;
+    studio?: Opt<string>;
+    // // media-music
+    artist?: Opt<string>;
+    musicFormat?: Opt<MusicFormatTypes>;
+    musicGenre?: Opt<MusicGenres>;
+    tracks: DBList<ITrack>;
+    // // cables
+    cordLength?: Opt<Double>;
+    // // cables-data
+    connectors: DBList<IConnector>;
+    // // cables-power
+    compatibleWith: DBList<string>;
+    input?: Opt<ICurrentSetting>;
+    output?: Opt<ICurrentSetting>;
+    // // cables-video
+    // // electronics
+    batteryCount?: Opt<Int>;
+    batteryType?: Opt<BatteryTypes>;
+    powerTypes?: Opt<PowerTypes>;
+    testedOn?: Opt<Date>;
+    // // cell-phones
+    aspectRatio?: Opt<AspectRatios>;
+    capacity?: Opt<Int>;
+    cellCarrier?: Opt<CellCarriers>;
+    os?: Opt<OperatingSystems>;
+    osVersion?: Opt<string>;
+    screenSize?: Opt<Double>;
+    // // jewelry
+    massInAir?: Opt<Double>;
+    massWaterDisplaced?: Opt<Double>;
+    readonly density?: Opt<Double>;
+    metal?: Opt<MetalTypes>;
+    // // home-goods
+    // // home-goods-flatware
+    // // home-goods-dinnerware
+    dinnerwareType?: Opt<DinnerwareTypes>;
+    pattern?: Opt<string>;
+    shapeType?: Opt<ShapeTypes>;
+    // // kitchen-appliances
+    applianceType?: Opt<ApplianceTypes>;
+    // // sporting-goods 
+    // // sporting-goods-golf-clubs
+    clubType?: Opt<ClubTypes>;
+    flexType?: Opt<FlexTypes>;
+    handOrientation?: Opt<HandOrientations>;
+    ironType?: Opt<IronTypes>;
+    clubLength?: Opt<Double>;
+    lie?: Opt<Double>;
+    loft?: Opt<Double>;
+    shaftType?: Opt<ShaftTypes>;
+    swingWeight?: Opt<string>;
+    wedgeType?: Opt<WedgeTypes>;
+    // // toys
+    ages?: Opt<IMinMax<Int>>;
+    players?: Opt<IMinMax<Int>>;
+    pieceCount?: Opt<Int>;
+
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];
+    readonly primaryColor: ProductColors | undefined;
+    readonly primaryColorSelector: string | undefined;
+    readonly sizeText: string | undefined;
+    readonly sizeSelector: string | undefined;
 };
-export type IProductDetails = {
-    type: DBList<string>;
-    discriminator: string;
+
+export type IShipping = {
+    id: Int;
+    version: Int;
+}
+
+export type ISku = {
+    _id: BSON.ObjectId;
+    auction?: Opt<IAuction>;
+    condition?: Opt<ItemConditions>;
+    defects: DBList<string>;
+    disposition?: Opt<ItemDispositions>;
+    folder?: Opt<string>;
+    inventoryLabelPrinted: boolean;
+    packingPercent?: Opt<Double>;
+    product?: Opt<IProduct>;
+    quantity?: Opt<Int>;
+    skus: DBList<IBarcode>;
+    shipping?: Opt<IShipping>;
+    readonly getShipping?: Opt<IShipping>;
+    readonly getShipWeight?: Opt<number>;
+    readonly getCarrier?: Opt<Shippers>;
+    readonly getMaxWeight?: Opt<[number, number]>;
 }
 

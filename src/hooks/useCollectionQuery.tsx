@@ -21,5 +21,5 @@ export function useCollectionQuery<T extends MRT_RowData>(collection: string) {
             return handleFilter<T>(collection, db, filterString, filterArgs);
         }
     });
-    return useMemo(() => [...(data ?? [])], [data]);
+    return data;
 }

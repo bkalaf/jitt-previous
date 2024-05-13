@@ -1,5 +1,5 @@
 import { BSON } from 'realm';
-import { IAddress, IAttribute, IAuction, IBarcode, IBin, IBrand, IClassifier, ICustomItemField, IFacility, IHashTag, IHashTagUsage, IIncludedItem, IMercariBrand, IMercariCategory, IMercariTaxonomy, ISelfStorage, ISquareFootage } from './types';
+import { IAddress, IAttribute, IAuction, IBarcode, IBin, IBrand, IClassifier, IConnector, ICurrentSetting, ICustomItemField, IFacility, IHashTag, IHashTagUsage, IIncludedItem, IMercariBrand, IMercariCategory, IMercariTaxonomy, IMinMax, IProduct, ISelfStorage, ISquareFootage, Int } from './types';
 
 const barcode = (): InitialValue<IBarcode> => ({ _id: new BSON.ObjectId(), value: '0000000000000', isValidated: false, type: 'ean' });
 
@@ -27,5 +27,30 @@ export const initialValue = {
     barcode,
     bin: (): InitialValue<IBin> => ({ _id: new BSON.ObjectId(), barcode: barcode() as any as IBarcode, inventoryLabelPrinted: false, name: '' }),
     includedItem: (): InitialValue<IIncludedItem> => ({ qty: 1, name: '' }),
-    customItemField: (): InitialValue<ICustomItemField> => ({ name: '', id: '', value: '' })
+    customItemField: (): InitialValue<ICustomItemField> => ({ name: '', id: '', value: '' }),
+    connector: (): InitialValue<IConnector> => ({ }),
+    currentSetting: (): InitialValue<ICurrentSetting> => ({ }),
+    minMax: (): InitialValue<IMinMax<Int>> => ({ }),
+    product: (): InitialValue<IProduct> => ({ 
+        _id: new BSON.ObjectId(),
+        hashTags: [],
+        asins: [],
+        includes: [],
+        features: [],
+        customAttributes: [],
+        flags: [],
+        upcs: [],
+        color: [],
+        madeOf: [],
+        awards: [],
+        authors: [],
+        illustrators: [],
+        publishers: [],
+        collectionOf: [],
+        directedBy: [],
+        starring: [],
+        tracks: [],
+        connectors: [],
+        compatibleWith: []
+    })
 };

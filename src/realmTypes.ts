@@ -100,11 +100,11 @@ export const apparelDetailsSchema = {
 
 export type apparelFootwearDetails = {
     bootType?: string;
-    closureType?: string;
+    // closureType?: string;
     footSize?: number;
     heelHeight?: number;
     heightMapType?: string;
-    lifestyleType?: string;
+    // lifestyleType?: string;
     mensSize?: string;
     shoeHeelType?: string;
     shoeWidth?: string;
@@ -618,7 +618,7 @@ export const fabricContentSchema = {
 
 export type facility = {
     _id: Realm.BSON.ObjectId;
-    address?: address;
+    // address?: address;
     emailAddress?: string;
     facilityNumber?: string;
     name: string;

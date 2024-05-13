@@ -37,6 +37,8 @@ export function createRenderRowActions2<T extends MRT_RowData>() {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const deleteTransactiton = useCallback(
             (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                ev.preventDefault();
+                ev.stopPropagation();
                 const func = () => mutateOnDelete(row as MRT_Row<any>);
                 runTransaction(realm, func);
             },
@@ -46,7 +48,7 @@ export function createRenderRowActions2<T extends MRT_RowData>() {
 
         return (
             <Box className='flex flex-nowrap gap-x-2'>
-                <IconBtn icon={faPencilSquare} className='bg-white text-orange-500' tooltip='Edit row' onClick={onEditClick} text='Edit' />
+                <IconBtn icon={faPencilSquare} className='text-orange-500 bg-white' tooltip='Edit row' onClick={onEditClick} text='Edit' />
                 <IconBtn icon={faTrashCan} className='bg-white text-lime-600' tooltip='Delete row' onClick={onDeleteClick} text='Delete' />
             </Box>
         );

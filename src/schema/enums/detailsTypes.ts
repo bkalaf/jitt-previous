@@ -28,4 +28,4 @@ export const detailsTypes = {
     toys: 'toys'
 };
 
-console.log(Object.keys(detailsTypes).map(x => `'${x}' | `).join(''));
+// console.log(Object.keys(detailsTypes).map(x => `'${x}' | `).join(''));

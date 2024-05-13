@@ -20,7 +20,13 @@ import { customItemFieldColumns, customItemField } from './entity/customItemFiel
 import { includedItem, includedItemColumns } from './entity/includedItem';
 import { clothingCare, clothingCareColumns } from './entity/clothingCare';
 import { madeOfSection, madeOfSectionColumns } from './entity/madeOfSection';
-import { Product, productColumns } from './entity/product';
+import { Product } from './entity/product';
+import { productColumns } from './entity/productColumns';
+import { trackSchema } from '../realmTypes';
+import { trackColumns } from './entity/track';
+import { connector, connectorColumns } from './entity/connector';
+import { currentSetting, currentSettingColumns } from './entity/currentSetting';
+import { minMax, minMaxColumns } from './entity/minMax';
 
 const h = createMRTColumnHelper<{ value: any }>();
 const helper = col(h);
@@ -50,7 +56,11 @@ export const schema: (Realm.ObjectSchema | Realm.ObjectClass<any>)[] = [
     customItemField,
     clothingCare,
     madeOfSection,
-    Product
+    trackSchema,
+    Product,
+    connector,
+    currentSetting,
+    minMax
 ];
 
 if (window.columns == null) window.columns = {};
@@ -81,3 +91,7 @@ window.columns.customItemField = customItemFieldColumns as MRT_ColumnDef<any>[];
 window.columns.madeOfSection = madeOfSectionColumns as MRT_ColumnDef<any>[];
 window.columns.clothingCare = clothingCareColumns as MRT_ColumnDef<any>[];
 window.columns.product = productColumns as MRT_ColumnDef<any>[];
+window.columns.track = trackColumns as MRT_ColumnDef<any>[];
+window.columns.connector = connectorColumns as MRT_ColumnDef<any>[];
+window.columns.currentSetting = currentSettingColumns as MRT_ColumnDef<any>[];
+window.columns.minMax = minMaxColumns as MRT_ColumnDef<any>[];

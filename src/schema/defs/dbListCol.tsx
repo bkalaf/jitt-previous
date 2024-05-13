@@ -1,7 +1,6 @@
 import { MRT_Cell, MRT_Column, MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { camelToProper } from '../../common/text';
 import { createListCell } from '../../components/Cells/createListCell';
-import { createFlattedListCell } from 'src/components/Cells/createFlattedListCell';
 import { createClothingCareControl, createDBDictionaryControl, createDBListControl } from '../../components/controls/createDBListContnrol';
 import { NullCell } from './NullCell';
 import { createDictionaryCell } from '../../components/Cells/createDictionaryCell';
@@ -11,6 +10,7 @@ import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { Path, useFormContext } from 'react-hook-form';
 import { CheckboxButtonGroup } from 'react-hook-form-mui';
 import { useCallback } from 'react';
+import { createFlattedListCell } from '../../components/Cells/createFlattedListCell';
 
 export function dbListCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
     return function (name: keyof T & string, header: string, objectType: string, readonly = false): MRT_ColumnDef<T> {
@@ -74,7 +74,7 @@ export function flagsCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
         return helper.accessor(name as any, {
             header: header ?? camelToProper(name),
             enableEditing: !readonly,
-            Cell: createFlattedListCell((x: string) => camelToProper(x)),
+            Cell: createFlattedListCell((x: string) => camelToProper(x)) as any,
             Edit: readonly ? NullCell : createCheckGroupControl(opts)
         }) as any;
     };

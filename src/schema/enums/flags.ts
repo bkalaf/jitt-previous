@@ -8,8 +8,7 @@ export const flags = {
     isUnopened: 'Unopened'
 };
 
-export type Flags = keyof typeof flags;
-export const flagOptions: Flags[] = ['isMediaMail', 'isDiscontinued', 'isRare', 'isVintage', 'isCollectible', 'hasManual', 'isUnopened'];
+export const flagOptions = ['isMediaMail', 'isDiscontinued', 'isRare', 'isVintage', 'isCollectible', 'hasManual', 'isUnopened'];
 
 export const mediaFlags = {
     isDirectorsEdition: "Director's Edition",

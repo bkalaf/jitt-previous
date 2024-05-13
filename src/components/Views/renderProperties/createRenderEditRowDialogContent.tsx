@@ -53,7 +53,7 @@ export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
                 ev.stopPropagation();
                 formContext.handleSubmit((data) => mutate(data, { onSuccess: () => table.setEditingRow(null) }))(ev);
             },
-            [formContext, mutate]
+            [formContext, mutate, table]
         );
         const onReset = useCallback(
             (ev: MouseButtonEvent) => {

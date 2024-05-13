@@ -8,6 +8,7 @@ import { BSON } from 'realm';
 //     if (opt) return [name, value != null && value.length === 0 ? undefined : value];
 //     return [name, value];
 // }
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _oid = (value?: string | BSON.ObjectId) => value == null ? undefined : value instanceof BSON.ObjectId ? value : new BSON.ObjectId(value);
 
 // const objectId = (name: string, { optional }: PropertySchema) => (obj: any): [string, BSON.ObjectId] => {

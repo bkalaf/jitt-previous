@@ -70,6 +70,10 @@ const objectNames = {
     shipping: 'shipping',
     sku: 'sku',
     squareFootage: 'squareFootage',
+    track: 'track',
+    connector: 'connector',
+    currentSetting: 'currentSetting',
+    minMax: 'minMax'
 }
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;
