@@ -1,5 +1,6 @@
-export function createRules({ min, max, minLength, maxLength, pattern, required }: { maxLength?: number; minLength?: number; pattern?: RegExp; required?: boolean; min?: number; max?: number; }) {
-    return {
+export function createRules<TValue>({ min, max, minLength, maxLength, pattern, required, validate }: { maxLength?: number; minLength?: number; pattern?: RegExp; required?: boolean; min?: number; max?: number; validate?: Record<string, (value: TValue, formValues: Record<string, any>) => string | string[] | boolean | Promise<string | string[] | boolean>> }) {
+    return {   
+        validate,     
         pattern: pattern ? {
             value: pattern,
             message: `Text must be in the form: ${pattern.toString()}.`

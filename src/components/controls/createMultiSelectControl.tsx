@@ -4,8 +4,8 @@ import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { useCallback, useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
 
-export function createMultiSelectControl<T extends MRT_RowData, U extends string>(options: (AutoOption | string)[], required = false, readonly = false) {
-    return function MultiSelectControl(props: Parameters<Exclude<MRT_ColumnDef<T, U | undefined>['Edit'], undefined>>[0]) {
+export function createMultiSelectControl<T extends MRT_RowData, U extends ListBack<string>>(options: (AutoOption | string)[], required = false, readonly = false) {
+    return function MultiSelectControl(props: Parameters<Exclude<MRT_ColumnDef<T, U>['Edit'], undefined>>[0]) {
         useWhyDidIUpdate('MultiSelectControl', props);
         const { column } = props;
         const { accessorKey, id, header } = column.columnDef;

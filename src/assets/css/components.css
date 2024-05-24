@@ -7,6 +7,9 @@
     tbody > tr > td {
         @apply outline outline-2 outline-black;
     }
+    button[aria-label="Expand"] {
+        @apply ml-0 group-data-[row-depth="1"]:ml-1 group-data-[row-depth="2"]:ml-2 group-data-[row-depth="3"]:ml-3 group-data-[row-depth="4"]:ml-4 group-data-[row-depth="5"]:ml-5;
+    }
     input[type='checkbox'] {
         @apply accent-red-500;
     }

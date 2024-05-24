@@ -3,7 +3,7 @@ import './image-png.d.ts';
 import './mui.d.ts';
 import './types';
 import { Types, BSON } from 'realm';
-import { MRT_ColumnDef } from 'material-react-table';
+import { MRT_ColumnDef, MRT_ColumnFiltersState, MRT_ColumnOrderState, MRT_ColumnPinningState, MRT_ColumnSizingState, MRT_DensityState, MRT_ExpandedState, MRT_GroupingState, MRT_RowSelectionState, MRT_SortingState, MRT_VisibilityState } from 'material-react-table';
 
 
 declare global {
@@ -77,6 +77,38 @@ declare global {
     export type MouseButtonEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>;
     export type ConsoleLoggingLevel = 'log' | 'info' | 'warn' | 'error' | 'none';
     export type ArrayOf<T> = T extends (infer R)[] ? Exclude<R, undefined> : never;
+
+    export type CollectionNames = 'selfStorage' | 'facility' | 'auction' | 'bin' | 'barcode' | 'product' | 'mercariBrand' | 'brand' | 'mercariTaxonomy' | 'classifier' | 'productImage' | 'sku' | 'draft' | 'attachment';
+    export type IConfig = {
+        columnPinning: MRT_ColumnPinningState,
+
+        expanded: MRT_ExpandedState,
+
+        columnFilters: MRT_ColumnFiltersState,
+        columnOrder: MRT_ColumnOrderState,
+        grouping: MRT_GroupingState,
+        sorting: MRT_SortingState,
+        
+        columnSizing: MRT_ColumnSizingState,
+        columnVisibility: MRT_VisibilityState,
+        rowSelection: MRT_RowSelectionState,
+
+        density: MRT_DensityState,
+        globalFilter: unknown,
+        pagination: {
+            pageIndex: number,
+            pageSize: number
+        },
+
+        showColumnFilters: boolean,
+        showGlobalFilter: boolean,
+
+    }
+
+    export type IConfiguration = {
+        collections: Partial<Record<CollectionNames, IConfig>>;
+        zoomLevel: number;
+    }
 }
 
 export const i = 1;

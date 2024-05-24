@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-///<reference path="../types.ts" />
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';

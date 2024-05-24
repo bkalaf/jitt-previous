@@ -25,7 +25,7 @@ export function useWhyDidIUpdate(
       })
       if (Object.keys(changesObj).length) {
         // eslint-disable-next-line no-console
-        console.log('[why-did-you-update]', name, changesObj)
+        // console.log('[why-did-you-update]', name, changesObj)
       }
     }
     previousProps.current = props

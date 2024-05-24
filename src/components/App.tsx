@@ -8,7 +8,9 @@ import { MainMenu } from './MainMenu';
 import { camelToProper } from '../common/text';
 import { useEnv } from '../hooks/useEnv';
 import { IconBtn } from './IconBtn';
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { getCurrentWebContents } from '@electron/remote';
+import { useConfiguration } from '../contexts/useConfiguration';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (
@@ -19,7 +21,24 @@ export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     );
 }
 
+export type ISource<TEventMap, TEventName extends keyof TEventMap = keyof TEventMap, TEvent extends Event = Event> = {
+    addEventListener(eventName: TEventName, listener: (ev: TEvent) => void): void;
+    removeEventListener(eventName: TEventName, listener: (ev: TEvent) => void): void;
+};
+
+export function useEventListener<TEventMap, TEventName extends keyof TEventMap = keyof TEventMap, TEvent extends Event = Event, TSource extends ISource<TEventMap, TEventName, TEvent> = ISource<TEventMap, TEventName, TEvent>>(
+    source: TSource,
+    eventName: TEventName,
+    listener: (ev: TEvent) => void
+) {
+    useEffect(() => {
+        source.addEventListener(eventName, listener);
+        return () => source.removeEventListener(eventName, listener);
+    }, [eventName, listener, source]);
+}
+
 export function App() {
+    const { updateConfig, configuration }= useConfiguration();
     const context = useEnv();
     console.log(context.REALM_APP_ID);
     const location = useLocation();
@@ -33,6 +52,30 @@ export function App() {
             .split('/')
             .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
     );
+    const modifyZoom = useCallback((modifier: number) => {
+        return () => {
+            updateConfig('zoomLevel', configuration.zoomLevel + modifier);
+        }
+    }, [configuration.zoomLevel, updateConfig]);
+    const incrementZoom = useMemo(() => modifyZoom(0.1), [modifyZoom]);
+    const decrementZoom = useMemo(() => modifyZoom(-0.1), [modifyZoom]);
+
+    useEffect(() => {
+        getCurrentWebContents().setZoomFactor(configuration.zoomLevel);
+    }, [configuration.zoomLevel]);
+    useEventListener<DocumentEventMap, 'wheel', WheelEvent>(document, 'wheel', (ev: WheelEvent) => {
+        const direction = ev.deltaY > 0 ? 'down' : 'up';
+        console.error(direction, ev);
+        if (ev.ctrlKey) {
+            switch (direction) {
+                case 'down':
+                    return decrementZoom();
+                case 'up':
+                    return incrementZoom();
+            }
+        }
+    });
+
     return (
         <>
             <CssBaseline />

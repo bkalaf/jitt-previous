@@ -54,6 +54,7 @@ export function IconBtn(
                     height: outerDim,
                     width: outerDim
                 }}
+                {...rest}
             >
                 <FontAwesomeIcon
                     icon={icon}

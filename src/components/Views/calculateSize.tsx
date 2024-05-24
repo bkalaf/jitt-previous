@@ -63,20 +63,21 @@ export function calculateSize(maxLength: number) {
 
 
 export function calculateSizes(header: string, opts?: { options?: { text: string }[],  maxLength?: number, minLength?: number  }) {
-    const body = calculateBodySize(opts);
-    const head = calculateHeadSize()(header);
+    return {}
+    // const body = calculateBodySize(opts);
+    // const head = calculateHeadSize()(header);
 
-    const _minSize = Math.max(...[...body.minSize ? [body.minSize] : [], ...head.minSize ? [head.minSize] : [], 0]);
-    const minSize = _minSize === 0 ? undefined : _minSize;
-    const _maxSize = body.maxSize ? body.maxSize : undefined;
-    const maxSize = _maxSize != null ? _maxSize < (minSize ?? 0) ? (minSize ?? 0) : _maxSize : undefined;
-    const grow = opts?.options ? false : true;
-    const size = opts?.options ? Math.max(...opts.options.map(x => x.text.length)) + 5 : undefined;
-    console.info('calculateSize', header, opts, body, head, _minSize, _maxSize, minSize, maxSize, grow, size);
-    return {
-        maxSize,
-        minSize,
-        grow,
-        size
-    }
+    // const _minSize = Math.max(...[...body.minSize ? [body.minSize] : [], ...head.minSize ? [head.minSize] : [], 0]);
+    // const minSize = _minSize === 0 ? undefined : _minSize;
+    // const _maxSize = body.maxSize ? body.maxSize : undefined;
+    // const maxSize = _maxSize != null ? _maxSize < (minSize ?? 0) ? (minSize ?? 0) : _maxSize : undefined;
+    // const grow = opts?.options ? false : true;
+    // const size = opts?.options ? Math.max(...opts.options.map(x => x.text.length)) + 5 : undefined;
+    // console.info('calculateSize', header, opts, body, head, _minSize, _maxSize, minSize, maxSize, grow, size);
+    // return {
+    //     maxSize,
+    //     minSize,
+    //     grow,
+    //     size
+    // }
 }

@@ -3,7 +3,7 @@ import { productColors } from '../enums/productColors';
 import { genders } from '../enums/genders';
 import { flagOptions } from '../enums/flags';
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
-import { whenProperty, whenType } from '../defs/when';
+import { addID, whenProperty, whenType } from '../defs/when';
 import { col } from '../defs/col';
 import { closureTypes } from '../enums/closureType';
 import { fitTypes } from '../enums/fitType';
@@ -27,7 +27,7 @@ import { sleeveLengths } from '../enums/sleeveLength';
 
 export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
-export const productColumns: MRT_ColumnDef<IProduct>[] = [
+export const productColumns: MRT_ColumnDef<IProduct, any>[] = [
     helper.pk(),
     helper.lookup('brand', 'Brand', { objectType: 'brand', labelProperty: 'name' }),
     helper.lookup('classifier', 'Classifier', { objectType: 'classifier', labelProperty: 'name' }),
@@ -75,33 +75,33 @@ export const productColumns: MRT_ColumnDef<IProduct>[] = [
     whenType(['apparel-bottoms', 'apparel-tops'], helper.enum('fitType', 'Fit Type', { options: fitTypes })),
     whenType('apparel-bottoms', helper.enum('legStyle', 'Leg Style', { options: legStyles })),
     whenType(['apparel-bottoms', 'apparel-tops'], helper.enum('lengthType', 'Length Type', { options: garmentLengths })),
-    whenType(['apparel-bottoms', 'apparel-tops', 'apparel-footwear'], helper.enum('lifestyleType', 'Lifestyle Type', { options: lifestyleTypes })),
-    whenType(['apparel-bottoms', 'apparel-tops'], helper.enum('pocketType', 'Pocket Type', { options: pocketTypes })),
+    whenType(['apparel-bottoms', 'apparel-tops', 'apparel-footwear'], addID('bottoms-lifestyleType', helper.enum('lifestyleType', 'Lifestyle Type', { options: lifestyleTypes }))),
+    whenType(['apparel-bottoms', 'apparel-tops'], addID('bottoms-pocketType', helper.enum('pocketType', 'Pocket Type', { options: pocketTypes }))),
     whenType('apparel-bottoms', helper.enum('riseType', 'Rise Type', { options: riseTypes })),
-    whenType('apparel-bottoms', helper.enum('size', 'Size', { options: getSizeOptions('waistSizes') })),
+    whenType('apparel-bottoms', addID('bottoms-size', helper.enum('size', 'Size', { options: getSizeOptions('waistSizes') }))),
     whenType('apparel-bottoms', helper.measure('inseamSize', 'Inseam', 'in', {})),
-    whenType('apparel-bottoms', helper.measure('lengthSize', 'Length', 'in', {})),
+    whenType('apparel-bottoms', addID('bottoms-lengthSize', helper.measure('lengthSize', 'Length', 'in', {}))),
     whenType('apparel-bottoms', helper.measure('waistSize', 'Waist', 'in', {})),
     whenType('apparel-footwear', helper.enum('bootType', 'Boot Type', { options: bootTypes })),
     whenType('apparel-footwear', helper.enum('heightMapType', 'Boot Type', { options: bootTypes })),
     whenType('apparel-footwear', helper.enum('shoeHeelType', 'Boot Type', { options: bootTypes })),
     whenType('apparel-footwear', helper.enum('shoeWidth', 'Boot Type', { options: bootTypes })),
-    whenType('apparel-footwear', helper.enum('strapType', 'Boot Type', { options: bootTypes })),
+    whenType('apparel-footwear', addID('footwear-strapType', helper.enum('strapType', 'Boot Type', { options: bootTypes }))),
     whenType('apparel-footwear', helper.enum('toeStyle', 'Boot Type', { options: bootTypes })),
     whenType('apparel-footwear', helper.measure('footSize', 'Foot Size', 'in', {})),
     whenType('apparel-footwear', helper.measure('heelHeight', 'Heel Height', 'in', {})),
-    whenType('apparel-footwear', whenProperty('gender', 'mens', helper.enum('size', 'Mens Size', { options: getSizeOptions('menFootwear') }))),
-    whenType('apparel-footwear', whenProperty('gender', 'womens', helper.enum('size', 'Womens Size', { options: getSizeOptions('womenFootwear') }))),
+    whenType('apparel-footwear', whenProperty('gender', 'mens', addID('footwear-mens-size', helper.enum('size', 'Mens Size', { options: getSizeOptions('menFootwear') })))),
+    whenType('apparel-footwear', whenProperty('gender', 'womens', addID('footwear-womens-size', helper.enum('size', 'Womens Size', { options: getSizeOptions('womenFootwear') })))),
     // whenType('apparel-footwear', whenProperty('gender', 'boys', helper.enum('size', 'Womens Size', { options: getSizeOptions('womenFootwear')}))),
     // whenType('apparel-footwear', whenProperty('gender', 'girls', helper.enum('size', 'Womens Size', { options: getSizeOptions('')}))),
     whenType('apparel-bras', helper.measure('bustSize', 'Bust Size', 'in', {})),
-    whenType('apparel-bras', helper.enum('size', 'Bra Size', { options: getSizeOptions('bustSizes') })),
+    whenType('apparel-bras', addID('bras-size', helper.enum('size', 'Bra Size', { options: getSizeOptions('bustSizes') }))),
     whenType('apparel-bras', helper.enum('swimsuitBottomStyle', 'Swimsuit Bottom Style', { options: swimsuitBottomStyles })),
     whenType('apparel-bras', helper.enum('swimsuitTopStyle', 'Swimsuit Top Style', { options: swimsuitTopStyles })),
     whenType('apparel-tops', helper.measure('neckSize', 'Neck Size', 'in', {})),
     whenType('apparel-tops', helper.measure('sleeveSize', 'Sleeve Size', 'in', {})),
     whenType('apparel-tops', helper.measure('chestSize', 'Chest Size', 'in', {})),
-    whenType('apparel-tops', helper.measure('lengthSize', 'Length Size', 'in', {})),
+    whenType('apparel-tops', addID('tops-lengthSize', helper.measure('lengthSize', 'Length Size', 'in', {}))),
     whenType('apparel-tops', helper.enum('backlineType', 'Backline Type', { options: backlineTypes })),
     whenType('apparel-tops', helper.enum('dressType', 'Dress Type', { options: dressTypes })),
     whenType('apparel-tops', helper.enum('suitType', 'Suit Type', { options: suitTypes })),
@@ -110,7 +110,9 @@ export const productColumns: MRT_ColumnDef<IProduct>[] = [
     whenType('apparel-tops', helper.enum('cuffType', 'Cuff Type', { options: cuffTypes })),
     whenType('apparel-tops', helper.enum('neckType', 'Neck Type', { options: neckTypes })),
     whenType('apparel-tops', helper.enum('sleeveLength', 'Sleeve Length', { options: sleeveLengths })),
-    whenType('apparel-tops', whenProperty('gender', 'mens', helper.enum('size', 'Mens Size', { options: getSizeOptions('menLetter') }))),
-    whenType('apparel-tops', whenProperty('gender', 'womens', helper.enum('size', 'Womens Size', { options: getSizeOptions('womenLetter') }))),
-    whenType('apparel-tops', helper.enum('size', 'Suit Size', { options: getSizeOptions('suitSizes') }))
+    whenType('apparel-tops', addID('tops-mens-size', whenProperty('gender', 'mens', helper.enum('size', 'Mens Size', { options: getSizeOptions('menLetter') })))),
+    whenType('apparel-tops', addID('tops-womens-size', whenProperty('gender', 'womens', helper.enum('size', 'Womens Size', { options: getSizeOptions('womenLetter') })))),
+    whenType('apparel-tops', addID('tops-suit-size', helper.enum('size', 'Suit Size', { options: getSizeOptions('suitSizes') }))),
+
+    helper.listOfPrimitive('detailTypes', 'Detail Types', 'string', true)
 ];

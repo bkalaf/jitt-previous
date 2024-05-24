@@ -7,10 +7,14 @@ import { useLocalRealm } from './useLocalRealm';
 function handleFilter<T extends MRT_RowData>(collection: string, db?: Realm, filterString?: string, filterArgs?: any[]) {
     if (filterString == null || filterString.length === 0) {
         if (db == null) throw new Error('no db');
-        return Promise.resolve(db.objects<T>(collection));
+        const result = Array.from(db.objects<T>(collection));
+        console.info(`result`, result);
+        return Promise.resolve(result);
     }
     if (db == null) throw new Error('no db');
-    return Promise.resolve(db.objects<T>(collection).filtered(filterString, ...filterArgs ?? []));
+    const result = Array.from(db.objects<T>(collection).filtered(filterString, ...(filterArgs ?? [])));
+    console.info(`result`, result);
+    return Promise.resolve(result);
 }
 export function useCollectionQuery<T extends MRT_RowData>(collection: string) {
     const db = useLocalRealm();

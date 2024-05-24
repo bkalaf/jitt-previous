@@ -12,10 +12,10 @@ export function CollectionView<T extends MRT_RowData>() {
     const columns = useColumns<T>();
     const route = useEffectiveCollection();
     const data = useCollectionQuery<T>(route);
-    const table = useData(data, columns);
+    const table = useData(data ?? [], columns);
     
     return (
-        <Box component='section' className='overflow-scroll table-fixed border-seperate'>
+        <Box component='section' className='overflow-scroll table-auto border-seperate'>
             <MaterialReactTable table={table} />
         </Box>
     );

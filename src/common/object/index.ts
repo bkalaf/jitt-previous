@@ -14,7 +14,8 @@ export function getProperty<T extends Record<string, any>, U = unknown>(name: Pa
     return obj[name];
 }
 
-export function setProperty<T extends Record<string, any>, U = unknown>(name: string, obj: T, value: U) {
+export function setProperty<T extends Record<string, any>, U = unknown>(name: string, $obj: T, value: U) {
+    const obj = { ...$obj };
     if (name.includes('.')) {
         const [head, ...tail] = name.split('.');
         (obj as Record<string, any>)[head] = setProperty<any, any>(tail.join('.') as any, getProperty(head as any, obj) ?? {}, value);

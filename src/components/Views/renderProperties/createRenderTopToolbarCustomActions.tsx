@@ -2,13 +2,13 @@ import { createRow, MRT_RowData, MRT_TableOptions } from 'material-react-table';
 import { Box, Button, Slide } from '@mui/material';
 import { useInvalidateCollection } from '../../../hooks/useInvalidateCollection';
 import { useUpdater } from '../../../hooks/useUpdater';
-import { useRealm } from '../../../hooks/useRealm';
 import { useSnackbar } from 'notistack';
+import { useLocalRealm } from '../../../hooks/useLocalRealm';
 
 export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init: () => T, resetSettings: () => void) {
     return function RenderTopToolbarCustomActions({ table }: Parameters<Exclude<MRT_TableOptions<T>['renderTopToolbarCustomActions'], undefined>>[0]) {
         const [hasUpdater, updater] = useUpdater<T>();
-        const { db } = useRealm();
+        const db = useLocalRealm();
         const invalidate = useInvalidateCollection();
         const { enqueueSnackbar } = useSnackbar();
         return (

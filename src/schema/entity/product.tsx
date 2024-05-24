@@ -195,8 +195,8 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
         properties: {
             _id: $.objectId(),
             asins: $.string.list,
-            brand: $.brand(),
-            classifier: $.classifier(),
+            brand: 'brand?',
+            classifier: 'classifier?',
             includes: $.includedItem.list,
             customAttributes: $.customItemField.list,
             features: $.string.list,
@@ -324,8 +324,7 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
             wedgeType: $.string.opt,
             ages: $.minMax(),
             players: $.minMax(),
-            pieceCount: $.int()
-
+            pieceCount: $.int.opt
         }
     };
 
@@ -347,6 +346,6 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
         return distinctByOID([...(this.brand?.allHashTags ?? []), ...(this?.classifier?.allHashTags ?? [])]);
     }
     get detailTypes(): DetailTypes[] {
-        return this.classifier?.detailTypes ?? ['general'];
+        return Array.from(this.classifier?.detailTypes ?? ['general']);
     }
 }

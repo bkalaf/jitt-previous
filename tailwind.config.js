@@ -42,7 +42,8 @@ module.exports = {
             'is-img': 'mimetype="image/png',
             'is-group-column': 'column-type="group"',
             'needs-review': 'needs-review="true"',
-            'is-leaf': 'is-leaf="true"'
+            'is-leaf': 'is-leaf="true"',
+            'is-calc': 'is-calc="true"'
         },
         screens: {
             sm: '640px',
@@ -1026,9 +1027,6 @@ module.exports = {
                 // table: { tableLayout: 'auto', borderCollapse: 'separate' },
             });
             addComponents({
-                'th div': {
-                    width: '100%'
-                },
                 // 'thead > tr': {
                 //     borderWidth: '1px',
                 //     borderColor: black,
@@ -1040,7 +1038,10 @@ module.exports = {
                 },
                 'input[type="checkbox"].small': {
                     transform: 'scale(0.85)'
-                }
+                },
+                // 'button[aria-label="Expand"]': {
+                    
+                // }
             });
             addUtilities({
                 // '.row-even': {

@@ -10,21 +10,6 @@ import { ObjectId } from 'bson';
 import { runTransaction } from '../../util/runTransaction';
 import { distinctBy, distinctByOID } from '../../common/array/distinct';
 
-export const classifier: Realm.ObjectSchema = {
-    name: schemaName($.classifier()),
-    primaryKey: '_id',
-    properties: {
-        _id: $.objectId(),
-        taxonomy: $.mercariTaxonomy(),
-        shortName: $.string(),
-        parent: $.classifier(),
-        name: $.string(),
-        type: $.string.list,
-        attributes: $.attribute.list,
-        hashTags: $.hashTag.list
-    }
-};
-
 export const h = createMRTColumnHelper<IClassifier>();
 export const helper = col(h);
 
@@ -40,7 +25,10 @@ export const stringColumn = [
     createMRTColumnHelper<{ value: string }>().accessor('value', {
         header: 'Value',
         Cell: createStringValueCell<{ value: string }>() as any,
-        Edit: createStringControl({ maxLength: 150 })
+        Edit: createStringControl(),
+        meta: {
+            maxLength: 150
+        }
     })
 ] as MRT_ColumnDef<any>[];
 
@@ -50,7 +38,7 @@ export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
     helper.string('shortName', 'Short Name', undefined, { maxLength: 50, required: true }, true),
     helper.lookup('parent', 'Parent', { objectType: 'classifier', labelProperty: 'name' }),
     {
-        ...helper.string('name', 'Name', undefined, { maxLength: 150, required: true })
+        ...helper.string('name', 'Name', undefined, { maxLength: 150, required: false })
         // muiTableBodyCellProps: (props) => ({
         //     className: fromDepth(props.row.depth)
         // })
@@ -75,6 +63,41 @@ export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
 ];
 
 export class Classifier extends Realm.Object<IClassifier> implements IClassifier {
+    // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
+    _id: ObjectId;
+    taxonomy?: IMercariTaxonomy | undefined;
+    shortName: string;
+    parent?: Pick<IClassifier, '_id' | 'shortName' | 'name' | 'hashTags' | 'allHashTags' | 'detailTypes' | 'allAttributes'> | undefined;
+    name: string;
+    type: DBList<DetailTypes>;
+    attributes: DBList<IAttribute>;
+    hashTags: DBList<IHashTag>;
+
+    static schema: Realm.ObjectSchema = {
+        name: schemaName($.classifier()),
+        primaryKey: '_id',
+        properties: {
+            _id: $.objectId(),
+            taxonomy: $.mercariTaxonomy(),
+            shortName: $.string(),
+            parent: $.classifier(),
+            name: $.string(),
+            type: $.string.list,
+            attributes: $.attribute.list,
+            hashTags: $.hashTag.list
+        }
+    };
+
+    static update(realm: Realm, item: IClassifier): IClassifier {
+        const func = () => {
+            const name = [item.parent?.name, item.shortName].join(' || ');
+            if (name !== item.name) {
+                item.name = name;
+            }
+        };
+        runTransaction(realm, func);
+        return item;
+    }
     get allHashTags(): IHashTag[] {
         return distinctByOID<IHashTag>([...this.hashTags, ...(this.taxonomy?.allHashTags ?? []), ...(this.parent?.allHashTags ?? [])]);
     }
@@ -87,28 +110,6 @@ export class Classifier extends Realm.Object<IClassifier> implements IClassifier
     get subRows(): Realm.Results<any> {
         // const key = Object.getOwnPropertySymbols(this).find(x => x.toString().includes('#realm'))
         // if (key == null) throw new Error('cannot find symbol')
-        return this.linkingObjects('classifier', 'parent')
-    }
-    // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
-    _id: ObjectId;
-    taxonomy?: IMercariTaxonomy | undefined;
-    shortName: string;
-    parent?: Pick<IClassifier, '_id' | 'shortName' | 'name' | 'hashTags' | 'allHashTags' | 'detailTypes' | 'allAttributes'> | undefined;
-    name: string;
-    type: DBList<DetailTypes>;
-    attributes: DBList<IAttribute>;
-    hashTags: DBList<IHashTag>;
-
-    static schema = classifier;
-
-    static update(realm: Realm, item: IClassifier): IClassifier {
-        const func = () => {
-            const name = [item.parent?.name, item.shortName].join(' || ');
-            if (name !== item.name) {
-                item.name = name;
-            }
-        };
-        runTransaction(realm, func);
-        return item;
+        return this.linkingObjects('classifier', 'parent');
     }
 }

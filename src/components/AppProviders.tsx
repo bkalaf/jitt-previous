@@ -9,6 +9,7 @@ import { ForagerProvider } from '../contexts/ForagerProvider';
 import { RealmProvider } from '../contexts/RealmProvider';
 import React from 'react';
 import { queryClient } from './AppRoot';
+import { ConfigurationProvider } from '../contexts/ConfigurationProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
@@ -19,7 +20,11 @@ export function AppProviders({ children }: { children: Children }) {
                         <EnvProvider>
                             <RealmProvider>
                                 <QueryClientProvider client={queryClient}>
-                                    <ForagerProvider>{children}</ForagerProvider>
+                                    <ForagerProvider>
+                                        <ConfigurationProvider>
+                                            {children}
+                                        </ConfigurationProvider>
+                                    </ForagerProvider>
                                 </QueryClientProvider>
                             </RealmProvider>
                         </EnvProvider>

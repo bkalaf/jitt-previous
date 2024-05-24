@@ -1,12 +1,31 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { MRT_ColumnFiltersState, MRT_ColumnOrderState, MRT_ColumnPinningState, MRT_ColumnSizingState, MRT_DensityState, MRT_GroupingState, MRT_PaginationState, MRT_RowData, MRT_RowSelectionState, MRT_SortingState, MRT_TableState, MRT_VisibilityState } from 'material-react-table';
+import {
+    MRT_ColumnFiltersState,
+    MRT_ColumnOrderState,
+    MRT_ColumnPinningState,
+    MRT_ColumnSizingState,
+    MRT_DensityState,
+    MRT_GroupingState,
+    MRT_PaginationState,
+    MRT_RowData,
+    MRT_RowSelectionState,
+    MRT_SortingState,
+    MRT_TableState,
+    MRT_VisibilityState
+} from 'material-react-table';
 import { useForager } from '../contexts/ForagerContext';
 import { useQueryString } from './useQueryString';
 import { useEffectiveCollection } from './useEffectiveCollection';
 
-export const $array = function <T>(): T { return [] as T; };
-export const $object = function <T>(): T { return {} as T; };
-export const $pinning = function() { return { left: [], right: [] }}
+export const $array = function <T>(): T {
+    return [] as T;
+};
+export const $object = function <T>(): T {
+    return {} as T;
+};
+export const $pinning = function () {
+    return { left: [], right: [] };
+};
 
 const keys = (collection: string) => ({
     $columnFilters: [collection, 'column-filters'].join('-'),
@@ -21,14 +40,14 @@ const keys = (collection: string) => ({
     $pageSize: [collection, 'page-size'].join('-'),
     $rowSelection: [collection, 'row-selection'].join('-'),
     $showGlobalFilter: [collection, 'show-global-filter'].join('-'),
-    $sorting: [collection, 'sorting'].join('-'),
-})
+    $sorting: [collection, 'sorting'].join('-')
+});
 
 export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
     const { forager } = useForager();
     const collection = useEffectiveCollection(objectType);
     const { _id } = useQueryString<'_id'>();
-    const { $columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting } = useMemo(() => keys(collection), [collection])
+    const { $columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting } = useMemo(() => keys(collection), [collection]);
 
     const [columnFilters, onColumnFiltersChange] = useState<MRT_ColumnFiltersState>($array());
     const [columnOrder, onColumnOrderChange] = useState<MRT_ColumnOrderState>($array());
@@ -45,8 +64,8 @@ export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
     const [columnPinning, onColumnPinningChange] = useState<MRT_ColumnPinningState>($pinning());
     const onPaginationChange = useCallback((updater: MRT_PaginationState | Updater<MRT_PaginationState>) => {
         let result: MRT_PaginationState = { pageIndex: 0, pageSize: 20 };
-        onPageIndexChange(oldIndex => {
-            onPageSizeChange(oldSize => {
+        onPageIndexChange((oldIndex) => {
+            onPageSizeChange((oldSize) => {
                 result = typeof updater === 'function' ? updater({ pageSize: oldSize, pageIndex: oldIndex }) : updater;
                 return result.pageSize;
             });
@@ -56,26 +75,26 @@ export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
     }, []);
 
     useEffect(() => {
-        forager.getItem<MRT_ColumnFiltersState>($columnFilters).then(x => onColumnFiltersChange(_id != null ? [{ id: '_id', value: _id }] : (x ?? $array())));
-        forager.getItem<MRT_ColumnOrderState>($columnOrder).then(x => onColumnOrderChange(x ?? $array()))
-        forager.getItem<MRT_SortingState>($sorting).then(x => onSortingChange(x ?? $array()));
-        forager.getItem<MRT_ColumnPinningState>($columnPinning).then(x => onColumnPinningChange(x ?? $pinning()));
-        forager.getItem<MRT_ColumnSizingState>($columnSizing).then(x => onColumnSizingChange(x ?? $object()))
-        forager.getItem<MRT_VisibilityState>($columnVisibility).then(x => onColumnVisibilityChange(x ?? $object()))
-        forager.getItem<MRT_DensityState>($density).then(x => onDensityChange(x ?? 'compact'))
-        forager.getItem<unknown>($globalFilter).then(x => onGlobalFilterChange(x ?? undefined))
-        forager.getItem<boolean>($showGlobalFilter).then(x => onShowGlobalFilterChange(x ?? false))
-        forager.getItem<MRT_RowSelectionState>($rowSelection).then(x => onRowSelectionChange(x ?? $object()))
-        forager.getItem<number>($pageIndex).then(x => onPageIndexChange(x ?? 0))
-        forager.getItem<number>($pageSize).then(x => onPageSizeChange(x ?? 20))
-        forager.getItem<MRT_GroupingState>($grouping).then(x => onGroupingChange(x ?? $array()))
+        forager.getItem<MRT_ColumnFiltersState>($columnFilters).then((x) => onColumnFiltersChange(_id != null ? [{ id: '_id', value: _id }] : x ?? $array()));
+        forager.getItem<MRT_ColumnOrderState>($columnOrder).then((x) => onColumnOrderChange(x ?? $array()));
+        forager.getItem<MRT_SortingState>($sorting).then((x) => onSortingChange(x ?? $array()));
+        forager.getItem<MRT_ColumnPinningState>($columnPinning).then((x) => onColumnPinningChange(x ?? $pinning()));
+        forager.getItem<MRT_ColumnSizingState>($columnSizing).then((x) => onColumnSizingChange(x ?? $object()));
+        forager.getItem<MRT_VisibilityState>($columnVisibility).then((x) => onColumnVisibilityChange(x ?? $object()));
+        forager.getItem<MRT_DensityState>($density).then((x) => onDensityChange(x ?? 'compact'));
+        forager.getItem<unknown>($globalFilter).then((x) => onGlobalFilterChange(x ?? undefined));
+        forager.getItem<boolean>($showGlobalFilter).then((x) => onShowGlobalFilterChange(x ?? false));
+        forager.getItem<MRT_RowSelectionState>($rowSelection).then((x) => onRowSelectionChange(x ?? $object()));
+        forager.getItem<number>($pageIndex).then((x) => onPageIndexChange(x ?? 0));
+        forager.getItem<number>($pageSize).then((x) => onPageSizeChange(x ?? 20));
+        forager.getItem<MRT_GroupingState>($grouping).then((x) => onGroupingChange(x ?? $array()));
     }, [$columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting, _id, forager]);
 
     useEffect(() => {
         if (_id == null) {
             forager.setItem($columnFilters, columnFilters);
         } else {
-            onColumnFiltersChange([{ id: '_id', value: _id }])
+            onColumnFiltersChange([{ id: '_id', value: _id }]);
         }
     }, [$columnFilters, _id, columnFilters, forager]);
     useEffect(() => {
@@ -109,11 +128,11 @@ export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
         forager.setItem($pageSize, pageSize);
     }, [$pageSize, forager, pageSize]);
     useEffect(() => {
-        forager.setItem($rowSelection, rowSelection)
+        forager.setItem($rowSelection, rowSelection);
     }, [$rowSelection, forager, rowSelection]);
     useEffect(() => {
         forager.setItem($grouping, grouping);
-    }, [$grouping, forager, grouping])
+    }, [$grouping, forager, grouping]);
 
     const resetSettings = useCallback(() => {
         onColumnFiltersChange($array());
@@ -130,23 +149,27 @@ export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
         onSortingChange($array());
     }, [onPaginationChange]);
 
-    const state = useMemo(() => ({
-        columnFilters,
-        columnOrder,
-        columnPinning,
-        columnSizing,
-        columnVisibility,
-        density,
-        globalFilter,
-        grouping,
-        pagination: {
-            pageIndex,
-            pageSize
-        },
-        rowSelection,
-        showGlobalFilter,
-        sorting
-    } as MRT_TableState<T>), [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, globalFilter, grouping, pageIndex, pageSize, rowSelection, showGlobalFilter, sorting]);
+    const state = useMemo(
+        () =>
+            ({
+                columnFilters,
+                columnOrder,
+                columnPinning,
+                columnSizing,
+                columnVisibility,
+                density,
+                globalFilter,
+                grouping,
+                pagination: {
+                    pageIndex,
+                    pageSize
+                },
+                rowSelection,
+                showGlobalFilter,
+                sorting
+            } as MRT_TableState<T>),
+        [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, globalFilter, grouping, pageIndex, pageSize, rowSelection, showGlobalFilter, sorting]
+    );
 
     return {
         onColumnFiltersChange,

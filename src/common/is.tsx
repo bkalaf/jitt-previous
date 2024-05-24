@@ -1,6 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="./../global.d.ts" />
 import * as Realm from 'realm';
+import { isPrimitive } from '../schema/conversion/cnvrt';
 
 function typeCheck<T>(name: string) {
     return function (obj?: any): obj is T {
@@ -22,6 +23,13 @@ const checkFunction = typeCheck<Function>('function');
 const checkUndefined = typeCheck<undefined>('undefined');
 const checkNull = typeCheck<null>('null');
 const checkPromise = instanceCheck<Promise<any>>(Promise);
+const checkMap = instanceCheck<Map<any, any>>(Map);
+const checkDate = instanceCheck<Date>(Date);
+const checkArrayBuffer = instanceCheck<ArrayBuffer>(ArrayBuffer);
+const checkObjectId = instanceCheck<Realm.BSON.ObjectId>(Realm.BSON.ObjectId);
+const checkUUID = instanceCheck<Realm.BSON.UUID>(Realm.BSON.UUID);
+const checkBinary = instanceCheck<Realm.BSON.Binary>(Realm.BSON.Binary);
+const checkLinkingObjects = instanceCheck<Realm.Types.LinkingObjects<any, any>>(Realm.Types.LinkingObjects);
 const checkArray = (obj?: any): obj is any[] => Array.isArray(obj);
 const checkObject = (obj?: any): obj is Record<string, any> => obj != null && typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype;
 const checkDbList = instanceCheck<Realm.Types.List<any>>(Realm.Types.List);
@@ -57,7 +65,15 @@ const _is = {
     realmObj: checkRealmObj,
     emptyString: checkEmptyString,
     nullOrUndef: checkNullOrUndefined,
-    nil: checkNil
+    nil: checkNil,
+    map: checkMap,
+    date: checkDate,
+    arrayBuffer: checkArrayBuffer,
+    objectId: checkObjectId,
+    uuid: checkUUID,
+    binary: checkBinary,
+    linkingObjects: checkLinkingObjects,
+    primitive: isPrimitive
 };
 
 function not<T, U>(pred1: Predicate<T>) {

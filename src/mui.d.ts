@@ -14,6 +14,19 @@ export interface IPalletteColors<T> {
 declare module '@tanstack/table-core' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface ColumnMeta<TData extends RowData, TValue> {
+        isCalc?: boolean;
+        columnName?: string;
+        required?: boolean;
+        readonly?: boolean;
+        maxLength?: number;
+        minLength?: number;
+        min?: number;
+        max?: number;
+        pattern?: RegExp;
+        validate?: Record<string, (value: TValue, formValues: Record<string, any>) => string | string[] | boolean | Promise<string | string[] | boolean>>;
+        type?: React.HTMLInputTypeAttribute;
+        step?: number;
+        objectType?: string;
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {
