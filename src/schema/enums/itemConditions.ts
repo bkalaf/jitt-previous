@@ -10,7 +10,7 @@ export const _itemConditions = {
         color: 'bg-sky-500 text-white'
     },
     'like-new': {
-        key: 'likeNew',
+        key: 'like-new',
         text: 'Like New',
         selector: '[data-testid="ConditionLikeNew"]',
         color: 'bg-emerald-500 text-white',

@@ -2,7 +2,7 @@ import { MRT_ColumnDef, MRT_RowData } from 'material-react-table';
 import { Path } from 'react-hook-form-mui';
 import React, { useCallback, useEffect } from 'react';
 import { $calculateSize } from '../Views/calculateSize';
-import { useLogger } from '../../contexts/useLogger';
+import { useLogger } from '../../hooks/useLogger';
 import { distinctBy } from '../../common/array/distinct';
 
 export function createHeaderCell<T extends MRT_RowData, U extends MRT_RowData>(labelProperty: Path<U>) {

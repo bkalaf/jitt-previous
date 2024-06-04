@@ -23,3 +23,12 @@ export const attributeColumns: MRT_ColumnDef<IAttribute>[] = [
     helper.bool('unset', 'Unset'),
     helper.string('value', 'Value', undefined, { maxLength: 150 })
 ]
+
+export class Attribute extends Realm.Object<IAttribute> implements IAttribute {
+    path: string;
+    unset: boolean;
+    value: unknown;
+
+    static schema = attribute;
+    static liComponent = ((value?: IAttribute) => () => value == null ? '' : [value.path, value.value].join(' == '));
+}

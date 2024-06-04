@@ -41,4 +41,5 @@ export class MercariCategory extends Realm.Object<IMercariCategory> implements I
         runTransaction(realm, func);
         return item;
     }
+    static labelProperty = 'name';
 }

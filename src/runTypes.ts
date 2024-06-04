@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="./global.d.ts" />
-import { flags } from 'realm';
 import { backlineTypes } from './schema/enums/backlineType';
 import { barcodeTypes } from './schema/enums/barcodeTypes';
 import { bookGenres } from './schema/enums/bookGenre';
@@ -30,7 +29,7 @@ import { provinces } from './schema/enums/provinces';
 import { riseTypes } from './schema/enums/riseType';
 import { shoeHeelTypesMap } from './schema/enums/shoeHeelType';
 import { shoeWidthsMap } from './schema/enums/shoeWidth';
-import { sizes } from './schema/enums/sizes';
+// import { sizes } from './schema/enums/sizes';
 import { sleeveTypes } from './schema/enums/sleeveType';
 import { strapTypesMap } from './schema/enums/strapType';
 import { suitTypes } from './schema/enums/suitType';
@@ -38,7 +37,6 @@ import { swimsuitBottomStyles } from './schema/enums/swimsuitBottomStyle';
 import { swimsuitTopStyles } from './schema/enums/swimsuitTopStyle';
 import { toeStylesMap } from './schema/enums/toeStyle';
 import { countries } from './schema/enums/countries';
-import { surround } from './common/text/surround';
 import { videoFormatTypes } from './schema/enums/videoFormatType';
 import { videoTypes } from './schema/enums/videoType';
 import { tvShowRatings } from './schema/enums/tvShowRating';
@@ -68,6 +66,9 @@ import { shapeTypes } from './schema/enums/shapeTypes';
 import { shippingSpeeds } from './schema/enums/shippingSpeeds';
 import { wedgeTypes } from './schema/enums/wedgeTypes';
 import { sleeveLengths } from './schema/enums/sleeveLength';
+import { distinctByString } from './common/array/distinct';
+import { allFlags } from './schema/enums/flags';
+import { decapitalize } from './common/text';
 
 const maps = [
     ['BacklineTypes', backlineTypes],
@@ -85,7 +86,7 @@ const maps = [
     ['ESRBRatings', esrbRatings],
     ['FabricTypes', fabric],
     ['FitTypes', fitTypes],
-    ['Flags', flags],
+    ['Flags', allFlags],
     ['GarmentLengths', garmentLengths],
     ['Genders', genders],
     ['HeightMaps', heightMaps],
@@ -138,6 +139,38 @@ const maps = [
     ['SleeveLengths', sleeveLengths]
 ]
 
-const text = maps.map(([key, enumMap]) => `export type ${key} = ${Object.keys(enumMap).map(surround('"', '"')).join(' | ')}`)
+// const text = maps.map(([key, enumMap]) => `export type ${key} = ${Object.keys(enumMap).map(surround('"', '"')).join(' | ')}`)
 
-console.log(text.join('\n\n'));
+// console.log(text.join('\n\n'));
+
+const enums = (m: [string, EnumMap<string>][]) => m.map(x => {
+    const name = x[0] as string;
+    const emap = x[1] as EnumMap<string>;
+    const values = Object.values(emap);
+    const values1 = typeof values[0] === 'string' ? values : values.map((y) => (y as Record<string, any>).key);
+    const keys = distinctByString(values1);
+    const allKeys = Object.keys(emap);
+    const aliases = allKeys.filter(x => !keys.includes(x));
+    // console.log(x[0], `allKeys`, allKeys);
+    // console.log(x[0], `keys`, keys);
+    // console.log(x[0], `aliases`, aliases);
+
+    return [name, keys.map(key => {
+        const lookup = emap[key];
+        return {
+            ...typeof lookup === 'string' ? { text: lookup } : lookup,
+            key,
+            aliases: aliases.filter(y => {
+                const amap = emap[y];
+                const akey = typeof amap === 'string' ? amap : amap.key;
+                return akey === key;
+            })
+        }
+    })] as [string, any[]];
+});
+
+// const e = Object.fromEntries(enums.map(([a, b]) => [decapitalize(a), b]))
+
+// console.log(JSON.stringify(e, null, '\t'));
+
+console.log(JSON.stringify(enums([['colors', productColors]]), null, '\t'))

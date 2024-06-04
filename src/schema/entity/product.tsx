@@ -348,4 +348,5 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
     get detailTypes(): DetailTypes[] {
         return Array.from(this.classifier?.detailTypes ?? ['general']);
     }
+    static labelProperty = 'title';
 }

@@ -64,6 +64,7 @@ const objectNames = {
     price: 'price',
     product: 'product',
     productDetails: 'productDetails',
+    productFacing: 'productFacing',
     productImage: 'productImage',
     scan: 'scan',
     selfStorage: 'selfStorage',

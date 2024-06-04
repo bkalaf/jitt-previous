@@ -12,7 +12,7 @@ import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { createRenderCreateRowDialogContentNestedForDictionary } from '../Views/renderProperties/createRenderCreateRowDialogContentNestedForList';
 import { useListItemComponent } from '../../hooks/useListItemComponent';
 import { useStopAndPrevent } from '../../hooks/useStopAndPrevent';
-import { useDictionaryControl } from './useDictionaryControl';
+import { useDictionaryControl } from '../../hooks/useDictionaryControl';
 import { useDictionaryColumns } from './createDBListContnrol';
 
 

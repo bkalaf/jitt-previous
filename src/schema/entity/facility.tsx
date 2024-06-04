@@ -48,6 +48,7 @@ export class Facility extends Realm.Object<IFacility> implements IFacility {
 
     static schema = facility;
 
+    static labelProperty: 'name';
     static update(realm: Realm, item: IFacility) {
         const func = () => {
             item.name = [item.selfStorage?.name, getCityState(item.address), getStreetOnly(item.address)].filter(x => x != null).join(' - ');

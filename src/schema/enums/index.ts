@@ -1,3 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+///<reference path="./../../global.d.ts" />
+import $masterEnum from './enum-info.json';
+
 export type BacklineTypes = "open-back" | "u-shape-back" | "v-shape-back" | "bare-back" | "x-cross-back" | "bow-back" | "strappy-back" | "open back" | "u-shape back" | "v-shape back" | "bare back" | "x-cross back" | "bow back" | "strappy back";
 
 export type BarcodeTypes = "upc" | "ean" | "isbn-10" | "isbn-13" | "locator" | "sku" | "unknown";
@@ -129,3 +133,11 @@ export type ShippingSpeeds = "media-mail" | "standard";
 export type WedgeTypes = "PW" | "AW" | "SW" | "LW";
 
 export type SleeveLengths = "3/4-sleeve" | "half-sleeve" | "short-sleeve" | "long-sleeve" | "short-sleeved" | "long-sleeved" | "sleeveless";
+
+
+
+// fs.writeFileSync('enum-info.json', JSON.stringify($masterEnum, null, '\t'));
+
+export type EnumName = keyof typeof $masterEnum;
+const $me = $masterEnum as Record<EnumName, EnumItem<string>[]>;
+export default $me;

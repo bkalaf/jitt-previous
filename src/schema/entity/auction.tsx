@@ -63,7 +63,7 @@ export class Auction extends Realm.Object<IAuction> implements IAuction {
     taxExempt: boolean;
 
     static schema = auction;
-
+    static labelProperty = 'name';
     get totalPrice() {
         const { finalBid, premiumPercent, salesTaxPercent, taxExempt } = { salesTaxPercent: 0, premiumPercent: 0, finalBid: 0, ...this };
         return finalBid + premiumPercent * finalBid + (!taxExempt ? salesTaxPercent * finalBid : 0);

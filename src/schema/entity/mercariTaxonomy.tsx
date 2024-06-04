@@ -47,6 +47,7 @@ export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements I
     timestamp?: Date | undefined;
     allHashTags: IHashTag[];
 
+    static labelProperty = 'fullname';
     static schema: Realm.ObjectSchema = mercariTaxonomy;
 
     static update(realm: Realm, item: IMercariTaxonomy): IMercariTaxonomy {

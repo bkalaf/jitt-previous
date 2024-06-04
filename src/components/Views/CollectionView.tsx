@@ -4,7 +4,7 @@ import { useCollectionQuery } from '../../hooks/useCollectionQuery';
 import { useColumns } from '../../hooks/useColumns';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { useEffectiveCollection } from '../../hooks/useEffectiveCollection';
-import { useData } from './useData';
+import { useData } from '../../hooks/useData';
 
 // const c: MRT_TableOptions<any>['getRowCanExpand'];
 export function CollectionView<T extends MRT_RowData>() {

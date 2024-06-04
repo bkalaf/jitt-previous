@@ -9,18 +9,20 @@ import { getProperty } from '../../common/object';
 import { useMutation } from '@tanstack/react-query';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 
-
-export function createListListItem(Component: React.FunctionComponent<{ data: any; }>, toDelete: (index: any) => (ev: React.SyntheticEvent<HTMLButtonElement>) => void) {
-    return function ListListItem(props: { index: number | string; data: any; labelProperty?: string; }) {
-        useWhyDidIUpdate('ListListItem', props)
-        const Comp: React.FunctionComponent<{ data: any; }> = props.labelProperty == null ? Component : function LP({ data: d }: { data: any; }) {
-            useWhyDidIUpdate('LP', { data: d });
-            const value = getProperty(props.labelProperty ?? '', d) as string;
-            return value;
-        };
+export function createListListItem(Component: React.FunctionComponent<{ data: any }>, toDelete: (index: any) => (ev: React.SyntheticEvent<HTMLButtonElement>) => void) {
+    return function ListListItem(props: { index: number | string; data: any; labelProperty?: string }) {
+        useWhyDidIUpdate('ListListItem', props);
+        const Comp: React.FunctionComponent<{ data: any }> =
+            props.labelProperty == null
+                ? Component
+                : function LP({ data: d }: { data: any }) {
+                      useWhyDidIUpdate('LP', { data: d });
+                      const value = getProperty(props.labelProperty ?? '', d) as string;
+                      return value;
+                  };
         const invalidator = useInvalidateCollection();
         const { mutate } = useMutation({
-            mutationFn: (data: { index: any; ev: React.MouseEvent<HTMLButtonElement>; }) => {
+            mutationFn: (data: { index: any; ev: React.MouseEvent<HTMLButtonElement> }) => {
                 toDelete(data.index)(data.ev);
                 return Promise.resolve();
             },

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { defaultState } from './defaultState';
-import { useConfiguration } from '../contexts/useConfiguration';
+import { useConfiguration } from './useConfiguration';
 
 export function useCollectionSetting<TKey extends keyof IConfig>(collection: CollectionNames, key: TKey): [IConfig[TKey], React.Dispatch<React.SetStateAction<IConfig[TKey]>>] {
     const { getCollectionSetting, setCollectionSetting } = useConfiguration();

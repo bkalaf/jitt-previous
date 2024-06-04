@@ -5,6 +5,7 @@ import { provinces } from '../enums/provinces';
 import { countries } from '../enums/countries';
 import { IAddress } from '../../types';
 import { col } from '../defs/col';
+import { is } from '../../common/is';
 
 export const address: Realm.ObjectSchema = {
     name: schemaName($.address()),
@@ -43,4 +44,17 @@ export function getCityState(address?: IAddress) {
 }
 export function getStreetOnly(address?: IAddress) {
     return address?.mailing1?.split(' ').slice(1).join(' ');
+}
+
+export class Address extends Realm.Object<IAddress> implements IAddress {
+    mailing1?: string | undefined;
+    mailing2?: string | undefined;
+    suite?: string | undefined;
+    city: string;
+    province: string;
+    country: string;
+    postalCode?: string | undefined;
+
+    static schema = address;
+    static liComponent = (value?: IAddress) => () => [value?.mailing1, value?.mailing2, [getCityState(value), value?.postalCode].filter(is.not.nil).join(' ')].filter(is.not.nil).join('\n');
 }

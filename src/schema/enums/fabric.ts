@@ -8,7 +8,7 @@ export const fabric = {
     linen: 'linen',
     modal: 'modal',
     nylon: 'nylon',
-    organicCotton: 'orangicCotton',
+    organicCotton: 'organicCotton',
     polyester: 'polyester',
     rayon: 'rayon',
     satin: 'satin',

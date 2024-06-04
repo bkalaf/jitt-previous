@@ -5,10 +5,11 @@ import { createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-reac
 import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from '../../types';
 import { col } from '../defs/col';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
-import { createStringControl } from '../../components/controls/createStringControl';
 import { ObjectId } from 'bson';
 import { runTransaction } from '../../util/runTransaction';
 import { distinctBy, distinctByOID } from '../../common/array/distinct';
+import { StringControl } from '../../components/table/controls/StringControl';
+import { StringTableCell } from '../../components/table/cells/StringTableCell';
 
 export const h = createMRTColumnHelper<IClassifier>();
 export const helper = col(h);
@@ -22,15 +23,15 @@ export function createStringValueCell<T extends MRT_RowData>() {
     } as Exclude<MRT_ColumnDef<T>['Cell'], undefined>;
 }
 export const stringColumn = [
-    createMRTColumnHelper<{ value: string }>().accessor('value', {
+    createMRTColumnHelper<{ value?: string }>().accessor('value', {
         header: 'Value',
-        Cell: createStringValueCell<{ value: string }>() as any,
-        Edit: createStringControl(),
+        Cell: StringTableCell<{ value?: string }, string | undefined>,
+        Edit: StringControl<{ value?: string }, string | undefined>,
         meta: {
             maxLength: 150
         }
     })
-] as MRT_ColumnDef<any>[];
+] as MRT_ColumnDef<{ value: string }, string | undefined>[];
 
 export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
     helper.pk(),
@@ -87,6 +88,7 @@ export class Classifier extends Realm.Object<IClassifier> implements IClassifier
             hashTags: $.hashTag.list
         }
     };
+    static labelProperty = 'name';
 
     static update(realm: Realm, item: IClassifier): IClassifier {
         const func = () => {

@@ -38,4 +38,5 @@ export class HashTag extends Realm.Object<IHashTag> implements IHashTag {
     }
 
     static schema = hashTag;
+    static labelProperty = 'name';              
 }

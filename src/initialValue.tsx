@@ -25,7 +25,7 @@ export const initialValue = {
     mercariBrand: (): InitialValue<IMercariBrand> => ({ _id: new BSON.ObjectId(), name: '', hashTags: [] }),
     brand: (): InitialValue<IBrand> => ({ _id: new BSON.ObjectId(), name: '', hashTags: [] }),
     barcode,
-    bin: (): InitialValue<IBin> => ({ _id: new BSON.ObjectId(), barcode: barcode() as any as IBarcode, inventoryLabelPrinted: false, name: '' }),
+    bin: (): InitialValue<IBin> => ({ _id: new BSON.ObjectId(), barcode: barcode() as any as IBarcode, beenPrinted: false, name: '' }),
     includedItem: (): InitialValue<IIncludedItem> => ({ qty: 1, name: '' }),
     customItemField: (): InitialValue<ICustomItemField> => ({ name: '', id: '', value: '' }),
     connector: (): InitialValue<IConnector> => ({ }),

@@ -130,6 +130,7 @@ export type IBarcode = {
     isValidated: boolean;
     type: BarcodeTypes;
     value: string;
+    beenPrinted: boolean;
     readonly scanValue: string;
     equalTo(value: string | IBarcode): boolean;
 }
@@ -137,7 +138,6 @@ export type IBarcode = {
 export type IBin = {
     _id: BSON.ObjectId;
     barcode: IBarcode;
-    inventoryLabelPrinted: boolean;
     name: string;
     notes?: string;
 }
@@ -201,7 +201,29 @@ export type IMinMax<T extends Int | Double> = {
     max?: Opt<T>;
 }
 
-export type IProduct = {
+export type IApparelBottom = {
+    closureType?: Opt<ClosureTypes>;
+    fitType?: Opt<FitTypes>;
+    inseamSize?: Opt<Double>;
+    legStyle?: Opt<LegStyles>;
+    lengthSize?: Opt<Double>;
+    lengthType?: Opt<GarmentLengths>;
+    lifestyleType?: Opt<LifestyleTypes>;
+    pocketType?: Opt<PocketTypes>;
+    riseType?: Opt<RiseTypes>;
+    size?: Opt<Int>;
+    waistSize?: Opt<Double>;
+}
+export type IApparel = IApparelBottom & {
+    madeOf: DBList<IMadeOfSection>;
+    gender?: Opt<Genders>;
+    cutNo?: Opt<string>;
+    styleNo?: Opt<string>;
+    text?: Opt<string>;
+    rnNo?: Opt<Int>;
+    clothingCare?: Opt<IClothingCare>;
+}
+export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
     brand?: Opt<IBrand>;
@@ -222,26 +244,6 @@ export type IProduct = {
     circa?: Opt<string>;
     color: DBList<ProductColors>;
     description?: Opt<string>;
-    // apparel
-    madeOf: DBList<IMadeOfSection>;
-    gender?: Opt<Genders>;
-    cutNo?: Opt<string>;
-    styleNo?: Opt<string>;
-    text?: Opt<string>;
-    rnNo?: Opt<Int>;
-    clothingCare?: Opt<IClothingCare>;
-    // // apparel-bottom
-    closureType?: Opt<ClosureTypes>;
-    fitType?: Opt<FitTypes>;
-    inseamSize?: Opt<Double>;
-    legStyle?: Opt<LegStyles>;
-    lengthSize?: Opt<Double>;
-    lengthType?: Opt<GarmentLengths>;
-    lifestyleType?: Opt<LifestyleTypes>;
-    pocketType?: Opt<PocketTypes>;
-    riseType?: Opt<RiseTypes>;
-    size?: Opt<Int>;
-    waistSize?: Opt<Double>;
     // // apparel-footwear
     bootType?: Opt<BootTypes>;
     footSize?: Opt<Double>;
@@ -365,7 +367,70 @@ export type IShipping = {
     id: Int;
     version: Int;
 }
-
+export type ProductImageFlags = 'ignore' | 'do-not-rembg';
+export type FaceX = 'left' | 'right';
+export type FaceY = 'front' | 'back'; ;
+export type FaceZ = 'upper' | 'lower';
+export type FacePOV = 'defect' | 'inner' | 'logo' | 'tag' | 'barcode' | 'enhancer' | 'product-info';
+export type IFacing = {
+    x?: FaceX;
+    y?: FaceY;
+    z?: FaceZ;
+    pov: FacePOV[];
+    markUpper: () => IFacing;
+    markLower: () => IFacing;
+    markLeft: () => IFacing;
+    markRight: () => IFacing;
+    markFront: () => IFacing;
+    markBack: () => IFacing;
+    markInner: () => IFacing;
+    markLogo: () => IFacing;
+    markUPC: () => IFacing;
+    markEnhancer: () => IFacing;
+    markDefect: () => IFacing;
+    markTag: () => IFacing;
+}
+export type IProductImage = {
+    
+    _id: BSON.ObjectId;
+    fullpath: string;
+    filename: string;
+    extension: string;
+    mimeType: string;
+    sku: ISku;    
+    flags: ListBack<ProductImageFlags>;
+    takenOn?: Date;
+    caption?: string;
+    facing?: IFacing;
+    enabled?: 'original' | 'rembg';
+    readonly brandFolder: string;
+    readonly productFolder: string;
+    readonly skuFolder: string;
+    readonly hasRemBg?: boolean;
+    readonly isDoNotRemBG: boolean;
+    readonly isIgnored: boolean;
+    readonly remBGFn: string;
+    readonly remBGFromDownload: string;
+    readonly remBGInProductFolder?: string;
+    readonly originalFromUpload: string;
+    readonly originalInProductFolder: string;
+    readonly effectivePath?: string;
+    stageRemBG(): void;
+    moveOriginal(): void;
+    moveRemBG(): void;
+    createFolders(): void;
+    markUpper(): void;
+    markLower(): void;
+    markLeft(): void;
+    markRight(): void;
+    markFront(): void;
+    markBack(): void;
+    markInner(): void;
+    markLogo(): void;
+    markUPC(): void;
+    markEnhancer(): void;
+    markDefect(): void;
+}
 export type ISku = {
     _id: BSON.ObjectId;
     auction?: Opt<IAuction>;
@@ -377,7 +442,7 @@ export type ISku = {
     packingPercent?: Opt<Double>;
     product?: Opt<IProduct>;
     quantity?: Opt<Int>;
-    skus: DBList<IBarcode>;
+    skus: DBList<IBarcode> & [IBarcode];
     shipping?: Opt<IShipping>;
     readonly getShipping?: Opt<IShipping>;
     readonly getShipWeight?: Opt<number>;

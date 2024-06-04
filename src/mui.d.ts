@@ -1,3 +1,5 @@
+import { EnumName } from './schema/enums';
+
 export interface IPalletteColors<T> {
     important: T;
     highlight: T;
@@ -20,13 +22,23 @@ declare module '@tanstack/table-core' {
         readonly?: boolean;
         maxLength?: number;
         minLength?: number;
-        min?: number;
-        max?: number;
+        min?: number | Date;
+        max?: number | Date;
         pattern?: RegExp;
         validate?: Record<string, (value: TValue, formValues: Record<string, any>) => string | string[] | boolean | Promise<string | string[] | boolean>>;
         type?: React.HTMLInputTypeAttribute;
         step?: number;
         objectType?: string;
+        formatter?: (value?: TValue) => string;
+        uom?: string;
+        enumType?: EnumName;
+        flattener?: (value?: TValue) => string;
+        dateType?: 'past' | 'future';
+        options?: Record<string, string | { text: string; key: string; }>;
+        multiple?: boolean;
+        freeSolo?: boolean;
+        comparator?: (x?: TValue, y?: TValue) => Compared;
+        flags?: string[];
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {

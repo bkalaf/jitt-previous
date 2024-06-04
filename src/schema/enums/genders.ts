@@ -27,4 +27,12 @@ export const aliasGenders = {
 // }
 
 // as Record<keyof typeof _genders | keyof typeof aliasGenders, { text: string, key: string; }>
-export const genders = _genders;
+
+const gendersMap = Object.fromEntries(Object.entries(_genders).map(([k, v]) => [k, ({ key: k, text: v })]));
+
+export const genders = {
+    ...gendersMap,
+    ...Object.fromEntries(Object.entries(aliasGenders).map(([k, v]) => [k, gendersMap[v]]))
+};
+
+console.log(genders);

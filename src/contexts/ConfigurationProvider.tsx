@@ -1,4 +1,4 @@
-import { useProvideConfigurationContext } from './useProvideConfigurationContext';
+import { useProvideConfigurationContext } from '../hooks/useProvideConfigurationContext';
 import { ConfigurationContext } from './Configuration';
 
 

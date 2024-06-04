@@ -13,6 +13,7 @@ import { barcodeFormatter } from './barcodeFormatter';
 import { BarcodeTypes } from '../enums';
 
 export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
+    beenPrinted: boolean;
     _id: BSON.ObjectId;
     isValidated: boolean;
     type: BarcodeTypes;
@@ -33,7 +34,8 @@ export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
             _id: $.objectId(),
             isValidated: $.bool.default(false),
             type: $.string.default('unknown'),
-            value: $.string.default('0000000000000')
+            value: $.string.default('0000000000000'),
+            beenPrinted: $.bool.default(false)
         }
     };
     static update(realm: Realm, obj: Barcode): Barcode {
@@ -71,6 +73,7 @@ export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
         const checkdigit = calculateUPCCheckDigit(value);
         return Barcode.createFromFullUPC(realm, [...value, checkdigit].join(''), doNotCreate);
     }
+    static labelProperty = 'value';
 }
 
 const h = createMRTColumnHelper<IBarcode>();

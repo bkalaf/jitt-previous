@@ -21,3 +21,7 @@ export const mediaFlags = {
 
 export type MediaFlags = keyof typeof mediaFlags;
 export const mediaFlagOptions: MediaFlags[] = ['isDirectorsEdition', 'isCollectorsEdition', 'isUnrated', 'isWidescreen', 'isSubtitled', 'isClosedCaptioned'];
+
+export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaFlags)).map(x => [x[0], { text: x[1], key: x[0] }]));
+
+console.log(allFlags);

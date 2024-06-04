@@ -1,0 +1,4644 @@
+{
+	"backlineTypes": [
+		{
+			"key": "open",
+			"text": "open-back",
+			"aliases": [
+				"open back"
+			]
+		},
+		{
+			"key": "u-shape",
+			"text": "u-shape-back",
+			"aliases": [
+				"u-shape back"
+			]
+		},
+		{
+			"key": "v-shape",
+			"text": "v-shape-back",
+			"aliases": [
+				"v-shape back"
+			]
+		},
+		{
+			"key": "bare",
+			"text": "bare-back",
+			"aliases": [
+				"bare back"
+			]
+		},
+		{
+			"key": "x-cross",
+			"text": "x-cross-back",
+			"aliases": [
+				"x-cross back"
+			]
+		},
+		{
+			"key": "bow",
+			"text": "bow-back",
+			"aliases": [
+				"bow back"
+			]
+		},
+		{
+			"key": "strappy",
+			"text": "strappy-back",
+			"aliases": [
+				"strappy back"
+			]
+		}
+	],
+	"barcodeTypes": [
+		{
+			"text": "UPC",
+			"key": "upc",
+			"aliases": []
+		},
+		{
+			"text": "EAN",
+			"key": "ean",
+			"aliases": []
+		},
+		{
+			"text": "ISBN-10",
+			"key": "isbn-10",
+			"aliases": []
+		},
+		{
+			"text": "ISBN-13",
+			"key": "isbn-13",
+			"aliases": []
+		},
+		{
+			"text": "LOCATOR",
+			"key": "locator",
+			"aliases": []
+		},
+		{
+			"text": "SKU",
+			"key": "sku",
+			"aliases": []
+		},
+		{
+			"text": "?",
+			"key": "unknown",
+			"aliases": []
+		}
+	],
+	"bookGenres": [
+		{
+			"text": "fiction",
+			"key": "fiction",
+			"aliases": []
+		},
+		{
+			"text": "history",
+			"key": "history",
+			"aliases": []
+		},
+		{
+			"text": "mystery",
+			"key": "mystery",
+			"aliases": []
+		},
+		{
+			"text": "sci-fi",
+			"key": "sci-fi",
+			"aliases": []
+		},
+		{
+			"text": "biography",
+			"key": "biography",
+			"aliases": []
+		},
+		{
+			"text": "young-adult-fiction",
+			"key": "young-adult-fiction",
+			"aliases": []
+		},
+		{
+			"text": "romance",
+			"key": "romance",
+			"aliases": []
+		},
+		{
+			"text": "childrens",
+			"key": "childrens",
+			"aliases": []
+		},
+		{
+			"text": "self-help",
+			"key": "self-help",
+			"aliases": []
+		},
+		{
+			"text": "fantasy",
+			"key": "fantasy",
+			"aliases": []
+		},
+		{
+			"text": "poetry",
+			"key": "poetry",
+			"aliases": []
+		},
+		{
+			"text": "cookbook",
+			"key": "cookbook",
+			"aliases": []
+		},
+		{
+			"text": "social-science",
+			"key": "social-science",
+			"aliases": []
+		},
+		{
+			"text": "travel",
+			"key": "travel",
+			"aliases": []
+		},
+		{
+			"text": "reference-study",
+			"key": "reference-study",
+			"aliases": []
+		},
+		{
+			"text": "photography",
+			"key": "photography",
+			"aliases": []
+		},
+		{
+			"text": "business",
+			"key": "business",
+			"aliases": []
+		},
+		{
+			"text": "technology",
+			"key": "technology",
+			"aliases": []
+		},
+		{
+			"text": "politics",
+			"key": "politics",
+			"aliases": []
+		}
+	],
+	"bookTypes": [
+		{
+			"key": "hb",
+			"text": "hardback",
+			"aliases": [
+				"hard back",
+				"hard-back"
+			]
+		},
+		{
+			"key": "pb",
+			"text": "paperback",
+			"aliases": [
+				"paper back",
+				"paper-back"
+			]
+		},
+		{
+			"key": "bb",
+			"text": "boardbook",
+			"aliases": [
+				"board-book",
+				"board book"
+			]
+		},
+		{
+			"key": "tb",
+			"text": "textbook",
+			"aliases": [
+				"text-book",
+				"text book"
+			]
+		}
+	],
+	"bootTypes": [
+		{
+			"text": "ankle & bootie",
+			"key": "ankle & bootie",
+			"aliases": []
+		},
+		{
+			"text": "mid-calf",
+			"key": "mid-calf",
+			"aliases": []
+		},
+		{
+			"text": "knee-high",
+			"key": "knee-high",
+			"aliases": []
+		},
+		{
+			"text": "over-the-knee",
+			"key": "over-the-knee",
+			"aliases": []
+		}
+	],
+	"closureTypes": [
+		{
+			"text": "backstrap",
+			"key": "backstrap",
+			"aliases": []
+		},
+		{
+			"text": "buckle",
+			"key": "buckle",
+			"aliases": []
+		},
+		{
+			"text": "bungee",
+			"key": "bungee",
+			"aliases": []
+		},
+		{
+			"text": "button",
+			"key": "button",
+			"aliases": []
+		},
+		{
+			"text": "clip",
+			"key": "clip",
+			"aliases": []
+		},
+		{
+			"text": "drawstring",
+			"key": "drawstring",
+			"aliases": []
+		},
+		{
+			"text": "half-zip",
+			"key": "half-zip",
+			"aliases": []
+		},
+		{
+			"text": "hook & bar",
+			"key": "hook & bar",
+			"aliases": []
+		},
+		{
+			"text": "hook & eye",
+			"key": "hook & eye",
+			"aliases": []
+		},
+		{
+			"text": "hook & loop",
+			"key": "hook & loop",
+			"aliases": []
+		},
+		{
+			"text": "lace-up",
+			"key": "lace-up",
+			"aliases": []
+		},
+		{
+			"text": "magnetic",
+			"key": "magnetic",
+			"aliases": []
+		},
+		{
+			"text": "pull-on",
+			"key": "pull-on",
+			"aliases": []
+		},
+		{
+			"text": "slip-on",
+			"key": "slip-on",
+			"aliases": []
+		},
+		{
+			"text": "snap",
+			"key": "snap",
+			"aliases": []
+		},
+		{
+			"text": "speed laces",
+			"key": "speed laces",
+			"aliases": []
+		},
+		{
+			"text": "tie",
+			"key": "tie",
+			"aliases": []
+		},
+		{
+			"text": "zipper",
+			"key": "zipper",
+			"aliases": []
+		}
+	],
+	"collarTypes": [
+		{
+			"text": "band-collar",
+			"key": "band-collar",
+			"aliases": []
+		},
+		{
+			"text": "button-down-collar",
+			"key": "button-down-collar",
+			"aliases": []
+		},
+		{
+			"text": "camp-collar",
+			"key": "camp-collar",
+			"aliases": []
+		},
+		{
+			"text": "classic-collar",
+			"key": "classic-collar",
+			"aliases": []
+		},
+		{
+			"text": "club-collar",
+			"key": "club-collar",
+			"aliases": []
+		},
+		{
+			"text": "collarless",
+			"key": "collarless",
+			"aliases": []
+		},
+		{
+			"text": "cutaway-collar",
+			"key": "cutaway-collar",
+			"aliases": []
+		},
+		{
+			"text": "hidden-button-down-collar",
+			"key": "hidden-button-down-collar",
+			"aliases": []
+		},
+		{
+			"text": "lapel-collar",
+			"key": "lapel-collar",
+			"aliases": []
+		},
+		{
+			"text": "mandarin-collar",
+			"key": "mandarin-collar",
+			"aliases": []
+		},
+		{
+			"text": "point-collar",
+			"key": "point-collar",
+			"aliases": []
+		},
+		{
+			"text": "spread-collar",
+			"key": "spread-collar",
+			"aliases": []
+		},
+		{
+			"text": "tab-collar",
+			"key": "tab-collar",
+			"aliases": []
+		},
+		{
+			"text": "wingtip-collar",
+			"key": "wingtip-collar",
+			"aliases": []
+		}
+	],
+	"countries": [
+		{
+			"key": "AD",
+			"text": "Andorra",
+			"aliases": []
+		},
+		{
+			"key": "AE",
+			"text": "United Arab Emirates",
+			"aliases": []
+		},
+		{
+			"key": "AF",
+			"text": "Afghanistan",
+			"aliases": []
+		},
+		{
+			"key": "AG",
+			"text": "Antigua and Barbuda",
+			"aliases": []
+		},
+		{
+			"key": "AI",
+			"text": "Anguilla",
+			"aliases": []
+		},
+		{
+			"key": "AL",
+			"text": "Albania",
+			"aliases": []
+		},
+		{
+			"key": "AM",
+			"text": "Armenia",
+			"aliases": []
+		},
+		{
+			"key": "AO",
+			"text": "Angola",
+			"aliases": []
+		},
+		{
+			"key": "AQ",
+			"text": "Antarctica",
+			"aliases": []
+		},
+		{
+			"key": "AR",
+			"text": "Argentina",
+			"aliases": []
+		},
+		{
+			"key": "AS",
+			"text": "American Samoa",
+			"aliases": []
+		},
+		{
+			"key": "AT",
+			"text": "Austria",
+			"aliases": []
+		},
+		{
+			"key": "AU",
+			"text": "Australia",
+			"aliases": []
+		},
+		{
+			"key": "AW",
+			"text": "Aruba",
+			"aliases": []
+		},
+		{
+			"key": "AX",
+			"text": "Åland Islands",
+			"aliases": []
+		},
+		{
+			"key": "AZ",
+			"text": "Azerbaijan",
+			"aliases": []
+		},
+		{
+			"key": "BA",
+			"text": "Bosnia and Herzegovina",
+			"aliases": []
+		},
+		{
+			"key": "BB",
+			"text": "Barbados",
+			"aliases": []
+		},
+		{
+			"key": "BD",
+			"text": "Bangladesh",
+			"aliases": []
+		},
+		{
+			"key": "BE",
+			"text": "Belgium",
+			"aliases": []
+		},
+		{
+			"key": "BF",
+			"text": "Burkina Faso",
+			"aliases": []
+		},
+		{
+			"key": "BG",
+			"text": "Bulgaria",
+			"aliases": []
+		},
+		{
+			"key": "BH",
+			"text": "Bahrain",
+			"aliases": []
+		},
+		{
+			"key": "BI",
+			"text": "Burundi",
+			"aliases": []
+		},
+		{
+			"key": "BJ",
+			"text": "Benin",
+			"aliases": []
+		},
+		{
+			"key": "BL",
+			"text": "Saint Barthélemy",
+			"aliases": []
+		},
+		{
+			"key": "BM",
+			"text": "Bermuda",
+			"aliases": []
+		},
+		{
+			"key": "BN",
+			"text": "Brunei Darussalam",
+			"aliases": []
+		},
+		{
+			"key": "BO",
+			"text": "Bolivia",
+			"aliases": []
+		},
+		{
+			"key": "BQ",
+			"text": "Bonaire, Sint Eustatius and Saba",
+			"aliases": []
+		},
+		{
+			"key": "BR",
+			"text": "Brazil",
+			"aliases": []
+		},
+		{
+			"key": "BS",
+			"text": "Bahamas",
+			"aliases": []
+		},
+		{
+			"key": "BT",
+			"text": "Bhutan",
+			"aliases": []
+		},
+		{
+			"key": "BV",
+			"text": "Bouvet Island",
+			"aliases": []
+		},
+		{
+			"key": "BW",
+			"text": "Botswana",
+			"aliases": []
+		},
+		{
+			"key": "BY",
+			"text": "Belarus",
+			"aliases": []
+		},
+		{
+			"key": "BZ",
+			"text": "Belize",
+			"aliases": []
+		},
+		{
+			"key": "CA",
+			"text": "Canada",
+			"aliases": []
+		},
+		{
+			"key": "CC",
+			"text": "Cocos (Keeling) Islands",
+			"aliases": []
+		},
+		{
+			"key": "CD",
+			"text": "Congo",
+			"aliases": []
+		},
+		{
+			"key": "CF",
+			"text": "Central African Republic",
+			"aliases": []
+		},
+		{
+			"key": "CG",
+			"text": "Congo",
+			"aliases": []
+		},
+		{
+			"key": "CH",
+			"text": "Switzerland",
+			"aliases": []
+		},
+		{
+			"key": "CI",
+			"text": "Côte d'Ivoire",
+			"aliases": []
+		},
+		{
+			"key": "CK",
+			"text": "Cook Islands",
+			"aliases": []
+		},
+		{
+			"key": "CL",
+			"text": "Chile",
+			"aliases": []
+		},
+		{
+			"key": "CM",
+			"text": "Cameroon",
+			"aliases": []
+		},
+		{
+			"key": "CN",
+			"text": "China",
+			"aliases": []
+		},
+		{
+			"key": "CO",
+			"text": "Colombia",
+			"aliases": []
+		},
+		{
+			"key": "CR",
+			"text": "Costa Rica",
+			"aliases": []
+		},
+		{
+			"key": "CU",
+			"text": "Cuba",
+			"aliases": []
+		},
+		{
+			"key": "CV",
+			"text": "Cabo Verde",
+			"aliases": []
+		},
+		{
+			"key": "CW",
+			"text": "Curaçao",
+			"aliases": []
+		},
+		{
+			"key": "CX",
+			"text": "Christmas Island",
+			"aliases": []
+		},
+		{
+			"key": "CY",
+			"text": "Cyprus",
+			"aliases": []
+		},
+		{
+			"key": "CZ",
+			"text": "Czechia",
+			"aliases": []
+		},
+		{
+			"key": "DE",
+			"text": "Germany",
+			"aliases": []
+		},
+		{
+			"key": "DJ",
+			"text": "Djibouti",
+			"aliases": []
+		},
+		{
+			"key": "DK",
+			"text": "Denmark",
+			"aliases": []
+		},
+		{
+			"key": "DM",
+			"text": "Dominica",
+			"aliases": []
+		},
+		{
+			"key": "DO",
+			"text": "Dominican Republic",
+			"aliases": []
+		},
+		{
+			"key": "DZ",
+			"text": "Algeria",
+			"aliases": []
+		},
+		{
+			"key": "EC",
+			"text": "Ecuador",
+			"aliases": []
+		},
+		{
+			"key": "EE",
+			"text": "Estonia",
+			"aliases": []
+		},
+		{
+			"key": "EG",
+			"text": "Egypt",
+			"aliases": []
+		},
+		{
+			"key": "EH",
+			"text": "Western Sahara",
+			"aliases": []
+		},
+		{
+			"key": "ER",
+			"text": "Eritrea",
+			"aliases": []
+		},
+		{
+			"key": "ES",
+			"text": "Spain",
+			"aliases": []
+		},
+		{
+			"key": "ET",
+			"text": "Ethiopia",
+			"aliases": []
+		},
+		{
+			"key": "FI",
+			"text": "Finland",
+			"aliases": []
+		},
+		{
+			"key": "FJ",
+			"text": "Fiji",
+			"aliases": []
+		},
+		{
+			"key": "FK",
+			"text": "Falkland Islands",
+			"aliases": []
+		},
+		{
+			"key": "FM",
+			"text": "Micronesia",
+			"aliases": []
+		},
+		{
+			"key": "FO",
+			"text": "Faroe Islands",
+			"aliases": []
+		},
+		{
+			"key": "FR",
+			"text": "France",
+			"aliases": []
+		},
+		{
+			"key": "GA",
+			"text": "Gabon",
+			"aliases": []
+		},
+		{
+			"key": "GB",
+			"text": "United Kingdom",
+			"aliases": []
+		},
+		{
+			"key": "GD",
+			"text": "Grenada",
+			"aliases": []
+		},
+		{
+			"key": "GE",
+			"text": "Georgia",
+			"aliases": []
+		},
+		{
+			"key": "GF",
+			"text": "French Guiana",
+			"aliases": []
+		},
+		{
+			"key": "GG",
+			"text": "Guernsey",
+			"aliases": []
+		},
+		{
+			"key": "GH",
+			"text": "Ghana",
+			"aliases": []
+		},
+		{
+			"key": "GI",
+			"text": "Gibraltar",
+			"aliases": []
+		},
+		{
+			"key": "GL",
+			"text": "Greenland",
+			"aliases": []
+		},
+		{
+			"key": "GM",
+			"text": "Gambia",
+			"aliases": []
+		},
+		{
+			"key": "GN",
+			"text": "Guinea",
+			"aliases": []
+		},
+		{
+			"key": "GP",
+			"text": "Guadeloupe",
+			"aliases": []
+		},
+		{
+			"key": "GQ",
+			"text": "Equatorial Guinea",
+			"aliases": []
+		},
+		{
+			"key": "GR",
+			"text": "Greece",
+			"aliases": []
+		},
+		{
+			"key": "GS",
+			"text": "South Georgia and the South Sandwich Islands",
+			"aliases": []
+		},
+		{
+			"key": "GT",
+			"text": "Guatemala",
+			"aliases": []
+		},
+		{
+			"key": "GU",
+			"text": "Guam",
+			"aliases": []
+		},
+		{
+			"key": "GW",
+			"text": "Guinea-Bissau",
+			"aliases": []
+		},
+		{
+			"key": "GY",
+			"text": "Guyana",
+			"aliases": []
+		},
+		{
+			"key": "HK",
+			"text": "Hong Kong",
+			"aliases": []
+		},
+		{
+			"key": "HM",
+			"text": "Heard Island and McDonald Islands",
+			"aliases": []
+		},
+		{
+			"key": "HN",
+			"text": "Honduras",
+			"aliases": []
+		},
+		{
+			"key": "HR",
+			"text": "Croatia",
+			"aliases": []
+		},
+		{
+			"key": "HT",
+			"text": "Haiti",
+			"aliases": []
+		},
+		{
+			"key": "HU",
+			"text": "Hungary",
+			"aliases": []
+		},
+		{
+			"key": "ID",
+			"text": "Indonesia",
+			"aliases": []
+		},
+		{
+			"key": "IE",
+			"text": "Ireland",
+			"aliases": []
+		},
+		{
+			"key": "IL",
+			"text": "Israel",
+			"aliases": []
+		},
+		{
+			"key": "IM",
+			"text": "Isle of Man",
+			"aliases": []
+		},
+		{
+			"key": "IN",
+			"text": "India",
+			"aliases": []
+		},
+		{
+			"key": "IO",
+			"text": "British Indian Ocean Territory",
+			"aliases": []
+		},
+		{
+			"key": "IQ",
+			"text": "Iraq",
+			"aliases": []
+		},
+		{
+			"key": "IR",
+			"text": "Iran",
+			"aliases": []
+		},
+		{
+			"key": "IS",
+			"text": "Iceland",
+			"aliases": []
+		},
+		{
+			"key": "IT",
+			"text": "Italy",
+			"aliases": []
+		},
+		{
+			"key": "JE",
+			"text": "Jersey",
+			"aliases": []
+		},
+		{
+			"key": "JM",
+			"text": "Jamaica",
+			"aliases": []
+		},
+		{
+			"key": "JO",
+			"text": "Jordan",
+			"aliases": []
+		},
+		{
+			"key": "JP",
+			"text": "Japan",
+			"aliases": []
+		},
+		{
+			"key": "KE",
+			"text": "Kenya",
+			"aliases": []
+		},
+		{
+			"key": "KG",
+			"text": "Kyrgyzstan",
+			"aliases": []
+		},
+		{
+			"key": "KH",
+			"text": "Cambodia",
+			"aliases": []
+		},
+		{
+			"key": "KI",
+			"text": "Kiribati",
+			"aliases": []
+		},
+		{
+			"key": "KM",
+			"text": "Comoros",
+			"aliases": []
+		},
+		{
+			"key": "KN",
+			"text": "Saint Kitts and Nevis",
+			"aliases": []
+		},
+		{
+			"key": "KP",
+			"text": "North Korea",
+			"aliases": []
+		},
+		{
+			"key": "KR",
+			"text": "South Korea",
+			"aliases": []
+		},
+		{
+			"key": "KW",
+			"text": "Kuwait",
+			"aliases": []
+		},
+		{
+			"key": "KY",
+			"text": "Cayman Islands",
+			"aliases": []
+		},
+		{
+			"key": "KZ",
+			"text": "Kazakhstan",
+			"aliases": []
+		},
+		{
+			"key": "LA",
+			"text": "Laos",
+			"aliases": []
+		},
+		{
+			"key": "LB",
+			"text": "Lebanon",
+			"aliases": []
+		},
+		{
+			"key": "LC",
+			"text": "Saint Lucia",
+			"aliases": []
+		},
+		{
+			"key": "LI",
+			"text": "Liechtenstein",
+			"aliases": []
+		},
+		{
+			"key": "LK",
+			"text": "Sri Lanka",
+			"aliases": []
+		},
+		{
+			"key": "LR",
+			"text": "Liberia",
+			"aliases": []
+		},
+		{
+			"key": "LS",
+			"text": "Lesotho",
+			"aliases": []
+		},
+		{
+			"key": "LT",
+			"text": "Lithuania",
+			"aliases": []
+		},
+		{
+			"key": "LU",
+			"text": "Luxembourg",
+			"aliases": []
+		},
+		{
+			"key": "LV",
+			"text": "Latvia",
+			"aliases": []
+		},
+		{
+			"key": "LY",
+			"text": "Libya",
+			"aliases": []
+		},
+		{
+			"key": "MA",
+			"text": "Morocco",
+			"aliases": []
+		},
+		{
+			"key": "MC",
+			"text": "Monaco",
+			"aliases": []
+		},
+		{
+			"key": "MD",
+			"text": "Moldova",
+			"aliases": []
+		},
+		{
+			"key": "ME",
+			"text": "Montenegro",
+			"aliases": []
+		},
+		{
+			"key": "MF",
+			"text": "Saint Martin",
+			"aliases": []
+		},
+		{
+			"key": "MG",
+			"text": "Madagascar",
+			"aliases": []
+		},
+		{
+			"key": "MH",
+			"text": "Marshall Islands",
+			"aliases": []
+		},
+		{
+			"key": "MK",
+			"text": "North Macedonia",
+			"aliases": []
+		},
+		{
+			"key": "ML",
+			"text": "Mali",
+			"aliases": []
+		},
+		{
+			"key": "MM",
+			"text": "Myanmar",
+			"aliases": []
+		},
+		{
+			"key": "MN",
+			"text": "Mongolia",
+			"aliases": []
+		},
+		{
+			"key": "MO",
+			"text": "Macao [s]",
+			"aliases": []
+		},
+		{
+			"key": "MP",
+			"text": "Northern Mariana Islands",
+			"aliases": []
+		},
+		{
+			"key": "MQ",
+			"text": "Martinique",
+			"aliases": []
+		},
+		{
+			"key": "MR",
+			"text": "Mauritania",
+			"aliases": []
+		},
+		{
+			"key": "MS",
+			"text": "Montserrat",
+			"aliases": []
+		},
+		{
+			"key": "MT",
+			"text": "Malta",
+			"aliases": []
+		},
+		{
+			"key": "MU",
+			"text": "Mauritius",
+			"aliases": []
+		},
+		{
+			"key": "MV",
+			"text": "Maldives",
+			"aliases": []
+		},
+		{
+			"key": "MW",
+			"text": "Malawi",
+			"aliases": []
+		},
+		{
+			"key": "MX",
+			"text": "Mexico",
+			"aliases": []
+		},
+		{
+			"key": "MY",
+			"text": "Malaysia",
+			"aliases": []
+		},
+		{
+			"key": "MZ",
+			"text": "Mozambique",
+			"aliases": []
+		},
+		{
+			"key": "NA",
+			"text": "Namibia",
+			"aliases": []
+		},
+		{
+			"key": "NC",
+			"text": "New Caledonia",
+			"aliases": []
+		},
+		{
+			"key": "NE",
+			"text": "Niger",
+			"aliases": []
+		},
+		{
+			"key": "NF",
+			"text": "Norfolk Island",
+			"aliases": []
+		},
+		{
+			"key": "NG",
+			"text": "Nigeria",
+			"aliases": []
+		},
+		{
+			"key": "NI",
+			"text": "Nicaragua",
+			"aliases": []
+		},
+		{
+			"key": "NL",
+			"text": "Netherlands",
+			"aliases": []
+		},
+		{
+			"key": "NO",
+			"text": "Norway",
+			"aliases": []
+		},
+		{
+			"key": "NP",
+			"text": "Nepal",
+			"aliases": []
+		},
+		{
+			"key": "NR",
+			"text": "Nauru",
+			"aliases": []
+		},
+		{
+			"key": "NU",
+			"text": "Niue",
+			"aliases": []
+		},
+		{
+			"key": "NZ",
+			"text": "New Zealand",
+			"aliases": []
+		},
+		{
+			"key": "OM",
+			"text": "Oman",
+			"aliases": []
+		},
+		{
+			"key": "PA",
+			"text": "Panama",
+			"aliases": []
+		},
+		{
+			"key": "PE",
+			"text": "Peru",
+			"aliases": []
+		},
+		{
+			"key": "PF",
+			"text": "French Polynesia",
+			"aliases": []
+		},
+		{
+			"key": "PG",
+			"text": "Papua New Guinea",
+			"aliases": []
+		},
+		{
+			"key": "PH",
+			"text": "Philippines",
+			"aliases": []
+		},
+		{
+			"key": "PK",
+			"text": "Pakistan",
+			"aliases": []
+		},
+		{
+			"key": "PL",
+			"text": "Poland",
+			"aliases": []
+		},
+		{
+			"key": "PM",
+			"text": "Saint Pierre and Miquelon",
+			"aliases": []
+		},
+		{
+			"key": "PN",
+			"text": "Pitcairn",
+			"aliases": []
+		},
+		{
+			"key": "PR",
+			"text": "Puerto Rico",
+			"aliases": []
+		},
+		{
+			"key": "PS",
+			"text": "Palestine",
+			"aliases": []
+		},
+		{
+			"key": "PT",
+			"text": "Portugal",
+			"aliases": []
+		},
+		{
+			"key": "PW",
+			"text": "Palau",
+			"aliases": []
+		},
+		{
+			"key": "PY",
+			"text": "Paraguay",
+			"aliases": []
+		},
+		{
+			"key": "QA",
+			"text": "Qatar",
+			"aliases": []
+		},
+		{
+			"key": "RE",
+			"text": "Réunion",
+			"aliases": []
+		},
+		{
+			"key": "RO",
+			"text": "Romania",
+			"aliases": []
+		},
+		{
+			"key": "RS",
+			"text": "Serbia",
+			"aliases": []
+		},
+		{
+			"key": "RU",
+			"text": "Russia",
+			"aliases": []
+		},
+		{
+			"key": "RW",
+			"text": "Rwanda",
+			"aliases": []
+		},
+		{
+			"key": "SA",
+			"text": "Saudi Arabia",
+			"aliases": []
+		},
+		{
+			"key": "SB",
+			"text": "Solomon Islands",
+			"aliases": []
+		},
+		{
+			"key": "SC",
+			"text": "Seychelles",
+			"aliases": []
+		},
+		{
+			"key": "SD",
+			"text": "Sudan",
+			"aliases": []
+		},
+		{
+			"key": "SE",
+			"text": "Sweden",
+			"aliases": []
+		},
+		{
+			"key": "SG",
+			"text": "Singapore",
+			"aliases": []
+		},
+		{
+			"key": "SH",
+			"text": "Saint Helena, Ascension and Tristan da Cunha",
+			"aliases": []
+		},
+		{
+			"key": "SI",
+			"text": "Slovenia",
+			"aliases": []
+		},
+		{
+			"key": "SJ",
+			"text": "Svalbard and Jan Mayen",
+			"aliases": []
+		},
+		{
+			"key": "SK",
+			"text": "Slovakia",
+			"aliases": []
+		},
+		{
+			"key": "SL",
+			"text": "Sierra Leone",
+			"aliases": []
+		},
+		{
+			"key": "SM",
+			"text": "San Marino",
+			"aliases": []
+		},
+		{
+			"key": "SN",
+			"text": "Senegal",
+			"aliases": []
+		},
+		{
+			"key": "SO",
+			"text": "Somalia",
+			"aliases": []
+		},
+		{
+			"key": "SR",
+			"text": "Suriname",
+			"aliases": []
+		},
+		{
+			"key": "SS",
+			"text": "South Sudan",
+			"aliases": []
+		},
+		{
+			"key": "ST",
+			"text": "Sao Tome and Principe",
+			"aliases": []
+		},
+		{
+			"key": "SV",
+			"text": "El Salvador",
+			"aliases": []
+		},
+		{
+			"key": "SX",
+			"text": "Sint Maarten",
+			"aliases": []
+		},
+		{
+			"key": "SY",
+			"text": "Syria",
+			"aliases": []
+		},
+		{
+			"key": "SZ",
+			"text": "Eswatini",
+			"aliases": []
+		},
+		{
+			"key": "TC",
+			"text": "Turks and Caicos Islands",
+			"aliases": []
+		},
+		{
+			"key": "TD",
+			"text": "Chad",
+			"aliases": []
+		},
+		{
+			"key": "TF",
+			"text": "French Southern Territories",
+			"aliases": []
+		},
+		{
+			"key": "TG",
+			"text": "Togo",
+			"aliases": []
+		},
+		{
+			"key": "TH",
+			"text": "Thailand",
+			"aliases": []
+		},
+		{
+			"key": "TJ",
+			"text": "Tajikistan",
+			"aliases": []
+		},
+		{
+			"key": "TK",
+			"text": "Tokelau",
+			"aliases": []
+		},
+		{
+			"key": "TL",
+			"text": "Timor-Leste",
+			"aliases": []
+		},
+		{
+			"key": "TM",
+			"text": "Turkmenistan",
+			"aliases": []
+		},
+		{
+			"key": "TN",
+			"text": "Tunisia",
+			"aliases": []
+		},
+		{
+			"key": "TO",
+			"text": "Tonga",
+			"aliases": []
+		},
+		{
+			"key": "TR",
+			"text": "Turkey",
+			"aliases": []
+		},
+		{
+			"key": "TT",
+			"text": "Trinidad and Tobago",
+			"aliases": []
+		},
+		{
+			"key": "TV",
+			"text": "Tuvalu",
+			"aliases": []
+		},
+		{
+			"key": "TW",
+			"text": "Taiwan",
+			"aliases": []
+		},
+		{
+			"key": "TZ",
+			"text": "Tanzania",
+			"aliases": []
+		},
+		{
+			"key": "UA",
+			"text": "Ukraine",
+			"aliases": []
+		},
+		{
+			"key": "UG",
+			"text": "Uganda",
+			"aliases": []
+		},
+		{
+			"key": "UM",
+			"text": "United States Minor Outlying Islands",
+			"aliases": []
+		},
+		{
+			"key": "US",
+			"text": "United States",
+			"aliases": []
+		},
+		{
+			"key": "UY",
+			"text": "Uruguay",
+			"aliases": []
+		},
+		{
+			"key": "UZ",
+			"text": "Uzbekistan",
+			"aliases": []
+		},
+		{
+			"key": "VA",
+			"text": "Holy See",
+			"aliases": []
+		},
+		{
+			"key": "VC",
+			"text": "Saint Vincent and the Grenadines",
+			"aliases": []
+		},
+		{
+			"key": "VE",
+			"text": "Venezuela",
+			"aliases": []
+		},
+		{
+			"key": "VG",
+			"text": "Virgin Islands (British)",
+			"aliases": []
+		},
+		{
+			"key": "VI",
+			"text": "Virgin Islands (U.S.)",
+			"aliases": []
+		},
+		{
+			"key": "VN",
+			"text": "Vietnam",
+			"aliases": []
+		},
+		{
+			"key": "VU",
+			"text": "Vanuatu",
+			"aliases": []
+		},
+		{
+			"key": "WF",
+			"text": "Wallis and Futuna",
+			"aliases": []
+		},
+		{
+			"key": "WS",
+			"text": "Samoa",
+			"aliases": []
+		},
+		{
+			"key": "YE",
+			"text": "Yemen",
+			"aliases": []
+		},
+		{
+			"key": "YT",
+			"text": "Mayotte",
+			"aliases": []
+		},
+		{
+			"key": "ZA",
+			"text": "South Africa",
+			"aliases": []
+		},
+		{
+			"key": "ZM",
+			"text": "Zambia",
+			"aliases": []
+		},
+		{
+			"key": "ZW",
+			"text": "Zimbabwe",
+			"aliases": []
+		}
+	],
+	"cuffTypes": [
+		{
+			"key": "angle-cut-cuff",
+			"text": "angle-cut-cuff",
+			"aliases": [
+				"angle-cut cuff",
+				"angle-cut"
+			]
+		},
+		{
+			"key": "barrel-cuff",
+			"text": "barrel-cuff",
+			"aliases": [
+				"barrel cuff"
+			]
+		},
+		{
+			"key": "double-cuff",
+			"text": "double-cuff",
+			"aliases": [
+				"double cuff"
+			]
+		},
+		{
+			"key": "french-cuff",
+			"text": "french-cuff",
+			"aliases": [
+				"french cuff"
+			]
+		},
+		{
+			"key": "ribbed-cuff",
+			"text": "ribbed-cuff",
+			"aliases": [
+				"ribbed cuff"
+			]
+		},
+		{
+			"key": "two-button-cuff",
+			"text": "two-button-cuff",
+			"aliases": [
+				"two-button cuff"
+			]
+		},
+		{
+			"key": "one-button-cuff",
+			"text": "one-button-cuff",
+			"aliases": [
+				"one-button cuff"
+			]
+		},
+		{
+			"key": "rounded-cuff",
+			"text": "rounded-cuff",
+			"aliases": [
+				"rounded cuff",
+				"round-cut cuff",
+				"round-cut-cuff"
+			]
+		},
+		{
+			"key": "single-cuff",
+			"text": "single-cuff",
+			"aliases": [
+				"single cuff"
+			]
+		}
+	],
+	"consoleTypes": [
+		{
+			"text": "Nintendo (NES)",
+			"key": "nes",
+			"aliases": []
+		},
+		{
+			"text": "Super Nintendo",
+			"key": "snes",
+			"aliases": []
+		},
+		{
+			"text": "Nintendo 64",
+			"key": "n64",
+			"aliases": []
+		},
+		{
+			"text": "Nintendo Gameboy",
+			"key": "gameboy",
+			"aliases": []
+		},
+		{
+			"text": "Nintendo Gameboy Advance",
+			"key": "gameboy-advance",
+			"aliases": []
+		},
+		{
+			"text": "Nintendo DS",
+			"key": "ds",
+			"aliases": []
+		},
+		{
+			"text": "Playstation 1",
+			"key": "ps1",
+			"aliases": []
+		},
+		{
+			"text": "Playstation 2",
+			"key": "ps2",
+			"aliases": []
+		},
+		{
+			"text": "Playstation 3",
+			"key": "ps3",
+			"aliases": []
+		},
+		{
+			"text": "Playstation 4",
+			"key": "ps4",
+			"aliases": []
+		},
+		{
+			"text": "Playstation 5",
+			"key": "ps5",
+			"aliases": []
+		},
+		{
+			"text": "Nintendo Wii",
+			"key": "wii",
+			"aliases": []
+		},
+		{
+			"text": "Microsoft XBox",
+			"key": "xbox",
+			"aliases": []
+		}
+	],
+	"detailsTypes": [
+		{
+			"text": "apparel-bottoms",
+			"key": "apparel-bottoms",
+			"aliases": []
+		},
+		{
+			"text": "apparel-bras",
+			"key": "apparel-bras",
+			"aliases": []
+		},
+		{
+			"text": "apparel-footwear",
+			"key": "apparel-footwear",
+			"aliases": []
+		},
+		{
+			"text": "apparel-tops",
+			"key": "apparel-tops",
+			"aliases": []
+		},
+		{
+			"text": "apparel",
+			"key": "apparel",
+			"aliases": []
+		},
+		{
+			"text": "cables-data",
+			"key": "cables-data",
+			"aliases": []
+		},
+		{
+			"text": "cables-power",
+			"key": "cables-power",
+			"aliases": []
+		},
+		{
+			"text": "cables-video",
+			"key": "cables-video",
+			"aliases": []
+		},
+		{
+			"text": "cables",
+			"key": "cables",
+			"aliases": []
+		},
+		{
+			"text": "cell-phones",
+			"key": "cell-phones",
+			"aliases": []
+		},
+		{
+			"text": "electronics",
+			"key": "electronics",
+			"aliases": []
+		},
+		{
+			"text": "general",
+			"key": "general",
+			"aliases": []
+		},
+		{
+			"text": "home-goods-dinnerware",
+			"key": "home-goods-dinnerware",
+			"aliases": []
+		},
+		{
+			"text": "home-goods-flatware",
+			"key": "home-goods-flatware",
+			"aliases": []
+		},
+		{
+			"text": "home-goods",
+			"key": "home-goods",
+			"aliases": []
+		},
+		{
+			"text": "jewelry",
+			"key": "jewelry",
+			"aliases": []
+		},
+		{
+			"text": "kitchen-appliances",
+			"key": "kitchen-appliances",
+			"aliases": []
+		},
+		{
+			"text": "media-books",
+			"key": "media-books",
+			"aliases": []
+		},
+		{
+			"text": "media-music",
+			"key": "media-music",
+			"aliases": []
+		},
+		{
+			"text": "media-video-games",
+			"key": "media-video-games",
+			"aliases": []
+		},
+		{
+			"text": "media-videos-film",
+			"key": "media-videos-film",
+			"aliases": []
+		},
+		{
+			"text": "media-videos-tv-series",
+			"key": "media-videos-tv-series",
+			"aliases": []
+		},
+		{
+			"text": "media-videos",
+			"key": "media-videos",
+			"aliases": []
+		},
+		{
+			"text": "media",
+			"key": "media",
+			"aliases": []
+		},
+		{
+			"text": "sporting-goods-golf-clubs",
+			"key": "sporting-goods-golf-clubs",
+			"aliases": []
+		},
+		{
+			"text": "sporting-goods",
+			"key": "sporting-goods",
+			"aliases": []
+		},
+		{
+			"text": "toys",
+			"key": "toys",
+			"aliases": []
+		}
+	],
+	"dressTypes": [
+		{
+			"text": "above-knee",
+			"key": "above-knee",
+			"aliases": []
+		},
+		{
+			"text": "knee-length",
+			"key": "knee-length",
+			"aliases": []
+		},
+		{
+			"text": "midi",
+			"key": "midi",
+			"aliases": []
+		},
+		{
+			"text": "maxi",
+			"key": "maxi",
+			"aliases": []
+		},
+		{
+			"text": "high-low",
+			"key": "high-low",
+			"aliases": []
+		},
+		{
+			"text": "ball-gown",
+			"key": "ball-gown",
+			"aliases": []
+		}
+	],
+	"eSRBRatings": [
+		{
+			"text": "E",
+			"key": "E",
+			"aliases": []
+		},
+		{
+			"text": "E10+",
+			"key": "E10+",
+			"aliases": []
+		},
+		{
+			"text": "T",
+			"key": "T",
+			"aliases": []
+		},
+		{
+			"text": "M",
+			"key": "M",
+			"aliases": []
+		},
+		{
+			"text": "AO",
+			"key": "AO",
+			"aliases": []
+		},
+		{
+			"text": "RP",
+			"key": "RP",
+			"aliases": []
+		},
+		{
+			"text": "RPLM",
+			"key": "RPLM",
+			"aliases": []
+		},
+		{
+			"text": "Not Rated",
+			"key": "Not Rated",
+			"aliases": [
+				"No Rating"
+			]
+		}
+	],
+	"fabricTypes": [
+		{
+			"text": "acrylic",
+			"key": "acrylic",
+			"aliases": []
+		},
+		{
+			"text": "cashmere",
+			"key": "cashmere",
+			"aliases": []
+		},
+		{
+			"text": "cotton",
+			"key": "cotton",
+			"aliases": []
+		},
+		{
+			"text": "denim",
+			"key": "denim",
+			"aliases": []
+		},
+		{
+			"text": "lace",
+			"key": "lace",
+			"aliases": []
+		},
+		{
+			"text": "leather",
+			"key": "leather",
+			"aliases": []
+		},
+		{
+			"text": "linen",
+			"key": "linen",
+			"aliases": []
+		},
+		{
+			"text": "modal",
+			"key": "modal",
+			"aliases": []
+		},
+		{
+			"text": "nylon",
+			"key": "nylon",
+			"aliases": []
+		},
+		{
+			"text": "organicCotton",
+			"key": "organicCotton",
+			"aliases": []
+		},
+		{
+			"text": "polyester",
+			"key": "polyester",
+			"aliases": []
+		},
+		{
+			"text": "rayon",
+			"key": "rayon",
+			"aliases": []
+		},
+		{
+			"text": "satin",
+			"key": "satin",
+			"aliases": []
+		},
+		{
+			"text": "silk",
+			"key": "silk",
+			"aliases": []
+		},
+		{
+			"text": "spandex",
+			"key": "spandex",
+			"aliases": []
+		},
+		{
+			"text": "suede",
+			"key": "suede",
+			"aliases": []
+		},
+		{
+			"text": "velvet",
+			"key": "velvet",
+			"aliases": []
+		},
+		{
+			"text": "viscose",
+			"key": "viscose",
+			"aliases": []
+		},
+		{
+			"text": "wool",
+			"key": "wool",
+			"aliases": []
+		}
+	],
+	"fitTypes": [
+		{
+			"text": "loose-fit",
+			"key": "loose-fit",
+			"aliases": []
+		},
+		{
+			"key": "relaxed fit",
+			"aliases": [
+				"relaxed-fit"
+			]
+		},
+		{
+			"key": "athletic fit",
+			"text": "atheletic fit",
+			"aliases": [
+				"athletic-fit"
+			]
+		},
+		{
+			"text": "classic-fit",
+			"key": "classic-fit",
+			"aliases": []
+		},
+		{
+			"text": "fitted",
+			"key": "fitted",
+			"aliases": []
+		},
+		{
+			"text": "oversized",
+			"key": "oversized",
+			"aliases": []
+		},
+		{
+			"text": "modern-fit",
+			"key": "modern-fit",
+			"aliases": []
+		},
+		{
+			"text": "regular-fit",
+			"key": "regular-fit",
+			"aliases": []
+		},
+		{
+			"text": "skinny",
+			"key": "skinny",
+			"aliases": []
+		},
+		{
+			"key": "slim fit",
+			"text": "slim fit",
+			"aliases": [
+				"slim-fit"
+			]
+		},
+		{
+			"text": "snug-fit",
+			"key": "snug-fit",
+			"aliases": []
+		},
+		{
+			"text": "straight",
+			"key": "straight",
+			"aliases": []
+		},
+		{
+			"key": "tailored-fit",
+			"text": "tailored-fit",
+			"aliases": [
+				"tailored"
+			]
+		}
+	],
+	"flags": [
+		{
+			"text": "Media Mail",
+			"key": "isMediaMail",
+			"aliases": []
+		},
+		{
+			"text": "Discontinued",
+			"key": "isDiscontinued",
+			"aliases": []
+		},
+		{
+			"text": "Rare",
+			"key": "isRare",
+			"aliases": []
+		},
+		{
+			"text": "Vintage",
+			"key": "isVintage",
+			"aliases": []
+		},
+		{
+			"text": "Collectible",
+			"key": "isCollectible",
+			"aliases": []
+		},
+		{
+			"text": "Has Manual",
+			"key": "hasManual",
+			"aliases": []
+		},
+		{
+			"text": "Unopened",
+			"key": "isUnopened",
+			"aliases": []
+		},
+		{
+			"text": "Director's Edition",
+			"key": "isDirectorsEdition",
+			"aliases": []
+		},
+		{
+			"text": "Collector's Edition",
+			"key": "isCollectorsEdition",
+			"aliases": []
+		},
+		{
+			"text": "Widescreen",
+			"key": "isWidescreen",
+			"aliases": []
+		},
+		{
+			"text": "Subtitled",
+			"key": "isSubtitled",
+			"aliases": []
+		},
+		{
+			"text": "Closed-Captioned",
+			"key": "isClosedCaptioned",
+			"aliases": []
+		},
+		{
+			"text": "Unrated",
+			"key": "isUnrated",
+			"aliases": []
+		}
+	],
+	"garmentLengths": [
+		{
+			"text": "extra-long",
+			"key": "extra-long",
+			"aliases": []
+		},
+		{
+			"text": "extra-short",
+			"key": "extra-short",
+			"aliases": []
+		},
+		{
+			"text": "long",
+			"key": "long",
+			"aliases": []
+		},
+		{
+			"text": "short",
+			"key": "short",
+			"aliases": []
+		},
+		{
+			"text": "standard",
+			"key": "standard",
+			"aliases": []
+		}
+	],
+	"genders": [
+		{
+			"key": "mens",
+			"text": "mens",
+			"aliases": [
+				"men's",
+				"men"
+			]
+		},
+		{
+			"key": "womens",
+			"text": "womens",
+			"aliases": [
+				"women's",
+				"women"
+			]
+		},
+		{
+			"key": "boys",
+			"text": "boys",
+			"aliases": [
+				"boy",
+				"boy's"
+			]
+		},
+		{
+			"key": "girls",
+			"text": "girls",
+			"aliases": [
+				"girl",
+				"girl's"
+			]
+		},
+		{
+			"key": "unisex",
+			"text": "unisex",
+			"aliases": []
+		}
+	],
+	"heightMaps": [
+		{
+			"text": "high-top",
+			"key": "high-top",
+			"aliases": []
+		},
+		{
+			"text": "low-top",
+			"key": "low-top",
+			"aliases": []
+		},
+		{
+			"text": "mid-top",
+			"key": "mid-top",
+			"aliases": []
+		}
+	],
+	"languages": [
+		{
+			"text": "English",
+			"key": "en",
+			"aliases": []
+		},
+		{
+			"text": "Spanish",
+			"key": "es",
+			"aliases": []
+		},
+		{
+			"text": "Japanese",
+			"key": "ja",
+			"aliases": []
+		}
+	],
+	"legStyles": [
+		{
+			"key": "ankle-leg",
+			"text": "ankle-leg",
+			"aliases": []
+		},
+		{
+			"key": "baggy",
+			"text": "baggy",
+			"aliases": [
+				"baggy-leg",
+				"baggy leg"
+			]
+		},
+		{
+			"key": "bootcut",
+			"text": "bootcut",
+			"aliases": [
+				"bootcut-leg",
+				"bootcut leg"
+			]
+		},
+		{
+			"key": "cropped",
+			"text": "cropped",
+			"aliases": [
+				"cropped-leg",
+				"cropped leg"
+			]
+		},
+		{
+			"key": "flared",
+			"text": "flared",
+			"aliases": [
+				"flared-leg",
+				"flared leg"
+			]
+		},
+		{
+			"key": "skinny",
+			"text": "skinny",
+			"aliases": [
+				"skinny-leg",
+				"skinny leg"
+			]
+		},
+		{
+			"key": "straight-leg",
+			"text": "straight-leg",
+			"aliases": [
+				"straight leg"
+			]
+		},
+		{
+			"key": "tapered-leg",
+			"text": "tapered-leg",
+			"aliases": [
+				"tapered leg"
+			]
+		},
+		{
+			"key": "trouser-leg",
+			"text": "trouser-leg",
+			"aliases": [
+				"trouser leg"
+			]
+		},
+		{
+			"key": "wide-leg",
+			"text": "wide-leg",
+			"aliases": [
+				"wide leg"
+			]
+		}
+	],
+	"lifestyleTypes": [
+		{
+			"text": "business casual",
+			"key": "business casual",
+			"aliases": []
+		},
+		{
+			"text": "casual",
+			"key": "casual",
+			"aliases": []
+		},
+		{
+			"text": "club",
+			"key": "club",
+			"aliases": []
+		},
+		{
+			"text": "comfort",
+			"key": "comfort",
+			"aliases": []
+		},
+		{
+			"text": "evening",
+			"key": "evening",
+			"aliases": []
+		},
+		{
+			"text": "formal",
+			"key": "formal",
+			"aliases": []
+		}
+	],
+	"musicFormatTypes": [
+		{
+			"text": "cd",
+			"key": "cd",
+			"aliases": []
+		},
+		{
+			"text": "cassette",
+			"key": "cassette",
+			"aliases": []
+		},
+		{
+			"text": "lp",
+			"key": "lp",
+			"aliases": []
+		},
+		{
+			"text": "8-track",
+			"key": "8-track",
+			"aliases": []
+		}
+	],
+	"musicGenres": [
+		{
+			"text": "pop",
+			"key": "pop",
+			"aliases": []
+		},
+		{
+			"text": "rock",
+			"key": "rock",
+			"aliases": []
+		},
+		{
+			"text": "rhythm-and-blues",
+			"key": "rhythm-and-blues",
+			"aliases": []
+		},
+		{
+			"text": "hip-hop",
+			"key": "hip-hop",
+			"aliases": []
+		},
+		{
+			"text": "country",
+			"key": "country",
+			"aliases": []
+		},
+		{
+			"text": "jazz",
+			"key": "jazz",
+			"aliases": []
+		},
+		{
+			"text": "blues",
+			"key": "blues",
+			"aliases": []
+		},
+		{
+			"text": "electronic-dance",
+			"key": "electronic-dance",
+			"aliases": []
+		},
+		{
+			"text": "heavy-metal",
+			"key": "heavy-metal",
+			"aliases": []
+		},
+		{
+			"text": "classical",
+			"key": "classical",
+			"aliases": []
+		},
+		{
+			"text": "punk-rock",
+			"key": "punk-rock",
+			"aliases": []
+		},
+		{
+			"text": "alternative-rock",
+			"key": "alternative-rock",
+			"aliases": []
+		},
+		{
+			"text": "funk",
+			"key": "funk",
+			"aliases": []
+		},
+		{
+			"text": "soul",
+			"key": "soul",
+			"aliases": []
+		},
+		{
+			"text": "folk",
+			"key": "folk",
+			"aliases": []
+		},
+		{
+			"text": "reggae",
+			"key": "reggae",
+			"aliases": []
+		},
+		{
+			"text": "indie-rock",
+			"key": "indie-rock",
+			"aliases": []
+		},
+		{
+			"text": "latin",
+			"key": "latin",
+			"aliases": []
+		},
+		{
+			"text": "techno",
+			"key": "techno",
+			"aliases": []
+		},
+		{
+			"text": "easy-listening",
+			"key": "easy-listening",
+			"aliases": []
+		},
+		{
+			"text": "jungle",
+			"key": "jungle",
+			"aliases": []
+		},
+		{
+			"text": "dubstep",
+			"key": "dubstep",
+			"aliases": []
+		},
+		{
+			"text": "ska",
+			"key": "ska",
+			"aliases": []
+		},
+		{
+			"text": "industrial",
+			"key": "industrial",
+			"aliases": []
+		},
+		{
+			"text": "new-wave",
+			"key": "new-wave",
+			"aliases": []
+		}
+	],
+	"pocketTypes": [
+		{
+			"text": "cargo-pocket",
+			"key": "cargo-pocket",
+			"aliases": []
+		},
+		{
+			"text": "coin-pocket",
+			"key": "coin-pocket",
+			"aliases": []
+		},
+		{
+			"text": "flap-pocket",
+			"key": "flap-pocket",
+			"aliases": []
+		},
+		{
+			"text": "jetted-pocket",
+			"key": "jetted-pocket",
+			"aliases": []
+		},
+		{
+			"text": "kangaroo-pocket",
+			"key": "kangaroo-pocket",
+			"aliases": []
+		},
+		{
+			"text": "patch-pocket",
+			"key": "patch-pocket",
+			"aliases": []
+		},
+		{
+			"text": "round-pocket",
+			"key": "round-pocket",
+			"aliases": []
+		},
+		{
+			"text": "seam-pocket",
+			"key": "seam-pocket",
+			"aliases": []
+		},
+		{
+			"text": "slant-pocket",
+			"key": "slant-pocket",
+			"aliases": []
+		},
+		{
+			"text": "slit-pocket",
+			"key": "slit-pocket",
+			"aliases": []
+		},
+		{
+			"text": "straight-pocket",
+			"key": "straight-pocket",
+			"aliases": []
+		},
+		{
+			"text": "welt-pocket",
+			"key": "welt-pocket",
+			"aliases": []
+		}
+	],
+	"neckTypes": [
+		{
+			"key": "boat-neck",
+			"text": "boat-neck",
+			"aliases": []
+		},
+		{
+			"key": "choker-neck",
+			"text": "choker-neck",
+			"aliases": []
+		},
+		{
+			"key": "collared-neck",
+			"text": "collared-neck",
+			"aliases": []
+		},
+		{
+			"key": "cowl-neck",
+			"text": "cowl-neck",
+			"aliases": []
+		},
+		{
+			"key": "crew-neck",
+			"text": "crew-neck",
+			"aliases": []
+		},
+		{
+			"key": "halter-neck",
+			"text": "halter-neck",
+			"aliases": []
+		},
+		{
+			"key": "henley-neck",
+			"text": "henley-neck",
+			"aliases": []
+		},
+		{
+			"key": "high-neck",
+			"text": "high-neck",
+			"aliases": []
+		},
+		{
+			"key": "hooded-neck",
+			"text": "hooded-neck",
+			"aliases": []
+		},
+		{
+			"key": "jewel-neck",
+			"text": "jewel-neck",
+			"aliases": []
+		},
+		{
+			"key": "mandarin-neck",
+			"text": "mandarin-neck",
+			"aliases": []
+		},
+		{
+			"key": "mock-neck",
+			"text": "mock-neck",
+			"aliases": []
+		},
+		{
+			"key": "notch-neck",
+			"text": "notch-neck",
+			"aliases": []
+		},
+		{
+			"key": "off-shoulder-neck",
+			"text": "off-shoulder-neck",
+			"aliases": [
+				"off-shoulder"
+			]
+		},
+		{
+			"key": "one-shoulder-neck",
+			"text": "one-shoulder-neck",
+			"aliases": []
+		},
+		{
+			"key": "sailor-collar-neck",
+			"text": "sailor-collar-neck",
+			"aliases": []
+		},
+		{
+			"key": "scoop-neck",
+			"text": "scoop-neck",
+			"aliases": [
+				"scoop neck"
+			]
+		},
+		{
+			"key": "shawl-neck",
+			"text": "shawl-neck",
+			"aliases": []
+		},
+		{
+			"key": "square-neck",
+			"text": "square-neck",
+			"aliases": []
+		},
+		{
+			"key": "turtle-neck",
+			"text": "turtle-neck",
+			"aliases": []
+		},
+		{
+			"key": "v-neck",
+			"text": "v-neck",
+			"aliases": [
+				"v neck"
+			]
+		}
+	],
+	"productColors": [
+		{
+			"text": "silver",
+			"key": "silver",
+			"classes": "bg-neutral-800 text-white border-black",
+			"selector": "#itemColorId-13",
+			"aliases": []
+		},
+		{
+			"text": "gold",
+			"key": "gold",
+			"classes": "bg-yellow-700 text-white border-black",
+			"selector": "#itemColorId-12",
+			"aliases": [
+				"goldenrod"
+			]
+		},
+		{
+			"text": "yellow",
+			"key": "yellow",
+			"classes": "bg-yellow-500 text-black border-black",
+			"selector": "#itemColorId-9",
+			"aliases": []
+		},
+		{
+			"text": "brown",
+			"key": "brown",
+			"classes": "bg-orange-800 text-white border-black",
+			"selector": "#itemColorId-11",
+			"aliases": []
+		},
+		{
+			"text": "orange",
+			"key": "orange",
+			"classes": "bg-orange-500 text-white border-black",
+			"selector": "#itemColorId-10",
+			"aliases": [
+				"amber",
+				"copper"
+			]
+		},
+		{
+			"text": "pink",
+			"key": "pink",
+			"classes": "bg-pink-500 text-white border-black",
+			"selector": "#itemColorId-6",
+			"aliases": [
+				"magenta",
+				"fuchsia"
+			]
+		},
+		{
+			"text": "red",
+			"key": "red",
+			"classes": "bg-red-500 text-white border-black",
+			"selector": "#itemColorId-5",
+			"aliases": [
+				"burgundy",
+				"rose",
+				"scarlet",
+				"crimson"
+			]
+		},
+		{
+			"text": "purple",
+			"key": "purple",
+			"classes": "bg-purple-500 text-white border-black",
+			"selector": "#itemColorId-7",
+			"aliases": [
+				"violet"
+			]
+		},
+		{
+			"text": "blue",
+			"key": "blue",
+			"classes": "bg-sky-500 text-white border-black",
+			"selector": "#itemColorId-8",
+			"aliases": [
+				"cyan",
+				"aqua",
+				"teal",
+				"navy",
+				"denim",
+				"light-blue"
+			]
+		},
+		{
+			"text": "green",
+			"key": "green",
+			"classes": "bg-emerald-500 text-white border-black",
+			"selector": "#itemColorId-9",
+			"aliases": [
+				"lime",
+				"emerald",
+				"dark-green",
+				"forest-green",
+				"sea-green"
+			]
+		},
+		{
+			"text": "black",
+			"key": "black",
+			"classes": "bg-black text-white border-white",
+			"selector": "#itemColorId-1",
+			"aliases": [
+				"charcoal"
+			]
+		},
+		{
+			"text": "white",
+			"key": "white",
+			"classes": "bg-white text-black border-black",
+			"selector": "#itemColorId-3",
+			"aliases": [
+				"cream",
+				"eggshell"
+			]
+		},
+		{
+			"text": "gray",
+			"key": "gray",
+			"classes": "bg-neutral-500 text-white bg-black",
+			"selector": "#itemColorId-2",
+			"aliases": [
+				"grey"
+			]
+		},
+		{
+			"text": "beige",
+			"key": "beige",
+			"classes": "bg-orange-300 text-white border-black",
+			"selector": "#itemColorId-4",
+			"aliases": [
+				"tan"
+			]
+		}
+	],
+	"provinces": [
+		{
+			"key": "AB",
+			"text": "Alberta",
+			"aliases": []
+		},
+		{
+			"key": "AK",
+			"text": "Alaska",
+			"aliases": []
+		},
+		{
+			"key": "AL",
+			"text": "Alabama",
+			"aliases": []
+		},
+		{
+			"key": "AR",
+			"text": "Arkansas",
+			"aliases": []
+		},
+		{
+			"key": "AZ",
+			"text": "Arizona",
+			"aliases": []
+		},
+		{
+			"key": "BC",
+			"text": "British Columbia",
+			"aliases": []
+		},
+		{
+			"key": "CA",
+			"text": "California",
+			"aliases": []
+		},
+		{
+			"key": "CO",
+			"text": "Colorado",
+			"aliases": []
+		},
+		{
+			"key": "CT",
+			"text": "Connecticut",
+			"aliases": []
+		},
+		{
+			"key": "DC",
+			"text": "District of Columbia",
+			"aliases": []
+		},
+		{
+			"key": "DE",
+			"text": "Deleware",
+			"aliases": []
+		},
+		{
+			"key": "FL",
+			"text": "Florida",
+			"aliases": []
+		},
+		{
+			"key": "GA",
+			"text": "Georgia",
+			"aliases": []
+		},
+		{
+			"key": "HI",
+			"text": "Hawaii",
+			"aliases": []
+		},
+		{
+			"key": "IA",
+			"text": "Iowa",
+			"aliases": []
+		},
+		{
+			"key": "ID",
+			"text": "Idaho",
+			"aliases": []
+		},
+		{
+			"key": "IL",
+			"text": "Illinois",
+			"aliases": []
+		},
+		{
+			"key": "IN",
+			"text": "Indiana",
+			"aliases": []
+		},
+		{
+			"key": "KS",
+			"text": "Kansas",
+			"aliases": []
+		},
+		{
+			"key": "KY",
+			"text": "Kentucky",
+			"aliases": []
+		},
+		{
+			"key": "LA",
+			"text": "Louisiana",
+			"aliases": []
+		},
+		{
+			"key": "MA",
+			"text": "Massachusettes",
+			"aliases": []
+		},
+		{
+			"key": "MB",
+			"text": "Manitoba",
+			"aliases": []
+		},
+		{
+			"key": "MD",
+			"text": "Maryland",
+			"aliases": []
+		},
+		{
+			"key": "ME",
+			"text": "Maine",
+			"aliases": []
+		},
+		{
+			"key": "MI",
+			"text": "Michigan",
+			"aliases": []
+		},
+		{
+			"key": "MN",
+			"text": "Minnesota",
+			"aliases": []
+		},
+		{
+			"key": "MO",
+			"text": "Missouri",
+			"aliases": []
+		},
+		{
+			"key": "MS",
+			"text": "Mississippi",
+			"aliases": []
+		},
+		{
+			"key": "MT",
+			"text": "Montana",
+			"aliases": []
+		},
+		{
+			"key": "NB",
+			"text": "New Brunswick",
+			"aliases": []
+		},
+		{
+			"key": "NC",
+			"text": "North Carolina",
+			"aliases": []
+		},
+		{
+			"key": "ND",
+			"text": "North Dakota",
+			"aliases": []
+		},
+		{
+			"key": "NE",
+			"text": "Nebraska",
+			"aliases": []
+		},
+		{
+			"key": "NH",
+			"text": "New Hampshire",
+			"aliases": []
+		},
+		{
+			"key": "NJ",
+			"text": "New Jersey",
+			"aliases": []
+		},
+		{
+			"key": "NL",
+			"text": "Newfoundland and Labrador",
+			"aliases": []
+		},
+		{
+			"key": "NM",
+			"text": "New Mexico",
+			"aliases": []
+		},
+		{
+			"key": "NS",
+			"text": "Nova Scotia",
+			"aliases": []
+		},
+		{
+			"key": "NT",
+			"text": "Northwest Territory",
+			"aliases": []
+		},
+		{
+			"key": "NU",
+			"text": "Nunavut",
+			"aliases": []
+		},
+		{
+			"key": "NV",
+			"text": "Nevada",
+			"aliases": []
+		},
+		{
+			"key": "NY",
+			"text": "New York",
+			"aliases": []
+		},
+		{
+			"key": "OH",
+			"text": "Ohio",
+			"aliases": []
+		},
+		{
+			"key": "OK",
+			"text": "Oklahoma",
+			"aliases": []
+		},
+		{
+			"key": "ON",
+			"text": "Ontario",
+			"aliases": []
+		},
+		{
+			"key": "OR",
+			"text": "Oregon",
+			"aliases": []
+		},
+		{
+			"key": "PA",
+			"text": "Pennsylvania",
+			"aliases": []
+		},
+		{
+			"key": "PE",
+			"text": "Prince Edward Island",
+			"aliases": []
+		},
+		{
+			"key": "PR",
+			"text": "Puerto Rico",
+			"aliases": []
+		},
+		{
+			"key": "QC",
+			"text": "Quebec",
+			"aliases": []
+		},
+		{
+			"key": "RI",
+			"text": "Rhode Island",
+			"aliases": []
+		},
+		{
+			"key": "SC",
+			"text": "South Carolina",
+			"aliases": []
+		},
+		{
+			"key": "SD",
+			"text": "South Dakota",
+			"aliases": []
+		},
+		{
+			"key": "SK",
+			"text": "Sasketchewan",
+			"aliases": []
+		},
+		{
+			"key": "TN",
+			"text": "Tennessee",
+			"aliases": []
+		},
+		{
+			"key": "TX",
+			"text": "Texas",
+			"aliases": []
+		},
+		{
+			"key": "UT",
+			"text": "Utah",
+			"aliases": []
+		},
+		{
+			"key": "VA",
+			"text": "Virginia",
+			"aliases": []
+		},
+		{
+			"key": "VT",
+			"text": "Vermont",
+			"aliases": []
+		},
+		{
+			"key": "WA",
+			"text": "Washington",
+			"aliases": []
+		},
+		{
+			"key": "WI",
+			"text": "Wisconsin",
+			"aliases": []
+		},
+		{
+			"key": "WV",
+			"text": "West Virginia",
+			"aliases": []
+		},
+		{
+			"key": "WY",
+			"text": "Wyoming",
+			"aliases": []
+		},
+		{
+			"key": "YT",
+			"text": "Yukon",
+			"aliases": []
+		}
+	],
+	"riseTypes": [
+		{
+			"text": "high-rise",
+			"key": "high-rise",
+			"aliases": []
+		},
+		{
+			"text": "mid-rise",
+			"key": "mid-rise",
+			"aliases": []
+		},
+		{
+			"text": "low-rise",
+			"key": "low-rise",
+			"aliases": []
+		}
+	],
+	"shoeHeelTypes": [
+		{
+			"text": "block heel",
+			"key": "block heel",
+			"aliases": []
+		},
+		{
+			"text": "cone heel",
+			"key": "cone heel",
+			"aliases": []
+		},
+		{
+			"text": "flare heel",
+			"key": "flare heel",
+			"aliases": []
+		},
+		{
+			"text": "kitten heel",
+			"key": "kitten heel",
+			"aliases": []
+		},
+		{
+			"text": "platform",
+			"key": "platform",
+			"aliases": []
+		},
+		{
+			"text": "stiletto heel",
+			"key": "stiletto heel",
+			"aliases": []
+		},
+		{
+			"text": "wedge heel",
+			"key": "wedge heel",
+			"aliases": []
+		}
+	],
+	"shoeWidths": [
+		{
+			"text": "extra-narrow",
+			"key": "extra-narrow",
+			"aliases": []
+		},
+		{
+			"text": "extra-wide",
+			"key": "extra-wide",
+			"aliases": []
+		},
+		{
+			"text": "medium",
+			"key": "medium",
+			"aliases": []
+		},
+		{
+			"text": "narrow",
+			"key": "narrow",
+			"aliases": []
+		},
+		{
+			"text": "wide",
+			"key": "wide",
+			"aliases": []
+		}
+	],
+	"sleeveTypes": [
+		{
+			"text": "balloon-sleeve",
+			"key": "balloon-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "batwing-sleeve",
+			"key": "batwing-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "bell-sleeve",
+			"key": "bell-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "bishop-sleeve",
+			"key": "bishop-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "butterfly-sleeve",
+			"key": "butterfly-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "cap-sleeve",
+			"key": "cap-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "cape-sleeve",
+			"key": "cape-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "cold-shoulder-sleeve",
+			"key": "cold-shoulder-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "cuff-sleeve",
+			"key": "cuff-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "flutter-sleeve",
+			"key": "flutter-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "kimono-sleeve",
+			"key": "kimono-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "lantern-sleeve",
+			"key": "lantern-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "leg-of-mutton-sleeve",
+			"key": "leg-of-mutton-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "puff-sleeve",
+			"key": "puff-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "raglan-sleeve",
+			"key": "raglan-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "ruffle-sleeve",
+			"key": "ruffle-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "split-sleeve",
+			"key": "split-sleeve",
+			"aliases": []
+		}
+	],
+	"strapTypes": [
+		{
+			"text": "adjustable-strap",
+			"key": "adjustable-strap",
+			"aliases": []
+		},
+		{
+			"text": "ankle-strap",
+			"key": "ankle-strap",
+			"aliases": []
+		},
+		{
+			"text": "double-strap",
+			"key": "double-strap",
+			"aliases": []
+		},
+		{
+			"text": "padded-strap",
+			"key": "padded-strap",
+			"aliases": []
+		},
+		{
+			"text": "single-strap",
+			"key": "single-strap",
+			"aliases": []
+		},
+		{
+			"text": "slingback-strap",
+			"key": "slingback-strap",
+			"aliases": []
+		},
+		{
+			"text": "strapless",
+			"key": "strapless",
+			"aliases": []
+		},
+		{
+			"text": "t-strap",
+			"key": "t-strap",
+			"aliases": []
+		},
+		{
+			"text": "toe-strap",
+			"key": "toe-strap",
+			"aliases": []
+		},
+		{
+			"text": "x-strap",
+			"key": "x-strap",
+			"aliases": []
+		}
+	],
+	"suitTypes": [
+		{
+			"text": "one-button suit",
+			"key": "1-button",
+			"aliases": [
+				"1-button suit",
+				"one button suit"
+			]
+		},
+		{
+			"text": "two-button suit",
+			"key": "2-button",
+			"aliases": [
+				"2-button suit",
+				"two button suit"
+			]
+		},
+		{
+			"text": "three-button suit",
+			"key": "3-button",
+			"aliases": [
+				"3 button suit",
+				"3-button suit"
+			]
+		},
+		{
+			"text": "four-button suit",
+			"key": "4-button",
+			"aliases": [
+				"4 button suit",
+				"4-button suit"
+			]
+		},
+		{
+			"text": "tuxedo suit",
+			"key": "tuxedo",
+			"aliases": [
+				"tuxedo suit"
+			]
+		},
+		{
+			"text": "double-breasted suit",
+			"key": "double-breasted",
+			"aliases": [
+				"double breasted suit",
+				"double-breasted-suit"
+			]
+		},
+		{
+			"text": "dress suit",
+			"key": "dress suit",
+			"aliases": []
+		},
+		{
+			"text": "skirt suit",
+			"key": "skirt suit",
+			"aliases": []
+		},
+		{
+			"text": "pantsuit",
+			"key": "pantsuit",
+			"aliases": []
+		}
+	],
+	"swimsuitBottomStyles": [
+		{
+			"text": "bikini & hipster",
+			"key": "bikini & hipster",
+			"aliases": []
+		},
+		{
+			"text": "brazilian",
+			"key": "brazilian",
+			"aliases": []
+		},
+		{
+			"text": "high-waisted",
+			"key": "high-waisted",
+			"aliases": []
+		},
+		{
+			"text": "skirted",
+			"key": "skirted",
+			"aliases": []
+		}
+	],
+	"swimsuitTopStyles": [
+		{
+			"text": "bandeau",
+			"key": "bandeau",
+			"aliases": []
+		},
+		{
+			"text": "halter",
+			"key": "halter",
+			"aliases": []
+		},
+		{
+			"text": "one-shoulder",
+			"key": "one-shoulder",
+			"aliases": []
+		},
+		{
+			"text": "racerback & crossback",
+			"key": "racerback & crossback",
+			"aliases": []
+		},
+		{
+			"text": "tank",
+			"key": "tank",
+			"aliases": []
+		},
+		{
+			"text": "triangle",
+			"key": "triangle",
+			"aliases": []
+		},
+		{
+			"text": "underwire",
+			"key": "underwire",
+			"aliases": []
+		}
+	],
+	"toeStyles": [
+		{
+			"text": "almond toe",
+			"key": "almond",
+			"aliases": [
+				"almond-toe",
+				"almond toe"
+			]
+		},
+		{
+			"text": "bump toe",
+			"key": "bump",
+			"aliases": [
+				"bump-toe",
+				"bump toe"
+			]
+		},
+		{
+			"text": "cap toe",
+			"key": "cap",
+			"aliases": [
+				"cap toe",
+				"cap-toe"
+			]
+		},
+		{
+			"text": "closed toe",
+			"key": "closed",
+			"aliases": [
+				"closed-toe",
+				"closed toe"
+			]
+		},
+		{
+			"text": "composite toe",
+			"key": "composite",
+			"aliases": [
+				"composite toe",
+				"composite-toe"
+			]
+		},
+		{
+			"text": "moc toe",
+			"key": "moc",
+			"aliases": [
+				"moc-toe",
+				"moc toe"
+			]
+		},
+		{
+			"text": "open toe",
+			"key": "open",
+			"aliases": [
+				"open toe",
+				"open-toe"
+			]
+		},
+		{
+			"text": "peep toe",
+			"key": "peep",
+			"aliases": [
+				"peep toe",
+				"peep-toe"
+			]
+		},
+		{
+			"text": "plain toe",
+			"key": "plain",
+			"aliases": [
+				"plain toe",
+				"plain-toe"
+			]
+		},
+		{
+			"text": "pointed toe",
+			"key": "pointed",
+			"aliases": [
+				"pointed toe",
+				"pointed-toe"
+			]
+		},
+		{
+			"text": "round toe",
+			"key": "round",
+			"aliases": [
+				"round-toe",
+				"round toe"
+			]
+		},
+		{
+			"text": "split toe",
+			"key": "split",
+			"aliases": [
+				"split toe",
+				"split-toe"
+			]
+		},
+		{
+			"text": "square toe",
+			"key": "square",
+			"aliases": [
+				"square toe",
+				"square-toe"
+			]
+		},
+		{
+			"text": "steel toe",
+			"key": "steel",
+			"aliases": [
+				"steel-toe",
+				"steel toe"
+			]
+		}
+	],
+	"videoFormatTypes": [
+		{
+			"text": "dvd",
+			"key": "dvd",
+			"aliases": []
+		},
+		{
+			"text": "blu-ray",
+			"key": "blu-ray",
+			"aliases": []
+		},
+		{
+			"text": "vhs",
+			"key": "vhs",
+			"aliases": []
+		}
+	],
+	"videoTypes": [
+		{
+			"text": "tv-show",
+			"key": "tv-show",
+			"aliases": []
+		},
+		{
+			"text": "film",
+			"key": "film",
+			"aliases": []
+		}
+	],
+	"tVRatings": [
+		{
+			"text": "TV-Y",
+			"key": "TV-Y",
+			"aliases": []
+		},
+		{
+			"text": "TV-Y7",
+			"key": "TV-Y7",
+			"aliases": []
+		},
+		{
+			"key": "TV-Y7-FV",
+			"aliases": [
+				"TV-Y7-FV "
+			]
+		},
+		{
+			"text": "TV-G",
+			"key": "TV-G",
+			"aliases": []
+		},
+		{
+			"text": "TV-PG",
+			"key": "TV-PG",
+			"aliases": []
+		},
+		{
+			"text": "TV-14",
+			"key": "TV-14",
+			"aliases": []
+		},
+		{
+			"text": "TV-MA",
+			"key": "TV-MA",
+			"aliases": []
+		},
+		{
+			"text": "Not Rated",
+			"key": "Not Rated",
+			"aliases": [
+				"No Rating"
+			]
+		}
+	],
+	"movieRatings": [
+		{
+			"text": "G",
+			"key": "G",
+			"aliases": []
+		},
+		{
+			"text": "PG",
+			"key": "PG",
+			"aliases": []
+		},
+		{
+			"text": "PG-13",
+			"key": "PG-13",
+			"aliases": []
+		},
+		{
+			"text": "R",
+			"key": "R",
+			"aliases": []
+		},
+		{
+			"text": "X",
+			"key": "X",
+			"aliases": []
+		},
+		{
+			"text": "UR",
+			"key": "UR",
+			"aliases": []
+		},
+		{
+			"text": "NR",
+			"key": "NR",
+			"aliases": [
+				"Not Rated",
+				"No Rating"
+			]
+		}
+	],
+	"movieGenres": [
+		{
+			"text": "horror",
+			"key": "horror",
+			"aliases": []
+		},
+		{
+			"text": "sci-fi",
+			"key": "sci-fi",
+			"aliases": []
+		},
+		{
+			"text": "action",
+			"key": "action",
+			"aliases": []
+		},
+		{
+			"text": "classic",
+			"key": "classic",
+			"aliases": []
+		},
+		{
+			"text": "family",
+			"key": "family",
+			"aliases": []
+		},
+		{
+			"text": "comedy",
+			"key": "comedy",
+			"aliases": []
+		},
+		{
+			"text": "drama",
+			"key": "drama",
+			"aliases": []
+		},
+		{
+			"text": "thriller",
+			"key": "thriller",
+			"aliases": []
+		},
+		{
+			"text": "documentary",
+			"key": "documentary",
+			"aliases": []
+		},
+		{
+			"text": "western",
+			"key": "western",
+			"aliases": []
+		},
+		{
+			"text": "romance",
+			"key": "romance",
+			"aliases": []
+		},
+		{
+			"text": "anime",
+			"key": "anime",
+			"aliases": []
+		},
+		{
+			"text": "mystery",
+			"key": "mystery",
+			"aliases": []
+		},
+		{
+			"text": "musical",
+			"key": "musical",
+			"aliases": []
+		},
+		{
+			"text": "sports",
+			"key": "sports",
+			"aliases": []
+		}
+	],
+	"amperageUnits": [
+		{
+			"text": "A",
+			"key": "A",
+			"aliases": []
+		},
+		{
+			"text": "mA",
+			"key": "mA",
+			"aliases": []
+		}
+	],
+	"applianceTypes": [
+		{
+			"text": "bread maker",
+			"key": "bread-maker",
+			"aliases": []
+		},
+		{
+			"text": "coffee maker",
+			"key": "coffee-maker",
+			"aliases": []
+		},
+		{
+			"text": "dehydrator",
+			"key": "dehydrator",
+			"aliases": []
+		},
+		{
+			"text": "electric kettle",
+			"key": "electric-kettle",
+			"aliases": []
+		},
+		{
+			"text": "food processor",
+			"key": "food-processor",
+			"aliases": []
+		},
+		{
+			"text": "hand mixer",
+			"key": "hand-mixer",
+			"aliases": []
+		},
+		{
+			"text": "ice cream maker",
+			"key": "ice-cream-maker",
+			"aliases": []
+		},
+		{
+			"text": "indoor grill",
+			"key": "indoor-grill",
+			"aliases": []
+		},
+		{
+			"text": "juicer",
+			"key": "juicer",
+			"aliases": []
+		},
+		{
+			"text": "microwave",
+			"key": "microwave",
+			"aliases": []
+		},
+		{
+			"text": "mixer",
+			"key": "mixer",
+			"aliases": []
+		},
+		{
+			"text": "rice cooker",
+			"key": "rice-cooker",
+			"aliases": []
+		},
+		{
+			"text": "soda maker",
+			"key": "soda-maker",
+			"aliases": []
+		},
+		{
+			"text": "toaster",
+			"key": "toaster",
+			"aliases": []
+		},
+		{
+			"text": "toaster oven",
+			"key": "toaster-oven",
+			"aliases": []
+		},
+		{
+			"text": "waffle iron",
+			"key": "waffle-iron",
+			"aliases": []
+		}
+	],
+	"aspectRatios": [
+		{
+			"text": "16:10",
+			"key": "16:10",
+			"aliases": []
+		},
+		{
+			"text": "16:9",
+			"key": "16:9",
+			"aliases": []
+		},
+		{
+			"text": "4:3",
+			"key": "4:3",
+			"aliases": []
+		},
+		{
+			"text": "5:3",
+			"key": "5:3",
+			"aliases": []
+		},
+		{
+			"text": "5:4",
+			"key": "5:4",
+			"aliases": []
+		}
+	],
+	"auctionSites": [
+		{
+			"text": "www.storagetreasures.com",
+			"key": "storage-treasures",
+			"aliases": []
+		},
+		{
+			"text": "www.lockerfox.com",
+			"key": "lockerfox",
+			"aliases": []
+		}
+	],
+	"batteryTypes": [
+		{
+			"text": "AA",
+			"key": "AA",
+			"aliases": []
+		},
+		{
+			"text": "AAA",
+			"key": "AAA",
+			"aliases": []
+		},
+		{
+			"text": "C",
+			"key": "C",
+			"aliases": []
+		},
+		{
+			"text": "D",
+			"key": "D",
+			"aliases": []
+		},
+		{
+			"text": "CR2032",
+			"key": "CR2032",
+			"aliases": []
+		},
+		{
+			"text": "9V",
+			"key": "9V",
+			"aliases": []
+		}
+	],
+	"cellCarriers": [
+		{
+			"text": "AT&T Wireless",
+			"key": "at&t",
+			"aliases": []
+		},
+		{
+			"text": "Blue Wireless",
+			"key": "blue",
+			"aliases": []
+		},
+		{
+			"text": "Boost Mobile",
+			"key": "boost",
+			"aliases": []
+		},
+		{
+			"text": "Consumer Cellular",
+			"key": "consumer-cellular",
+			"aliases": []
+		},
+		{
+			"text": "Cricket Wireless",
+			"key": "cricket",
+			"aliases": []
+		},
+		{
+			"text": "H2O Wireless",
+			"key": "h20",
+			"aliases": []
+		},
+		{
+			"text": "Net10 Wireless",
+			"key": "net-10",
+			"aliases": []
+		},
+		{
+			"text": "Simple Mobile",
+			"key": "simple",
+			"aliases": []
+		},
+		{
+			"text": "Sprint",
+			"key": "sprint",
+			"aliases": []
+		},
+		{
+			"text": "Straight Talk",
+			"key": "straight-talk",
+			"aliases": []
+		},
+		{
+			"text": "T-Mobile",
+			"key": "t-mobile",
+			"aliases": []
+		},
+		{
+			"text": "Ting",
+			"key": "ting",
+			"aliases": []
+		},
+		{
+			"text": "Total Wireless",
+			"key": "total",
+			"aliases": []
+		},
+		{
+			"text": "TracFone Wireless",
+			"key": "tracfone",
+			"aliases": []
+		},
+		{
+			"text": "Unlocked",
+			"key": "unlocked",
+			"aliases": []
+		},
+		{
+			"text": "US Cellular",
+			"key": "us-celluar",
+			"aliases": []
+		},
+		{
+			"text": "Verizon Wireless",
+			"key": "verizon",
+			"aliases": []
+		},
+		{
+			"text": "Virgin Mobile",
+			"key": "virgin",
+			"aliases": []
+		}
+	],
+	"clubTypes": [
+		{
+			"text": "iron",
+			"key": "iron",
+			"aliases": []
+		},
+		{
+			"text": "driver",
+			"key": "driver",
+			"aliases": []
+		},
+		{
+			"text": "putter",
+			"key": "putter",
+			"aliases": []
+		},
+		{
+			"text": "wedge",
+			"key": "wedge",
+			"aliases": []
+		}
+	],
+	"connectorGenders": [
+		{
+			"text": "Male",
+			"key": "m",
+			"aliases": []
+		},
+		{
+			"text": "Female",
+			"key": "f",
+			"aliases": []
+		}
+	],
+	"dinnerwareTypes": [
+		{
+			"text": "bread & butter plate",
+			"key": "bread-butter",
+			"aliases": []
+		},
+		{
+			"text": "coffee mug",
+			"key": "mug",
+			"aliases": []
+		},
+		{
+			"text": "dinner plate",
+			"key": "dinner",
+			"aliases": []
+		},
+		{
+			"text": "salad plate",
+			"key": "salad",
+			"aliases": []
+		}
+	],
+	"flexTypes": [
+		{
+			"text": "ladies",
+			"key": "ladies",
+			"aliases": []
+		},
+		{
+			"text": "regular",
+			"key": "regular",
+			"aliases": []
+		},
+		{
+			"text": "senior",
+			"key": "senior",
+			"aliases": []
+		},
+		{
+			"text": "stiff",
+			"key": "stiff",
+			"aliases": []
+		}
+	],
+	"handOrientations": [
+		{
+			"key": "rh",
+			"text": "right-handed",
+			"aliases": [
+				"right-handed",
+				"right handed"
+			]
+		},
+		{
+			"key": "lh",
+			"text": "left-handed",
+			"aliases": [
+				"left-handed",
+				"left handed"
+			]
+		}
+	],
+	"ironTypes": [
+		{
+			"text": "3",
+			"key": "3",
+			"aliases": []
+		},
+		{
+			"text": "4",
+			"key": "4",
+			"aliases": []
+		},
+		{
+			"text": "5",
+			"key": "5",
+			"aliases": []
+		},
+		{
+			"text": "6",
+			"key": "6",
+			"aliases": []
+		},
+		{
+			"text": "7",
+			"key": "7",
+			"aliases": []
+		},
+		{
+			"text": "8",
+			"key": "8",
+			"aliases": []
+		},
+		{
+			"text": "9",
+			"key": "9",
+			"aliases": []
+		}
+	],
+	"itemConditions": [
+		{
+			"key": "new",
+			"text": "New",
+			"selector": "[data-testid=\"ConditionNew\"]",
+			"color": "bg-sky-500 text-white",
+			"aliases": []
+		},
+		{
+			"key": "like-new",
+			"text": "Like New",
+			"selector": "[data-testid=\"ConditionLikeNew\"]",
+			"color": "bg-emerald-500 text-white",
+			"aliases": []
+		},
+		{
+			"key": "good",
+			"text": "Good",
+			"selector": "[data-testid=\"ConditionGood\"]",
+			"color": "bg-yellow-500 text-black",
+			"aliases": []
+		},
+		{
+			"key": "fair",
+			"text": "Fair",
+			"selector": "[data-testid=\"ConditionFair\"]",
+			"color": "bg-orange-500 text-white",
+			"aliases": []
+		},
+		{
+			"key": "poor",
+			"text": "Poor",
+			"selector": "[data-testid=\"ConditionPoor\"]",
+			"color": "bg-rose-500 text-white",
+			"aliases": []
+		},
+		{
+			"key": "parts",
+			"text": "For Parts",
+			"selector": "[data-testid=\"ConditionPoor\"]",
+			"color": "bg-rose-500 text-white",
+			"aliases": []
+		}
+	],
+	"itemDispositions": [
+		{
+			"text": "not-listed",
+			"key": "not-listed",
+			"aliases": []
+		},
+		{
+			"text": "ready-to-list",
+			"key": "ready-to-list",
+			"aliases": []
+		},
+		{
+			"text": "listed",
+			"key": "listed",
+			"aliases": []
+		},
+		{
+			"text": "removed",
+			"key": "removed",
+			"aliases": []
+		},
+		{
+			"text": "sold",
+			"key": "sold",
+			"aliases": []
+		},
+		{
+			"text": "damaged",
+			"key": "damaged",
+			"aliases": []
+		},
+		{
+			"text": "destroyed",
+			"key": "destroyed",
+			"aliases": []
+		},
+		{
+			"text": "remediation",
+			"key": "remediation",
+			"aliases": []
+		}
+	],
+	"metalTypes": [
+		{
+			"text": "brass",
+			"key": "brass",
+			"aliases": []
+		},
+		{
+			"text": "copper",
+			"key": "copper",
+			"aliases": []
+		},
+		{
+			"text": "nickel",
+			"key": "nickel",
+			"aliases": []
+		},
+		{
+			"text": "steel",
+			"key": "steel",
+			"aliases": []
+		},
+		{
+			"text": "tin",
+			"key": "tin",
+			"aliases": []
+		},
+		{
+			"text": "zinc",
+			"key": "zinc",
+			"aliases": []
+		},
+		{
+			"text": "gold",
+			"key": "gold",
+			"aliases": []
+		},
+		{
+			"text": "silver",
+			"key": "silver",
+			"aliases": []
+		},
+		{
+			"text": "platinum",
+			"key": "platinum",
+			"aliases": []
+		},
+		{
+			"text": "palladium",
+			"key": "palladium",
+			"aliases": []
+		},
+		{
+			"text": "gold-18ct-yellow",
+			"key": "gold-18ct-yellow",
+			"aliases": []
+		},
+		{
+			"text": "gold-18ct-white",
+			"key": "gold-18ct-white",
+			"aliases": []
+		},
+		{
+			"text": "gold-14ct",
+			"key": "gold-14ct",
+			"aliases": []
+		},
+		{
+			"text": "gold-9ct",
+			"key": "gold-9ct",
+			"aliases": []
+		},
+		{
+			"text": "gold-22ct",
+			"key": "gold-22ct",
+			"aliases": []
+		},
+		{
+			"text": "sterling-silver",
+			"key": "sterling-silver",
+			"aliases": []
+		},
+		{
+			"text": "platinum-950",
+			"key": "platinum-950",
+			"aliases": []
+		}
+	],
+	"operatingSystems": [
+		{
+			"text": "Android",
+			"key": "android",
+			"aliases": []
+		},
+		{
+			"text": "Blackberry",
+			"key": "blackbery",
+			"aliases": []
+		},
+		{
+			"text": "iOS",
+			"key": "ios",
+			"aliases": [
+				"apple"
+			]
+		},
+		{
+			"text": "Linux",
+			"key": "linux",
+			"aliases": []
+		},
+		{
+			"text": "Nucleus OS",
+			"key": "nucleus",
+			"aliases": []
+		},
+		{
+			"text": "Symbian",
+			"key": "symbian",
+			"aliases": []
+		},
+		{
+			"text": "Amazon Fire",
+			"key": "amazon-fire",
+			"aliases": [
+				"amazon",
+				"fire"
+			]
+		}
+	],
+	"payorTypes": [
+		{
+			"text": "buyer",
+			"key": "buyer",
+			"aliases": []
+		},
+		{
+			"text": "seller",
+			"key": "seller",
+			"aliases": []
+		}
+	],
+	"powerTypes": [
+		{
+			"text": "battery",
+			"key": "battery",
+			"aliases": []
+		},
+		{
+			"text": "ac",
+			"key": "ac",
+			"aliases": []
+		},
+		{
+			"text": "both",
+			"key": "both",
+			"aliases": []
+		}
+	],
+	"shaftTypes": [
+		{
+			"text": "graphite",
+			"key": "graphite",
+			"aliases": []
+		},
+		{
+			"text": "steel",
+			"key": "steel",
+			"aliases": []
+		}
+	],
+	"shapeTypes": [
+		{
+			"text": "hexagon",
+			"key": "hexagon",
+			"aliases": []
+		},
+		{
+			"text": "square",
+			"key": "square",
+			"aliases": []
+		},
+		{
+			"text": "rectangle",
+			"key": "rectangle",
+			"aliases": []
+		}
+	],
+	"shippers": [
+		{
+			"text": "USPS Ground Advantage",
+			"key": "USPS Ground Advantage",
+			"aliases": []
+		},
+		{
+			"text": "USPS Media Mail",
+			"key": "USPS Media Mail",
+			"aliases": []
+		},
+		{
+			"text": "UPS SurePost",
+			"key": "UPS SurePost",
+			"aliases": []
+		},
+		{
+			"text": "FedEx Ground Economy",
+			"key": "FedEx Ground Economy",
+			"aliases": []
+		},
+		{
+			"text": "UPS Ground",
+			"key": "UPS Ground",
+			"aliases": []
+		},
+		{
+			"text": "FedEx Home",
+			"key": "FedEx Home",
+			"aliases": []
+		}
+	],
+	"shippingSpeeds": [
+		{
+			"text": "media-mail",
+			"key": "media-mail",
+			"aliases": []
+		},
+		{
+			"text": "standard",
+			"key": "standard",
+			"aliases": []
+		}
+	],
+	"wedgeTypes": [
+		{
+			"text": "pitching wedge",
+			"key": "PW",
+			"aliases": []
+		},
+		{
+			"text": "approach wedge",
+			"key": "AW",
+			"aliases": []
+		},
+		{
+			"text": "sand wedge",
+			"key": "SW",
+			"aliases": []
+		},
+		{
+			"text": "lob wedge",
+			"key": "LW",
+			"aliases": []
+		}
+	],
+	"sleeveLengths": [
+		{
+			"key": "3/4 sleeve",
+			"aliases": [
+				"3/4-sleeve"
+			]
+		},
+		{
+			"text": "half-sleeve",
+			"key": "half-sleeve",
+			"aliases": []
+		},
+		{
+			"text": "short-sleeve",
+			"key": "short-sleeve",
+			"aliases": [
+				"short-sleeved"
+			]
+		},
+		{
+			"text": "long-sleeve",
+			"key": "long-sleeve",
+			"aliases": [
+				"long-sleeved"
+			]
+		},
+		{
+			"text": "sleeveless",
+			"key": "sleeveless",
+			"aliases": []
+		}
+	]
+}

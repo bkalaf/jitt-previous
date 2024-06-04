@@ -2,8 +2,9 @@ import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { IMercariBrand } from '../../types';
+import { IHashTag, IMercariBrand } from '../../types';
 import { col } from '../defs/col';
+import { ObjectId } from 'bson';
 
 export const mercariBrand: Realm.ObjectSchema = {
     name: schemaName($.mercariBrand()),
@@ -23,3 +24,12 @@ export const mercariBrandColumns: MRT_ColumnDef<IMercariBrand>[] = [
     helper.string('name', 'Name', undefined, { maxLength: 125 }),
     helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
 ]
+
+export class MercariBrand extends Realm.Object<IMercariBrand> implements IMercariBrand {
+    _id: ObjectId;
+    name: string;
+    hashTags: DBList<IHashTag>;
+
+    static schema = mercariBrand;
+    static labelProperty = 'name';
+}

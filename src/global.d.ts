@@ -10,21 +10,33 @@ declare global {
     export interface Window {
         columns: Record<string, MRT_ColumnDef<any>[]>;
     }
-    export type PrimitiveRecord<T> = { value: T };
+    export type PrimitiveRecord<T> = { value: T; };
     export type JSPrimitives = string | number | null | Date | ArrayBuffer | boolean | BSON.ObjectId | BSON.UUID;
     export type IRowCell<T> = React.FunctionComponent<{ data: T; className?: string; }>;
-    export type IKVPCell<T> = React.FunctionComponent<{ id: string, value: T, className?: string; }>
+    export type IKVPCell<T> = React.FunctionComponent<{ id: string, value: T, className?: string; }>;
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    export type ListItemCellComponent<T> = (value: T) => React.FunctionComponent<{}>
+    export type ListItemCellComponent<T> = (value: T) => React.FunctionComponent<{}>;
 
     export type EnumInfo = { key: string, text: string; };
     export type ExtendedEnumInfo = {
         text: string;
         key: string;
         classes: string;
+    } | {
+        text: string;
+        key: string;
+        selector: string;
+    } | {
+        text: string;
+        key: string;
+        classes: string;
         selector: string;
     };
+
+    export type EnumInfos = string | EnumInfo | ExtendedEnumInfo;
+    export type EnumMap<T extends string> = Record<T, EnumInfos>;
+    export type EnumItem<T extends string = string> = { key: T, text: string, aliases: string[], classes?: string, selector?: string; };
     export type Predicate<T> = (x: T) => boolean;
     export type Children = React.ReactNode | React.ReactNode[] | undefined;
     export type Length<T extends any[]> = T['length'];
@@ -44,7 +56,7 @@ declare global {
     export type DBSet<T> = Types.Set<T>;
     export type OnChangeFn<T> = React.Dispatch<React.SetStateAction<T>>;
     export type RealmObj<T> = T & Realm.Object<T>;
-    export type RealmSchema = (Realm.ObjectSchema & { ctor?: Realm.ObjectClass & { update?: <T>(realm: Realm, obj: RealmObj<T>) => RealmObj<T>; }; })[];
+    export type RealmSchema = (Realm.ObjectSchema & { ctor?: Realm.ObjectClass & { update?: <T>(realm: Realm, obj: RealmObj<T>) => RealmObj<T>; labelProperty: string; asString: () => string }; })[];
     export type TypeOf = 'string' | 'number' | 'bigint' | 'object' | 'undefined' | 'boolean' | 'symbol' | 'function';
     export type AppSettings<T> = Record<string, Record<string, T>>;
 
@@ -68,9 +80,9 @@ declare global {
     export type EditPrimitiveFunctionComponent<U extends JSPrimitives> = React.FunctionComponent<Parameters<Exclude<MRT_ColumnDef<PrimitiveRecord<U>, any>['Edit'], undefined>>[0]>;
     export type ListBack<T> = DBList<T> | T[] | undefined;
     export type DictionaryBack<T> = DBDictionary<T> | Record<string, T> | undefined;
-    export type DictionaryItem<T> = { key: string, value: T; }
+    export type DictionaryItem<T> = { key: string, value: T; };
     export type StandardDictionary<T> = DictionaryBack<DictionaryItem<T>>;
-    export type CellFunctionParams<T extends MRT_RowData, TValue> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Cell'], undefined>>[0]
+    export type CellFunctionParams<T extends MRT_RowData, TValue> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Cell'], undefined>>[0];
     export type CellFunctionComponent<T extends MRT_RowData, TValue = any> = React.FunctionComponent<CellFunctionParams<T, TValue>>;
 
     export type MouseEv<T extends HTMLElement> = (((ev: React.MouseEvent<T>) => void) | (() => void));
@@ -88,7 +100,7 @@ declare global {
         columnOrder: MRT_ColumnOrderState,
         grouping: MRT_GroupingState,
         sorting: MRT_SortingState,
-        
+
         columnSizing: MRT_ColumnSizingState,
         columnVisibility: MRT_VisibilityState,
         rowSelection: MRT_RowSelectionState,
@@ -97,17 +109,47 @@ declare global {
         globalFilter: unknown,
         pagination: {
             pageIndex: number,
-            pageSize: number
+            pageSize: number;
         },
 
         showColumnFilters: boolean,
         showGlobalFilter: boolean,
 
-    }
+    };
 
     export type IConfiguration = {
         collections: Partial<Record<CollectionNames, IConfig>>;
         zoomLevel: number;
+    };
+
+    export type FileSystemActions = FileMoved | FileDeleted | FileCopied | FolderRenamed | FolderRemoved | FolderCreated;
+
+    export type FileMoved = {
+        type: 'move';
+        origin: string;
+        destination: string;
+    }
+    export type FileDeleted = {
+        type: 'delete';
+        origin: string;
+    }
+    export type FileCopied = {
+        type: 'copy';
+        origin: string;
+        destination: string;
+    }
+    export type FolderRenamed = {
+        type: 'rename';
+        origin: string;
+        destination: string;
+    }
+    export type FolderRemoved = {
+        type: 'remove';
+        origin: string;
+    }
+    export type FolderCreated = {
+        type: 'create';
+        origin: string;
     }
 }
 

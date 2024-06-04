@@ -39,4 +39,5 @@ export class Brand extends Realm.Object<IBrand> implements IBrand {
     }
 
     static schema = brand;
+    static labelProperty = 'name';
 }

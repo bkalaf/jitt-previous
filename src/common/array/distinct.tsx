@@ -13,3 +13,7 @@ export function distinct<T>(arr: T[], accum: T[] = []): T[] {
 export const distinctByOID = function <T extends { _id: BSON.ObjectId }>(arr: T[]) {
     return distinctBy<T>((x: T, y: T) => x._id.toHexString() === y._id.toHexString(), arr);
 };
+
+export const distinctByString = function(arr: string[]) {
+    return distinctBy((x: string, y: string) => x.localeCompare(y) === 0, arr);
+}

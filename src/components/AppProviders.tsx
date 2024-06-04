@@ -10,6 +10,7 @@ import { RealmProvider } from '../contexts/RealmProvider';
 import React from 'react';
 import { queryClient } from './AppRoot';
 import { ConfigurationProvider } from '../contexts/ConfigurationProvider';
+import { FileSystemContextProvider } from './../contexts/FileSystemContextProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
@@ -18,15 +19,15 @@ export function AppProviders({ children }: { children: Children }) {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <SnackbarProvider maxSnack={10} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} autoHideDuration={4000}>
                         <EnvProvider>
-                            <RealmProvider>
-                                <QueryClientProvider client={queryClient}>
-                                    <ForagerProvider>
-                                        <ConfigurationProvider>
-                                            {children}
-                                        </ConfigurationProvider>
-                                    </ForagerProvider>
-                                </QueryClientProvider>
-                            </RealmProvider>
+                            <FileSystemContextProvider>
+                                <RealmProvider>
+                                    <QueryClientProvider client={queryClient}>
+                                        <ForagerProvider>
+                                            <ConfigurationProvider>{children}</ConfigurationProvider>
+                                        </ForagerProvider>
+                                    </QueryClientProvider>
+                                </RealmProvider>
+                            </FileSystemContextProvider>
                         </EnvProvider>
                     </SnackbarProvider>
                 </LocalizationProvider>

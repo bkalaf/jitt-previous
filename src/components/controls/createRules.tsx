@@ -1,4 +1,4 @@
-export function createRules<TValue>({ min, max, minLength, maxLength, pattern, required, validate }: { maxLength?: number; minLength?: number; pattern?: RegExp; required?: boolean; min?: number; max?: number; validate?: Record<string, (value: TValue, formValues: Record<string, any>) => string | string[] | boolean | Promise<string | string[] | boolean>> }) {
+export function createRules<TValue>({ min, max, minLength, maxLength, pattern, required, validate }: { maxLength?: number; minLength?: number; pattern?: RegExp; required?: boolean; min?: number | Date; max?: number | Date; validate?: Record<string, (value: TValue, formValues: Record<string, any>) => string | string[] | boolean | Promise<string | string[] | boolean>> }) {
     return {   
         validate,     
         pattern: pattern ? {
@@ -17,13 +17,13 @@ export function createRules<TValue>({ min, max, minLength, maxLength, pattern, r
             value: maxLength,
             message: `Text length must be greater than ${maxLength}.`
         } : undefined,
-        min: min ? {
+        min: min ? typeof min === 'number' ? {
             value: min,
             message: `Value must be greater than ${min}.`
-        } : undefined,
-        max: max ? {
+        } : undefined : undefined,
+        max: max ? typeof max === 'number' ? {
             value: max,
             message: `Value must be less than ${max}.`
-        } : undefined
+        } : undefined : undefined
     };
 }

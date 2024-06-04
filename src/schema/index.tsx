@@ -1,23 +1,23 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { address, addressColumns } from './entity/address';
-import { attribute, attributeColumns } from './entity/attribute';
+import { Address, address, addressColumns } from './entity/address';
+import { Attribute, attribute, attributeColumns } from './entity/attribute';
 import { Auction, auctionColumns } from './entity/auction';
 import { Brand, brandColumns } from './entity/brand';
 import { Classifier, classifierColumns } from './entity/classifier';
 import { Facility, facilityColumns } from './entity/facility';
 import { HashTag, hashTagColumns } from './entity/hashTag';
 import { hashTagUsage, hashTagUsageColumns } from './entity/hashTagUsage';
-import { mercariBrand, mercariBrandColumns } from './entity/mercariBrand';
+import { MercariBrand, mercariBrand, mercariBrandColumns } from './entity/mercariBrand';
 import { MercariCategory, mercariCategoryColumns } from './entity/mercariCategory';
 import { MercariTaxonomy, mercariTaxonomyColumns } from './entity/mercariTaxonomy';
-import { selfStorage, selfStorageColumns } from './entity/selfStorage';
+import { SelfStorage, selfStorage, selfStorageColumns } from './entity/selfStorage';
 import { squareFootage, squareFootageColumns } from './entity/squareFootage';
 import dayjs from 'dayjs';
 import { col } from './defs/col';
 import { Barcode, barcodeColumns } from './entity/barcode';
 import { Bin, binColumns } from './entity/bin';
 import { customItemFieldColumns, customItemField } from './entity/customItemField';
-import { includedItem, includedItemColumns } from './entity/includedItem';
+import { IncludedItem, includedItem, includedItemColumns } from './entity/includedItem';
 import { clothingCare, clothingCareColumns } from './entity/clothingCare';
 import { madeOfSection, madeOfSectionColumns } from './entity/madeOfSection';
 import { Product } from './entity/product';
@@ -36,23 +36,24 @@ const doubleColumn = helper.double('value', 'Value', { required: true });
 const boolColumn = helper.bool('value', 'Value');
 const dateColumn = helper.date('value', 'Value', (x) => (x == null ? '' : dayjs(x).format('YYYY-MM-DD')), { required: true });
 
-export const schema: (Realm.ObjectSchema | Realm.ObjectClass<any>)[] = [
-    selfStorage,
+// (Realm.ObjectSchema | Realm.ObjectClass<any>)
+export const schema: (Realm.ObjectClass<any> & ({ labelProperty: string; } | { liComponent: ListItemCellComponent<any> }) | Realm.ObjectSchema)[] = [
+    SelfStorage,
     Facility,
-    address,
+    Address,
     Auction,
     hashTagUsage,
     HashTag,
-    mercariBrand,
+    MercariBrand,
     Brand,
     squareFootage,
     MercariCategory,
     MercariTaxonomy,
-    attribute,
+    Attribute,
     Classifier,
     Barcode,
     Bin,
-    includedItem,
+    IncludedItem,
     customItemField,
     clothingCare,
     madeOfSection,

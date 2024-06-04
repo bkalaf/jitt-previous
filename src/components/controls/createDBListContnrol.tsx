@@ -1,9 +1,9 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemIcon, ListItemText, ListSubheader, PaperProps, TableContainerProps, TableProps } from '@mui/material';
+import { List, ListItem, ListItemText, ListSubheader, PaperProps, TableContainerProps, TableProps } from '@mui/material';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { MRT_Column, MRT_Cell, useMaterialReactTable, MaterialReactTable, createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-react-table';
 import React, { useCallback, useMemo } from 'react';
 import { IconBtn } from '../IconBtn';
-import { faCircleDot, faPlusSquare, faTrashCan } from '@fortawesome/pro-solid-svg-icons';
+import { faPlusSquare, faTrashCan } from '@fortawesome/pro-solid-svg-icons';
 import { useMutation } from '@tanstack/react-query';
 import { is } from '../../common/is';
 import { useInvalidateCollection } from '../../hooks/useInvalidateCollection';
@@ -15,20 +15,18 @@ import { useEditControl } from '../../hooks/useEditControl';
 import { useListItemComponent } from '../../hooks/useListItemComponent';
 import { useStopAndPrevent } from '../../hooks/useStopAndPrevent';
 import { isPrimitive } from '../../schema/conversion/cnvrt';
-import { freeSoloCol } from '../../schema/defs/freeSoloCol';
-import { stringCol } from '../../schema/defs/stringCol';
-import { enumCol } from '../../schema/defs/enumCol';
-import { useFieldArrayControl } from './useControl';
-import { DefaultValues, FormProvider, UseFieldArrayReturn, useForm } from 'react-hook-form';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useToggler } from './useToggler';
-import { useInitial } from '../../hooks/useInitial';
+import { colString } from '../../schema/defs/colString';
+import { colEnum } from '../../schema/defs/colEnum';
+import { useFieldArrayControl } from '../../hooks/useControl';
+import { useToggler } from '../../hooks/useToggler';
+import { DBListEditSubComponent } from './DBListEditSubComponent';
+import { DBListItemSubComponent } from './DBListItemSubComponent';
 
 const h = createMRTColumnHelper<{ key: string; value: any }>();
 const helper = {
-    string: stringCol(h),
-    freeSolo: freeSoloCol(h),
-    enum: enumCol(h)
+    string: colString(h),
+    freeSolo: colFreeSolo(h),
+    enum: colEnum(h)
 };
 
 const keyColumn = helper.string('key', 'Key', undefined, { required: true });
@@ -55,82 +53,15 @@ export function useDictionaryColumns(objectType: string, faceted: boolean, enumM
     return columns as MRT_ColumnDef<any, any>[];
 }
 
-export function RealmListEdit<T extends MRT_RowData>(props: {
-    // control: Control<FieldValues, any>;
-    append: UseFieldArrayReturn['append'];
-    // index: number;
-    // value: Record<string, any>;
-    columns: MRT_ColumnDef<T, any>[];
-    isOpen: boolean;
-    handleClose: () => void;
-    objectType: string;
-}) {
-    const { append, handleClose, isOpen, columns, objectType } = props;
-    const init = useInitial<T>(objectType);
-    const defaultValues = useMemo(() => init(), [init]);
-    const formContext = useForm({
-        defaultValues: defaultValues as DefaultValues<T>
-    });
-    const EditComps = function () {
-        return (
-            <>
-                {columns.map((x, index) => {
-                    const Edit = x.Edit;
-                    return function EditComponent() {
-                        if (Edit == null) return null;
-                        return <Edit key={index} cell={undefined as any} row={undefined as any} table={undefined as any} column={{ columnDef: x as any } as any} />;
-                        // eslint-disable-next-line @typescript-eslint/ban-types
-                    } as React.FunctionComponent<{}>;
-                })}
-            </>
-        );
-    };
-    return (
-        <FormProvider {...formContext}>
-            <form>
-                <Dialog open={isOpen} onClose={handleClose}>
-                    <DialogTitle>Insert New List Item</DialogTitle>
-                    <DialogContent>
-                        <EditComps />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button type='button' className='inline-flex' color='metal' onClick={formContext.handleSubmit((data) => append(data))} />
-                    </DialogActions>
-                </Dialog>
-            </form>
-        </FormProvider>
-    );
-}
-export function RealmListItem(props: { remove: UseFieldArrayReturn['remove']; index: number; value: Record<string, any>; objectType: string }) {
-    const { index, value, remove, objectType } = props;
-    const onDelete = useCallback(
-        (ev: React.MouseEvent) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            remove(index);
-        },
-        [index, remove]
-    );
-    const LiComp = useListItemComponent(objectType);
-    const Primary = LiComp(value);
-    return (
-        <ListItem key={value.id} secondaryAction={<IconBtn icon={faTrashCan} color='success' tooltip='Delete item' onClick={onDelete} />}>
-            <ListItemIcon>
-                <FontAwesomeIcon icon={faCircleDot} />
-            </ListItemIcon>
-            <ListItemText primary={<Primary />} />
-        </ListItem>
-    );
-}
-
 export function createRealmListControl<T extends MRT_RowData, TValue>() {
     return function RealmListControl(props: EditFunctionParams<T, TValue>) {
         useWhyDidIUpdate('RealmListControl', props);
-        const { fields, cols, append, remove, objectType, value, name, label, helperText, control } = useFieldArrayControl(props.column);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { fields, cols, append, remove, objectType, value, name, label, helperText, control, LiComponent } = useFieldArrayControl(props.column);
         if (objectType == null) throw new Error('no objectType on RealmListControl');
         // const className = useMemo(() => getGridClass(cols.length), []);
         // const LiComp = useListItemComponent(objectType);
-        const [isOpen, toggleOpen, handleOpen, handleClose] = useToggler();
+        const [isOpen, , handleOpen, handleClose] = useToggler();
 
         return (
             <fieldset>
@@ -140,10 +71,10 @@ export function createRealmListControl<T extends MRT_RowData, TValue>() {
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    <RealmListEdit append={append} columns={cols} objectType={objectType} handleClose={handleClose} isOpen={isOpen} />
+                    <DBListEditSubComponent append={append} columns={cols} objectType={objectType} handleClose={handleClose} isOpen={isOpen} />
                     <List subheader={<ListSubheader component='div'>{label}</ListSubheader>}>
                         {fields.map((field, index) => {
-                            return <RealmListItem remove={remove} index={index} key={field.id} objectType={objectType} value={field} />;
+                            return <DBListItemSubComponent remove={remove} index={index} key={field.id} objectType={objectType} value={field} LIComponent={LiComponent} />;
                         })}
                     </List>
                 </div>

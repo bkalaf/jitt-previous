@@ -21,6 +21,9 @@ export const appendText = curry(flip(concatText));
 export function capitalize(str: string) {
     return [str[0].toUpperCase(), str.slice(1)].join('');
 }
+export function decapitalize(str: string) {
+    return [str[0].toLowerCase(), str.slice(1)].join('');
+}
 
 function _splitWhen(predicate: Predicate<string>, str: string): string[] {
     function inner(todo: string[], accum: string[][] = [], current: string[] = []): string[][] {
@@ -37,3 +40,4 @@ export function camelToProper(str: string) {
 export function camelToKebab(str: string) {
     return splitWhen((x) => /[A-Z]/.test(x))(str).map(x => x.toLowerCase()).join('-');
 }
+

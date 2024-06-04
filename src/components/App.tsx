@@ -10,7 +10,7 @@ import { useEnv } from '../hooks/useEnv';
 import { IconBtn } from './IconBtn';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { getCurrentWebContents } from '@electron/remote';
-import { useConfiguration } from '../contexts/useConfiguration';
+import { useConfiguration } from '../hooks/useConfiguration';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (
