@@ -9,7 +9,7 @@ import { calculateUPCCheckDigit } from '../../util/calculateUPCCheckDigit';
 import { is } from '../../common/is';
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { col } from '../defs/col';
-import { barcodeFormatter } from './barcodeFormatter';
+import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { BarcodeTypes } from '../enums';
 
 export class Barcode extends Realm.Object<IBarcode> implements IBarcode {

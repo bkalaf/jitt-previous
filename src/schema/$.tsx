@@ -42,6 +42,7 @@ const _primitives = objectMap(primitive)(primitiveNames) as Record<keyof typeof 
 
 const objectNames = {
     address: 'address',
+    attachment: 'attachment',
     attribute: 'attribute',
     auction: 'auction',
     auctionCost: 'auctionCost',

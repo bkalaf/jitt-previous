@@ -1,8 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
 import { CheckboxElement } from 'react-hook-form-mui';
-import { useControl } from './useControl';
-import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
-
+import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
+import { useControl } from '../../../hooks/useControl';
 
 export function BoolControl<T extends MRT_RowData>(props: EditFunctionParams<T, boolean | undefined>) {
     useWhyDidIUpdate('BoolControl', props);

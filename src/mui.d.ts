@@ -39,6 +39,7 @@ declare module '@tanstack/table-core' {
         freeSolo?: boolean;
         comparator?: (x?: TValue, y?: TValue) => Compared;
         flags?: string[];
+        keyType?: 'faceted' | 'string' | string;
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {

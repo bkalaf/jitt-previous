@@ -76,6 +76,8 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                                 collectionRoute('bin'),
                                 collectionRoute('barcode'),
                                 collectionRoute('product'),
+                                collectionRoute('productImage'),
+                                collectionRoute('sku'),
                                 { index: true, element: <div>CATEGORY INDEX</div>, errorElement: <ErrorBoundary /> }
                             ]
                         },

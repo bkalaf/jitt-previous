@@ -1,7 +1,5 @@
-import { is } from '../../common/is';
-import { IFacing } from '../../types';
-import { Facing } from './Facing';
-
+import { is } from '../common/is';
+import { IFacing } from '../types';
 
 export function generateCaption(facing: IFacing) {
     const { x, y, z, pov } = facing;

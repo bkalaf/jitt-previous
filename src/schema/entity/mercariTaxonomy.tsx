@@ -1,44 +1,11 @@
-import Realm from 'realm';
+import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { IHashTag, IMercariCategory, IMercariTaxonomy } from '../../types';
-import { col } from '../defs/col';
-import dayjs from 'dayjs';
-import { groupCol } from '../defs/groupCol';
-import { mercariCategoryColumns } from './mercariCategory';
-import { ObjectId } from 'bson';
 import { runTransaction } from '../../util/runTransaction';
 
-export const mercariTaxonomy: Realm.ObjectSchema = {
-    name: schemaName($.mercariTaxonomy()),
-    primaryKey: '_id',
-    properties: {
-        _id: $.objectId(),
-        category: $.mercariCategory(),
-        subCategory: $.mercariCategory(),
-        subSubCategory: $.mercariCategory(),
-        hashTags: $.hashTag.list,
-        fullname: $.string(),
-        timestamp: $.date.opt
-    }
-}
-
-export const h = createMRTColumnHelper<IMercariTaxonomy>();
-export const helper = col(h);
-
-export const mercariTaxonomyColumns: MRT_ColumnDef<IMercariTaxonomy>[] = [
-    helper.pk(),
-    helper.string('fullname', 'Full Name', undefined, { maxLength: 250, readonly: true }),
-    helper.date('timestamp', 'Timestamp', (x?: Date) => x != null ? dayjs(x).format('YYYY-MM-DD') : '', { disableFuture: true }),
-    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
-    groupCol(h, 'Category', mercariCategoryColumns, 'category', 'bg-blue-700', 'text-white'),
-    groupCol(h, 'SubCategory', mercariCategoryColumns, 'subCategory', 'bg-red-700', 'text-white'),
-    groupCol(h, 'SubSubCategory', mercariCategoryColumns, 'subSubCategory', 'bg-orange-700', 'text-white')
-]
-
 export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements IMercariTaxonomy {
-    _id: ObjectId;
+    _id: BSON.ObjectId;
     category?: IMercariCategory;
     subCategory?: IMercariCategory;
     subSubCategory?: IMercariCategory;
@@ -48,16 +15,28 @@ export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements I
     allHashTags: IHashTag[];
 
     static labelProperty = 'fullname';
-    static schema: Realm.ObjectSchema = mercariTaxonomy;
+    static schema: Realm.ObjectSchema = {
+        name: schemaName($.mercariTaxonomy()),
+        primaryKey: '_id',
+        properties: {
+            _id: $.objectId(),
+            category: $.mercariCategory(),
+            subCategory: $.mercariCategory(),
+            subSubCategory: $.mercariCategory(),
+            hashTags: $.hashTag.list,
+            fullname: $.string(),
+            timestamp: $.date.opt
+        }
+    };
 
     static update(realm: Realm, item: IMercariTaxonomy): IMercariTaxonomy {
         const func = () => {
-            const fullname = [item?.category?.name, item?.subCategory?.name, item?.subSubCategory?.name].filter(x => x != null).join('::');
+            const fullname = [item?.category?.name, item?.subCategory?.name, item?.subSubCategory?.name].filter((x) => x != null).join('::');
             console.info(`update-taxonomy`, item, fullname);
             if (item.fullname !== fullname) {
                 item.fullname = fullname;
             }
-        }
+        };
         runTransaction(realm, func);
         return item;
     }

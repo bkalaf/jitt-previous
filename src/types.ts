@@ -4,6 +4,10 @@ import { detailsTypes } from './schema/enums/detailsTypes';
 import { BleachingKeys, DryCleanKeys, DryingKeys, GentleOrDelicateKeys, IroningKeys, PermanentPressKeys, TumbleDryKeys, WashKeys, WashTemperatureKeys } from './schema/laundryCare';
 import { FabricTypes } from './schema/enums/fabric';
 import { Flags, ProductColors, Genders, ClosureTypes, FitTypes, LegStyles, GarmentLengths, LifestyleTypes, PocketTypes, RiseTypes, BootTypes, ShoeHeelTypes, ShoeWidths, StrapTypes, ToeStyles, SwimsuitBottomStyles, SwimsuitTopStyles, BacklineTypes, CollarTypes, CuffTypes, DressTypes, NeckTypes, SleeveTypes, SuitTypes, BookGenres, BookTypes, Languages, ESRBRatings, ConsoleTypes, MusicFormatTypes, MusicGenres, HeightMaps, BarcodeTypes, MovieGenres, MovieRatings, TVRatings, VideoFormatTypes, VideoTypes, AmperageUnits, ConnectorGenders, PowerTypes, BatteryTypes, AspectRatios, CellCarriers, OperatingSystems, DinnerwareTypes, ShapeTypes, ApplianceTypes, ClubTypes, FlexTypes, HandOrientations, IronTypes, ShaftTypes, WedgeTypes, MetalTypes, ItemConditions, ItemDispositions, Shippers, SleeveLengths } from './schema/enums';
+import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
+import { AttachmentStages } from './schema/choices/AttachmentStages';
+import { AttachmentType } from './schema/choices/AttachmentType';
+import { ProductImageDisposition } from './schema/entity/ProductImageDisposition';
 
 export type Int = number;
 export type Double = number;
@@ -13,7 +17,7 @@ export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
     website?: string;
-}
+};
 
 export type IAddress = {
     mailing1?: string;
@@ -23,7 +27,7 @@ export type IAddress = {
     province: string;
     country: string;
     postalCode?: string;
-}
+};
 
 export type IFacility = {
     _id: BSON.ObjectId;
@@ -33,14 +37,14 @@ export type IFacility = {
     emailAddress?: string;
     phoneNumber?: string;
     name: string;
-}
+};
 
 export type AuctionSite = keyof typeof auctionSites;
 
 export type ISquareFootage = {
     length: number;
     width: number;
-}
+};
 export type IAuction = {
     _id: BSON.ObjectId;
     name: string;
@@ -56,25 +60,25 @@ export type IAuction = {
     size?: ISquareFootage;
     unit?: string;
     readonly totalPrice: number;
-}
+};
 
 export type IMercariBrand = {
     _id: BSON.ObjectId;
     name: string;
     hashTags: DBList<IHashTag>;
-}
+};
 
 export type IHashTagUsage = {
     from: Date;
     count: number;
-}
+};
 export type IHashTag = {
     _id: BSON.ObjectId;
     name: string;
     usage: DBList<IHashTagUsage>;
     readonly maxCount: number;
     readonly mostRecent: Date;
-}
+};
 
 export type IBrand = {
     _id: BSON.ObjectId;
@@ -82,13 +86,13 @@ export type IBrand = {
     mercariBrand?: IMercariBrand;
     hashTags: DBList<IHashTag>;
     readonly allHashTags: IHashTag[];
-}
+};
 
 export type IMercariCategory = {
     name: string;
     selector: string;
-    hashTags: DBList<IHashTag>;    
-}
+    hashTags: DBList<IHashTag>;
+};
 
 export type IMercariTaxonomy = {
     _id: BSON.ObjectId;
@@ -99,14 +103,14 @@ export type IMercariTaxonomy = {
     fullname: string;
     timestamp?: Date;
     readonly allHashTags: IHashTag[];
-}
+};
 
 export type DetailsTypes = keyof typeof detailsTypes;
 export type IAttribute = {
     path: string;
     unset: boolean;
     value: Realm.Types.Mixed;
-}
+};
 
 export type DetailTypes = 'apparel-bottoms' | 'apparel-bras' | 'apparel-footwear' | 'apparel-tops' | 'apparel' | 'cables-data' | 'cables-power' | 'cables-video' | 'cables' | 'cell-phones' | 'electronics' | 'general' | 'home-goods-dinnerware' | 'home-goods-flatware' | 'home-goods' | 'jewelry' | 'kitchen-appliances' | 'media-books' | 'media-music' | 'media-video-games' | 'media-videos-film' | 'media-videos-tv-series' | 'media-videos' | 'media' | 'sporting-goods-golf-clubs' | 'sporting-goods' | 'toys';
 
@@ -123,7 +127,7 @@ export type IClassifier = {
     readonly detailTypes: DetailTypes[];
     readonly allAttributes: IAttribute[];
     readonly subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
-}
+};
 
 export type IBarcode = {
     _id: BSON.ObjectId;
@@ -133,25 +137,25 @@ export type IBarcode = {
     beenPrinted: boolean;
     readonly scanValue: string;
     equalTo(value: string | IBarcode): boolean;
-}
+};
 
 export type IBin = {
     _id: BSON.ObjectId;
     barcode: IBarcode;
     name: string;
     notes?: string;
-}
+};
 
 export type IIncludedItem = {
     qty: number;
     name: string;
-}
+};
 
 export type ICustomItemField = {
     name: string;
     id: string;
     value: string;
-}
+};
 
 
 
@@ -165,14 +169,14 @@ export type IClothingCare = {
     tumbleDry: DBList<TumbleDryKeys>;
     wash: DBList<WashKeys>;
     washTemperature: DBList<WashTemperatureKeys>;
-}
+};
 
 export type FabricComposition = Partial<Record<FabricTypes, number>>;
 
 export type IMadeOfSection = {
     name?: string;
     section: FabricComposition;
-}
+};
 
 export type MadeOf = DBDictionary<IMadeOfSection>;
 
@@ -182,24 +186,24 @@ export type ITrack = {
     index: Opt<number>;
     name: Opt<string>;
     runtimeSecs: Opt<Seconds>;
-}
+};
 export type IConnector = {
     connectorGender?: Opt<ConnectorGenders>;
     innerWidth?: Opt<Double>;
     outerWidth?: Opt<Double>;
     type?: Opt<string>;
-}
+};
 export type ICurrentSetting = {
     amperage?: Opt<Double>;
     amperageUnit?: Opt<AmperageUnits>;
     voltage?: Opt<Double>;
     wattage?: Opt<Double>;
-}
+};
 
 export type IMinMax<T extends Int | Double> = {
     min?: Opt<T>;
     max?: Opt<T>;
-}
+};
 
 export type IApparelBottom = {
     closureType?: Opt<ClosureTypes>;
@@ -213,7 +217,7 @@ export type IApparelBottom = {
     riseType?: Opt<RiseTypes>;
     size?: Opt<Int>;
     waistSize?: Opt<Double>;
-}
+};
 export type IApparel = IApparelBottom & {
     madeOf: DBList<IMadeOfSection>;
     gender?: Opt<Genders>;
@@ -222,7 +226,7 @@ export type IApparel = IApparelBottom & {
     text?: Opt<string>;
     rnNo?: Opt<Int>;
     clothingCare?: Opt<IClothingCare>;
-}
+};
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -366,79 +370,83 @@ export type IProduct = IApparel & {
 export type IShipping = {
     id: Int;
     version: Int;
-}
+};
 export type ProductImageFlags = 'ignore' | 'do-not-rembg';
 export type FaceX = 'left' | 'right';
-export type FaceY = 'front' | 'back'; ;
+export type FaceY = 'front' | 'back';;
 export type FaceZ = 'upper' | 'lower';
 export type FacePOV = 'defect' | 'inner' | 'logo' | 'tag' | 'barcode' | 'enhancer' | 'product-info';
+
 export type IFacing = {
     x?: FaceX;
     y?: FaceY;
     z?: FaceZ;
     pov: FacePOV[];
-    markUpper: () => IFacing;
-    markLower: () => IFacing;
-    markLeft: () => IFacing;
-    markRight: () => IFacing;
-    markFront: () => IFacing;
-    markBack: () => IFacing;
-    markInner: () => IFacing;
-    markLogo: () => IFacing;
-    markUPC: () => IFacing;
-    markEnhancer: () => IFacing;
-    markDefect: () => IFacing;
-    markTag: () => IFacing;
-}
+};
+
 export type IProductImage = {
-    
     _id: BSON.ObjectId;
     fullpath: string;
     filename: string;
     extension: string;
     mimeType: string;
-    sku: ISku;    
+    sku: ISku;
     flags: ListBack<ProductImageFlags>;
     takenOn?: Date;
     caption?: string;
     facing?: IFacing;
-    enabled?: 'original' | 'rembg';
-    readonly brandFolder: string;
-    readonly productFolder: string;
-    readonly skuFolder: string;
-    readonly hasRemBg?: boolean;
-    readonly isDoNotRemBG: boolean;
-    readonly isIgnored: boolean;
-    readonly remBGFn: string;
-    readonly remBGFromDownload: string;
-    readonly remBGInProductFolder?: string;
-    readonly originalFromUpload: string;
-    readonly originalInProductFolder: string;
-    readonly effectivePath?: string;
-    stageRemBG(): void;
-    moveOriginal(): void;
-    moveRemBG(): void;
-    createFolders(): void;
-    markUpper(): void;
-    markLower(): void;
-    markLeft(): void;
-    markRight(): void;
-    markFront(): void;
-    markBack(): void;
-    markInner(): void;
-    markLogo(): void;
-    markUPC(): void;
-    markEnhancer(): void;
-    markDefect(): void;
-}
+    selected?: 'original' | 'rembg';
+    disposition: ProductImageDisposition;
+    // fileSystemContext: IFileSystemContext;
+    // scheduleFileChange: IRabbitMQContext['scheduleFileChange'];
+    readonly hasSelection: boolean;
+    hasRemBG: boolean;
+    // stageRemBG(): void;
+    // moveOriginal(): void;
+    // moveRemBG(): void;
+    // createFolders(): void;
+};
+
+export type IAttachment = {
+    _id: BSON.ObjectId;
+    caption?: string;
+    fullpath: string;
+    filename: string;
+    extension?: string;
+    mimeType?: string;
+    sku: ISku;
+    doNotUse: boolean;
+    takenOn?: Date;
+    attachmentType: AttachmentType;
+    attachmentDisposition: AttachmentDisposition;
+    attachmentPipelineStage: AttachmentStages;
+    sharedLink?: string;
+    tinyURL?: string;
+    readonly isIdle: boolean;
+    readonly nextStage: (this: IAttachment) => IAttachment;
+    readonly prevStage: (this: IAttachment) => IAttachment;
+    readonly nextDispo: (this: IAttachment) => IAttachment;
+    readonly prevDispo: (this: IAttachment) => IAttachment;
+    readonly fileTypeFolder?: string;
+    readonly originalFileFolder?: string;
+    readonly dropboxFileFolder?: string;
+    moveToOriginal: (this: IAttachment) => void;
+    copyToDropbox: (this: IAttachment) => void;
+    identifiedAsVideo: (this: IAttachment) => void;
+    identifiedAsAudio: (this: IAttachment) => void;
+    identifiedAsDocument: (this: IAttachment) => void;
+    provideCaption: (this: IAttachment, caption: string) => void;
+    createSharedLink: (this: IAttachment) => string;
+    revokeSharedLink: (this: IAttachment) => void;
+    createTinyURLForLink: (this: IAttachment, link: string) => string;
+    deleteTinyURLForLink: (this: IAttachment, link: string) => void;
+};
 export type ISku = {
     _id: BSON.ObjectId;
     auction?: Opt<IAuction>;
     condition?: Opt<ItemConditions>;
     defects: DBList<string>;
     disposition?: Opt<ItemDispositions>;
-    folder?: Opt<string>;
-    inventoryLabelPrinted: boolean;
     packingPercent?: Opt<Double>;
     product?: Opt<IProduct>;
     quantity?: Opt<Int>;
@@ -448,5 +456,7 @@ export type ISku = {
     readonly getShipWeight?: Opt<number>;
     readonly getCarrier?: Opt<Shippers>;
     readonly getMaxWeight?: Opt<[number, number]>;
+    readonly getFolder: string;
+    readonly getProductImages: Realm.Types.LinkingObjects<IProductImage, 'sku'>;
 }
 

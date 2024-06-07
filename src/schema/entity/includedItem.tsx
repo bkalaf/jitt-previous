@@ -20,7 +20,7 @@ export const helper = col(h);
 export const includedItemColumns: MRT_ColumnDef<IIncludedItem>[] = [
     helper.int('qty', 'Quantity', { min: 1, required: true }),
     helper.string('name', 'Name', undefined, { maxLength: 50, required: true })
-]
+] as MRT_ColumnDef<IIncludedItem>[];
 
 export class IncludedItem extends Realm.Object<IIncludedItem> implements IIncludedItem {
     qty: number;

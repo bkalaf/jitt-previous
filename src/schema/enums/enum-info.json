@@ -4314,6 +4314,28 @@
 			"aliases": []
 		}
 	],
+	"productImageDisposition": [
+		{
+			"key": "ready",
+			"text": "Ready",
+			"aliases": []
+		},
+		{
+            "key": "uploaded",
+            "text": "Uploaded",
+            "aliases": []
+        },
+		{
+            "key": "bg-removal",
+            "text": "Background Removal",
+            "aliases": []
+        },
+		{
+            "key": "pending-approval",
+            "text": "Pending Approval",
+            "aliases": []
+        }
+	],
 	"itemDispositions": [
 		{
 			"text": "not-listed",
@@ -4640,5 +4662,75 @@
 			"key": "sleeveless",
 			"aliases": []
 		}
-	]
+	],
+	"face-x": [
+		{
+			"key": "left",
+			"text": "Left",
+			"aliases": []
+		},
+		{
+			"key": "right",
+			"text": "Right",
+			"aliases": []
+		}
+	],
+	"face-y": [
+        {
+            "key": "front",
+            "text": "Front",
+            "aliases": []
+        },
+        {
+            "key": "back",
+            "text": "Back",
+            "aliases": []
+        }
+    ], 
+	"face-z": [
+        {
+            "key": "upper",
+            "text": "Upper",
+            "aliases": []
+        },
+        {
+            "key": "lower",
+            "text": "Lower",
+            "aliases": []
+        }
+    ],
+	"face-pov": [
+        {
+            "key": "barcode",
+            "text": "UPC",
+            "aliases": []
+        },
+        {
+            "key": "inner",
+            "text": "Inner",
+            "aliases": []
+        },{
+			"key": "tag",
+			"text": "Tag",
+			"aliases": []
+		},
+		{
+			"key": "defect",
+			"text": "Defect",
+			"aliases": []
+		},{
+			"key": "enhancer",
+			"text": "Enhancer",
+			"aliases": []
+		},
+		{
+			"key": "logo",
+			"text": "Logo",
+			"aliases": []
+		},{
+			"key": "product-info",
+			"text": "Product-Info",
+			"aliases": []
+		}
+    ]
 }

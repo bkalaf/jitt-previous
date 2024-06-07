@@ -1,13 +1,11 @@
-import { MRT_ColumnDef, MRT_RowData, MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData, useMaterialReactTable } from 'material-react-table';
 import { createRenderCreateRowDialogContent } from '../components/Views/renderProperties/createRenderCreateRowDialogContent';
 import { createRenderTopToolbarCustomActions } from '../components/Views/renderProperties/createRenderTopToolbarCustomActions';
 import { useInitial } from './useInitial';
 import { createRenderEditRowDialogContent } from '../components/Views/renderProperties/createRenderEditRowDialogContent';
 import { ColumnResizeMode, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
 import { useEffectiveCollection } from './useEffectiveCollection';
-import { createJITTExpandButton, expandAllRows, expandSingleRow } from '../components/Views/JITT_ExpandButton';
-import { TableCellProps, TableRowProps } from '@mui/material';
-import { iconButtonDim } from '../components/Views/expandButtonHW';
+import { TableRowProps } from '@mui/material';
 import { createRenderRowActions } from '../components/Views/renderProperties/createRenderRowActions';
 import { useGetTableCanExpand } from './useGetTableCanExpand';
 import { usePersistState } from './usePersistState';
@@ -40,13 +38,14 @@ import {
     faSort,
     faThumbTack
 } from '@fortawesome/pro-solid-svg-icons';
+import { CreateRenderDetailPanel } from './createRenderDetailPanel';
 
 export function createIcon(icon: IconDefinition) {
     return function FAIcon(props: any) {
         return <FontAwesomeIcon icon={icon} {...props} />;
     };
 }
-// const c: MRT_TableOptions<any>['icons'];
+// const c: MRT_TableOptions<any>['renderDetailPanel'];
 export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT_ColumnDef<T>[], objectType?: string) {
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
@@ -201,6 +200,10 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         renderRowActions: createRenderRowActions(),
         // renderRowActionMenuItems: createRenderRowActionMenuItems(),
         renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetSettings),
+        renderDetailPanel: route === 'sku' ? CreateRenderDetailPanel : undefined,
         ...opts
     });
 }
+
+
+

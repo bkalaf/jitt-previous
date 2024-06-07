@@ -1,7 +1,7 @@
 import { BSON } from 'realm';
 import { IAddress, IAttribute, IAuction, IBarcode, IBin, IBrand, IClassifier, IConnector, ICurrentSetting, ICustomItemField, IFacility, IHashTag, IHashTagUsage, IIncludedItem, IMercariBrand, IMercariCategory, IMercariTaxonomy, IMinMax, IProduct, ISelfStorage, ISquareFootage, Int } from './types';
 
-const barcode = (): InitialValue<IBarcode> => ({ _id: new BSON.ObjectId(), value: '0000000000000', isValidated: false, type: 'ean' });
+const barcode = (): InitialValue<IBarcode> => ({ _id: new BSON.ObjectId(), value: '0000000000000', isValidated: false, type: 'ean', beenPrinted: false });
 
 export const initialValue = {
     classifier: (): InitialValue<IClassifier> => ({ _id: new BSON.ObjectId(), type: [], hashTags: [], attributes: [], shortName: '', name: '' }),
@@ -25,7 +25,7 @@ export const initialValue = {
     mercariBrand: (): InitialValue<IMercariBrand> => ({ _id: new BSON.ObjectId(), name: '', hashTags: [] }),
     brand: (): InitialValue<IBrand> => ({ _id: new BSON.ObjectId(), name: '', hashTags: [] }),
     barcode,
-    bin: (): InitialValue<IBin> => ({ _id: new BSON.ObjectId(), barcode: barcode() as any as IBarcode, beenPrinted: false, name: '' }),
+    bin: (): InitialValue<IBin> => ({ _id: new BSON.ObjectId(), barcode: barcode() as any as IBarcode, name: '' }),
     includedItem: (): InitialValue<IIncludedItem> => ({ qty: 1, name: '' }),
     customItemField: (): InitialValue<ICustomItemField> => ({ name: '', id: '', value: '' }),
     connector: (): InitialValue<IConnector> => ({ }),

@@ -1,6 +1,6 @@
 import { useEnv } from '../hooks/useEnv';
 import amqp from 'amqplib';
-import { useCallback, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 import { camelToKebab } from '../common/text';
 import { useLocalRealm } from '../hooks/useLocalRealm';
 import { useProvideLocalForage } from '../hooks/useForage';
@@ -8,12 +8,13 @@ import { Barcode } from '../schema/entity/barcode';
 import { runTransaction } from '../util/runTransaction';
 import Realm, { BSON } from 'realm';
 import { MRT_RowData } from 'material-react-table';
-import { IBarcode, IBin, ISku } from '../types';
+import { IBarcode, IBin, IProductImage, ISku } from '../types';
 import * as fs from 'graceful-fs';
 import { surroundQuotes } from '../common/text/surround';
 import path from 'path-browserify';
 import { checkFolder } from './checkFolder';
 import { useFileSystem } from './useFileSystem';
+import { ProductImageStages } from '../schema/choices/ProductImageStages';
 
 export type IRabbitMQContext = {
     connection: amqp.Connection | undefined;
@@ -24,21 +25,26 @@ export type IRabbitMQContext = {
     scheduleFileChange: (type: FileSystemActions['type'], origin: string, destination?: string) => void;
 };
 
+const $photoNeedsCroppingQueue = camelToKebab('photoNeedsCroppingQueue');
 const $pullNextSkuQueue = camelToKebab('pullNextSkuQueue');
 const $pullNextBinQueue = camelToKebab('pullNextBinQueue');
 const $barcodePrintQueue = camelToKebab('barcodePrintQueue');
-// const $imageReviewPipeline = camelToKebab('imageReviewPipeline');
+const $imageReviewPipeline = camelToKebab('imageReviewPipeline');
 // const $draftReviewPipeline = camelToKebab('draftApprovalPipeline');
 const $fileSystemChangeQueue = camelToKebab('fileSystemChangeQueue');
 
+export const RabbitMQContext = createContext<IRabbitMQContext | undefined>(undefined);
+
 export function useProvideRabbitMQContext(): IRabbitMQContext {
     const { AMQP, DOWNLOADS_FOLDER, BARCODE_PRINT_FILE } = useEnv();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { pendingBarcodesCSV, inbound, root, downloads } = useFileSystem();
     const [connection, setConnection] = useState<amqp.Connection | undefined>(undefined);
     const [generateSKUChannel, setGenerateSKUChannel] = useState<amqp.Channel | undefined>(undefined);
     const [generateBinChannel, setGenerateBinChannel] = useState<amqp.Channel | undefined>(undefined);
     const [barcodePrintChannel, setBarcodePrintChannel] = useState<amqp.Channel | undefined>(undefined);
     const [fileSystemChangeChannel, setFileSystemChangeChannel] = useState<amqp.Channel | undefined>(undefined);
+    const [imageReviewPipelineChannel, setImageReviewPipelineChannel] = useState<amqp.Channel | undefined>(undefined);
     useEffect(() => {
         amqp.connect(AMQP).then(setConnection);
     }, [AMQP]);
@@ -47,6 +53,7 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
         connection?.createChannel().then(setGenerateBinChannel);
         connection?.createChannel().then(setBarcodePrintChannel);
         connection?.createChannel().then(setFileSystemChangeChannel);
+        connection?.createChannel().then(setImageReviewPipelineChannel);
     }, [connection]);
     const db = useLocalRealm();
     const {
@@ -60,12 +67,25 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
         },
         [connection]
     );
+    const photoNeedsCropping = useCallback((image: IProductImage, toCrop = false) => {
+
+    }, [])
+    const updateDisposition = useCallback((sku: IProductImage, adv = false) => {
+        const func = () => {
+            
+        }
+    }, []);
+    const onFileInputChanged = useCallback((sku: ISku, file: File) => {
+
+    }, []);
+
     useEffect(() => {
         const func = async () => {
             await generateSKUChannel?.assertQueue($pullNextSkuQueue, { durable: true });
             await generateBinChannel?.assertQueue($pullNextBinQueue, { durable: true });
             await barcodePrintChannel?.assertQueue($barcodePrintQueue, { durable: true });
             await fileSystemChangeChannel?.assertQueue($fileSystemChangeQueue, { durable: true, exclusive: true });
+            await 
 
             fileSystemChangeChannel?.consume($fileSystemChangeQueue, async (msg: amqp.ConsumeMessage | null) => {
                 if (msg == null) throw new Error('no msg');
@@ -80,7 +100,7 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
                             const folders = path.dirname(origin.replaceAll('\\', '/'));
                             console.log(folders);
                             const checked = await checkFolder(folders);
-                            if (!checked) throw new Error('no checked')
+                            if (!checked) throw new Error('no checked');
                             fs.mkdirSync(origin);
                             return;
                         }
@@ -164,6 +184,7 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
                 runTransaction(db, () => {
                     const result = db.create<IBin | ISku>(
                         collection,
+
                         { ...obj, [propertyName]: isArray ?? false ? [...(obj != null && propertyName in obj ? ((obj as any)[propertyName] as any[]) : []), barcode] : barcode } as any,
                         Realm.UpdateMode.Modified
                     );
@@ -182,6 +203,7 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
                 runTransaction(db, () => {
                     const result = db.create<IBin | ISku>(
                         collection,
+
                         { ...obj, [propertyName]: isArray ?? false ? [...(obj != null && propertyName in obj ? ((obj as any)[propertyName] as any[]) : []), barcode] : barcode } as any,
                         Realm.UpdateMode.Modified
                     );
@@ -220,6 +242,7 @@ export function useProvideRabbitMQContext(): IRabbitMQContext {
         },
         [connection]
     );
+
     return {
         connection,
         barcodes: {

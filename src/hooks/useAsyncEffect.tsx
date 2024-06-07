@@ -30,7 +30,6 @@ export default function useAsyncEffect<Data = any>(callback: (isMounted: () => b
                 destroy(result);
             }
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, deps);
 }
 

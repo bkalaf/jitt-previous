@@ -62,6 +62,7 @@ export function MainMenu() {
                             <MainMenuItem segment='classifier' />
                             <MainMenuItem segment='product' />
                             <MainMenuItem segment='productImage' />
+                            <MainMenuItem segment='sku' />
                         </MenuList>
                     </CategoryMenuItem>
                 </MenuList>

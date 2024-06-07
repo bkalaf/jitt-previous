@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@emotion/react';
-import { EnvProvider } from '../contexts/EnvContext';
 import { theme } from './theme';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -11,6 +10,7 @@ import React from 'react';
 import { queryClient } from './AppRoot';
 import { ConfigurationProvider } from '../contexts/ConfigurationProvider';
 import { FileSystemContextProvider } from './../contexts/FileSystemContextProvider';
+import { EnvProvider } from './../contexts/EnvProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (

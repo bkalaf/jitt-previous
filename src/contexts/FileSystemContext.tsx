@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { IBrand, IProduct, ISku } from '../types';
-// import path from 'path-browserify';
+import Realm from "realm";
 
 export type IFileSystemContext = {
     inbound: string;
@@ -16,6 +16,9 @@ export type IFileSystemContext = {
     pendingBarcodesCSV: string;
     toRemBG: (filename: string) => string;
     imagesVideosDocs: [string, string, string];
+    remBgSuffix: string;
+    remBgExt: string;
+    updateValue: (db: Realm, collection: string, propertyName: string, value?: any) => (obj: Record<string, any>) => void;
 };
 
 export const FileSystemContext = createContext<IFileSystemContext | undefined>(undefined);

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { IBarcode, ICustomItemField, IHashTag, IHashTagUsage, IMadeOfSection } from '../types';
-import { barcodeFormatter } from '../schema/entity/barcodeFormatter';
+import { barcodeFormatter } from '../util/barcodeFormatter';
 
 
 export const liComponents: Record<string, ListItemCellComponent<any>> = {

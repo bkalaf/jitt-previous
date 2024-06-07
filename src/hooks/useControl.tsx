@@ -1,11 +1,9 @@
 import { MRT_Column, MRT_RowData } from 'material-react-table';
 import React, { useCallback, useMemo } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form-mui';
+import { useFormContext } from 'react-hook-form-mui';
 import { createRules } from '../components/controls/createRules';
-import { useColumns } from './useColumns';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useColumnMeta';
-import { useGetLIComponent } from './useGetLIComponent';
 
 export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>, TElement extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | Element>(
     props: EditFunctionParams<T, TValue | undefined>,
@@ -61,39 +59,6 @@ export function useBaseControl<T extends MRT_RowData, TValue>(column: MRT_Column
         step,
         objectType,
         validation
-    };
-}
-export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>>(column: MRT_Column<T, TValue>, ...keys: TKeys[]) {
-    const { columnName: name, required, readonly, objectType, ...rest } = useEditColumnMeta<T, TValue, TKeys | 'objectType' | 'required' | 'readonly' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'columnName', ...keys);
-    const label = column.columnDef.header;
-    const formContext = useFormContext();
-    if (name == null) throw new Error('no name');
-    const { fields, append, remove } = useFieldArray({
-        name: name,
-        control: formContext.control,
-    });
-    const { error } = formContext.getFieldState(name);
-    const { type, message: helperText } = error ?? {};
-    if (type != null) console.error(`${type}: ${helperText}}`);
-    const value = formContext.watch(name) as TValue[];
-    if (objectType == null) throw new Error('no objectType');
-    const cols = useColumns(objectType);
-    const LiComponent = useGetLIComponent(objectType);
-    return {
-        cols,
-        value,
-        fields,
-        append,
-        remove,
-        name,
-        label,
-        helperText,
-        control: formContext.control,
-        objectType,
-        LiComponent,
-        required,
-        readonly,
-        ...rest
     };
 }
 export function useControl<T extends MRT_RowData, TValue, TElement extends HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(column: MRT_Column<T, TValue>) {

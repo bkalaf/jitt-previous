@@ -1,4 +1,3 @@
-
 export function fromExtensionToMimeType(extension: string) {
     const mimeTypeMap = {
         avi: 'video/x-msvideo',

@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /** @type {import('tailwindcss').Config} */
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-// const { cyan } = require('@mui/material/colors');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { neutral, black, sky } = require('tailwindcss/colors');
-const plugin = require('tailwindcss/plugin');
+// import { neutral, black, sky } from 'tailwindcss/colors';
+import plugin from 'tailwindcss/plugin';
 
-module.exports = {
+export default  {
     content: ['.\\src\\**\\*.{js,jsx,ts,tsx,jsx,html,txt,ejs}'],
     presets: [],
     important: true,
@@ -186,7 +178,7 @@ module.exports = {
         backdropSepia: ({ theme }) => theme('sepia'),
         backgroundColor: ({ theme }) => theme('colors'),
         backgroundImage: () => ({
-            'forest-image': `url('${[__dirname, 'src/assets/images/photo-1577495508048-b635879837f1.webp'].join('/')}')`,
+            'forest-image': `url('${[process.cwd(), 'src/assets/images/photo-1577495508048-b635879837f1.webp'].join('/')}')`,
             none: 'none',
             'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',
             'gradient-to-tr': 'linear-gradient(to top right, var(--tw-gradient-stops))',

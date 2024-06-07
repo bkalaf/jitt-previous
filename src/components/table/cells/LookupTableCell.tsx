@@ -9,12 +9,12 @@ import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useGetLabelProperty } from '../../../hooks/useGetLIComponent';
 import { useColumnMeta } from '../../../hooks/useColumnMeta';
 
-export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId; }>(props: CellFunctionParams<T, U | undefined>) {
+export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }>(props: CellFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('LookupTableCell', props);
     const { value, objectType } = useColumnMeta(props, undefined, 'objectType');
     if (objectType == null) throw new Error('no objectType');
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams({ _id: value != null ? (value as { _id: BSON.ObjectId; })._id.toHexString() : '' });
+    const [searchParams] = useSearchParams({ _id: value != null ? (value as { _id: BSON.ObjectId })._id.toHexString() : '' });
     const onClick = useCallback(() => navigate(`/data/v1/${objectType}?${searchParams.toString()}`), [navigate, objectType, searchParams]);
     const labelProperty = useGetLabelProperty(objectType);
     if (labelProperty == null) throw new Error(`no labelProperty for ${objectType}`);

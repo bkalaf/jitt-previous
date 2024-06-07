@@ -34,7 +34,7 @@ export function baseCol<T extends MRT_RowData, TValue>(helper: MRT_ColumnHelper<
     multiple?: ColumnMeta<T, TValue>['multiple'];
     comparator?: ColumnMeta<T, TValue>['comparator'];
     flags?: ColumnMeta<T, TValue>['flags'];
-
+    keyType?: ColumnMeta<T, TValue>['keyType'];
 } = {} ) {
     const header = $header ?? camelToProper(name);
     return helper.accessor(name as any, {

@@ -29,14 +29,14 @@ export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
 export const productColumns: MRT_ColumnDef<IProduct, any>[] = [
     helper.pk(),
-    helper.lookup('brand', 'Brand', { objectType: 'brand', labelProperty: 'name' }),
-    helper.lookup('classifier', 'Classifier', { objectType: 'classifier', labelProperty: 'name' }),
+    helper.lookup('brand', 'Brand', { objectType: 'brand' }),
+    helper.lookup('classifier', 'Classifier', { objectType: 'classifier' }),
     helper.listOfEmbed('includes', 'Includes', 'includedItem'),
     helper.listOfEmbed('customAttributes', 'Custom Item Field', 'customItemField'),
     helper.listOfPrimitive('asins', 'ASINs', 'string'),
     helper.listOfPrimitive('features', 'Features', 'string'),
     helper.flags('flags', 'Flags', flagOptions),
-    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
+    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag'),
     helper.measure('length', 'Length', 'in', {}),
     helper.measure('width', 'Width', 'in', {}),
     helper.measure('height', 'Height', 'in', {}),
@@ -44,7 +44,7 @@ export const productColumns: MRT_ColumnDef<IProduct, any>[] = [
     helper.string('modelNo', 'Model #', undefined, {}),
     helper.string('notes', 'Notes', undefined, { maxLength: 500 }),
     helper.string('title', 'Title', undefined, { maxLength: 80 }),
-    helper.listOfObject('upcs', 'UPCS', 'barcode', 'value'),
+    helper.listOfObject('upcs', 'UPCS', 'barcode'),
     helper.string('circa', 'Circa', undefined, {}),
     helper.listofEnum('color', 'Colors', { options: productColors }),
     helper.string('description', 'Description', undefined, { maxLength: 150 }),
@@ -67,7 +67,7 @@ export const productColumns: MRT_ColumnDef<IProduct, any>[] = [
                 helper.clothingCare('clothingCare.tumbleDry', 'Tumble Dry', 'tumbleDry'),
                 helper.clothingCare('clothingCare.wash', 'Wash', 'wash'),
                 helper.clothingCare('clothingCare.washTemperature', 'Wash Temperature', 'washTemperature')
-            ]
+            ] as MRT_ColumnDef<any>[]
         })
     ),
     whenType('apparel', helper.dictionary('madeOf', 'Made Of', 'madeOfSection', { maxLength: 25 })),

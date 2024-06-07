@@ -7,11 +7,11 @@ import { FlattenedListTableCell } from '../../components/table/cells/FlattenedLi
 import { converted } from './colDBList';
 
 export function colClothingCare<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
-    return function (name: Path<T> & string, header: string, section: keyof typeof ClothingCareMap, readonly = false) {
+    return function (name: Path<T> & string, header: string, section: keyof typeof ClothingCareMap, readonly = false): MRT_ColumnDef<T> {
         const Edit = $createClothingCareControl(section) as MRT_ColumnDef<T, any>['Edit'];
         return baseCol<T, ListBack<string>>(helper, name, FlattenedListTableCell, Edit, header, false, readonly, {
             flattener: (value?: ListBack<string>) => value?.map(converted(section)).join(', ') ?? ''
-        });
+        }) as MRT_ColumnDef<T>;
         // return helper.accessor(name as any, {
         //     header: header ?? camelToProper(name),
         //     enableEditing: !readonly,

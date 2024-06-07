@@ -1,33 +1,9 @@
 import { Realm } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { IBrand, IHashTag, IMercariBrand } from '../../types';
-import { col } from '../defs/col';
 import { ObjectId } from 'bson';
 import { distinctByOID } from '../../common/array/distinct';
-
-export const brand: Realm.ObjectSchema = {
-    name: schemaName($.brand()),
-    primaryKey: '_id',
-    properties: {
-        _id: $.objectId(),
-        name: $.string(),
-        mercariBrand: $.mercariBrand(),
-        hashTags: $.hashTag.list
-    }
-};
-
-const h = createMRTColumnHelper<IBrand>();
-const helper = col(h);
-
-export const brandColumns: MRT_ColumnDef<IBrand>[] = [
-    helper.pk(),
-    helper.string('name', 'Name', undefined, { maxLength: 150 }),
-    helper.lookup('mercariBrand', 'Mercari Brand', { objectType: 'mercariBrand', labelProperty: 'name' }),
-    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
-    helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', 'name', true)
-];
 
 export class Brand extends Realm.Object<IBrand> implements IBrand {
     _id: ObjectId;
@@ -38,6 +14,15 @@ export class Brand extends Realm.Object<IBrand> implements IBrand {
         return distinctByOID<IHashTag>([...this.hashTags, ...(this.mercariBrand?.hashTags ?? [])]);
     }
 
-    static schema = brand;
+    static schema: Realm.ObjectSchema = {
+        name: schemaName($.brand()),
+        primaryKey: '_id',
+        properties: {
+            _id: $.objectId(),
+            name: $.string(),
+            mercariBrand: $.mercariBrand(),
+            hashTags: $.hashTag.list
+        }
+    };
     static labelProperty = 'name';
 }

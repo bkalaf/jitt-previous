@@ -1,67 +1,10 @@
 import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-react-table';
 import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from '../../types';
-import { col } from '../defs/col';
-import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { ObjectId } from 'bson';
 import { runTransaction } from '../../util/runTransaction';
 import { distinctBy, distinctByOID } from '../../common/array/distinct';
-import { StringControl } from '../../components/table/controls/StringControl';
-import { StringTableCell } from '../../components/table/cells/StringTableCell';
-
-export const h = createMRTColumnHelper<IClassifier>();
-export const helper = col(h);
-
-export function createStringValueCell<T extends MRT_RowData>() {
-    return function StringValueCell(props: Parameters<Exclude<MRT_ColumnDef<T, string | undefined>['Cell'], undefined>>[0]) {
-        useWhyDidIUpdate('StringValueCell', props);
-        const { cell } = props;
-        const value = cell.getValue() ?? '';
-        return value;
-    } as Exclude<MRT_ColumnDef<T>['Cell'], undefined>;
-}
-export const stringColumn = [
-    createMRTColumnHelper<{ value?: string }>().accessor('value', {
-        header: 'Value',
-        Cell: StringTableCell<{ value?: string }, string | undefined>,
-        Edit: StringControl<{ value?: string }, string | undefined>,
-        meta: {
-            maxLength: 150
-        }
-    })
-] as MRT_ColumnDef<{ value: string }, string | undefined>[];
-
-export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
-    helper.pk(),
-    helper.lookup('taxonomy', 'Taxonomy', { objectType: 'mercariTaxonomy', labelProperty: 'fullname' }),
-    helper.string('shortName', 'Short Name', undefined, { maxLength: 50, required: true }, true),
-    helper.lookup('parent', 'Parent', { objectType: 'classifier', labelProperty: 'name' }),
-    {
-        ...helper.string('name', 'Name', undefined, { maxLength: 150, required: false })
-        // muiTableBodyCellProps: (props) => ({
-        //     className: fromDepth(props.row.depth)
-        // })
-    },
-    helper.listofFreeSolo('type', 'Detail Types', 'string', (x: string, y: string) => x.localeCompare(y) as Compared),
-    helper.listOfPrimitive('detailTypes', 'ALL Detail Types', 'string', true),
-    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag', 'name'),
-    helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', 'name', true),
-    helper.listOfEmbed('attributes', 'Attribute', 'attribute'),
-    helper.listOfEmbed('allAttributes', 'ALL Attribute', 'attribute', true)
-
-    // helper.$list('type', 'Detail Types', 'string', ({ data }: { data: string }) => data, stringColumn as any, 'value'),
-    // helper.$list<string>('detailTypes', 'ALL Detail Types', 'string', ({ data }: { data: string }) => data, stringColumn as any, 'value', true),
-    // helper.list<{ value: string }>('type', 'Detail Types', 'string', ({ data }: { data: string }) => data.value, stringColumn, 'value'),
-    // helper.list<string>('detailTypes', 'ALL Detail Types', 'string', ({ data }: { data: string }) => data, stringColumn, 'value', true),
-    // helper.$list('hashTags', 'Hash Tags', 'hashTag', HashTagRowCell, hashTagColumns, 'name'),
-    // helper.$list('allHashTags', 'ALL Hash Tags', 'hashTag', HashTagRowCell, hashTagColumns, 'name', true),
-    // helper.$list('attributes', 'Attributes', 'attribute', AttributeRowCell, attributeColumns, 'path'),
-    // helper.$list('allAttributes', 'ALL Attributes', 'attribute', AttributeRowCell, attributeColumns, 'path', true)
-    // helper.list('attributes', 'Attributes', 'attribute', AttributeRowCell, attributeColumns, 'path'),
-    // helper.list('allAttributes', 'ALL Attributes', 'attribute', AttributeRowCell, attributeColumns, 'path', true)
-];
 
 export class Classifier extends Realm.Object<IClassifier> implements IClassifier {
     // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;

@@ -1,5 +1,5 @@
-import { IBarcode } from '../../types';
-import { is } from '../../common/is';
+import { IBarcode } from '../types';
+import { is } from '../common/is';
 
 
 export function barcodeFormatter(x?: unknown) {

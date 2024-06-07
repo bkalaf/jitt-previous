@@ -4,7 +4,12 @@ import $me from '../../../schema/enums';
 
 export function EnumTableCell<T extends MRT_RowData>(props: CellFunctionParams<T, string | undefined>) {
     useWhyDidIUpdate('EnumTableCell', props);
-    const { cell, column: { columnDef: { meta } }} = props;
+    const {
+        cell,
+        column: {
+            columnDef: { meta }
+        }
+    } = props;
     const { enumType } = meta ?? {};
     if (enumType == null) {
         console.error('no enumType', props.column.columnDef);
@@ -16,7 +21,12 @@ export function EnumTableCell<T extends MRT_RowData>(props: CellFunctionParams<T
 }
 
 export function toEnumMap<T>(enumItems: EnumItem<string>[], modifier?: (x: EnumItem) => T) {
-    return Object.fromEntries(enumItems.map(x => [[x.key, x] as [string, EnumItem], ...x.aliases.map(y => [y, x] as [string, EnumItem])]).reduce((pv, cv) => [...pv, ...cv], []).map(ei => [ei[0], (modifier ?? ((item: EnumItem) => item))(ei[1]) as T]))
+    return Object.fromEntries(
+        enumItems
+            .map((x) => [[x.key, x] as [string, EnumItem], ...x.aliases.map((y) => [y, x] as [string, EnumItem])])
+            .reduce((pv, cv) => [...pv, ...cv], [])
+            .map((ei) => [ei[0], (modifier ?? ((item: EnumItem) => item))(ei[1]) as T])
+    );
 }
 
-const toEnumMapText = (enumItems: EnumItem[]) => toEnumMap(enumItems, x => x.text);
+const toEnumMapText = (enumItems: EnumItem[]) => toEnumMap(enumItems, (x) => x.text);

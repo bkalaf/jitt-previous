@@ -2,16 +2,45 @@
     "arrowParens": "always",
     "bracketSameLine": true,
     "bracketSpacing": true,
-    "endOfLine": "lf",
-    "jsxSingleQuote": true,
-    "quoteProps": "as-needed",
-    "printWidth": 250,
-    "trailingComma": "none",
-    "singleAttributePerLine": false,
-    "useTabs": false,
-    "tabWidth": 4,
-    "semi": true,
-    "singleQuote": true,
     "embeddedLanguageFormatting": "auto",
-    "plugins": ["prettier-plugin-tailwindcss"]
+    "endOfLine": "lf",
+    "experimentalTernaries": true,
+    "jsxSingleQuote": true,
+    "overrides": [
+        {
+            "files": "*.css",
+            "options": {
+                "parser": "css"
+            }
+        },
+        {
+        "files": "*.ts",
+        "options": {
+            "parser": "babel-ts"
+        }
+    }, {
+        "files": "*.js",
+        "options": {
+            "parser": "babel"
+        }
+    }, {
+        "files": "*.json",
+        "options": {
+            "parser": "json"
+        }
+    }, {
+        "files": "*.tsx",
+        "options": {
+            "parser": "babel-ts"
+        }
+    }],
+    "plugins": ["prettier-plugin-tailwindcss"],
+    "printWidth": 250,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleAttributePerLine": false,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "useTabs": false
 }

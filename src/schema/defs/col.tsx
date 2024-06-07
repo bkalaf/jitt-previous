@@ -3,7 +3,7 @@ import { colString } from './colString';
 import { colDate } from './colDate';
 import { colBool } from './colBool';
 import { colLookup } from './colLookup';
-import { colEnum } from './colEnum';
+import { colEnum, colRadio } from './colEnum';
 import { colDollar } from './colDollar';
 import { colPercent } from './colPercent';
 import { colMeasure } from './colMeasure';
@@ -40,5 +40,6 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     double: colDouble(helper),
     dictionary: dbDictCol(helper),
     clothingCare: colClothingCare(helper),
-    flags: colFlags(helper)
+    flags: colFlags(helper),
+    radio: colRadio(helper)
 });

@@ -2,9 +2,10 @@ import { useCallback, useMemo } from 'react';
 import { IBrand, IProduct, ISku } from '../types';
 import { useEnv } from './useEnv';
 import path from 'path-browserify';
-import { barcodeFormatter } from '../schema/entity/barcodeFormatter';
-import { BSON } from 'realm';
+import { barcodeFormatter } from '../util/barcodeFormatter';
+import Realm, { BSON } from 'realm';
 import { IFileSystemContext } from '../contexts/FileSystemContext';
+import { runTransaction } from '../util/runTransaction';
 
 export function useProvideFileSystemContext(): IFileSystemContext {
     const { BARCODE_PRINT_FILE, DOWNLOADS_FOLDER, FILESYSTEM_PRODUCTS, FILESYSTEM_ROOT, INBOUND_FILES_FOLDER, REMOVE_BG_EXT, REMOVE_BG_SUFFIX, IMAGES_FOLDER, VIDEOS_FOLDER, PRODUCT_DOCS_FOLDER } = useEnv();
@@ -21,6 +22,17 @@ export function useProvideFileSystemContext(): IFileSystemContext {
         }),
         []
     );
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const updateValue = useCallback((db: Realm, collection: string, propertyName: string, value?: any) => (obj: Record<string, any>) => {
+        const func = () => {
+            const text = `function () { obj[propertyName] = value; console.log('DONE!'); return obj; }()`;
+            const nextValue = eval(text);
+            console.log(nextValue);
+            db.create(collection, nextValue);
+            // setProperty(propertyName, obj, value)
+        }
+        runTransaction(db, func);
+    }, [])
     const toRemBG = useCallback(
         (filename: string) => {
             return pathExt.filename(filename).concat(REMOVE_BG_SUFFIX).concat(REMOVE_BG_EXT);
@@ -72,6 +84,9 @@ export function useProvideFileSystemContext(): IFileSystemContext {
         toImages,
         toVideos,
         toProductDocs,
-        imagesVideosDocs: [IMAGES_FOLDER, VIDEOS_FOLDER, PRODUCT_DOCS_FOLDER]
+        imagesVideosDocs: [IMAGES_FOLDER, VIDEOS_FOLDER, PRODUCT_DOCS_FOLDER],
+        remBgSuffix: REMOVE_BG_SUFFIX,
+        remBgExt: REMOVE_BG_EXT,
+        updateValue
     };
 }

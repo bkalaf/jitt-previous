@@ -3,7 +3,6 @@ import { TextFieldElement } from 'react-hook-form-mui';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useEditControlBase } from '../../../hooks/useControl';
 
-
 export function StringControl<T extends MRT_RowData, U>(props: EditFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('StringControl', props);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
