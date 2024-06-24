@@ -25,7 +25,7 @@ export function dbDictCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
         // const Edit = createDBDictionaryControl(objectType, faceted, enumMap) as MRT_ColumnDef<T, DictionaryBack<any>>['Edit'];
         return baseCol<T, DictionaryBack<any>>(helper, name, DictionaryTableCell, DBDictionaryControl, header, false, readonly, {
             objectType,
-            keyType: faceted ? 'faceted' : enumKey
+            keyType: faceted ? 'faceted' : enumKey ?? 'string'
         }) as MRT_ColumnDef<T>;
         // return helper.accessor(name as any, {
         //     header: header ?? camelToProper(name),

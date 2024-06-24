@@ -30,7 +30,7 @@ export function whenProperty<T extends MRT_RowData, U>(propname: string, item: a
             const isDisabled = useCheckProperty(propname, item);
             if (Edit == null) throw new Error('No Edit Cell');
             const EditComponent = Edit as React.FunctionComponent<EditFunctionParams<T>>;
-            return isDisabled ? null : <EditComponent {...props} />
+            return isDisabled ? <EditComponent {...props} /> : null;
         } as MRT_ColumnDef<T, U>['Edit']
     }
 }

@@ -25,7 +25,8 @@ export const rendererConfig: Configuration = {
         fallback: {
             crypto: require.resolve('crypto-browserify'),
             util: require.resolve('util'),
-            path: require.resolve('path-browserify')
+            path: require.resolve('path-browserify'),
+            child_process: false
         }
     },
 };

@@ -8,6 +8,7 @@ export const youthSizes = 'youthSizes';
 export const bustSizes = 'bustSizes';
 
 export type SizingGroups = typeof womenLetter | typeof menLetter | typeof womenFootwear | typeof menFootwear | typeof waistSizes | typeof suitSizes | typeof youthSizes | typeof bustSizes;
+
 export const sizes = {
     '1': {
         sizingType: womenLetter,
@@ -2494,7 +2495,9 @@ export const sizes = {
 // console.log(distinctBy((x: string, y: string) => x.localeCompare(y) === 0, Object.values(sizes).map(x => x.sizingType)))
 
 export function getSizeOptions(section: SizingGroups) {
-    return Object.fromEntries(Object.values(sizes).filter(x => x.sizingType === section).map(({ text, index }) => [index.toFixed(0), text]));
+    return Object.values(sizes)
+        .filter((x) => x.sizingType === section)
+        .map(({ text, index }) => ({ key: index.toFixed(0), text }));
 }
 export function sizeLookup(index?: number) {
     return index == null ? undefined : sizes[index.toFixed(0) as keyof typeof sizes]

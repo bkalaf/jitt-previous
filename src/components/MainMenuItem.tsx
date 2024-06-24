@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom';
-import { MenuItem } from '@mui/material';
 import { useCallback } from 'react';
 import { camelToProper } from '../common/text';
+import { BaseMenuItem } from './BaseMenuItem';
 
-export function MainMenuItem({ segment }: { segment: string }) {
+export function MainMenuItem({ segment, baseUrl }: { segment: string; baseUrl: string }) {
     const navigate = useNavigate();
-    const onClick = useCallback(() => navigate(['/data/v1/', segment].join('')), [navigate, segment]);
+    const onClick = useCallback(() => navigate([baseUrl, segment].join('')), [baseUrl, navigate, segment]);
     return (
-        <MenuItem className='text-white bg-black border border-white' onClick={onClick}>
-            {camelToProper(segment)}
-        </MenuItem>
+        <BaseMenuItem label={camelToProper(segment)} onClick={onClick}/>
     );
 }
+

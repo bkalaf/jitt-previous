@@ -34,7 +34,6 @@ export function createRenderRowActions2<T extends MRT_RowData>() {
                 }
             }
         });
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const deleteTransactiton = useCallback(
             (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 ev.preventDefault();

@@ -9,17 +9,18 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
     props: EditFunctionParams<T, TValue | undefined>,
     ...keys: TKeys[]
 ) {
-    const { columnName, validate, min, max, maxLength, minLength, pattern, required, readonly, ...rest } = useEditColumnMeta<
+    const { columnName, validate, min, max, maxLength, minLength, pattern, required, readonly, onChange: $$change, ...rest } = useEditColumnMeta<
         T,
         TValue,
-        'columnName' | 'min' | 'minLength' | 'max' | 'maxLength' | 'required' | 'pattern' | 'validate' | 'readonly' | TKeys
-    >(props, 'columnName', 'min', 'minLength', 'max', 'maxLength', ...keys);
+        'columnName' | 'min' | 'minLength' | 'max' | 'maxLength' | 'required' | 'pattern' | 'validate' | 'readonly' |'onChange' | TKeys
+    >(props, 'columnName', 'min', 'minLength', 'max', 'maxLength', 'onChange', ...keys);
     const validation = useMemo(() => createRules({ required, min, max, minLength, maxLength, pattern, validate }), [max, maxLength, min, minLength, pattern, required, validate]);
     const { accessorKey, id, header: label } = props.column.columnDef;
     const name = columnName ?? accessorKey ?? id ?? 'n/a';
     console.log('useEditControlBase', name, accessorKey, id);
     const formContext = useFormContext();
-    const { control, getFieldState, setValue } = formContext;
+    console.info(`formContext pulled`, formContext);
+    const { control, getFieldState, setValue, getValues } = formContext;
     const { invalid, error } = getFieldState(name);
     const { type, message: helperText } = error ?? {};
     if (type != null) console.error(`${type}: ${helperText}}`);
@@ -27,9 +28,12 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
         (ev?: React.ChangeEvent<TElement>, newValue?: any) => {
             ev?.preventDefault();
             ev?.stopPropagation();
+            if ($$change) {
+                $$change(setValue, getValues()[name], newValue);
+            }
             setValue(name, newValue ?? (ev?.target as HTMLInputElement | undefined)?.value);
         },
-        [name, setValue]
+        [$$change, getValues, name, setValue]
     );
     return {
         name,

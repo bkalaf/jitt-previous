@@ -1,5 +1,4 @@
-import { IBarcode } from '../../types';
-import { barcodeTypes } from '../enums/barcodeTypes';
+import { IBarcode, IBin } from '../../types';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { classifyBarcode } from '../../util/classifyBarcode';
@@ -7,25 +6,38 @@ import Realm, { BSON } from 'realm';
 import { runTransaction } from '../../util/runTransaction';
 import { calculateUPCCheckDigit } from '../../util/calculateUPCCheckDigit';
 import { is } from '../../common/is';
-import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
-import { col } from '../defs/col';
-import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { BarcodeTypes } from '../enums';
+import { EntityBase } from './EntityBase';
 
-export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
+export class Barcode extends EntityBase<IBarcode> implements IBarcode {
     beenPrinted: boolean;
     _id: BSON.ObjectId;
     isValidated: boolean;
     type: BarcodeTypes;
     value: string;
     get scanValue(): string {
-        return this.value.slice(0, this.value.length - 1);
+        function inner(inStr: string) {
+            return inStr.startsWith('0') ? inStr.slice(1, inStr.length) : inStr;
+        }
+        return inner(this.value.slice(0, this.value.length - 1));
     }
     equalTo(value: string | IBarcode) {
         const thisValue = this.scanValue;
-        const thatValue = is.string(value) ? value.padStart(13, '0').slice(0, 12) : value.scanValue;
+        function inner(inStr: string) {
+            return inStr.startsWith('0') ? inStr.slice(1, inStr.length) : inStr;
+        }
+        const thatValue = is.string(value) ? inner(value.padStart(13, '0').slice(0, 12)) : value.scanValue;
         // assert(thisValue.length === thatValue.length, 'compared barcode values are not the same length');
         return thisValue === thatValue;
+    }
+    get linkedSkus() {
+        return this.linkingObjects('sku', 'skus') as any;
+    }
+    get linkedBin() {
+        return this.linkingObjects<IBin>('bin', 'barcode') as any;
+    }
+    get kind() {
+        return this.linkedSkus.length > 0 ? 'sku' : this.linkedBin.length > 0 ? 'bin' : 'unknown';
     }
     static schema: Realm.ObjectSchema = {
         name: schemaName($.barcode()),
@@ -38,50 +50,53 @@ export class Barcode extends Realm.Object<IBarcode> implements IBarcode {
             beenPrinted: $.bool.default(false)
         }
     };
-    static update(realm: Realm, obj: Barcode): Barcode {
+    static update(obj: Barcode): Barcode {
         console.info('Barcode.update');
         const func = () => {
             console.info('Barcode.update - running');
             obj.value = obj.value.padStart(13, '0');
         };
         if (obj.value.length !== 13) {
-            runTransaction(realm, func);
+            runTransaction(Barcode.localRealm, func);
         }
         return obj;
     }
-    static createFromFullUPC(realm: Realm, value: string, doNotCreate = false): IBarcode {
+    static createFromFullUPC(value: string, doNotCreate = false): IBarcode {
+        const realm = Barcode.localRealm;
         const fullBarcode = value.padStart(13, '0');
-        const result = realm.objects<IBarcode>($.barcode()).filtered('value == $0', fullBarcode);
+        const result = realm.objects<IBarcode>('barcode').filtered('value == $0', fullBarcode);
         if (result.length > 0) return result[0];
         const [isValidated, type] = classifyBarcode(fullBarcode);
         const obj = {
             _id: new BSON.ObjectId(),
             isValidated,
             type,
-            value: fullBarcode
+            value: fullBarcode,
+            beenPrinted: false
         } as IBarcode;
         let final: RealmObj<IBarcode> | undefined;
         const func = () => {
-            final = realm.create<IBarcode>($.barcode(), obj);
+            final = realm.create<IBarcode>('barcode', obj);
         };
         if (!doNotCreate) {
             runTransaction(realm, func);
         }
         return final ?? obj;
     }
-    static createFromTruncatedUPC(realm: Realm, value: string, doNotCreate = false) {
+    static createFromTruncatedUPC(value: string, doNotCreate = false) {
         const checkdigit = calculateUPCCheckDigit(value);
-        return Barcode.createFromFullUPC(realm, [...value, checkdigit].join(''), doNotCreate);
+        return Barcode.createFromFullUPC([...value, checkdigit].join(''), doNotCreate);
     }
     static labelProperty = 'value';
+    static init(): InitValue<IBarcode> {
+        return {
+            _id: new BSON.ObjectId(),
+            isValidated: false,
+            type: 'unknown',
+            value: '0000000000000',
+            beenPrinted: false
+        }
+    }
 }
 
-const h = createMRTColumnHelper<IBarcode>();
-const helper = col(h);
 
-export const barcodeColumns: MRT_ColumnDef<IBarcode>[] = [
-    helper.pk(),
-    helper.string('value', 'Value', barcodeFormatter, { maxLength: 13, required: true }),
-    helper.enum('type', 'Type', { options: barcodeTypes, required: true }),
-    helper.bool('isValidated', 'Is Validated')
-];

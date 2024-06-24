@@ -1,11 +1,11 @@
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { IHashTag, IHashTagUsage } from '../../types';
-import { ObjectId } from 'bson';
-import Realm from 'realm';
+import Realm, { BSON } from 'realm';
+import { EntityBase } from './EntityBase';
 
-export class HashTag extends Realm.Object<IHashTag> implements IHashTag {
-    _id: ObjectId;
+export class HashTag extends EntityBase<IHashTag> {
+    _id: BSON.ObjectId;
     name: string;
     usage: DBList<IHashTagUsage>;
     get maxCount(): number {
@@ -25,4 +25,14 @@ export class HashTag extends Realm.Object<IHashTag> implements IHashTag {
         }
     };
     static labelProperty = 'name';
+    static update(item: IHashTag): IHashTag {
+        return item;
+    }
+    static init(): InitValue<IHashTag> {
+        return {
+            _id: new BSON.ObjectId(),
+            name: '',
+            usage: []
+        }
+    }
 }

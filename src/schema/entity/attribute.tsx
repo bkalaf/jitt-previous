@@ -2,8 +2,9 @@ import Realm from 'realm';
 import { IAttribute } from '../../types';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
+import { EntityBase } from './EntityBase';
 
-export class Attribute extends Realm.Object<IAttribute> implements IAttribute {
+export class Attribute extends EntityBase<IAttribute> implements IAttribute {
     path: string;
     unset: boolean;
     value: unknown;
@@ -17,5 +18,14 @@ export class Attribute extends Realm.Object<IAttribute> implements IAttribute {
             value: $.mixed()
         }
     };
-    static liComponent = ((value?: IAttribute) => () => value == null ? '' : [value.path, value.value].join(' == '));
+    static liComponent = (value?: IAttribute) => () => (value == null ? '' : [value.path, value.value].join(' == '));
+    static update(item: IAttribute): IAttribute {
+        return item;
+    }
+    static init(): InitValue<IAttribute> {
+        return {
+            path: '',
+            unset: false           
+        }
+    }
 }

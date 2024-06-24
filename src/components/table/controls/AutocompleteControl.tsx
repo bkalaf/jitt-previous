@@ -27,14 +27,20 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
         queryKey: [objectType, labelProperty],
         queryFn: () => {
             if (db == null) throw new Error('no db');
-            return Promise.resolve([...db.objects<U>(objectType).sorted(labelProperty)]);
+            return Promise.resolve(db.objects<U>(objectType).sorted(labelProperty));
         }
     });
-    const { getOptionLabel, isOptionEqualToValue } = useAutoComplete<{ _id: BSON.ObjectId }>(labelProperty as any, (x: { _id: BSON.ObjectId }, y: { _id: BSON.ObjectId }) => {
-        const idA = x._id.toHexString()
-        const idB = y._id.toHexString()
-        return idA.localeCompare(idB) as Compared
-    });
+    const { isOptionEqualToValue } = useAutoComplete<{ _id: BSON.ObjectId }>(
+        labelProperty as any,
+        ((x: { _id: BSON.ObjectId }, y: { _id: BSON.ObjectId }) => {
+            const idA = typeof x._id === 'string' ? x : x._id.toHexString();
+            const idB = typeof y._id === 'string' ? y : y._id.toHexString();
+            return idA === idB;
+        }) as any
+    );
+    // const filterOptions = useCallback((options: any[], { inputValue }: { inputValue: string }) => {
+    //     return matchSorter(options, inputValue, { keys: [labelProperty]});
+    // }, [])
     const filterOptions = useMemo(
         () =>
             createFilterOptions<AutoOption>({
@@ -42,20 +48,22 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
                 ignoreCase: true,
                 limit: 400,
                 trim: true,
-                matchFrom: 'start'
+                matchFrom: 'start',
+                stringify: (option) => (option as any)[labelProperty]
             }),
-        []
+        [labelProperty]
     );
     return (
         <AutocompleteElement
-            options={data ?? []}
+            options={Array.from(data ?? []) ?? []}
             multiple={multiple}
             loading={isLoading}
             rules={validation}
             autocompleteProps={{
                 freeSolo,
+                autoHighlight: true,   
                 isOptionEqualToValue,
-                getOptionLabel,
+                getOptionLabel: (option) => option[labelProperty],              
                 onChange: onChange as any,
                 filterOptions: filterOptions,
                 selectOnFocus: true,

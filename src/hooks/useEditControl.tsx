@@ -1,5 +1,6 @@
 import { MRT_RowData, MRT_Column, MRT_Cell } from 'material-react-table';
 import { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export function useControl<T extends MRT_RowData, TValue, U>(column: MRT_Column<T, TValue>, cell: MRT_Cell<T, TValue>, defaultValue: TValue, operator: (x: TValue) => U) {
     const { accessorKey, id, header } = column.columnDef;
@@ -17,9 +18,10 @@ export function useControl<T extends MRT_RowData, TValue, U>(column: MRT_Column<
 
 export function useEditControl<T extends MRT_RowData, TValue>(column: MRT_Column<T>, cell: MRT_Cell<T, ListBack<TValue>>) {
     const { accessorKey, id, header } = column.columnDef;
-    const name = accessorKey ?? id;
+    const name = column.columnDef.meta?.columnName ?? accessorKey ?? id;
     if (name == null) throw new Error('no name');
-    const list = useMemo(() => cell.getValue() ?? ([] as TValue[]), [cell]);
+    const formContext = useFormContext();
+    const list = formContext.watch(name) as TValue[];
     console.info(`name: ${name} label: ${header} list:`, list);
     return useMemo(
         () => ({

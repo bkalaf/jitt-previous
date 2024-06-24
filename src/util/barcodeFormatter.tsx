@@ -2,7 +2,7 @@ import { IBarcode } from '../types';
 import { is } from '../common/is';
 
 
-export function barcodeFormatter(x?: unknown) {
+export function barcodeFormatter(x?: IBarcode | string) {
     const barcode = x as IBarcode | string | undefined;
     if (barcode == null) return '';
     const chars = is.string(barcode) ? barcode.split('') : barcode.value.split('');

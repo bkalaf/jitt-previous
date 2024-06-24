@@ -1,13 +1,13 @@
-import * as Realm from 'realm';
+import Realm, { BSON } from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { AuctionSite, IAuction, IFacility } from '../../types';
-import { ObjectId } from 'bson';
 import dayjs from 'dayjs';
 import { runTransaction } from '../../util/runTransaction';
+import { EntityBase } from './EntityBase';
 
-export class Auction extends Realm.Object<IAuction> implements IAuction {
-    _id: ObjectId;
+export class Auction extends EntityBase<IAuction> implements IAuction {
+    _id: BSON.ObjectId;
     name: string;
     facility?: IFacility | undefined;
     closeDate: Date;
@@ -42,11 +42,20 @@ export class Auction extends Realm.Object<IAuction> implements IAuction {
         const { finalBid, premiumPercent, salesTaxPercent, taxExempt } = { salesTaxPercent: 0, premiumPercent: 0, finalBid: 0, ...this };
         return finalBid + premiumPercent * finalBid + (!taxExempt ? salesTaxPercent * finalBid : 0);
     }
-    static update(realm: Realm, item: IAuction): IAuction | undefined {
+    static update(item: IAuction): IAuction | undefined {
         const func = () => {
             item.name = [dayjs(item.closeDate).format('YYYY-MM-DD'), item.facility?.name].join(' - ');
             return item;
         };
-        return runTransaction(realm, func);
+        return runTransaction(Auction.localRealm, func);
+    }
+    static init(): InitValue<IAuction> {
+        return {
+            _id: new BSON.ObjectId(),
+            name: '',
+            auctionSite: 'storageTreasures',
+            closeDate: new Date(Date.now()),
+            taxExempt: false
+        }
     }
 }

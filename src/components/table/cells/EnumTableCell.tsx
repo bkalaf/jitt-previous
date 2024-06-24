@@ -1,8 +1,8 @@
-import { MRT_RowData } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData } from 'material-react-table';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import $me from '../../../schema/enums';
+import { ColumnMeta } from '@tanstack/react-table';
 
-export function EnumTableCell<T extends MRT_RowData>(props: CellFunctionParams<T, string | undefined>) {
+export function EnumTableCell<T extends MRT_RowData>(props: Parameters<Exclude<MRT_ColumnDef<T, string | undefined>['Cell'], undefined>>[0]) {
     useWhyDidIUpdate('EnumTableCell', props);
     const {
         cell,
@@ -10,14 +10,17 @@ export function EnumTableCell<T extends MRT_RowData>(props: CellFunctionParams<T
             columnDef: { meta }
         }
     } = props;
-    const { enumType } = meta ?? {};
-    if (enumType == null) {
-        console.error('no enumType', props.column.columnDef);
-        throw new Error('no enumType');
-    }
-    const enumItems = $me[enumType];
+    if (meta == null) throw new Error('no meta');
+    const $meta = meta as ColumnMeta<any, any>;
+    const { enumInfo } = { ...$meta ?? { } };
+    if (enumInfo == null) throw new Error('no enuminfo in enumtablecell');
     const value = cell.getValue();
-    return value == null ? '' : toEnumMapText(enumItems)[value];
+    const lookup = value != null ? enumInfo.asRecord[value] : undefined
+    return (
+        lookup == null ? ''
+        : typeof lookup === 'string' ? lookup
+        : lookup.text
+    );
 }
 
 export function toEnumMap<T>(enumItems: EnumItem<string>[], modifier?: (x: EnumItem) => T) {
@@ -29,4 +32,3 @@ export function toEnumMap<T>(enumItems: EnumItem<string>[], modifier?: (x: EnumI
     );
 }
 
-const toEnumMapText = (enumItems: EnumItem[]) => toEnumMap(enumItems, (x) => x.text);

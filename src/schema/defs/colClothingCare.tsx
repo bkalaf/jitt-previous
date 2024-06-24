@@ -2,16 +2,11 @@ import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-tab
 import { ClothingCareMap } from '../laundryCare';
 import { Path } from 'react-hook-form';
 import { baseCol } from './baseCol';
-import { $createClothingCareControl } from '../../components/controls/$createClothingCareControl';
-import { FlattenedListTableCell } from '../../components/table/cells/FlattenedListTableCell';
-import { converted } from './colDBList';
+import { ClothingCareControl, FlattenedClothingCare } from '../../components/controls/ClothingCareControl';
 
 export function colClothingCare<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
     return function (name: Path<T> & string, header: string, section: keyof typeof ClothingCareMap, readonly = false): MRT_ColumnDef<T> {
-        const Edit = $createClothingCareControl(section) as MRT_ColumnDef<T, any>['Edit'];
-        return baseCol<T, ListBack<string>>(helper, name, FlattenedListTableCell, Edit, header, false, readonly, {
-            flattener: (value?: ListBack<string>) => value?.map(converted(section)).join(', ') ?? ''
-        }) as MRT_ColumnDef<T>;
+        return baseCol<T, ListBack<string>>(helper, name, FlattenedClothingCare, ClothingCareControl, header, false, readonly) as MRT_ColumnDef<T>;
         // return helper.accessor(name as any, {
         //     header: header ?? camelToProper(name),
         //     enableEditing: !readonly,

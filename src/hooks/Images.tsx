@@ -41,18 +41,22 @@ export function Images(props: { productImage: IProductImage; }) {
         runTransaction(db, func);
     }, [db, productImage._id]);
     const internal = selected ?? (productImage.flags?.includes('ignore') ? 'ignore' : '');
-    return <>
-        <Image filepath={original} caption={caption} selected={selected === 'original'} />
-        <Image filepath={removeBG} caption={caption} selected={selected === 'original'} />
-        <div className='flex w-full'>
-            <FormControl>
-                <RadioGroup row value={internal} onChange={handleChange}>
-                    <FormControlLabel control={<Radio />} value='original' label='Original' />
-                    <FormControlLabel control={<Radio />} value='rembg' label='Remove-BG' />
-                    <FormControlLabel control={<Radio />} value='' label='Unselected' />
-                    <FormControlLabel control={<Radio />} value='ignore' label='IGNORE' />
-                </RadioGroup>
-            </FormControl>
-        </div>
-    </>;
+    return (
+        <>
+            <div className='flex w-full'>
+                <Image filepath={original} caption={caption} selected={selected === 'original'} />
+                <Image filepath={removeBG} caption={caption} selected={selected === 'rembg'} />
+            </div>
+            <div className='flex w-full'>
+                <FormControl>
+                    <RadioGroup row value={internal} onChange={handleChange}>
+                        <FormControlLabel control={<Radio />} value='original' label='Original' />
+                        <FormControlLabel control={<Radio />} value='rembg' label='Remove-BG' />
+                        <FormControlLabel control={<Radio />} value='' label='Unselected' />
+                        <FormControlLabel control={<Radio />} value='ignore' label='IGNORE' />
+                    </RadioGroup>
+                </FormControl>
+            </div>
+        </>
+    );
 }

@@ -3,6 +3,6 @@ import { IFacing } from '../types';
 
 export function generateCaption(facing: IFacing) {
     const { x, y, z, pov } = facing;
-    const text = [[y, z, x].filter(is.not.nil).join('-'), ...pov.sort()].join('; ');
+    const text = [[y, z, x].filter(is.not.nil).join('-'), ...pov.sort()].filter(is.not.nil).join('; ');
     return text;
 }

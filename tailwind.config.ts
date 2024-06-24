@@ -147,6 +147,7 @@ export default  {
             bounce: 'bounce 1s infinite'
         },
         aria: {
+            page: 'current="page"',
             checked: 'checked="true"',
             disabled: 'disabled="true"',
             expanded: 'expanded="true"',
@@ -1025,15 +1026,18 @@ export default  {
                 //     divideWidth: '1px',
                 //     divideColor: black
                 // },
+                'td > div': {
+                    width: '100vw'
+                },
+                'td > div > div > div > div': {
+                    margin: '0'
+                },
                 'input[type="checkbox"].large': {
                     transform: 'scale(1.5)'
                 },
                 'input[type="checkbox"].small': {
                     transform: 'scale(0.85)'
-                },
-                // 'button[aria-label="Expand"]': {
-                    
-                // }
+                }
             });
             addUtilities({
                 // '.row-even': {

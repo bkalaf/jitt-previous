@@ -17,11 +17,11 @@ import { useStopAndPrevent } from '../../hooks/useStopAndPrevent';
 import { isPrimitive } from '../../schema/conversion/cnvrt';
 import { colString } from '../../schema/defs/colString';
 import { colEnum } from '../../schema/defs/colEnum';
-import { useFieldArrayControl } from 'src/hooks/useFieldArrayControl';
 import { useToggler } from '../../hooks/useToggler';
 import { DBListEditSubComponent } from './DBListEditSubComponent';
 import { DBListItemSubComponent } from './DBListItemSubComponent';
 import { colFreeSolo } from '../../schema/defs/colFreeSolo';
+import { useFieldArrayControl } from '../../hooks/useFieldArrayControl';
 
 const h = createMRTColumnHelper<{ key: string; value: any }>();
 const helper = {
@@ -34,7 +34,7 @@ const keyColumn = helper.string('key', 'Key', undefined, { required: true });
 const facetedKeyColumn = helper.freeSolo('key', 'Key', (x?: string, y?: string) => x != null && y != null ? x.localeCompare(y) as Compared : 0, { required: true });
 const enumColumn = (emap: EnumMap<string>) => helper.enum('key', 'Key', { options: emap, required: true });
 
-export function useDictionaryColumns(objectType: string, faceted: boolean, enumMap?: EnumMap) {
+export function useDictionaryColumns(objectType: string, faceted: boolean, enumMap?: EnumMap<string>) {
     const valueColumns = useColumns<any>(objectType);
     const kColumn = useMemo(() => (enumMap != null ? enumColumn(enumMap) : faceted ? facetedKeyColumn : keyColumn), [enumMap, faceted]);
     const columns = useMemo(

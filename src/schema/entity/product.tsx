@@ -1,12 +1,11 @@
 import Realm, { BSON } from 'realm';
-import { DetailTypes, IBarcode, IBrand, IClassifier, IClothingCare, IConnector, ICurrentSetting, ICustomItemField, IHashTag, IIncludedItem, IMadeOfSection, IMinMax, IProduct, ITrack, Opt } from '../../types';
+import { AnyConnector, DetailTypes, IBarcode, IBrand, IClassifier, IClothingCare, ICurrentSetting, ICustomItemField, IDimension, IHashTag, IIncludedItem, IMadeOfSection, IMinMax, IPiece, IProduct, ITrack, Opt } from '../../types';
 
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { distinctByOID } from '../../common/array/distinct';
 import { sizeLookup } from '../enums/sizes';
 import {
-    Flags,
     ProductColors,
     Genders,
     ClosureTypes,
@@ -56,15 +55,41 @@ import {
     OperatingSystems,
     PowerTypes,
     ShaftTypes,
-    ShapeTypes,
     WedgeTypes,
-    SleeveLengths
+    SleeveLengths,
+    FlatwareTypes,
+    CableTypes,
+    Materials,
+    CapacityUOM
 } from '../enums';
 import { productColors } from '../enums/productColors';
+import { Flags } from './../enums/flags';
+import { EntityBase } from './EntityBase';
 
-export class Product extends Realm.Object<IProduct> implements IProduct {
+export class Product extends EntityBase<IProduct> implements IProduct {
+    computerType?: Opt<string>;
+    memorySpeed?: Opt<number>;
+    driveForm?: Opt<string>;
+    driveInterface?: Opt<string>;
+    driveSize?: Opt<IDimension<CapacityUOM>>;
+    driveType?: Opt<string>;
+    connectivity?: DBList<string>;
+    dataTransferRate?: Opt<number>;
+    memoryForm?: Opt<string>;
+    memorySize?: Opt<IDimension<CapacityUOM>>;
+    memoryType?: Opt<string>;
+    readSpeed?: Opt<number>;
+    rpm?: Opt<number>;
+    writeSpeed?: Opt<number>;
+    partNumbers: DBList<string>;
+    overrideTitle: boolean;
+    material?: Opt<Materials>;
+    cableType: Opt<CableTypes>;
+    dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
+    flatwareInventory: Opt<Record<FlatwareTypes, number>>;
+    itemType: Opt<string>;
     cordLength: Opt<number>;
-    connectors: DBList<IConnector>;
+    connectors: DBList<AnyConnector>;
     compatibleWith: DBList<string>;
     sleeveLength: Opt<SleeveLengths>;
     input: Opt<ICurrentSetting>;
@@ -81,11 +106,13 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
     screenSize: Opt<number>;
     massInAir: Opt<number>;
     massWaterDisplaced: Opt<number>;
-    density: Opt<number>;
+    get density(): Opt<number> {
+        if (this.massInAir == null || this.massWaterDisplaced == null) return undefined;
+        return this.massInAir / this.massWaterDisplaced;
+    }
     metal: Opt<MetalTypes>;
     dinnerwareType: Opt<DinnerwareTypes>;
     pattern: Opt<string>;
-    shapeType: Opt<ShapeTypes>;
     applianceType: Opt<ApplianceTypes>;
     clubType: Opt<ClubTypes>;
     flexType: Opt<FlexTypes>;
@@ -189,6 +216,8 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
     musicFormat: Opt<MusicFormatTypes>;
     musicGenre: Opt<MusicGenres>;
     tracks: DBList<ITrack>;
+    modelName: Opt<string>;
+
     static schema: Realm.ObjectSchema = {
         name: schemaName($.product()),
         primaryKey: '_id',
@@ -213,7 +242,7 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
             circa: $.string.opt,
             color: $.string.list,
             description: $.string.opt,
-
+            itemType: $.string.opt,
             madeOf: $.madeOfSection.list,
             gender: $.string.opt,
             styleNo: $.string.opt,
@@ -308,13 +337,13 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
             massInAir: $.double.opt,
             massWaterDisplaced: $.double.opt,
             metal: $.string.opt,
-            dinnerwareType: $.string.opt,
+            dinnerwareInventory: $.piece.dictionary,
+            flatwareInventory: $.int.dictionary,
             pattern: $.string.opt,
-            shapeType: $.string.opt,
             applianceType: $.string.opt,
             clubType: $.string.opt,
             flexType: $.string.opt,
-            handOrientatin: $.string.opt,
+            handOrientation: $.string.opt,
             ironType: $.string.opt,
             clubLength: $.double.opt,
             lie: $.double.opt,
@@ -324,9 +353,38 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
             wedgeType: $.string.opt,
             ages: $.minMax(),
             players: $.minMax(),
-            pieceCount: $.int.opt
+            pieceCount: $.int.opt,
+            material: $.string.opt,
+            cableType: $.string.opt,
+            modelName: $.string.opt,
+            overrideTitle: $.bool.default(false),
+            partNumbers: $.string.list,
+            driveType: $.string.opt,
+            driveForm: $.string.opt,
+            connectivity: $.string.list,
+            driveInterface: $.string.opt,
+            driveSize: $.dimension(),
+            writeSpeed: $.double.opt,
+            readSpeed: $.double.opt,
+            dataTransferRate: $.double.opt,
+            rpm: $.int.opt,
+            memoryType: $.string.opt,
+            memoryForm: $.string.opt,
+            computerType: $.string.opt,
+            memorySize: $.dimension(),
+            memorySpeed: $.int.opt,
+            CASLatency: $.string.opt,
+            cacheSize: $.double.opt,
+            dataTransferBandwidth: $.string.opt,
+            pinCount: $.int.opt,
+            voltage: $.double.opt
         }
     };
+    CASLatency?: Opt<string>;
+    cacheSize?: Opt<number>;
+    dataTransferBandwidth?: Opt<string>;
+    pinCount?: Opt<number>;
+    voltage?: Opt<number>;
 
     get sizeText(): string | undefined {
         return sizeLookup(this.size)?.text;
@@ -346,7 +404,36 @@ export class Product extends Realm.Object<IProduct> implements IProduct {
         return distinctByOID([...(this.brand?.allHashTags ?? []), ...(this?.classifier?.allHashTags ?? [])]);
     }
     get detailTypes(): DetailTypes[] {
-        return Array.from(this.classifier?.detailTypes ?? ['general']);
+        return ['general', ...Array.from(this.classifier?.detailTypes ?? [])];
     }
     static labelProperty = 'title';
+    static update(item: IProduct): IProduct {
+        return item;
+    }
+    static init(): InitValue<IProduct> {
+        return {
+            _id: new BSON.ObjectId(),
+            includes: [],
+            overrideTitle: false,
+            partNumbers: [],
+            madeOf: [],
+            asins: [],
+            customAttributes: [],
+            features: [],
+            hashTags: [],
+            flags: [],
+            upcs: [],
+            color: [],
+            awards: [],
+            authors: [],
+            illustrators: [],
+            publishers: [],
+            collectionOf: [],
+            directedBy: [],
+            starring: [],
+            tracks: [],
+            connectors: [],
+            compatibleWith: []
+        };
+    }
 }

@@ -45,5 +45,7 @@ export const _itemConditions = {
 export const itemConditions = {
     getText: getEnumText(_itemConditions),
     getColor: getEnumColor(_itemConditions),
-    getSelectgor: getEnumSelector(_itemConditions)
+    getSelector: getEnumSelector(_itemConditions)
 };
+
+export const ItemConditionsMap = Object.fromEntries(Object.entries(_itemConditions).map(([k, v]) => [k, v.text] as [string, string]))

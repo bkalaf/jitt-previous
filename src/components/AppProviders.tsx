@@ -11,6 +11,7 @@ import { queryClient } from './AppRoot';
 import { ConfigurationProvider } from '../contexts/ConfigurationProvider';
 import { FileSystemContextProvider } from './../contexts/FileSystemContextProvider';
 import { EnvProvider } from './../contexts/EnvProvider';
+import { BarcodeGeneratorProvider } from '../contexts/BarcodeGeneratorProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
@@ -23,7 +24,11 @@ export function AppProviders({ children }: { children: Children }) {
                                 <RealmProvider>
                                     <QueryClientProvider client={queryClient}>
                                         <ForagerProvider>
-                                            <ConfigurationProvider>{children}</ConfigurationProvider>
+                                            <ConfigurationProvider>
+                                                <BarcodeGeneratorProvider>
+                                                    {children}
+                                                </BarcodeGeneratorProvider>
+                                            </ConfigurationProvider>
                                         </ForagerProvider>
                                     </QueryClientProvider>
                                 </RealmProvider>

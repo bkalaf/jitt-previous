@@ -9,6 +9,8 @@ export function useUpdater<T extends MRT_RowData>(objectType?: string): [boolean
     const types = useTypes();
     const schema = useMemo(() => types.find((x) => x.name === route), [route, types]);
     console.log('ctor', schema?.ctor);
+    console.info(`useUpdater`, schema);
     const func = useMemo(() => schema?.ctor?.update ?? ((realm: Realm, obj: RealmObj<T>) => obj), [schema?.ctor?.update]);
+    console.info(`useUpdater`, route, func);
     return [schema?.ctor?.update != null, func]
 }

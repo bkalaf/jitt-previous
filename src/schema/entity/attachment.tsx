@@ -3,8 +3,20 @@ import { IAttachment, ISku } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { AttachmentStages } from '../choices/AttachmentStages';
+import { AttachmentDisposition } from '../choices/AttachmentDisposition';
+import { AttachmentType } from '../choices/AttachmentType';
+import { EntityBase } from './EntityBase';
 
-export class Attachment extends Realm.Object<IAttachment> implements IAttachment {
+// type ROP = GetNonReadOnlyProperties<IAttachment>;
+// type NFP = NonFunctionProperties<IAttachment>;
+// type WRP = GetWritableProperties<IAttachment>;
+// type InitialAttachment = InitValue<IAttachment>;
+// type IsObject<T extends AnyObject> = keyof T extends '_id' ? T : never;
+// type IsObject2<T extends AnyObject> = '_id' extends keyof T ? T : never;
+
+// type I1 = IsObject<IAttachment>;
+// type I2 = IsObject2<IAttachment>;
+export class Attachment extends EntityBase<IAttachment> implements IAttachment {
     _id: BSON.ObjectId;
     caption?: string | undefined;
     fullpath: string;
@@ -51,8 +63,28 @@ export class Attachment extends Realm.Object<IAttachment> implements IAttachment
             sku: $.sku(),
             doNotUse: $.bool.default(false),
             takenOn: $.date.opt,
-            attachmentType: $.string.default('u')
+            attachmentType: $.string.default('unknown'),
+            attachmentDisposition: $.string.default(AttachmentDisposition.localOnly),
+            attachmentPipelineStage: $.string.default(AttachmentStages.idle),
+            sharedLink: $.string.opt,
+            tinyURL: $.string.opt
         }
     }
-
+    static labelProperty = 'fullpath';
+    static init(): InitValue<IAttachment> {
+        return {
+            _id: new BSON.ObjectId(),
+            fullpath: '',
+            filename: '',
+            sku: undefined as any,
+            doNotUse: false,
+            takenOn: new Date(Date.now()),
+            attachmentType: AttachmentType.unknown,
+            attachmentDisposition: AttachmentDisposition.localOnly,
+            attachmentPipelineStage: AttachmentStages.idle
+        }
+    }
+    static update(item: IAttachment) {
+        return item;
+    }
 }

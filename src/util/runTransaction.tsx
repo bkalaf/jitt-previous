@@ -1,6 +1,5 @@
 import * as Realm from 'realm';
 
-
 export function runTransaction<T>(realm: Realm, func: () => T) {
     if (realm.isInTransaction) {
         return func();
@@ -9,5 +8,5 @@ export function runTransaction<T>(realm: Realm, func: () => T) {
     realm.write(() => {
         result = func();
     });
-    return result;
+    return result as T;
 }

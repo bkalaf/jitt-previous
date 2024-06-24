@@ -1,14 +1,15 @@
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { ObjectId } from 'bson';
-import * as Realm from 'realm';
+import Realm, { BSON } from 'realm';
 import { IAddress, IFacility, ISelfStorage } from '../../types';
 import { runTransaction } from '../../util/runTransaction';
 import { getCityState } from '../../util/getCityState';
 import { getStreetOnly } from '../../util/getStreetOnly';
+import { getInitFor } from './getInitFor';
+import { EntityBase } from './EntityBase';
 
-export class Facility extends Realm.Object<IFacility> implements IFacility {
-    _id: ObjectId;
+export class Facility extends EntityBase<IFacility> {
+    _id: BSON.ObjectId;
     selfStorage?: ISelfStorage | undefined;
     address?: IAddress | undefined;
     facilityNumber?: string | undefined;
@@ -31,11 +32,21 @@ export class Facility extends Realm.Object<IFacility> implements IFacility {
     };
 
     static labelProperty: 'name';
-    static update(realm: Realm, item: IFacility) {
+    static update(item: IFacility) {
         const func = () => {
             item.name = [item.selfStorage?.name, getCityState(item.address), getStreetOnly(item.address)].filter((x) => x != null).join(' - ');
             return item;
         };
-        return runTransaction(realm, func);
+        return runTransaction(Facility.localRealm, func);
+    }
+    static init(): InitValue<IFacility> {
+        const selfStorage = getInitFor<ISelfStorage>(Facility, 'selfStorage');
+        const address = getInitFor<IAddress>(Facility, 'address');
+        return {
+            _id: new BSON.ObjectId(),
+            name: '',
+            selfStorage: selfStorage(),
+            address: address()
+        };
     }
 }

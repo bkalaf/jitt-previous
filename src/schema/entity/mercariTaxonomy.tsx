@@ -1,10 +1,14 @@
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { IHashTag, IMercariCategory, IMercariTaxonomy } from '../../types';
+import { IApparelSize, ICustomItemField, IHashTag, IMercariCategory, IMercariTaxonomy, Opt } from '../../types';
 import { runTransaction } from '../../util/runTransaction';
+import { EntityBase } from './EntityBase';
+import { getInitFor } from './getInitFor';
 
-export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements IMercariTaxonomy {
+export class MercariTaxonomy extends EntityBase<IMercariTaxonomy> implements IMercariTaxonomy {
+    sizes: DBList<IApparelSize>;
+    customItemField: Opt<ICustomItemField>;
     _id: BSON.ObjectId;
     category?: IMercariCategory;
     subCategory?: IMercariCategory;
@@ -25,11 +29,13 @@ export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements I
             subSubCategory: $.mercariCategory(),
             hashTags: $.hashTag.list,
             fullname: $.string(),
-            timestamp: $.date.opt
+            timestamp: $.date.opt,
+            customItemField: $.customItemField(),
+            sizes: $.apparelSize.list
         }
     };
 
-    static update(realm: Realm, item: IMercariTaxonomy): IMercariTaxonomy {
+    static update(item: IMercariTaxonomy): IMercariTaxonomy {
         const func = () => {
             const fullname = [item?.category?.name, item?.subCategory?.name, item?.subSubCategory?.name].filter((x) => x != null).join('::');
             console.info(`update-taxonomy`, item, fullname);
@@ -37,7 +43,20 @@ export class MercariTaxonomy extends Realm.Object<IMercariTaxonomy> implements I
                 item.fullname = fullname;
             }
         };
-        runTransaction(realm, func);
+        runTransaction(MercariTaxonomy.localRealm, func);
         return item;
+    }
+    static init(): InitValue<IMercariTaxonomy> {
+        const mercariCategory = getInitFor<IMercariCategory>(MercariTaxonomy as any, 'mercariCategory');
+        return {
+            _id: new BSON.ObjectId(),
+            fullname: '', 
+            hashTags: [],
+            category: mercariCategory(),
+            subCategory: mercariCategory(),
+            subSubCategory: mercariCategory(),
+            timestamp: new Date(Date.now()),
+            sizes: []
+        }
     }
 }

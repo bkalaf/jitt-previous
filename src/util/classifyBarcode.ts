@@ -1,10 +1,12 @@
 import { calculateUPCCheckDigit } from './calculateUPCCheckDigit';
 import { calculateISBN10CheckDigit } from './calculateISBN10CheckDigit';
+import { removeLeadingZeros } from './removeLeadingZero';
 
 export function classifyBarcode(value: string): [boolean, string] {
-    const length = parseInt(value, 10).toFixed(0).length;
+    const length = removeLeadingZeros(value).length;
     const checkdigit = value.split('').reverse()[0];
-    const code = value.split('').reverse().slice(1).reverse().join('');
+    const code = value.slice(0, value.length - 1);
+    // const code = value.split('').reverse().slice(1).reverse().join('');
     if (length <= 10) {
         const calcEAN = calculateUPCCheckDigit(code);
         if (calcEAN !== checkdigit) {
@@ -24,5 +26,4 @@ export function classifyBarcode(value: string): [boolean, string] {
     }
     return [calcEAN === checkdigit, 'ean'];
 }
-
 

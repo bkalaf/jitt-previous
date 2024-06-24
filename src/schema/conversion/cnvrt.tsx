@@ -87,4 +87,4 @@ export const ofType = (types: RealmSchema, propSchema: PropertySchema) => {
     return $cnvrt(types, objectType)[type](propSchema);
 };
 
-export const convert = (types: RealmSchema, objectType: string) => (value?: any) => cnvrt(types, objectType).object(value, true);
+export const convert = (types: RealmSchema, objectType: string) => (value?: any) => isPrimitive(objectType) ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives](value) : cnvrt(types, objectType).object(value, true);

@@ -1,10 +1,52 @@
-import { IFacing, IProductImage, ISku, ProductImageFlags } from '../../types';
+import { IFacing, IProductImage, ISku, Opt, ProductImageFlags } from '../../types';
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { ProductImageDisposition } from './ProductImageDisposition';
+import { getFolderNames, getRemBgName } from '../../util/getFolderNames';
+import { runTransaction } from '../../util/runTransaction';
+import { EntityBase } from './EntityBase';
 
-export class ProductImage extends Realm.Object<IProductImage> implements IProductImage {
+const FILESYSTEM_PRODUCTS = process.env.FILESYSTEM_PRODUCTS ?? '';
+const FILESYSTEM_ROOT = process.env.FILESYSTEM_ROOT ?? '';
+const REMOVE_BG_EXT = process.env.REMOVE_BG_EXT ?? '';
+const REMOVE_BG_SUFFIX = process.env.REMOVE_BG_SUFFIX ?? '';
+
+export class ProductImage extends EntityBase<IProductImage> implements IProductImage {
+    static init(): InitValue<IProductImage> {
+        return {
+            _id: new BSON.ObjectId(),
+            flags: [],
+            takenOn: new Date(Date.now()),
+            disposition: ProductImageDisposition.pendingApproval,
+            fullpath: '',
+            filename: '',
+            extension: '',
+            mimeType: '',
+            hasRemBG: false,
+            sku: undefined as any
+        };
+    }
+    static update(item: IProductImage) {
+        const func = () => {
+            if (item.selected != null) {
+                item.disposition = ProductImageDisposition.ready;
+            } else if (item.flags?.includes('do-not-rembg')) {
+                item.selected = 'original';
+                item.disposition = ProductImageDisposition.ready;
+            } else if (item.flags?.includes('ignore')) {
+                item.selected = undefined;
+                item.disposition = ProductImageDisposition.ready;
+            } else if (item.selected == null && item.hasRemBG === false) {
+                item.disposition = ProductImageDisposition.bgRemoval;
+            }
+        };
+        runTransaction(ProductImage.localRealm, func);
+    }
+    get effective(): Opt<string> {
+        const folders = getFolderNames(this.sku);
+        return this.hasSelection ? [FILESYSTEM_ROOT, FILESYSTEM_PRODUCTS, ...folders, this.selected === 'original' ? this.filename : getRemBgName(this.filename, REMOVE_BG_SUFFIX, REMOVE_BG_EXT)].join('\\') : undefined;
+    }
     static labelProperty = 'filename';
     static schema: Realm.ObjectSchema = {
         name: schemaName($.productImage()),
@@ -22,7 +64,8 @@ export class ProductImage extends Realm.Object<IProductImage> implements IProduc
             facing: $.productFacing(),
             selected: $.string.opt,
             stage: $.string.opt,
-            hasRemBG: $.bool.default(false)
+            hasRemBG: $.bool.default(false),
+            disposition: $.string.opt
         }
     };
 
@@ -36,7 +79,7 @@ export class ProductImage extends Realm.Object<IProductImage> implements IProduc
     public extension: string;
     public mimeType: string;
     public sku: ISku;
-    public flags: ListBack<ProductImageFlags>;
+    public flags: DBList<ProductImageFlags>;
     public takenOn?: Date;
     public caption?: string | undefined;
     public facing?: IFacing | undefined;

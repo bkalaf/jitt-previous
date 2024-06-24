@@ -1,37 +1,12 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { addressColumns } from './columns/address';
-import { Address } from './entity/address';
 import { attributeColumns } from './columns/attribute';
-import { Attribute } from './entity/attribute';
 import { auctionColumns } from './columns/auction';
-import { Auction } from './entity/auction';
-import { Brand } from './entity/brand';
-import { Classifier } from './entity/classifier';
-import { Facility } from './entity/facility';
-import { HashTag } from './entity/hashTag';
-import { hashTagUsage } from './entity/hashTagUsage';
-import { MercariBrand } from './entity/mercariBrand';
-import { MercariCategory } from './entity/mercariCategory';
-import { MercariTaxonomy } from './entity/mercariTaxonomy';
-import { SelfStorage } from './entity/selfStorage';
-import { squareFootage } from './entity/squareFootage';
 import { col } from './defs/col';
-import { Barcode, barcodeColumns } from './entity/barcode';
-import { Bin } from './entity/bin';
-import { customItemField } from './entity/customItemField';
-import { IncludedItem, includedItemColumns } from './entity/includedItem';
-import { clothingCare } from './entity/clothingCare';
-import { madeOfSection } from './entity/madeOfSection';
-import { Product } from './entity/product';
+import { barcodeColumns } from './columns/barcode';
+import { includedItemColumns } from './columns/includedItem';
 import { productColumns } from './entity/productColumns';
-import { trackSchema } from '../realmTypes';
-import { connector } from './entity/connector';
-import { currentSetting } from './entity/currentSetting';
-import { minMax } from './entity/minMax';
-import { Sku, sku } from './entity/sku';
-import { ProductImage } from './entity/productImage';
-import { Facing } from './entity/facing';
-import { shippingSchema } from './entity/shipping';
+import { sku } from './columns/sku';
 import { facing } from './columns/facing';
 import { facilityColumns } from './columns/facility';
 import { binColumns } from './columns/bin';
@@ -53,6 +28,20 @@ import { selfStorageColumns } from './columns/selfStorage';
 import { productImage } from './columns/productImage';
 import { squareFootageColumns } from './columns/squareFootage';
 import { trackColumns } from './columns/track';
+import { apparelBottoms, apparelBras, apparelDetails, apparelFootwear, apparelTops } from './entity/details/apparelDetails';
+import {  mediaBooksDetails, mediaDetails, mediaMusicDetails, mediaVideoGameDetails, mediaVideosDetails } from './entity/details/mediaDetails';
+import { cablesDetails, cablesPowerDetails, cablesVideoDetails, cablesDataDetails } from './entity/details/cablesDetails';
+import { cellPhonesDetails } from './entity/details/cellPhoneDetails';
+import { electronicsDetails } from './entity/details/electronicsDetails';
+import { generalDetails } from './entity/details/generalDetails';
+import { homeGoodsDetails, homeGoodsFlatwareDetails, homeGoodsDinnerwareDetails } from './entity/details/homeGoodsDetails';
+import { jewelryDetails } from './entity/details/jewelryDetails';
+import { kitchenAppliancesDetails } from './entity/details/kitchenAppliancesDetails';
+import { sportingGoodsDetails, sportingGoodsGolfClubsDetails } from './entity/details/sportingGoodsDetails';
+import { toysDetails } from './entity/details/toysDetails';
+import { pieceColumns } from './columns/piece';
+import { draftColumns } from './columns/draft';
+import { computerComponentsDetails, computerComponentsDrivesDetails, computerComponentsRamDetails } from './entity/details/computerComponentsDetails';
 
 const h = createMRTColumnHelper<{ value: any; }>();
 const helper = col(h);
@@ -63,41 +52,6 @@ const boolColumn = helper.bool('value', 'Value');
 const dateColumn = helper.date('value', 'Value', {}, true);
 
 // (Realm.ObjectSchema | Realm.ObjectClass<any>)
-type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T };
-type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { liComponent: ListItemCellComponent<T> };
-
-type MyClass<T extends Record<string, unknown>> = ReferenceClass<T> | EmbeddedClass<T>;
-
-export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
-    SelfStorage,
-    Facility,
-    Address,
-    Auction,
-    hashTagUsage,
-    HashTag,
-    MercariBrand,
-    Brand,
-    squareFootage,
-    MercariCategory,
-    MercariTaxonomy,
-    Attribute,
-    Classifier,
-    Barcode,
-    Bin,
-    IncludedItem,
-    customItemField,
-    clothingCare,
-    madeOfSection,
-    trackSchema,
-    Product,
-    connector,
-    currentSetting,
-    minMax,
-    shippingSchema,
-    Facing,
-    ProductImage,
-    Sku
-];
 
 if (window.columns == null) window.columns = {};
 window.columns.string = [stringColumn] as MRT_ColumnDef<any>[];
@@ -135,3 +89,34 @@ window.columns.shipping = shippingColumns as MRT_ColumnDef<any>[];
 window.columns.sku = sku as MRT_ColumnDef<any>[];
 window.columns.squareFootage = squareFootageColumns as MRT_ColumnDef<any>[];
 window.columns.track = trackColumns as MRT_ColumnDef<any>[];
+
+window.columns.apparelDetails = apparelDetails as MRT_ColumnDef<any>[];
+window.columns.apparelBottomsDetails = apparelBottoms as MRT_ColumnDef<any>[];
+window.columns.apparelTopsDetails = apparelTops as MRT_ColumnDef<any>[];
+window.columns.apparelBrasDetails = apparelBras as MRT_ColumnDef<any>[];
+window.columns.apparelFootwearDetails = apparelFootwear as MRT_ColumnDef<any>[];
+window.columns.mediaDetails = mediaDetails as MRT_ColumnDef<any>[];
+window.columns.mediaBookDetails = mediaBooksDetails as MRT_ColumnDef<any>[];
+window.columns.mediaMusicDetails = mediaMusicDetails as MRT_ColumnDef<any>[];
+window.columns.mediaVideoDetails = mediaVideosDetails as MRT_ColumnDef<any>[];
+window.columns.mediaVideoGameDetails = mediaVideoGameDetails as MRT_ColumnDef<any>[];
+window.columns.generalDetails = generalDetails as MRT_ColumnDef<any>[];
+window.columns.homeGoodsDetails = homeGoodsDetails as MRT_ColumnDef<any>[];
+window.columns.homeGoodsFlatwareDetails = homeGoodsFlatwareDetails as MRT_ColumnDef<any>[]; 
+window.columns.homeGoodsDinnerwareDetails = homeGoodsDinnerwareDetails as MRT_ColumnDef<any>[];
+window.columns.electronicsDetails = electronicsDetails as MRT_ColumnDef<any>[]; 
+window.columns.cellPhonesDetails = cellPhonesDetails as MRT_ColumnDef<any>[];   
+window.columns.sportingGoodsDetails = sportingGoodsDetails as MRT_ColumnDef<any>[];
+window.columns.sportingGoodsGolfClubsDetails = sportingGoodsGolfClubsDetails as MRT_ColumnDef<any>[];
+window.columns.toysDetails = toysDetails as MRT_ColumnDef<any>[];   
+window.columns.jewelryDetails = jewelryDetails as MRT_ColumnDef<any>[];
+window.columns.cablesDetails = cablesDetails as MRT_ColumnDef<any>[];
+window.columns.cablesPowerDetails = cablesPowerDetails as MRT_ColumnDef<any>[];
+window.columns.cablesVideoDetails = cablesVideoDetails as MRT_ColumnDef<any>[];
+window.columns.cablesDataDetails = cablesDataDetails as MRT_ColumnDef<any>[];
+window.columns.kitchenAppliancesDetails = kitchenAppliancesDetails as MRT_ColumnDef<any>[];
+window.columns.piece = pieceColumns as MRT_ColumnDef<any>[];
+window.columns.draft = draftColumns as MRT_ColumnDef<any>[];
+window.columns.computerComponentsDetails = computerComponentsDetails as MRT_ColumnDef<any>[];
+window.columns.computerComponentsDrivesDetails = computerComponentsDrivesDetails as MRT_ColumnDef<any>[];
+window.columns.computerComponentsRamDetails = computerComponentsRamDetails as MRT_ColumnDef<any>[];

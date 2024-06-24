@@ -14,6 +14,13 @@ export function CollectionView<T extends MRT_RowData>() {
     const data = useCollectionQuery<T>(route);
     const table = useData(data ?? [], columns);
     
+    // useEffect(() => {
+    //     if (route === 'sku') {
+    //         ((data ?? []) as any as RealmObj<ISku>[]).map(item => {
+    //             generateNarrative(item, true);  
+    //         })
+    //     }
+    // }, [data, route]);
     return (
         <Box component='section' className='overflow-scroll table-auto border-seperate'>
             <MaterialReactTable table={table} />

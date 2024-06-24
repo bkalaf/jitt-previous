@@ -1,12 +1,12 @@
-import { Realm } from 'realm';
+import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { IBrand, IHashTag, IMercariBrand } from '../../types';
-import { ObjectId } from 'bson';
 import { distinctByOID } from '../../common/array/distinct';
+import { EntityBase } from './EntityBase';
 
-export class Brand extends Realm.Object<IBrand> implements IBrand {
-    _id: ObjectId;
+export class Brand extends EntityBase<IBrand> {
+    _id: BSON.ObjectId;
     name: string;
     mercariBrand?: IMercariBrand | undefined;
     hashTags: DBList<IHashTag>;
@@ -25,4 +25,14 @@ export class Brand extends Realm.Object<IBrand> implements IBrand {
         }
     };
     static labelProperty = 'name';
+    static update(item: IBrand): IBrand {
+        return item;
+    }
+    static init(): InitValue<IBrand> {
+        return {
+            _id: new BSON.ObjectId(),
+            name: '',
+            hashTags: []
+        }
+    }
 }

@@ -1,4 +1,4 @@
-import * as localforage from 'localforage';
+import  localforage from 'localforage';
 import { useCallback } from 'react';
 import { LazyDataOrModifiedFn, useAsyncResource } from 'use-async-resource';
 

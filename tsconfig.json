@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es6",
     "allowJs": true,
     "module": "commonjs",
     "jsx": "react-jsx",
@@ -9,16 +9,15 @@
     "noImplicitAny": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "dist",
+    // "outDir": "./dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "declaration": true,
-    "paths": {
-      "*": ["node_modules/*"]
-    }
+    "types": ["node"],
+    "allowUmdGlobalAccess": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/renderer.ts"]
 }

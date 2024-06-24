@@ -18,27 +18,26 @@ export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunction
     }
     const RowCell = useGetLIComponent<TValue>(objectType);
     const value = cell.getValue() ?? [];
-    return (
-        <Tooltip
-            className='flex'
-            title={
-                <>
-                    <div className='flex flex-col w-full h-full text-white list-disc list-inside bg-slate-500'>
-                        {value.map((el, ix) => {
-                            const Row = RowCell(el);
-                            return (
-                                <div key={ix} className='flex justify-start w-full text-base whitespace-pre before:content-["◘_"]'>
-                                    <div className='flex w-full text-left indent-1'>
-                                        <Row />
+    return value.length > 0 ?
+            <Tooltip
+                className='flex'
+                title={
+                    <>
+                        <div className='flex h-full w-full list-inside list-disc flex-col bg-slate-500 text-white'>
+                            {value.map((el, ix) => {
+                                const Row = RowCell(el);
+                                return (
+                                    <div key={ix} className='flex w-full justify-start whitespace-pre text-base before:content-["◘_"]'>
+                                        <div className='flex w-full text-left indent-1'>
+                                            <Row />
+                                        </div>
                                     </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </>
-            }
-        >
-            <span>{value.length} items.</span>
-        </Tooltip>
-    );
+                                );
+                            })}
+                        </div>
+                    </>
+                }>
+                <span>{value.length} items.</span>
+            </Tooltip>
+        :   '';
 }

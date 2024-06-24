@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
-import { getProperty } from '../common/object';
 
 export function toGetOptionLabel<T extends Record<string, any>>(labelProperty: string & keyof T) {
     return function (option: T) {
-        return (getProperty(labelProperty as any, option) ?? 'n/a') as string;
+        return typeof option === 'string' ? option : option[labelProperty] ?? 'n/a';
     };
 }
-export function toIsOptionEqualToValue<T>(comparator: (left: T, right: T) => Compared) {
-    return function (option: T, value: T) {
-        return comparator(option, value) === 0;
+export function toIsOptionEqualToValue<T>(comparator: (left: T, right: string) => Compared) {
+    return function (option: T, value: string) {
+        const compared = comparator(option, value) === 0;
+        return compared;
     };
 }
-export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?: (left: T, right: T) => Compared) {
+export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?: (left: T, right: string) => Compared) {
     return useMemo(
         () => ({
             getOptionLabel: labelProperty ? toGetOptionLabel(labelProperty) : (option: T) => option?.toString() ?? '',

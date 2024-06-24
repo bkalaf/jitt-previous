@@ -1,4 +1,6 @@
-import { EnumName } from './schema/enums';
+import $masterEnum from './schema/enums/enum-info.json';
+
+export type EnumName = keyof typeof $masterEnum;
 
 export interface IPalletteColors<T> {
     important: T;
@@ -29,21 +31,25 @@ declare module '@tanstack/table-core' {
         type?: React.HTMLInputTypeAttribute;
         step?: number;
         objectType?: string;
+        onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void;
         formatter?: (value?: TValue) => string;
         uom?: string;
-        enumType?: EnumName;
+        // enumType?: EnumName;
         flattener?: (value?: TValue) => string;
         dateType?: 'past' | 'future';
-        options?: Record<string, string | { text: string; key: string; }>;
+        // options?: { text: string; key: string }[]; // Record<string, string | { text: string; key: string; }>;
         multiple?: boolean;
         freeSolo?: boolean;
         comparator?: (x?: TValue, y?: TValue) => Compared;
         flags?: string[];
         keyType?: 'faceted' | 'string' | string;
+        enumInfo?: {
+            asArray: { text: string, key: string }[],
+            asRecord: Record<string, { text: string, selector?: string, key: string }>
+        }
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface TableMeta<TData extends RowData> {
-    }
+    interface TableMeta<TData extends RowData> {}
 }
 
 declare module '@tanstack/table-core' {
@@ -85,14 +91,14 @@ declare module '@mui/material/styles' {
     }
 }
 declare module '@mui/material/Button' {
-    interface ButtonPropsColorOverrides extends IPalletteColors<true> { };
+    interface ButtonPropsColorOverrides extends IPalletteColors<true> {}
 }
 declare module '@mui/material/IconButton' {
-    interface IconButtonPropsColorOverrides extends IPalletteColors<true> { };
+    interface IconButtonPropsColorOverrides extends IPalletteColors<true> {}
 }
 declare module '@mui/material/SpeedDial' {
-    interface SpeedDialPropsColorOverrides extends IPalletteColors<true> { };
+    interface SpeedDialPropsColorOverrides extends IPalletteColors<true> {}
 }
 declare module '@mui/material/AppBar' {
-    interface AppBarPropsColorOverrides extends IPalletteColors<true> { };
+    interface AppBarPropsColorOverrides extends IPalletteColors<true> {}
 }

@@ -1,5 +1,5 @@
 import Realm from 'realm';
-import { schema } from '../schema';
+import { schema } from '../schema/schema';
 
 export function openRealm(partitionValue: string) {
     return async function openRealmInner(user: Realm.User | null) {
@@ -18,7 +18,8 @@ export function openRealm(partitionValue: string) {
                     type: Realm.OpenRealmBehaviorType.OpenImmediately,
                     timeOut: 1000 * 60 * 5,
                     timeOutBehavior: Realm.OpenRealmTimeOutBehavior.ThrowException
-                }
+                },
+                
             }
         });
         return realm;

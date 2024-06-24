@@ -1,13 +1,90 @@
-import { BSON } from 'realm';
+import Realm, { BSON } from 'realm';
 import { auctionSites } from './schema/enums/auctionSite';
 import { detailsTypes } from './schema/enums/detailsTypes';
 import { BleachingKeys, DryCleanKeys, DryingKeys, GentleOrDelicateKeys, IroningKeys, PermanentPressKeys, TumbleDryKeys, WashKeys, WashTemperatureKeys } from './schema/laundryCare';
 import { FabricTypes } from './schema/enums/fabric';
-import { Flags, ProductColors, Genders, ClosureTypes, FitTypes, LegStyles, GarmentLengths, LifestyleTypes, PocketTypes, RiseTypes, BootTypes, ShoeHeelTypes, ShoeWidths, StrapTypes, ToeStyles, SwimsuitBottomStyles, SwimsuitTopStyles, BacklineTypes, CollarTypes, CuffTypes, DressTypes, NeckTypes, SleeveTypes, SuitTypes, BookGenres, BookTypes, Languages, ESRBRatings, ConsoleTypes, MusicFormatTypes, MusicGenres, HeightMaps, BarcodeTypes, MovieGenres, MovieRatings, TVRatings, VideoFormatTypes, VideoTypes, AmperageUnits, ConnectorGenders, PowerTypes, BatteryTypes, AspectRatios, CellCarriers, OperatingSystems, DinnerwareTypes, ShapeTypes, ApplianceTypes, ClubTypes, FlexTypes, HandOrientations, IronTypes, ShaftTypes, WedgeTypes, MetalTypes, ItemConditions, ItemDispositions, Shippers, SleeveLengths } from './schema/enums';
+import {
+    ProductColors,
+    Genders,
+    ClosureTypes,
+    FitTypes,
+    LegStyles,
+    GarmentLengths,
+    LifestyleTypes,
+    PocketTypes,
+    RiseTypes,
+    BootTypes,
+    ShoeHeelTypes,
+    ShoeWidths,
+    StrapTypes,
+    ToeStyles,
+    SwimsuitBottomStyles,
+    SwimsuitTopStyles,
+    BacklineTypes,
+    CollarTypes,
+    CuffTypes,
+    DressTypes,
+    NeckTypes,
+    SleeveTypes,
+    SuitTypes,
+    BookGenres,
+    BookTypes,
+    Languages,
+    ESRBRatings,
+    ConsoleTypes,
+    MusicFormatTypes,
+    MusicGenres,
+    HeightMaps,
+    BarcodeTypes,
+    MovieGenres,
+    MovieRatings,
+    TVRatings,
+    VideoFormatTypes,
+    VideoTypes,
+    AmperageUnits,
+    ConnectorGenders,
+    PowerTypes,
+    BatteryTypes,
+    AspectRatios,
+    CellCarriers,
+    OperatingSystems,
+    DinnerwareTypes,
+    ShapeTypes,
+    ApplianceTypes,
+    ClubTypes,
+    FlexTypes,
+    HandOrientations,
+    IronTypes,
+    ShaftTypes,
+    WedgeTypes,
+    MetalTypes,
+    ItemConditions,
+    ItemDispositions,
+    Shippers,
+    SleeveLengths,
+    FlatwareTypes,
+    CableTypes,
+    DataConnectorTypes,
+    PowerConnectorTypes,
+    VideoConnectorTypes,
+    Materials,
+    ShippingSpeeds,
+    PayorTypes,
+    DriveType,
+    MemoryType,
+    MemoryFormFactor,
+    HardDriveFormFactor,
+    HardDriveConnectivity,
+    HardDriveInterface,
+    CapacityUOM,
+    ComputerType,
+    CASLatency
+} from './schema/enums';
 import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
 import { AttachmentStages } from './schema/choices/AttachmentStages';
 import { AttachmentType } from './schema/choices/AttachmentType';
 import { ProductImageDisposition } from './schema/entity/ProductImageDisposition';
+import { Flags } from './schema/enums/flags';
 
 export type Int = number;
 export type Double = number;
@@ -42,8 +119,8 @@ export type IFacility = {
 export type AuctionSite = keyof typeof auctionSites;
 
 export type ISquareFootage = {
-    length: number;
-    width: number;
+    length: Opt<number>;
+    width: Opt<number>;
 };
 export type IAuction = {
     _id: BSON.ObjectId;
@@ -66,6 +143,8 @@ export type IMercariBrand = {
     _id: BSON.ObjectId;
     name: string;
     hashTags: DBList<IHashTag>;
+    timestamp: Opt<Date>;
+    customItemFields: DBList<ICustomItemFieldType>;
 };
 
 export type IHashTagUsage = {
@@ -88,6 +167,13 @@ export type IBrand = {
     readonly allHashTags: IHashTag[];
 };
 
+export type IApparelSize = {
+    index: Int;
+    key: string;
+    text: string;
+    readonly selector: string;
+}
+
 export type IMercariCategory = {
     name: string;
     selector: string;
@@ -102,6 +188,8 @@ export type IMercariTaxonomy = {
     hashTags: DBList<IHashTag>;
     fullname: string;
     timestamp?: Date;
+    customItemField: Opt<ICustomItemField>;
+    sizes: DBList<IApparelSize>;
     readonly allHashTags: IHashTag[];
 };
 
@@ -112,7 +200,34 @@ export type IAttribute = {
     value: Realm.Types.Mixed;
 };
 
-export type DetailTypes = 'apparel-bottoms' | 'apparel-bras' | 'apparel-footwear' | 'apparel-tops' | 'apparel' | 'cables-data' | 'cables-power' | 'cables-video' | 'cables' | 'cell-phones' | 'electronics' | 'general' | 'home-goods-dinnerware' | 'home-goods-flatware' | 'home-goods' | 'jewelry' | 'kitchen-appliances' | 'media-books' | 'media-music' | 'media-video-games' | 'media-videos-film' | 'media-videos-tv-series' | 'media-videos' | 'media' | 'sporting-goods-golf-clubs' | 'sporting-goods' | 'toys';
+export type DetailTypes =
+    | 'apparel-bottoms'
+    | 'apparel-bras'
+    | 'apparel-footwear'
+    | 'apparel-tops'
+    | 'apparel'
+    | 'cables-data'
+    | 'cables-power'
+    | 'cables-video'
+    | 'cables'
+    | 'cell-phones'
+    | 'electronics'
+    | 'general'
+    | 'home-goods-dinnerware'
+    | 'home-goods-flatware'
+    | 'home-goods'
+    | 'jewelry'
+    | 'kitchen-appliances'
+    | 'media-books'
+    | 'media-music'
+    | 'media-video-games'
+    | 'media-videos-film'
+    | 'media-videos-tv-series'
+    | 'media-videos'
+    | 'media'
+    | 'sporting-goods-golf-clubs'
+    | 'sporting-goods'
+    | 'toys';
 
 export type IClassifier = {
     _id: BSON.ObjectId;
@@ -137,6 +252,9 @@ export type IBarcode = {
     beenPrinted: boolean;
     readonly scanValue: string;
     equalTo(value: string | IBarcode): boolean;
+    readonly kind: 'sku' | 'bin' | 'unknown';
+    readonly linkedSkus: Realm.Results<ISku>;
+    readonly linkedBin: Realm.Results<IBin>;
 };
 
 export type IBin = {
@@ -144,6 +262,7 @@ export type IBin = {
     barcode: IBarcode;
     name: string;
     notes?: string;
+    addBarcode(this: IBin, generator: () => string): IBin;
 };
 
 export type IIncludedItem = {
@@ -151,13 +270,27 @@ export type IIncludedItem = {
     name: string;
 };
 
-export type ICustomItemField = {
-    name: string;
+export type ICustomItemFieldValue = {
+    readonly getParent: Realm.Types.LinkingObjects<ICustomItemField, 'options'>;
+    text: string;
     id: string;
-    value: string;
+    nextField: Opt<ICustomItemField>;
 };
-
-
+export type ICustomItemFieldType = {
+    readonly getMercariBrand: Realm.Types.LinkingObjects<IMercariBrand, 'customItemFields'>;
+    type: Opt<string>;
+    values: DBList<ICustomItemFieldValue>;
+};
+export type ICustomItemFieldTypes = {
+    types: DBList<ICustomItemFieldType>;
+};
+export type ICustomItemField = {
+    _id: BSON.ObjectId;
+    id: string;
+    linkedType: Opt<string>;
+    brandsMap: DBDictionary<ICustomItemFieldTypes>;
+    readonly getTaxonomy: Realm.Types.LinkingObjects<IMercariTaxonomy, 'customItemField'>;
+};
 
 export type IClothingCare = {
     bleaching: DBList<BleachingKeys>;
@@ -187,11 +320,12 @@ export type ITrack = {
     name: Opt<string>;
     runtimeSecs: Opt<Seconds>;
 };
-export type IConnector = {
+export type IConnector<TConnector extends PowerConnectorTypes | DataConnectorTypes | VideoConnectorTypes> = {
     connectorGender?: Opt<ConnectorGenders>;
     innerWidth?: Opt<Double>;
     outerWidth?: Opt<Double>;
-    type?: Opt<string>;
+    type?: Opt<TConnector>;
+    generation: Opt<Int>;
 };
 export type ICurrentSetting = {
     amperage?: Opt<Double>;
@@ -227,6 +361,23 @@ export type IApparel = IApparelBottom & {
     rnNo?: Opt<Int>;
     clothingCare?: Opt<IClothingCare>;
 };
+
+export type IPiece = {
+    shape: Opt<ShapeTypes>;
+    count: Int;
+};
+
+export type AnyConnector = IConnector<DataConnectorTypes> | IConnector<VideoConnectorTypes> | IConnector<PowerConnectorTypes>;
+
+export type ICapacity = {
+    uom: CapacityUOM;
+    value: Double;
+}
+export type IDimension<T extends string> = {
+    uom: T;
+    value: Double;
+};
+
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -248,6 +399,29 @@ export type IProduct = IApparel & {
     circa?: Opt<string>;
     color: DBList<ProductColors>;
     description?: Opt<string>;
+    // general
+    testedOn: Opt<Date>;
+    itemType: Opt<string>;
+    // apparel
+    gender: Opt<Genders>;
+    cutNo: Opt<string>;
+    styleNo: Opt<string>;
+    text: Opt<string>;
+    rnNo: Opt<Int>;
+    clothingCare: Opt<IClothingCare>;
+    madeOf: DBList<IMadeOfSection>;
+    // apparel-bottoms
+    closureType?: Opt<ClosureTypes>;
+    fitType?: Opt<FitTypes>;
+    inseamSize?: Opt<Double>;
+    legStyle?: Opt<LegStyles>;
+    lengthSize?: Opt<Double>;
+    lengthType?: Opt<GarmentLengths>;
+    lifestyleType?: Opt<LifestyleTypes>;
+    pocketType?: Opt<PocketTypes>;
+    riseType?: Opt<RiseTypes>;
+    size?: Opt<Int>;
+    waistSize?: Opt<Double>;
     // // apparel-footwear
     bootType?: Opt<BootTypes>;
     footSize?: Opt<Double>;
@@ -257,11 +431,11 @@ export type IProduct = IApparel & {
     shoeWidth?: Opt<ShoeWidths>;
     strapType?: Opt<StrapTypes>;
     toeStyle?: Opt<ToeStyles>;
-    // // apparel-bras 
+    // // apparel-bras
     bustSize?: Opt<Double>;
     swimsuitBottomStyle?: Opt<SwimsuitBottomStyles>;
     swimsuitTopStyle?: Opt<SwimsuitTopStyles>;
-    // // apparel-tops 
+    // // apparel-tops
     backlineType?: Opt<BacklineTypes>;
     chestSize?: Opt<Double>;
     collarType?: Opt<CollarTypes>;
@@ -273,7 +447,8 @@ export type IProduct = IApparel & {
     sleeveType?: Opt<SleeveTypes>;
     sleeveLength?: Opt<SleeveLengths>;
     suitType?: Opt<SuitTypes>;
-    // // media 
+
+    // // media
     awards: DBList<string>;
     copyright?: Opt<string>;
     mediaSubtitle?: Opt<string>;
@@ -309,9 +484,10 @@ export type IProduct = IApparel & {
     musicGenre?: Opt<MusicGenres>;
     tracks: DBList<ITrack>;
     // // cables
+    cableType?: Opt<CableTypes>;
     cordLength?: Opt<Double>;
     // // cables-data
-    connectors: DBList<IConnector>;
+    connectors: DBList<AnyConnector>;
     // // cables-power
     compatibleWith: DBList<string>;
     input?: Opt<ICurrentSetting>;
@@ -321,7 +497,6 @@ export type IProduct = IApparel & {
     batteryCount?: Opt<Int>;
     batteryType?: Opt<BatteryTypes>;
     powerTypes?: Opt<PowerTypes>;
-    testedOn?: Opt<Date>;
     // // cell-phones
     aspectRatio?: Opt<AspectRatios>;
     capacity?: Opt<Int>;
@@ -336,13 +511,13 @@ export type IProduct = IApparel & {
     metal?: Opt<MetalTypes>;
     // // home-goods
     // // home-goods-flatware
+    dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
+    flatwareInventory: Opt<Record<FlatwareTypes, Int>>;
     // // home-goods-dinnerware
-    dinnerwareType?: Opt<DinnerwareTypes>;
     pattern?: Opt<string>;
-    shapeType?: Opt<ShapeTypes>;
     // // kitchen-appliances
     applianceType?: Opt<ApplianceTypes>;
-    // // sporting-goods 
+    // // sporting-goods
     // // sporting-goods-golf-clubs
     clubType?: Opt<ClubTypes>;
     flexType?: Opt<FlexTypes>;
@@ -354,10 +529,35 @@ export type IProduct = IApparel & {
     shaftType?: Opt<ShaftTypes>;
     swingWeight?: Opt<string>;
     wedgeType?: Opt<WedgeTypes>;
+    material?: Opt<Materials>;
     // // toys
     ages?: Opt<IMinMax<Int>>;
     players?: Opt<IMinMax<Int>>;
     pieceCount?: Opt<Int>;
+    modelName: Opt<string>;
+    overrideTitle: boolean;
+    partNumbers: DBList<string>;
+    // hard drive
+    driveType?: Opt<DriveType>;
+    driveForm?: Opt<HardDriveFormFactor>;
+    connectivity?: DBList<HardDriveConnectivity>;
+    driveInterface?: Opt<HardDriveInterface>;
+    driveSize?: Opt<IDimension<CapacityUOM>>;
+    writeSpeed?: Opt<Double>; // MB/s
+    readSpeed?: Opt<Double>; //MB/s
+    dataTransferRate?: Opt<Double>; // MBit/s
+    rpm?: Opt<Int>;
+    cacheSize?: Opt<Double>;
+    // memory
+    memoryType?: Opt<MemoryType>;
+    memoryForm?: Opt<MemoryFormFactor>;
+    computerType?: Opt<ComputerType>;
+    memorySize?: Opt<IDimension<CapacityUOM>>;
+    memorySpeed?: Opt<Int>;
+    pinCount?: Opt<Int>;
+    dataTransferBandwidth?: Opt<string>;
+    voltage?: Opt<Double>;
+    CASLatency?: Opt<CASLatency>;
 
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];
@@ -373,7 +573,7 @@ export type IShipping = {
 };
 export type ProductImageFlags = 'ignore' | 'do-not-rembg';
 export type FaceX = 'left' | 'right';
-export type FaceY = 'front' | 'back';;
+export type FaceY = 'front' | 'back';
 export type FaceZ = 'upper' | 'lower';
 export type FacePOV = 'defect' | 'inner' | 'logo' | 'tag' | 'barcode' | 'enhancer' | 'product-info';
 
@@ -381,7 +581,7 @@ export type IFacing = {
     x?: FaceX;
     y?: FaceY;
     z?: FaceZ;
-    pov: FacePOV[];
+    pov: DBList<FacePOV>;
 };
 
 export type IProductImage = {
@@ -391,7 +591,7 @@ export type IProductImage = {
     extension: string;
     mimeType: string;
     sku: ISku;
-    flags: ListBack<ProductImageFlags>;
+    flags: DBList<ProductImageFlags>;
     takenOn?: Date;
     caption?: string;
     facing?: IFacing;
@@ -405,6 +605,7 @@ export type IProductImage = {
     // moveOriginal(): void;
     // moveRemBG(): void;
     // createFolders(): void;
+    readonly effective: Opt<string>;
 };
 
 export type IAttachment = {
@@ -450,13 +651,48 @@ export type ISku = {
     packingPercent?: Opt<Double>;
     product?: Opt<IProduct>;
     quantity?: Opt<Int>;
-    skus: DBList<IBarcode> & [IBarcode];
+    skus: DBList<IBarcode>;
     shipping?: Opt<IShipping>;
+    hashTags: DBList<IHashTag>;
+    readonly allHashTags: IHashTag[];
+    readonly getTitle: Opt<string>;
     readonly getShipping?: Opt<IShipping>;
     readonly getShipWeight?: Opt<number>;
     readonly getCarrier?: Opt<Shippers>;
-    readonly getMaxWeight?: Opt<[number, number]>;
+    readonly getMaxWeight?: Opt<{ pounds: number; ounces: number }>;
     readonly getFolder: string;
     readonly getProductImages: Realm.Types.LinkingObjects<IProductImage, 'sku'>;
-}
+    readonly getIsMediaMail: boolean;
+    addBarcode(this: ISku, generator: () => string): ISku;
+    // addFromProduct(realm: Realm, product: IProduct): ISku;
+    readonly hasDraft: boolean;
+};
 
+export type IDraft = {
+    _id: BSON.ObjectId;
+    sku: ISku;
+    title: string;
+    description: string;
+    price: number;
+    isLocalDelivery: boolean;
+    payor: PayorTypes;
+    smartPricing: boolean;
+    smartPrice: Opt<number>;
+
+    readonly getDims: { length: number; width: number; height: number };
+    readonly getWeight: { pounds: number; ounces: number };
+    readonly getShipping: { carrier: Shippers; service: ShippingSpeeds; price: number; selector: string };
+    readonly getColor: Opt<{ selector: string; name: string }>;
+    readonly getCondition: { selector: string; name: string };
+    readonly getBrandName: Opt<string>;
+    readonly getIsNoBrand: boolean;
+    readonly getCategory: { selector: string; name: string };
+    readonly getSubCategory: { selector: string; name: string };
+    readonly getSubSubCategory: { selector: string; name: string };
+    readonly getHashTags: string[];
+    readonly getImages: string[];
+    readonly getShouldLocalDelivery: boolean;
+    readonly getShouldSmartPricing: boolean;
+    listingID: Opt<string>;
+    readonly isListed: boolean
+};

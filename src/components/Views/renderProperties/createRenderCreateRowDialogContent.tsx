@@ -13,7 +13,7 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
         const { table, internalEditComponents } = props;
         const collection = useCollectionRoute();
-        const init = useInitial();
+        const init = useInitial(collection);
         const { onError, onSuccess } = useUpdateRecord<T>(table);
         const onCancel = useCallback(() => {
             table.setCreatingRow(null);

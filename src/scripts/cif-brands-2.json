@@ -1,0 +1,1239 @@
+{
+    "Women": {
+        "selector": "#categoryId-1",
+        "children": {
+            "Dresses": {
+                "selector": "#subCategoryId-11",
+                "brands": ["H&M", "Gap", "American Apparel", "Allure Bridals"]
+            },
+            "Tops & blouses": {
+                "selector": "#subCategoryId-12",
+                "brands": ["Grace Karin", "FOREVER 21", "Nordstrom"]
+            },
+            "Sweaters": {
+                "selector": "#subCategoryId-13",
+                "brands": ["Dokotoo", "Bloomingdale's", "Free People"]
+            },
+            "Jeans": {
+                "selector": "#subCategoryId-14",
+                "brands": ["GUESS", "Lee", "Gloria Vanderbilt", "Democracy"]
+            },
+            "Pants": {
+                "selector": "#subCategoryId-15",
+                "brands": ["Alfred Dunner", "Dickies", "Anne Klein", "Woman Within"]
+            },
+            "Skirts": {
+                "selector": "#subCategoryId-16",
+                "brands": ["Allegra K", "Avidlove", "Woman Within"]
+            },
+            "Coats & jackets": {
+                "selector": "#subCategoryId-17",
+                "brands": ["Adidas", "Columbia", "Carhartt"]
+            },
+            "Suits & blazers": {
+                "selector": "#subCategoryId-18",
+                "brands": ["Tommy Hilfiger", "Grace Karin", "Allegra K"]
+            },
+            "Athletic apparel": {
+                "selector": "#subCategoryId-19",
+                "brands": ["Under Armour", "Hanes", "CRZ YOGA"]
+            },
+            "Swimwear": {
+                "selector": "#subCategoryId-20",
+                "brands": ["Baleaf", "Miraclesuit"]
+            },
+            "Women's handbags": {
+                "selector": "#subCategoryId-21",
+                "brands": ["Coach", "Swissgear", "Louis Vuitton"]
+            },
+            "Women's accessories": {
+                "selector": "#subCategoryId-22",
+                "brands": ["Balenciaga", "Hermès", "Prada", "Gucci"]
+            },
+            "Jewelry": {
+                "selector": "#subCategoryId-23",
+                "brands": ["Cartier", "Tiffany & Co."]
+            },
+            "Maternity": {
+                "selector": "#subCategoryId-24",
+                "brands": ["Gap", "Kindred Bravely", "Lamaze"]
+            },
+            "Shoes": {
+                "selector": "#subCategoryId-25",
+                "brands": ["Jimmy Choo", "Timberland", "Nike"]
+            },
+            "Underwear": {
+                "selector": "#subCategoryId-1561",
+                "brands": ["Vanity Fair", "Hanes", "Victoria's Secret"]
+            },
+            "Shorts": {
+                "selector": "#subCategoryId-1936",
+                "brands": ["Eddie Bauer", "Judy Blue", "Wrangler", "Nautica"]
+            },
+            "Sleepwear & robes": {
+                "selector": "#subCategoryId-1947",
+                "brands": ["Fruit of the Loom", "Jockey", "Lucky Brand"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-26",
+                "brands": []
+            }
+        }
+    },
+    "Men": {
+        "selector": "#categoryId-2",
+        "children": {
+            "Tops": {
+                "selector": "#subCategoryId-27",
+                "brands": ["Gildan", "Carhartt", "Nautica", "Van Heusen"]
+            },
+            "Sweats & hoodies": {
+                "selector": "#subCategoryId-28",
+                "brands": ["The North Face", "Carhartt", "Tommy Hilfiger"]
+            },
+            "Sweaters": {
+                "selector": "#subCategoryId-29",
+                "brands": ["Amazon Essentials", "Adidas", "Michael Kors"]
+            },
+            "Jeans": {
+                "selector": "#subCategoryId-30",
+                "brands": ["Lee", "Levi's", "Levi Strauss & Co.", "Wrangler", "Dickies", "Lucky Brand", "Patagonia"]
+            },
+            "Pants": {
+                "selector": "#subCategoryId-31",
+                "brands": ["IZOD", "Dockers", "Haggar", "Signature"]
+            },
+            "Shorts": {
+                "selector": "#subCategoryId-32",
+                "brands": ["Volcom", "Hurley", "Champion", "Quiksilver"]
+            },
+            "Coats & jackets": {
+                "selector": "#subCategoryId-33",
+                "brands": ["Columbia", "Nike", "Baleaf", "Carhartt"]
+            },
+            "Blazers & sport coats": {
+                "selector": "#subCategoryId-34",
+                "brands": ["Cole Haan", "Perry Ellis", "Tommy Hilfiger", "Nautica"]
+            },
+            "Suits": {
+                "selector": "#subCategoryId-35",
+                "brands": ["Brooks Brothers", "Calvin Klein", "DKNY", "Hugo Boss"]
+            },
+            "Athletic apparel": {
+                "selector": "#subCategoryId-36",
+                "brands": ["Under Armour", "Nike", "Champion", "Columbia"]
+            },
+            "Swimwear": {
+                "selector": "#subCategoryId-37",
+                "brands": ["Oakley", "Quiksilver", "Speedo", "Tommy Bahama"]
+            },
+            "Men's accessories": {
+                "selector": "#subCategoryId-38",
+                "brands": ["Invicta", "Fossil", "Citizen", "Casio", "Ray-Ban"]
+            },
+            "Shoes": {
+                "selector": "#subCategoryId-39",
+                "brands": ["Sketchers", "Nike", "New Balance", "Crocs", "Dr. Martens"]
+            },
+            "Jewelry": {
+                "selector": "#subCategoryId-2874",
+                "brands": ["Fossil", "Bulova", "Lacoste", "John Hardy"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-40",
+                "brands": []
+            }
+        }
+    },
+    "Electronics": {
+        "selector": "#categoryId-7",
+        "children": {
+            "Cameras & photography": {
+                "selector": "#subCategoryId-80",
+                "brands": ["Polaroid", "Kodak"]
+            },
+            "Computers & Laptops": {
+                "selector": "#subCategoryId-81",
+                "brands": ["HP", "Apple", "Google", "Dell", "Lenovo"]
+            },
+            "Cell phones & accessories": {
+                "selector": "#subCategoryId-82",
+                "brands": ["Samsung", "Apple", "Google", "LG"]
+            },
+            "TV & Video": {
+                "selector": "#subCategoryId-83",
+                "brands": ["Panasonic", "LG", "Samsung", "Sony", "Google"]
+            },
+            "Video games & consoles": {
+                "selector": "#subCategoryId-84",
+                "brands": ["Nintendo", "Sega", "Microsoft", "Electronic Arts", "Activision", "Sony"]
+            },
+            "Car audio, video, & gps": {
+                "selector": "#subCategoryId-85",
+                "brands": []
+            },
+            "Media": {
+                "selector": "#subCategoryId-86",
+                "brands": ["Warner Brothers", "20th Century Fox", "Disney", "Universal Studios"]
+            },
+            "Computer Components & Parts": {
+                "selector": "#subCategoryId-775",
+                "brands": ["Toshiba", "NVIDIA", "Intel", "Western Digital", "Seagate", "Hitachi", "Logitech"]
+            },
+            "Video Game Merchandise": {
+                "selector": "#subCategoryId-801",
+                "brands": ["Nintendo", "Microsoft", "Activision", "Blizzard"]
+            },
+            "Wearables": {
+                "selector": "#subCategoryId-1573",
+                "brands": ["Fitbit", "Apple", "Samsung", "Google"]
+            },
+            "Smart Home & Security": {
+                "selector": "#subCategoryId-1580",
+                "brands": ["Google", "Amazon", "ADT", "August"]
+            },
+            "Home Audio": {
+                "selector": "#subCategoryId-1587",
+                "brands": ["Bose", "JBL", "Sonos", "Polk Audio"]
+            },
+            "Tablets & E-readers": {
+                "selector": "#subCategoryId-1597",
+                "brands": ["Amazon", "Apple", "Samsung", "Microsoft", "Google"]
+            },
+            "Headphones & MP3 Players": {
+                "selector": "#subCategoryId-1593",
+                "brands": ["Sony", "SanDisk", "Fiio"]
+            },
+            "Drones": {
+                "selector": "#subCategoryId-1603",
+                "brands": ["DJI", "Hubsan", "Autel Robotics", "Parrot"]
+            },
+            "Virtual Reality": {
+                "selector": "#subCategoryId-1606",
+                "brands": ["Oculus", "Apple", "Samsung", "Qualcomm"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-87",
+                "brands": []
+            }
+        }
+    },
+    "Toys & Collectibles": {
+        "selector": "#categoryId-1611",
+        "children": {
+            "Action Figures & Accessories": {
+                "selector": "#subCategoryId-1612",
+                "brands": ["Hasbro", "Funko", "Star Wars"]
+            },
+            "Dolls & Accessories": {
+                "selector": "#subCategoryId-1619",
+                "brands": ["Mattel", "American Girl", "Bratz", "Cabbage Patch Kids"]
+            },
+            "Collectibles & Hobbies": {
+                "selector": "#subCategoryId-1629",
+                "brands": ["Hobby Lobby"]
+            },
+            "Building Toys": {
+                "selector": "#subCategoryId-1648",
+                "brands": ["LEGO", "Brio"]
+            },
+            "Electronics for Kids": {
+                "selector": "#subCategoryId-1654",
+                "brands": ["Tiger", "Amazon", "VTech"]
+            },
+            "Games & Puzzles": {
+                "selector": "#subCategoryId-1668",
+                "brands": ["Milton Bradley Company", "Ravensburger", "Buffalo Games", "Hasbro"]
+            },
+            "Sports & Outdoor Play": {
+                "selector": "#subCategoryId-1684",
+                "brands": ["Nerf", "Franklin", "Wham-O"]
+            },
+            "Remote Control Toys & Vehicles": {
+                "selector": "#subCategoryId-1704",
+                "brands": ["Sharper Image", "The Sharper Image"]
+            },
+            "Stuffed Animals & Plush": {
+                "selector": "#subCategoryId-1712",
+                "brands": ["Ty Beanie Babies", "Disney"]
+            },
+            "Arts & Crafts": {
+                "selector": "#subCategoryId-1720",
+                "brands": ["Melissa & Doug", "Play-Doh"]
+            },
+            "Baby & Toddler Toys": {
+                "selector": "#subCategoryId-1731",
+                "brands": ["VTech", "Bright Starts", "Hape"]
+            },
+            "Learning & Education Toys": {
+                "selector": "#subCategoryId-1745",
+                "brands": ["FAO Schwarz", "Leap Frog"]
+            },
+            "Dress Up & Pretend Play": {
+                "selector": "#subCategoryId-1759",
+                "brands": ["Melissa & Doug", "Lakeshore"]
+            },
+            "Novelty & Gag Toys": {
+                "selector": "#subCategoryId-1771",
+                "brands": ["Just Play", "Toysmith"]
+            },
+            "Trading Cards": {
+                "selector": "#subCategoryId-1780",
+                "brands": ["Pokemon", "Wizards of the Coast"]
+            },
+            "Vintage & Antique Toys": {
+                "selector": "#subCategoryId-1790",
+                "brands": ["Marx", "Schoenhut"]
+            },
+            "Vintage & Antique Collectibles": {
+                "selector": "#subCategoryId-1803",
+                "brands": ["Marx", "Schoenhut", "Mary Engelbreit"]
+            },
+            "Handmade Toys": {
+                "selector": "#subCategoryId-1814",
+                "brands": []
+            },
+            "Handmade Dolls & Miniatures": {
+                "selector": "#subCategoryId-1832",
+                "brands": []
+            },
+            "Sports Trading Cards": {
+                "selector": "#subCategoryId-3511",
+                "brands": ["Topps", "Upper Deck", "Fleer"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-1851",
+                "brands": []
+            }
+        }
+    },
+    "Home": {
+        "selector": "#categoryId-4",
+        "children": {
+            "Kids' home store": {
+                "selector": "subCategoryId-60",
+                "brands": ["West Elm", "Pottery Barn Kids"]
+            },
+            "Kitchen Bakeware": {
+                "selector": "subCategoryId-576",
+                "brands": ["Nordic Ware", "Wilton", "OXO", "Pyrex"]
+            },
+            "Kitchen Coffee & Espresso Makers": {
+                "selector": "subCategoryId-577",
+                "brands": ["Mr. Coffee", "Keurig", "Chefman"]
+            },
+            "Kitchen Cookware": {
+                "selector": "subCategoryId-578",
+                "brands": ["Lodge", "Le Creuset", "Calphalon"]
+            },
+            "Kitchen Dinnerware": {
+                "selector": "subCategoryId-579",
+                "brands": ["Gibson", "Corelle", "Mikasa", "Lenox"]
+            },
+            "Kitchen Serveware": {
+                "selector": "subCategoryId-580",
+                "brands": ["Oneida", "Lenox", "Wilton"]
+            },
+            "Kitchen & Table Linens": {
+                "selector": "subCategoryId-582",
+                "brands": ["KitchenAid", "Cuisinart"]
+            },
+            "Kitchen Utensils": {
+                "selector": "subCategoryId-584",
+                "brands": ["Rachael Ray", "Joseph Joseph", "Viking"]
+            },
+            "Kitchen Small Appliances": {
+                "selector": "subCategoryId-585",
+                "brands": ["Ninja", "Cuisinart", "Hamilton Beach", "Black & Decker"]
+            },
+            "Kitchen Storage": {
+                "selector": "subCategoryId-586",
+                "brands": ["Rubbermaid", "Tupperware", "Pyrex"]
+            },
+            "Kitchen Bar & Wine Accessories": {
+                "selector": "subCategoryId-588",
+                "brands": ["Tovolo"]
+            },
+            "Bedroom Furniture": {
+                "selector": "subCategoryId-611",
+                "brands": ["Jonathan Adler", "Benchmade"]
+            },
+            "Kitchen Furniture": {
+                "selector": "subCategoryId-612",
+                "brands": ["Thomasville", "Waterworks"]
+            },
+            "Home Office Furniture": {
+                "selector": "subCategoryId-615",
+                "brands": ["Steelcase", "Vitra"]
+            },
+            "Living Room Furniture": {
+                "selector": "subCategoryId-616",
+                "brands": ["Bassett Furniture", "Ethan Allen"]
+            },
+            "Bathroom Furniture": {
+                "selector": "subCategoryId-617",
+                "brands": ["Topeak"]
+            },
+            "Furniture Hardware & Parts": {
+                "selector": "subCategoryId-619",
+                "brands": ["Acorn"]
+            },
+            "Kitchen Cutlery": {
+                "selector": "subCategoryId-2072",
+                "brands": ["Victorinox Swiss Army", "Wusthof", "Farberware"]
+            },
+            "Kitchen Baking & Cake Accessories": {
+                "selector": "subCategoryId-2305",
+                "brands": ["Wilton", "KitchenAid"]
+            },
+            "Kitchen Barware": {
+                "selector": "subCategoryId-2329",
+                "brands": ["Tovolo"]
+            },
+            "Ktichen Drinkware": {
+                "selector": "subCategoryId-2383",
+                "brands": ["Libbey", "Tervis", "Stanley"]
+            },
+            "Kitchen Flatware": {
+                "selector": "subCategoryId-2393",
+                "brands": ["Oneida", "Henckels", "Zwilling"]
+            },
+            "Kitchen Gadgets & Tools": {
+                "selector": "subCategoryId-2413",
+                "brands": ["Farberware", "OXO", "Henckels"]
+            },
+            "Kitchen Tea & Accessories": {
+                "selector": "subCategoryId-2488",
+                "brands": ["Williams Sonoma"]
+            },
+            "Kitchen & dining": {
+                "selector": "subCategoryId-61",
+                "brands": ["Williams Sonoma"]
+            },
+            "Other Furniture": {
+                "selector": "subCategoryId-618",
+                "brands": []
+            },
+            "Bedding": {
+                "selector": "subCategoryId-62",
+                "brands": ["Pottery Barn", "L.L. Bean"]
+            },
+            "Bath": {
+                "selector": "subCategoryId-63",
+                "brands": ["Martha Stewart", "InterDesign"]
+            },
+            "Furniture": {
+                "selector": "subCategoryId-64",
+                "brands": []
+            },
+            "Home decor": {
+                "selector": "subCategoryId-65",
+                "brands": ["Laura Ashely", "Eclipse"]
+            },
+            "Artwork": {
+                "selector": "subCategoryId-66",
+                "brands": ["MCS", "Waterford"]
+            },
+            "Seasonal decor": {
+                "selector": "subCategoryId-67",
+                "brands": ["Lenox"]
+            },
+            "Home appliance": {
+                "selector": "subCategoryId-68",
+                "brands": ["Frigidaire", "Kenmore"]
+            },
+            "Party Supplies": {
+                "selector": "subCategoryId-1853",
+                "brands": []
+            },
+            "Storage & organization": {
+                "selector": "subCategoryId-69",
+                "brands": []
+            },
+            "Cleaning supplies": {
+                "selector": "subCategoryId-70",
+                "brands": ["Lysol", "Windex"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-71",
+                "brands": []
+            }
+        }
+    },
+    "Beauty": {
+        "selector": "#categoryId-6",
+        "children": {
+            "Bath & body": {
+                "selector": "#subCategoryId-88",
+                "brands": ["Bath & Body Works", "Sephora"]
+            },
+            "Fragrance": {
+                "selector": "#subCategoryId-89",
+                "brands": ["Avon", "Calvin Klein"]
+            },
+            "Hair care": {
+                "selector": "#subCategoryId-90",
+                "brands": ["Hot Tools", "Conair", "Panasonic"]
+            },
+            "Makeup": {
+                "selector": "#subCategoryId-91",
+                "brands": ["No7 Make-up", "Maybelline", "Revlon"]
+            },
+            "Skin care": {
+                "selector": "#subCategoryId-92",
+                "brands": ["Estee Lauder", "Neutrogena"]
+            },
+            "Tools & accessories": {
+                "selector": "#subCategoryId-93",
+                "brands": ["NYX", "Charlotte Tilbury"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-94",
+                "brands": []
+            }
+        }
+    },
+    "Kids": {
+        "selector": "#categoryId-3",
+        "children": {
+            "Girls accessories": {
+                "selector": "#subCategoryId-1870",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls bottoms": {
+                "selector": "#subCategoryId-1871",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls coats & jackets": {
+                "selector": "#subCategoryId-1872",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls dresses": {
+                "selector": "#subCategoryId-1873",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls one-pieces": {
+                "selector": "#subCategoryId-1874",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls shoes": {
+                "selector": "#subCategoryId-1875",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls swimwear": {
+                "selector": "#subCategoryId-1876",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls tops & t-shirts": {
+                "selector": "#subCategoryId-1877",
+                "brands": ["Athleta", "Lilly Pulitzer for Target", "Lilly Pulitzer", "Justice"]
+            },
+            "Girls other": {
+                "selector": "#subCategoryId-1878",
+                "brands": []
+            },
+            "Boys accessories": {
+                "selector": "#subCategoryId-1879",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys bottoms": {
+                "selector": "#subCategoryId-1880",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys coats & jackets": {
+                "selector": "#subCategoryId-1881",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys one-pieces": {
+                "selector": "#subCategoryId-1882",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys swimwear": {
+                "selector": "#subCategoryId-1883",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys shoes": {
+                "selector": "#subCategoryId-1884",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys tops & t-shirts": {
+                "selector": "#subCategoryId-1885",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Boys other": {
+                "selector": "#subCategoryId-1886",
+                "brands": ["vineyard vines", "The Children's Place", "Children's Place", "Henley"]
+            },
+            "Bathing & skin care": {
+                "selector": "#subCategoryId-48",
+                "brands": ["BabyGanics", "The Honest Company"]
+            },
+            "Car seats & accessories": {
+                "selector": "#subCategoryId-49",
+                "brands": ["Evenflo", "UPPAbaby", "Bugaboo"]
+            },
+            "Diapering": {
+                "selector": "#subCategoryId-50",
+                "brands": ["Huggies", "The Honest Company"]
+            },
+            "Feeding": {
+                "selector": "#subCategoryId-51",
+                "brands": ["Evenflo Feeding", "Tommee Tippee", "Dr. Brown's"]
+            },
+            "Gear": {
+                "selector": "#subCategoryId-52",
+                "brands": ["ELLE"]
+            },
+            "Health & baby care": {
+                "selector": "#subCategoryId-53",
+                "brands": ["Mustela"]
+            },
+            "Nursery": {
+                "selector": "#subCategoryId-54",
+                "brands": ["Crate & Barrel", "Baby Trend"]
+            },
+            "Potty training": {
+                "selector": "#subCategoryId-55",
+                "brands": ["BABYBJÖRN", "BabyBjorn"]
+            },
+            "Pregnancy & maternity": {
+                "selector": "#subCategoryId-56",
+                "brands": ["Hatch", "BLANQI"]
+            },
+            "Safety": {
+                "selector": "#subCategoryId-57",
+                "brands": ["Bison Made", "Spectra Baby USA"]
+            },
+            "Strollers": {
+                "selector": "#subCategoryId-58",
+                "brands": ["Silver Cross", "Nuna", "UPPAbaby"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-59",
+                "brands": []
+            }
+        }
+    },
+    "Vintage & collectibles": {
+        "selector": "#categoryId-5",
+        "children": {
+            "Jewelry": {
+                "selector": "#subCategoryId-95",
+                "brands": ["Trifari", "Chanel"]
+            },
+            "Clothing": {
+                "selector": "#subCategoryId-96",
+                "brands": ["HERMES", "Hermès", "Vivienne Westwood", "Dior"]
+            },
+            "Home decor": {
+                "selector": "#subCategoryId-97",
+                "brands": []
+            },
+            "Accessories": {
+                "selector": "#subCategoryId-99",
+                "brands": []
+            },
+            "Housewares": {
+                "selector": "#subCategoryId-100",
+                "brands": ["Lenox", "Makie", ""]
+            },
+            "Supplies": {
+                "selector": "#subCategoryId-101",
+                "brands": []
+            },
+            "Antique": {
+                "selector": "#subCategoryId-102",
+                "brands": []
+            },
+            "Paper ephemera": {
+                "selector": "#subCategoryId-103",
+                "brands": []
+            },
+            "Serving": {
+                "selector": "#subCategoryId-104",
+                "brands": ["Lenox"]
+            },
+            "Bags and purses": {
+                "selector": "#subCategoryId-106",
+                "brands": ["Louis Vuitton", "Prada", "Gucci"]
+            },
+            "Electronics": {
+                "selector": "#subCategoryId-108",
+                "brands": ["Marantzv", "Nintendo"]
+            },
+            "Furniture": {
+                "selector": "#subCategoryId-109",
+                "brands": []
+            },
+            "Collectible Coins": {
+                "selector": "#subCategoryId-2603",
+                "brands": ["Franklin Mint", "US Mint"]
+            },
+            "Collectible Paper Money": {
+                "selector": "#subCategoryId-2609",
+                "brands": ["US Mint"]
+            },
+            "Collectible Postage": {
+                "selector": "#subCategoryId-2613",
+                "brands": ["USPS"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-111",
+                "brands": []
+            }
+        },
+        "brands": ["Cartier", "Tiffany & Co."]
+    },
+    "Sports & outdoors": {
+        "selector": "#categoryId-8",
+        "children": {
+            "Team sports": {
+                "selector": "#subCategoryId-72",
+                "brands": ["Babolat", "Wilson", "Yonex"]
+            },
+            "Exercise": {
+                "selector": "#subCategoryId-73",
+                "brands": ["NordicTrack", "Bowflex"]
+            },
+            "Footwear": {
+                "selector": "#subCategoryId-74",
+                "brands": ["Adidas", "Under Armour", "Hoka One"]
+            },
+            "Apparel": {
+                "selector": "#subCategoryId-75",
+                "brands": ["Gymshark", "Rhone"]
+            },
+            "Golf": {
+                "selector": "#subCategoryId-76",
+                "brands": ["TaylorMade", "Titleist", "Callaway"]
+            },
+            "Outdoors": {
+                "selector": "#subCategoryId-77",
+                "brands": ["Patagonia", "The North Face", "Marmot"]
+            },
+            "Fan shop": {
+                "selector": "#subCategoryId-78",
+                "brands": ["Fanatics"]
+            },
+            "Basketball Equipment": {
+                "selector": "#subCategoryId-705",
+                "brands": ["Spalding", "Nike"]
+            },
+            "Fishing Gear": {
+                "selector": "#subCategoryId-744",
+                "brands": ["Shakespeare", "Humminbird", "Scientific Anglers"]
+            },
+            "Snowboarding Gear": {
+                "selector": "#subCategoryId-749",
+                "brands": ["Burton", "Arbor", "Salomon"]
+            },
+            "Skateboard Gear": {
+                "selector": "#subCategoryId-750",
+                "brands": ["Baker Skateboards", "Santa Cruz Skateboards", "Antihero Skateboards"]
+            },
+            "Baseball Equipment": {
+                "selector": "#subCategoryId-2126",
+                "brands": ["Easton", "Wilson", "Louisville Slugger"]
+            },
+            "Yoga Equipment": {
+                "selector": "#subCategoryId-2129",
+                "brands": ["lululemon athletica", "Fabletics", "Beyond Yoga"]
+            },
+            "Camping Equipment": {
+                "selector": "#subCategoryId-2132",
+                "brands": ["REI", "Big Agnes", "Msr"]
+            },
+            "Ski Gear": {
+                "selector": "#subCategoryId-2571",
+                "brands": ["HEAD", "Elan"]
+            },
+            "Cycling Equipment": {
+                "selector": "#subCategoryId-3141",
+                "brands": ["Nordica", "Rapha"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-79",
+                "brands": []
+            }
+        }
+    },
+    "Handmade": {
+        "selector": "#categoryId-9",
+        "children": {
+            "Housewares": {
+                "selector": "#subCategoryId-112",
+                "brands": []
+            },
+            "Woodworking": {
+                "selector": "#subCategoryId-114",
+                "brands": ["DeWALT"]
+            },
+            "Ceramics and pottery": {
+                "selector": "#subCategoryId-115",
+                "brands": []
+            },
+            "Glass": {
+                "selector": "#subCategoryId-116",
+                "brands": []
+            },
+            "Weddings": {
+                "selector": "#subCategoryId-118",
+                "brands": []
+            },
+            "Holidays": {
+                "selector": "#subCategoryId-119",
+                "brands": []
+            },
+            "Children": {
+                "selector": "#subCategoryId-121",
+                "brands": []
+            },
+            "Needlecraft": {
+                "selector": "#subCategoryId-122",
+                "brands": ["Singer" ]
+            },
+            "Geekery": {
+                "selector": "#subCategoryId-123",
+                "brands": ["AXEL ARIGATO"]
+            },
+            "Paper goods": {
+                "selector": "#subCategoryId-124",
+                "brands": []
+            },
+            "Candles": {
+                "selector": "#subCategoryId-125",
+                "brands": ["Diptyque","Le Labo"]
+            },
+            "Patterns": {
+                "selector": "#subCategoryId-126",
+                "brands": []
+            },
+            "Crochet": {
+                "selector": "#subCategoryId-127",
+                "brands": ["Lion Brand Yarns"]
+            },
+            "Furniture": {
+                "selector": "#subCategoryId-128",
+                "brands": []
+            },
+            "Quilts": {
+                "selector": "#subCategoryId-129",
+                "brands": ["Parachute", "Brooklinen"]
+            },
+            "Accessories": {
+                "selector": "#subCategoryId-130",
+                "brands": []
+            },
+            "Pets": {
+                "selector": "#subCategoryId-131",
+                "brands": []
+            },
+            "Knitting": {
+                "selector": "#subCategoryId-134",
+                "brands": []
+            },
+            "Bags and purses": {
+                "selector": "#subCategoryId-135",
+                "brands": []
+            },
+            "Jewelry": {
+                "selector": "#subCategoryId-136",
+                "brands": []
+            },
+            "Books and zines": {
+                "selector": "#subCategoryId-137",
+                "brands": []
+            },
+            "Clothing": {
+                "selector": "#subCategoryId-138",
+                "brands": ["Uniqlo"]
+            },
+            "Music": {
+                "selector": "#subCategoryId-139",
+                "brands": ["Gibson", "Yamaha"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-140",
+                "brands": []
+            }
+        },
+        "brands": []
+    },
+    "Arts & Crafts": {
+        "selector": "#categoryId-113",
+        "children": {
+            "Photography": {
+                "selector": "#subCategoryId-1101",
+                "brands": ["Nikon", "Canon", "Polaroid"]
+            },
+            "Handmade Paintings": {
+                "selector": "#subCategoryId-1103",
+                "brands": []
+            },
+            "Mixed media": {
+                "selector": "#subCategoryId-1104",
+                "brands": ["Strathmore", ""]
+            },
+            "Sculptures": {
+                "selector": "#subCategoryId-1105",
+                "brands": ["Design Within Reach", "Xotic"]
+            },
+            "Illustration": {
+                "selector": "#subCategoryId-1106",
+                "brands": []
+            },
+            "Collages": {
+                "selector": "#subCategoryId-1107",
+                "brands": ["Provo Craft/ Cricut", "Lawn Fawn"]
+            },
+            "Drawing Supplies": {
+                "selector": "#subCategoryId-1108",
+                "brands": ["Prismacolor", "Faber-Castell", "Staedtler"]
+            },
+            "Fiber art": {
+                "selector": "#subCategoryId-1109",
+                "brands": []
+            },
+            "Printmaking": {
+                "selector": "#subCategoryId-1110",
+                "brands": []
+            },
+            "Aceo": {
+                "selector": "#subCategoryId-1111",
+                "brands": []
+            },
+            "Paint": {
+                "selector": "#subCategoryId-1726",
+                "brands": []
+            },
+            "Native American Arts & Crafts": {
+                "selector": "#subCategoryId-2630",
+                "brands": []
+            },
+            "Art Paper & Surfaces": {
+                "selector": "#subCategoryId-3371",
+                "brands": ["Strathmore"]
+            },
+            "Art Pencils": {
+                "selector": "#subCategoryId-3395",
+                "brands": ["Derwent", "Prismacolor"]
+            },
+            "Art Studio Furniture": {
+                "selector": "#subCategoryId-3401",
+                "brands": []
+            },
+            "Ink & Calligraphy": {
+                "selector": "#subCategoryId-3406",
+                "brands": ["Winsor & Newton"]
+            },
+            "Paint Accessories": {
+                "selector": "#subCategoryId-3421",
+                "brands": []
+            },
+            "Paint Brushes": {
+                "selector": "#subCategoryId-3433",
+                "brands": ["Bates", "Purdy"]
+            },
+            "Pastels": {
+                "selector": "#subCategoryId-3442",
+                "brands": ["Caran D'Ache", "Winsor & Newton"]
+            },
+            "Mediums & Varnishes": {
+                "selector": "#subCategoryId-3448",
+                "brands": ["Liquitex", "Krylon"]
+            },
+            "Resin Art Supplies": {
+                "selector": "#subCategoryId-3458",
+                "brands": []
+            },
+            "Stamping & Embossing": {
+                "selector": "#subCategoryId-3465",
+                "brands": ["Stampin' Up!", "Sakura"]
+            },
+            "Other Arts & Crafts": {
+                "selector": "#subCategoryId-1112",
+                "brands": []
+            }
+        }
+    },
+    "Pet Supplies": {
+        "selector": "#categoryId-143",
+        "children": {
+            "Aquariums & Fish Supplies": {
+                "selector": "#subCategoryId-3008",
+                "brands": ["Fluker's", "Exo-Terra"]
+            },
+            "Bird Supplies": {
+                "selector": "#subCategoryId-3022",
+                "brands": ["ZuPreem", "Kaytee"]
+            },
+            "Cat Supplies": {
+                "selector": "#subCategoryId-3031",
+                "brands": ["Blue Buffalo", "Wellness"]
+            },
+            "Dog Supplies": {
+                "selector": "#subCategoryId-3055",
+                "brands": ["Petco", "PetSmart"]
+            },
+            "Reptile Supplies": {
+                "selector": "#subCategoryId-3086",
+                "brands": ["Zoo Med", "Exo-Terra"]
+            },
+            "Others": {
+                "selector": "#subCategoryId-1508",
+                "brands": []
+            }
+        }
+    },
+    "Garden & Outdoor": {
+        "selector": "#categoryId-2633",
+        "children": {
+            "Garden Decor": {
+                "selector": "#subCategoryId-2634",
+                "brands": ["Crate & Barrel"]
+            },
+            "Garden Hand Tools & Equipment": {
+                "selector": "#subCategoryId-2660",
+                "brands": ["Felco", "Fiskars"]
+            },
+            "Garden Protective Gear": {
+                "selector": "#subCategoryId-2691",
+                "brands": ["Magid"]
+            },
+            "Garden Structures & Shades": {
+                "selector": "#subCategoryId-2697",
+                "brands": ["Backyard Discovery"]
+            },
+            "Outdoor Heating & Cooking": {
+                "selector": "#subCategoryId-2710",
+                "brands": ["Traeger", "Frontgate"]
+            },
+            "Outdoor Power Equipment": {
+                "selector": "#subCategoryId-2719",
+                "brands": ["Hayward", "Pentair"]
+            },
+            "Outdoor Waste & Composting": {
+                "selector": "#subCategoryId-2737",
+                "brands": ["Black & Decker"]
+            },
+            "Patio Furniture": {
+                "selector": "#subCategoryId-2744",
+                "brands": ["Frontgate"]
+            },
+            "Planting Accessories": {
+                "selector": "#subCategoryId-2757",
+                "brands": ["Felco", "Fiskars"]
+            },
+            "Live Plants": {
+                "selector": "#subCategoryId-2772",
+                "brands": []
+            },
+            "Pool Equipment": {
+                "selector": "#subCategoryId-2784",
+                "brands": ["Aquabot", "Pentair"]
+            },
+            "Sauna & Hot Tub Equipment": {
+                "selector": "#subCategoryId-2806",
+                "brands": ["Jacuzzi"]
+            },
+            "Watering Equipment": {
+                "selector": "#subCategoryId-2813",
+                "brands": ["Briggs & Stratton"]
+            }
+        },
+        "brands": ["Felco", "Fiskars", "Ethan Allen", "Home Depot"]
+    },
+    "Office": {
+        "selector": "#categoryId-2882",
+        "children": {
+            "School Supplies": {
+                "selector": "#subCategoryId-1533",
+                "brands": ["Five Star", "Crayola"]
+            },
+            "Ink & Toner": {
+                "selector": "#subCategoryId-1534",
+                "brands": ["Epson", "Lexmark"]
+            },
+            "Paper": {
+                "selector": "#subCategoryId-1535",
+                "brands": ["Georgia-Pacific", "Staples"]
+            },
+            "Writing Supplies": {
+                "selector": "#subCategoryId-1536",
+                "brands": ["Paper Mate", "Pilot"]
+            },
+            "Office Electronics": {
+                "selector": "#subCategoryId-1537",
+                "brands": ["Acer", "ASUS"]
+            },
+            "Desk Organization": {
+                "selector": "#subCategoryId-1538",
+                "brands": ["Iris", "Office Depot"]
+            },
+            "Shipping Supplies": {
+                "selector": "#subCategoryId-1539",
+                "brands": ["Amazon", "USPS"]
+            },
+            "Folders & Filing": {
+                "selector": "#subCategoryId-2892",
+                "brands": ["Wilson Jones", "Smead"]
+            },
+            "Notebooks & Writing Pads": {
+                "selector": "#subCategoryId-2905",
+                "brands": ["Moleskine", "Five Star"]
+            },
+            "Tapes & Adhesives": {
+                "selector": "#subCategoryId-2988",
+                "brands": ["3M", "Elmers", "Avery"]
+            },
+            "Markers": {
+                "selector": "#subCategoryId-3479",
+                "brands": ["Mr. Sketch", "Sharpie"]
+            },
+            "Pens": {
+                "selector": "#subCategoryId-3486",
+                "brands": ["Bic", "Paper Mate"]
+            }
+        }
+    },
+    "Tools": {
+        "selector": "#categoryId-3170",
+        "children": {
+            "Air Tools": {
+                "selector": "#subCategoryId-3171",
+                "brands": ["Ingersoll-Rand", "Makita", "Kobalt"]
+            },
+            "Chains & Ropes": {
+                "selector": "#subCategoryId-3190",
+                "brands": ["SHASHI", "CATBIRD"]
+            },
+            "Cutting Tools": {
+                "selector": "#subCategoryId-3197",
+                "brands": ["Makita", "DeWALT"]
+            },
+            "Electrical Tools": {
+                "selector": "#subCategoryId-3205",
+                "brands": ["Milwaukee", "Bosch"]
+            },
+            "Fastening Tools": {
+                "selector": "#subCategoryId-3219",
+                "brands": ["ARROW FASTENER", "VELCRO Brand", "Velcro USA"]
+            },
+            "Hammers": {
+                "selector": "#subCategoryId-3227",
+                "brands": ["Stanley", "IRWIN", "Craftsman"]
+            },
+            "Hand Tools": {
+                "selector": "#subCategoryId-3233",
+                "brands": ["Makita", "Bosch", "Black & Decker"]
+            },
+            "Measuring & Layout": {
+                "selector": "#subCategoryId-3249",
+                "brands": ["DeWALT", "Makita", "Black & Decker"]
+            },
+            "Pliers": {
+                "selector": "#subCategoryId-3257",
+                "brands": ["Channellock", "Crescent"]
+            },
+            "Power Tools": {
+                "selector": "#subCategoryId-3263",
+                "brands": ["Milwaukee", "Craftsman"]
+            },
+            "Power Tool Accessories": {
+                "selector": "#subCategoryId-3284",
+                "brands": ["Ryobi", "Milwaukee"]
+            },
+            "Safety Gear": {
+                "selector": "#subCategoryId-3288",
+                "brands": ["MSA", "Honeywell", "3M"]
+            },
+            "Saws": {
+                "selector": "#subCategoryId-3308",
+                "brands": ["Stihl", "Husqvarna"]
+            },
+            "Saw Accessories": {
+                "selector": "#subCategoryId-3317",
+                "brands": ["Klein Tools", "DeWALT"]
+            },
+            "Screwdrivers": {
+                "selector": "#subCategoryId-3325",
+                "brands": ["Crescent", "Craftsman"]
+            },
+            "Tie Downs": {
+                "selector": "#subCategoryId-3332",
+                "brands": ["Craftsman"]
+            },
+            "Tools Storage": {
+                "selector": "#subCategoryId-3343",
+                "brands": ["Performance Tool", "Milwaukee"]
+            },
+            "Welding Equipment": {
+                "selector": "#subCategoryId-3349",
+                "brands": ["Hobart", "Everlast"]
+            },
+            "Wrenches": {
+                "selector": "#subCategoryId-3362",
+                "brands": ["DeWALT", "TEKTON"]
+            }
+        }
+    },
+    "Books": {
+        "selector": "#categoryId-141",
+        "children": {
+            "Magazines": {
+                "selector": "#subCategoryId-142",
+                "brands": ["Playboy", "Time-Life Books"]
+            },
+            "Fiction Books": {
+                "selector": "#subCategoryId-1011",
+                "brands": ["Penguin Random House", "Random House", "HarperCollins Publishers"]
+            },
+            "Nonfiction Books": {
+                "selector": "#subCategoryId-1016",
+                "brands": ["Oxford", "Random House", "National Geographic"]
+            },
+            "Reference Books": {
+                "selector": "#subCategoryId-1480",
+                "brands": ["Rockport", "Collins"]
+            },
+            "Other Books": {
+                "selector": "#subCategoryId-1494",
+                "brands": []
+            }
+        },
+        "brands": ["Random House", "Penguin", "Playboy"]
+    },
+    "Other": {
+        "selector": "#categoryId-10",
+        "children": {
+            "Daily & travel items": {
+                "selector": "#subCategoryId-144",
+                "brands": ["Samsonite", "Reaction Kenneth Cole"]
+            },
+            "Automotive": {
+                "selector": "#subCategoryId-145",
+                "brands": ["Mercedes Benz", "Volkswagen"]
+            },
+            "Office Supplies": {
+                "selector": "#subCategoryId-146",
+                "brands": ["3M", "Avery", "Xerox"]
+            },
+            "Musical instruments": {
+                "selector": "#subCategoryId-147",
+                "brands": ["Yamaha", "Gibson", "Fender"]
+            },
+            "Travel & Luggage": {
+                "selector": "#subCategoryId-1033",
+                "brands": ["Samsonite", "GLOBE-TROTTER", "Rimowa"]
+            },
+            "Automotive Oils & Fluids": {
+                "selector": "#subCategoryId-1523",
+                "brands": ["Castrol", "Valvoline", "ACDelco"]
+            },
+            "Other": {
+                "selector": "#subCategoryId-148",
+                "brands": []
+            }
+        }
+    }
+}

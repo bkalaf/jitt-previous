@@ -2,6 +2,15 @@ import { createTheme } from '@mui/material';
 import * as colors from 'tailwindcss/colors';
 
 export const theme = createTheme({
+    components: {
+        MuiFormControl: {
+            defaultProps: {
+                classes: {
+                    root: 'w-full'
+                }
+            }
+        }
+    },
     palette: {
         mode: 'light',
         dimmed: {

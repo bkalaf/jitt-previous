@@ -1,14 +1,14 @@
-import Realm from 'realm';
+import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from '../../types';
-import { ObjectId } from 'bson';
 import { runTransaction } from '../../util/runTransaction';
 import { distinctBy, distinctByOID } from '../../common/array/distinct';
+import { EntityBase } from './EntityBase';
 
-export class Classifier extends Realm.Object<IClassifier> implements IClassifier {
+export class Classifier extends EntityBase<IClassifier> implements IClassifier {
     // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
-    _id: ObjectId;
+    _id: BSON.ObjectId;
     taxonomy?: IMercariTaxonomy | undefined;
     shortName: string;
     parent?: Pick<IClassifier, '_id' | 'shortName' | 'name' | 'hashTags' | 'allHashTags' | 'detailTypes' | 'allAttributes'> | undefined;
@@ -33,15 +33,25 @@ export class Classifier extends Realm.Object<IClassifier> implements IClassifier
     };
     static labelProperty = 'name';
 
-    static update(realm: Realm, item: IClassifier): IClassifier {
+    static update(item: IClassifier): IClassifier {
         const func = () => {
             const name = [item.parent?.name, item.shortName].join(' || ');
             if (name !== item.name) {
                 item.name = name;
             }
         };
-        runTransaction(realm, func);
+        runTransaction(Classifier.localRealm, func);
         return item;
+    }
+    static init(): InitValue<IClassifier> {
+        return {
+            _id: new BSON.ObjectId(),
+            shortName: '',
+            name: '',
+            hashTags: [],
+            type: [],
+            attributes: []
+        }
     }
     get allHashTags(): IHashTag[] {
         return distinctByOID<IHashTag>([...this.hashTags, ...(this.taxonomy?.allHashTags ?? []), ...(this.parent?.allHashTags ?? [])]);
@@ -50,7 +60,9 @@ export class Classifier extends Realm.Object<IClassifier> implements IClassifier
         return distinctBy((left: string, right: string) => left === right, [...(this?.parent?.detailTypes ?? []), ...(this.type ?? [])]);
     }
     get allAttributes(): IAttribute[] {
-        return distinctBy((left: IAttribute, right: IAttribute) => left.path === right.path, [...(this?.parent?.allAttributes ?? []), ...(this.attributes ?? [])]);
+        const map = new Map<string, IAttribute>();
+        distinctBy((left: IAttribute, right: IAttribute) => left.path === right.path, [...(this?.parent?.allAttributes ?? []), ...(this.attributes ?? [])]).forEach(x => map.set(x.path, x));
+        return Array.from(map.values());
     }
     get subRows(): Realm.Results<any> {
         // const key = Object.getOwnPropertySymbols(this).find(x => x.toString().includes('#realm'))

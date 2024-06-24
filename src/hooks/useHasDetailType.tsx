@@ -6,7 +6,12 @@ export function useCheckProperty(name: string, value: any) {
     const { watch } = useFormContext();
     return useMemo(() => {
         const current = watch(name);
-        return current == null ? true : value === current;
+        console.info(`useCheckProperty`, name, value, current);
+        return (
+            current == null ? true
+            : Array.isArray(value) ? value.includes(current)
+            : value === current
+        );
     }, [name, value, watch]);
 }
 export function useHasDetailType(name: string, item: DetailTypes | DetailTypes[]) {

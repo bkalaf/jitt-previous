@@ -4,13 +4,13 @@ import { App } from './App';
 import { CollectionView } from './Views/CollectionView';
 import React from 'react';
 
-export function on(source: { addEventListener: typeof document['addEventListener']; removeEventListener: typeof document['removeEventListener'] }, event: string, listener: (event: any) => void) {
+export function on(source: { addEventListener: (typeof document)['addEventListener']; removeEventListener: (typeof document)['removeEventListener'] }, event: string, listener: (event: any) => void) {
     source.addEventListener(event, listener);
     return () => source.removeEventListener(event, listener);
 }
 
 const collectionRoute = (name: string) => ({ path: name, errorElement: <ErrorBoundary />, element: <Outlet />, children: [{ index: true, element: <CollectionView />, errorElement: <ErrorBoundary /> }] });
-
+const queryRoute = (name: string) => ({ path: name, errorElement: <ErrorBoundary />, element: <Outlet />, children: [{ index: true, element: <CollectionView />, errorElement: <ErrorBoundary /> }] });
 // export const appRouter = createHashRouter([
 //     {
 //         path: '/',
@@ -57,6 +57,14 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
             ),
             errorElement: <ErrorBoundary />,
             children: [
+                {
+                    path: 'queries',
+                    errorElement: <ErrorBoundary />,
+                    children: [
+                        { path: 'v1', errorElement: <ErrorBoundary />, children: [queryRoute('classifierHierarchy'), { index: true, element: <div>QUERY INDEX</div>, errorElement: <ErrorBoundary /> }] },
+                        { index: true, errorElement: <ErrorBoundary />, element: <Navigate to='v1' /> }
+                    ]
+                },
                 {
                     path: 'data',
                     errorElement: <ErrorBoundary />,

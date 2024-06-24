@@ -28,7 +28,7 @@ export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<
             });
         }
     });
-    const successMessage = useSuccessNotification((result: T) => `1 new record created: ${result._objectKey()}`);
+    const successMessage = useSuccessNotification(() => `1 new record created.`);
     const failureMessage = useFailureNotification((errors: FieldErrors<T>) => {
         console.error(errors);
         console.error(errors.root);

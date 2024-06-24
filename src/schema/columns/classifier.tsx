@@ -35,7 +35,7 @@ export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
         //     className: fromDepth(props.row.depth)
         // })
     },
-    helper.listofFreeSolo('type', 'Detail Types', 'string', (x: string, y: string) => x.localeCompare(y) as Compared),
+    helper.listofEnum('type', 'Detail Types', { enumKey: 'detailsTypes' }),
     helper.listOfPrimitive('detailTypes', 'ALL Detail Types', 'string', true),
     helper.listOfObject('hashTags', 'Hash Tags', 'hashTag'),
     helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', true),

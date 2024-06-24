@@ -66,7 +66,7 @@ export function useProvideConfigurationContext(): IConfigurationContext {
         return () => {
             checkCollection(collection);
             const fullname = ['collections', collection, name].join('.')
-            return getProperty(fullname as any, configuration) as TValue ?? defaultState[name];
+            return getProperty(fullname as any, configuration) as TValue ?? defaultState[name] as TValue;
         }
     }, [checkCollection, configuration])
     const getCollectionSection = useCallback(

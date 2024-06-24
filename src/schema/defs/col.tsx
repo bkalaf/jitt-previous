@@ -1,12 +1,12 @@
 import { MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
-import { colString } from './colString';
+import { colString, colText } from './colString';
 import { colDate } from './colDate';
 import { colBool } from './colBool';
 import { colLookup } from './colLookup';
 import { colEnum, colRadio } from './colEnum';
 import { colDollar } from './colDollar';
 import { colPercent } from './colPercent';
-import { colMeasure } from './colMeasure';
+import { colIntMeasure, colMeasure } from './colMeasure';
 import { colInt } from './colInt';
 import { pk } from './pk';
 import { colDBList } from './colDBList.1';
@@ -31,6 +31,7 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     pk: pk(helper),
     // list: listCol(helper),
     measure: colMeasure(helper),
+    intMeasure: colIntMeasure(helper),
     freeSolo: colFreeSolo(helper),
     listofEnum: colDbMultiEnum(helper),
     listofFreeSolo: colDBFreeSolo(helper),
@@ -41,5 +42,6 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => ({
     dictionary: dbDictCol(helper),
     clothingCare: colClothingCare(helper),
     flags: colFlags(helper),
-    radio: colRadio(helper)
+    radio: colRadio(helper),
+    text: colText(helper)
 });

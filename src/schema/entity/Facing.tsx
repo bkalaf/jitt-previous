@@ -3,12 +3,13 @@ import { FacePOV, FaceX, FaceY, FaceZ, IFacing } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import Realm from 'realm';
 import { generateCaption } from '../../util/generateCaption';
+import { EntityBase } from './EntityBase';
 
-export class Facing extends Realm.Object<IFacing> implements IFacing {
+export class Facing extends EntityBase<IFacing> implements IFacing {
     x?: FaceX | undefined;
     y?: FaceY | undefined;
     z?: FaceZ | undefined;
-    pov: FacePOV[];
+    pov: DBList<FacePOV>;
     static schema: Realm.ObjectSchema = {
         name: schemaName($.productFacing()),
         embedded: true,
@@ -19,8 +20,13 @@ export class Facing extends Realm.Object<IFacing> implements IFacing {
             pov: $.string.list
         }
     };
-    constructor(realm: Realm, values: InitialValue<IFacing>) {
-        super(realm, values);
+    static liComponent: ListItemCellComponent<IFacing> = (value?: IFacing) => () => value == null ? '' : generateCaption(value);
+    static update(item: IFacing): IFacing {
+        return item;
     }
-    static liComponent: ListItemCellComponent<IFacing> = (value?: IFacing) => () => value == null ? '' : generateCaption(value)
+    static init(): InitValue<IFacing> {
+        return {
+            pov: []
+        }
+    }
 }

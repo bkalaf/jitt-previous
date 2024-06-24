@@ -1,4 +1,4 @@
-import { MRT_ColumnDef, MRT_RowData, useMaterialReactTable } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData, MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { createRenderCreateRowDialogContent } from '../components/Views/renderProperties/createRenderCreateRowDialogContent';
 import { createRenderTopToolbarCustomActions } from '../components/Views/renderProperties/createRenderTopToolbarCustomActions';
 import { useInitial } from './useInitial';
@@ -45,7 +45,8 @@ export function createIcon(icon: IconDefinition) {
         return <FontAwesomeIcon icon={icon} {...props} />;
     };
 }
-// const c: MRT_TableOptions<any>['renderDetailPanel'];
+// const c: MRT_TableOptions<any>['muiDetailPanelProps'];
+
 export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT_ColumnDef<T>[], objectType?: string) {
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
@@ -167,6 +168,10 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         //     },
         //     ...props.column.columnDef.muiTableBodyCellProps
         // }),
+        muiDetailPanelProps: {
+            className: 'w-screen',
+            
+        },
         muiTableBodyRowProps: (props) =>
             ({
                 className:
@@ -200,7 +205,7 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         renderRowActions: createRenderRowActions(),
         // renderRowActionMenuItems: createRenderRowActionMenuItems(),
         renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetSettings),
-        renderDetailPanel: route === 'sku' ? CreateRenderDetailPanel : undefined,
+        renderDetailPanel: route === 'sku' || route === 'product' ? CreateRenderDetailPanel : undefined,
         ...opts
     });
 }

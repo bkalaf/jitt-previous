@@ -2,8 +2,9 @@ import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { ISelfStorage } from '../../types';
 import Realm, { BSON } from 'realm';
+import { EntityBase } from './EntityBase';
 
-export class SelfStorage extends Realm.Object<ISelfStorage> implements ISelfStorage {
+export class SelfStorage extends EntityBase<ISelfStorage> {
     _id: BSON.ObjectId;
     name: string;
     website?: string | undefined;
@@ -18,4 +19,13 @@ export class SelfStorage extends Realm.Object<ISelfStorage> implements ISelfStor
         }
     };
     static labelProperty = 'name';
+    static init(): InitValue<ISelfStorage> {
+        return {
+            _id: new BSON.ObjectId(),
+            name: ''
+        };
+    }
+    static update(item: ISelfStorage): ISelfStorage {
+        return item;
+    }
 }

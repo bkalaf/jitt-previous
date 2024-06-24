@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="./../global.d.ts" />
-import * as Realm from 'realm';
+import Realm, { BSON } from "realm";
 import { isPrimitive } from '../schema/conversion/cnvrt';
 
 function typeCheck<T>(name: string) {
@@ -8,7 +8,6 @@ function typeCheck<T>(name: string) {
         return obj == null ? (name === 'undefined' ? typeof obj === 'undefined' : obj == null && typeof obj === 'object') : typeof obj === name;
     };
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function instanceCheck<T>(Ctor: { new (...args: any[]): T }) {
     return (obj?: any): obj is T => (obj == null ? false : obj instanceof Ctor);
 }
@@ -26,9 +25,9 @@ const checkPromise = instanceCheck<Promise<any>>(Promise);
 const checkMap = instanceCheck<Map<any, any>>(Map);
 const checkDate = instanceCheck<Date>(Date);
 const checkArrayBuffer = instanceCheck<ArrayBuffer>(ArrayBuffer);
-const checkObjectId = instanceCheck<Realm.BSON.ObjectId>(Realm.BSON.ObjectId);
-const checkUUID = instanceCheck<Realm.BSON.UUID>(Realm.BSON.UUID);
-const checkBinary = instanceCheck<Realm.BSON.Binary>(Realm.BSON.Binary);
+const checkObjectId = instanceCheck<BSON.ObjectId>(BSON.ObjectId);
+const checkUUID = instanceCheck<BSON.UUID>(BSON.UUID);
+const checkBinary = instanceCheck<BSON.Binary>(BSON.Binary);
 const checkLinkingObjects = instanceCheck<Realm.Types.LinkingObjects<any, any>>(Realm.Types.LinkingObjects);
 const checkArray = (obj?: any): obj is any[] => Array.isArray(obj);
 const checkObject = (obj?: any): obj is Record<string, any> => obj != null && typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype;

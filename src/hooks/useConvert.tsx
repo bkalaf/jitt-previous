@@ -32,19 +32,21 @@ export function useConvertListItem(objectType: string) {
     const types = useTypes();
     const convert  = useCallback((objectType: string) => $convert(types, objectType), [types]);
     const prim = isPrimitive(objectType);
-    const convertValue = useMemo(() => prim ? cnvrtPrimitives[objectType as keyof typeof cnvrtPrimitives] : convert(objectType), [convert, objectType, prim]);
+    const convertValue = useMemo(() => (prim ? ({ value }: { value: any }) => cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives](value) : convert(objectType)), [convert, objectType, prim]);
     return convertValue;
 }
 
-export function useConvertDictionaryItem(objectType: string) {
+export function useConvertDictionaryItem<TValue>(objectType: string, append: (data: { key: string, value: TValue }) => void) {
     const types = useTypes();
     const convert  = useCallback((objectType: string) => $convert(types, objectType), [types]);
     const prim = isPrimitive(objectType);
-    const convertValue = useMemo(() => prim ? cnvrtPrimitives[objectType as keyof typeof cnvrtPrimitives] : convert(objectType), [convert, objectType, prim]);
+    const convertValue = useMemo(() => prim ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives] : convert(objectType), [convert, objectType, prim]);
     return useCallback(({ key, value }: { key: string, value: any }) => {
-        return {
-            key,
+        const interim = {
+            key: cnvrtPrimitives()['string'](key),
             value: convertValue(value)
-        }
-    }, [convertValue])
+        };
+        console.info(`interim`, interim);
+        return append(interim);
+    }, [append, convertValue])
 }

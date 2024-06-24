@@ -49,10 +49,15 @@ const objectNames = {
     barcode: 'barcode',
     bin: 'bin',
     brand: 'brand',
+    capacity: 'capacity',
     classifier: 'classifier',
     clothingCare: 'clothingCare',
     customItemField: 'customItemField',
+    customItemFieldValue: 'customItemFieldValue',
+    customItemFieldType: 'customItemFieldType',
+    customItemFieldTypes: 'customItemFieldTypes',
     draft: 'draft',
+    dimension: 'dimension',
     facility: 'facility',
     hashTag: 'hashTag',
     hashTagUsage: 'hashTagUsage',
@@ -75,7 +80,9 @@ const objectNames = {
     track: 'track',
     connector: 'connector',
     currentSetting: 'currentSetting',
-    minMax: 'minMax'
+    minMax: 'minMax',
+    piece: 'piece',
+    apparelSize: 'apparelSize'
 }
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;

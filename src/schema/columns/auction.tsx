@@ -2,7 +2,7 @@ import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { IAuction } from '../../types';
 import { col } from '../defs/col';
 import { auctionSites } from '../enums/auctionSite';
-import { squareFootageColumns } from '../entity/squareFootage';
+import { squareFootageColumns } from '../columns/squareFootage';
 import { groupCol } from '../defs/groupCol';
 
 const helper = createMRTColumnHelper<IAuction>();
