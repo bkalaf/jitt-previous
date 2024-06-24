@@ -1,9 +1,9 @@
-import { Divider, List, MenuItem, MenuList } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle, Divider, LinearProgress, List, MenuItem, MenuList } from '@mui/material';
 import { CategoryMenuItem } from './CategoryMenuItem';
 import { RootCategoryMenuItem } from './RootCategoryMenuItem';
 import { MainMenuItem } from './MainMenuItem';
 import { getAppConfigPathed } from '../contexts/getAppConfigPathed';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { BaseMenuItem } from './BaseMenuItem';
 import * as fs from 'graceful-fs';
 import { useLocalRealm } from '../hooks/useLocalRealm';
@@ -15,6 +15,7 @@ import { MercariTaxonomy } from '../schema/entity/mercariTaxonomy';
 import { surroundQuotesIgnore, surroundQuotesNoIgnore } from '../common/text/surround';
 import { BSON } from 'realm';
 import * as cp from 'child_process'
+import { ignore } from '../common/ignore';
 // const mainMenuOptions = {
 //     auctions: {
 //         selfStorage: $.selfStorage(),
@@ -66,7 +67,8 @@ type HashTagImport = {
 const barcodePrintFile = process.env.BARCODE_PRINT_FILE ?? '';
 const downloads = process.env.DOWNLOADS_FOLDER ?? '';
 export function Actions(props: { toggleProgress: () => void; setProgressValue: React.Dispatch<React.SetStateAction<number>> }) {
-    const { toggleProgress, setProgressValue } = props;
+    console.log(props);
+    const [progressValue] = useState<number | undefined>(undefined);
     const hashtags = getAppConfigPathed('hashTags.json');
     const brands = getAppConfigPathed('brands.json');
     const taxonomy = getAppConfigPathed('taxonomy.json');
@@ -86,10 +88,7 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         let modified = 0,
             inserted = 0;
         const data = JSON.parse(fs.readFileSync(taxonomy).toString()) as { category: { name: string; selector: string }; subCategory: { name: string; selector: string }; subSubCategory: { name: string; selector: string } }[];
-        const progressInc = 1 / data.length;
         const func = () => {
-            setProgressValue(0);
-            toggleProgress();
             for (const { category, subCategory, subSubCategory } of data) {
                 const objs = db.objects<IMercariTaxonomy>('mercariTaxonomy').filtered('category.selector == $0 && subCategory.selector == $1 && subSubCategory.selector == $2', category.selector, subCategory.selector, subSubCategory.selector);
                 if (objs.length === 0) {
@@ -101,23 +100,20 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
                         hashTags: [] as any,
                         timestamp: new Date(Date.now())
                     });
-                    MercariTaxonomy.update(db, item);
+                    MercariTaxonomy.update(item);
                     inserted++;
                 } else {
                     objs[0].timestamp = new Date(Date.now());
                     modified++;
                 }
-                setProgressValue((prev) => prev + progressInc);
             }
-            toggleProgress();
-            setProgressValue(100);
         };
         runTransaction(db, func);
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
         fs.renameSync(taxonomy, getAppConfigPathed(taxonomy.split('\\').reverse()[0].replaceAll(path.extname(taxonomy), '-completed-'.concat(dateText.concat(path.extname(taxonomy))))));
-    }, [begin, db, noInputFileExists, processedByType, setProgressValue, taxonomy, toggleProgress]);
+    }, [begin, db, noInputFileExists, processedByType, taxonomy]);
     const runBrands = useCallback(() => {
         if (!fs.existsSync(brands)) {
             return noInputFileExists();
@@ -127,10 +123,7 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         let modified = 0,
             inserted = 0;
         const data = JSON.parse(fs.readFileSync(brands).toString()) as string[];
-        const progressInc = 1 / data.length;
         const func = () => {
-            setProgressValue(0);
-            toggleProgress();
             for (const b of data) {
                 const objs = db.objects<IMercariBrand>('mercariBrand').filtered('name ==[c] $0', b);
                 if (objs.length === 0) {
@@ -140,17 +133,14 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
                     objs[0].timestamp = new Date(Date.now());
                     modified++;
                 }
-                setProgressValue((prev) => prev + progressInc);
             }
-            setProgressValue(100);
-            toggleProgress();
         };
         runTransaction(db, func);
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
         fs.renameSync(brands, getAppConfigPathed(brands.split('\\').reverse()[0].replaceAll(path.extname(brands), '-completed-'.concat(dateText.concat(path.extname(brands))))));
-    }, [begin, brands, db, noInputFileExists, processedByType, setProgressValue, toggleProgress]);
+    }, [begin, brands, db, noInputFileExists, processedByType]);
         
     const runHashTags = useCallback(() => {
         if (!fs.existsSync(hashtags)) {
@@ -161,10 +151,7 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         let modified = 0,
             inserted = 0;
         const total = db.objects('hashTag').length;
-        const progressIncr = 1 / total;
         const func = () => {
-            toggleProgress();
-            setProgressValue(0);
             data.forEach(({ count, from, name }) => {
                 const objs = db.objects<IHashTag>('hashTag').filtered('name ==[c] $0', name);
                 if (objs.length === 0) {
@@ -182,21 +169,14 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
                     obj.usage.push({ count, from: new Date(from) });
                     modified++;
                 }
-                setProgressValue((prev) => {
-                    const newProgress = prev + progressIncr;
-                    console.info(`progress: ${newProgress}`);
-                    return newProgress;
-                });
             });
-            toggleProgress();
-            setProgressValue(100);
         };
         runTransaction(db, func);
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
         fs.renameSync(hashtags, getAppConfigPathed(hashtags.split('\\').reverse()[0].replaceAll(path.extname(hashtags), '-completed-'.concat(dateText.concat(path.extname(hashtags))))));
-    }, [begin, db, hashtags, noInputFileExists, processedByType, setProgressValue, toggleProgress]);
+    }, [begin, db, hashtags, noInputFileExists, processedByType]);
     const fileNoExist = useCallback((name: string) => !fs.existsSync(name), []);
     const hasSkuToExport = useCallback(
         () =>
@@ -250,8 +230,15 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         runTransaction(db, func);
         cp.spawnSync('bash', [`./toxlsx.sh`, `${outputfile.split('\\').reverse()[0]}`, `${outputfile.split('\\').reverse()[0].replaceAll('.csv', '.xlsx')}`], { cwd: 'C:/Users/bobby/Downloads/' });
     }, [db, binToPrint]);
+    const modalOpen = useMemo(() => progressValue != null, [progressValue])
     return (
         <RootCategoryMenuItem header='Actions' direction='down'>
+            <Dialog fullWidth maxWidth='sm' open={modalOpen} onClose={ignore}>
+                <DialogTitle>Progress</DialogTitle>
+                <DialogContent>
+                    <LinearProgress variant='determinate' value={progressValue} color='error' />
+                </DialogContent>
+            </Dialog>
             <MenuList dense>
                 <CategoryMenuItem direction='right' Component={MenuItem} label='Admin'>
                     <MenuList dense>

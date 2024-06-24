@@ -72,6 +72,12 @@ export const theme = createTheme({
             main: colors.yellow[500],
             dark: colors.yellow[800],
             contrastText: colors.black
+        },
+        tertiary: {
+            light: colors.teal[300],
+            main: colors.teal[500],
+            dark: colors.teal[800],
+            contrastText: colors.black
         }
     }
 });

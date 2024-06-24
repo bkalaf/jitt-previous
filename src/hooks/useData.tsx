@@ -1,4 +1,4 @@
-import { MRT_ColumnDef, MRT_RowData, MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData, useMaterialReactTable } from 'material-react-table';
 import { createRenderCreateRowDialogContent } from '../components/Views/renderProperties/createRenderCreateRowDialogContent';
 import { createRenderTopToolbarCustomActions } from '../components/Views/renderProperties/createRenderTopToolbarCustomActions';
 import { useInitial } from './useInitial';
@@ -87,7 +87,7 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
             },
             'mrt-row-select': {
                 size: 50,
-                grow: true,                
+                grow: true,
                 visibleInShowHideMenu: false
             }
         },
@@ -107,9 +107,9 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         enableSorting: true,
         enableStickyFooter: true,
         enableStickyHeader: true,
-        getFacetedMinMaxValues: getFacetedMinMaxValues(),
-        getFacetedRowModel: getFacetedRowModel(),
-        getFacetedUniqueValues: getFacetedUniqueValues(),
+        getFacetedMinMaxValues: getFacetedMinMaxValues() as any,
+        getFacetedRowModel: getFacetedRowModel() as any,
+        getFacetedUniqueValues: getFacetedUniqueValues() as any,
         getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
         groupedColumnMode: 'remove',
         icons: {
@@ -169,15 +169,14 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         //     ...props.column.columnDef.muiTableBodyCellProps
         // }),
         muiDetailPanelProps: {
-            className: 'w-screen',
-            
+            className: 'w-screen'
         },
         muiTableBodyRowProps: (props) =>
             ({
                 className:
                     'group data-[row-depth="0"]:bg-transparent data-[row-depth="1"]:bg-blue-100 data-[row-depth="2"]:bg-blue-200 data-[row-depth="3"]:bg-blue-300 data-[row-depth="4"]:bg-blue-400 data-[row-depth="5"]:bg-blue-500 data-[row-depth="6"]:bg-blue-600 data-[row-depth="4"]:text-white data-[row-depth="5"]:text-white data-[row-depth="6"]:text-white',
                 'data-row-depth': props.row.depth
-            } as TableRowProps),
+            }) as TableRowProps,
         muiTableHeadCellProps: {
             // classes: {
             //     head: 'relative'

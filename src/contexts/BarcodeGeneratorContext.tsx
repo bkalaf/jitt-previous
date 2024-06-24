@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-import { app } from '@electron/remote';
 import * as fs from 'graceful-fs';
 
 export type IBarcodeGeneratorContext = {
@@ -11,7 +10,7 @@ export type IBarcodeGeneratorContext = {
 
 export const BarcodeGeneratorContext = createContext<IBarcodeGeneratorContext | undefined>(undefined);
 
-const appConfig = [app.getPath('appData'), 'jitt', 'barcodes.json'].join('\\');
+const appConfig = ['C:', 'Users', 'bobby', 'AppData', 'Roaming', 'jitt', 'barcodes.json'].join('\\');
 
 export function readConfig() {
     return JSON.parse(fs.readFileSync(appConfig).toString()) as { bin: number; sku: number; binLeading: number; skuLeading: number };

@@ -6,7 +6,6 @@ import { useFormContext } from 'react-hook-form-mui';
 export function $createClothingCareControl(section: keyof typeof ClothingCareMap, name: string) {
     return function ClothingCareControl() {
         // const section = name.split('.').reverse()[0] as keyof typeof ClothingCareMap;
-        // eslint-disable-next-line @typescript-eslint/ban-types
         const options = useMemo(() => Object.entries(ClothingCareMap[section]).map(([k, v]) => ({ key: k, ...v }) as { key: string; text: string; Element: React.FunctionComponent<{ className?: string }> }), []);
         const formContext = useFormContext();
         const list = formContext.watch(name) as string[];

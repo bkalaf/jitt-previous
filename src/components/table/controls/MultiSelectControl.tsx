@@ -8,7 +8,6 @@ import { useEditControlBase } from '../../../hooks/useControl';
 
 export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<string>>(props: EditFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('MultiSelectControl', props);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { invalid, multiple, helperText, onChange, validation, readonly, enumInfo, ...rest } = useEditControlBase<T, U, 'enumInfo' | 'multiple', Element>(props, 'enumInfo', 'multiple');
     if (enumInfo == null) throw new Error('no enuminfo in MultiSelectControl');
     const filterOptions = useMemo(

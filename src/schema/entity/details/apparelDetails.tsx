@@ -48,7 +48,7 @@ export const apparelBottoms: MRT_ColumnDef<IProduct>[] = [
     helper.enum('lifestyleType', 'Lifestyle Type', { enumKey: 'lifestyleTypes' }),
     helper.enum('pocketType', 'Pocket Type', { enumKey: 'pocketTypes' }),
     helper.enum('riseType', 'Rise Type', { enumKey: 'riseTypes' }),
-    helper.enum('size', 'Size', { options: getSizeOptions('waistSizes') }),
+    helper.enum('size', 'Size', { options: getSizeOptions('waistSizes') as any }),
     helper.measure('inseamSize', 'Inseam', 'in', {}),
     helper.measure('lengthSize', 'Length', 'in', {}),
     helper.measure('waistSize', 'Waist', 'in', {})

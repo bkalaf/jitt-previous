@@ -15,7 +15,7 @@ import { BarcodeGeneratorProvider } from '../contexts/BarcodeGeneratorProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
-        <React.Suspense fallback={<div>Laoding...</div>}>
+        <React.Suspense fallback={<div>Loading...</div>}>
             <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <SnackbarProvider maxSnack={10} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }} autoHideDuration={4000}>

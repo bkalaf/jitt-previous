@@ -1,16 +1,15 @@
 import { MRT_RowData } from 'material-react-table';
-import * as Realm from 'realm';
 import { useMemo } from 'react';
 import { useEffectiveCollection } from './useEffectiveCollection';
 import { useTypes } from './useTypes';
 
-export function useUpdater<T extends MRT_RowData>(objectType?: string): [boolean, (realm: Realm, obj: RealmObj<T>) => RealmObj<T>] {
+export function useUpdater<T extends MRT_RowData>(objectType?: string): [boolean, UpdateFunction<RealmObj<T>>] {
     const route = useEffectiveCollection(objectType)
     const types = useTypes();
     const schema = useMemo(() => types.find((x) => x.name === route), [route, types]);
     console.log('ctor', schema?.ctor);
     console.info(`useUpdater`, schema);
-    const func = useMemo(() => schema?.ctor?.update ?? ((realm: Realm, obj: RealmObj<T>) => obj), [schema?.ctor?.update]);
+    const func = useMemo(() => (schema?.ctor?.update as UpdateFunction<RealmObj<T>>) ?? (((obj: RealmObj<T>) => obj) as UpdateFunction<RealmObj<T>>), [schema?.ctor?.update]);
     console.info(`useUpdater`, route, func);
     return [schema?.ctor?.update != null, func]
 }

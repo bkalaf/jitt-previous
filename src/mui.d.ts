@@ -75,6 +75,7 @@ declare module '@mui/material/styles' {
         ash: Pallette['primary'];
         vivid: Pallette['primary'];
         dimmed: Pallette['primary'];
+        tertiary?: PaletteOptions['primary'];
     }
 
     interface PaletteOptions {
@@ -88,10 +89,22 @@ declare module '@mui/material/styles' {
         ash?: PaletteOptions['primary'];
         vivid?: PaletteOptions['primary'];
         dimmed?: PaletteOptions['primary'];
+        tertiary?: PaletteOptions['primary'];
     }
 }
 declare module '@mui/material/Button' {
-    interface ButtonPropsColorOverrides extends IPalletteColors<true> {}
+    interface ButtonPropsColorOverrides extends IPalletteColors<true> {
+        metal: true;
+        important: true;
+        callout: true;
+        hightlight: true;
+        neon: true;
+        caution: true;
+        ash: true;
+        vivid: true;
+        dimmed: true;
+        tertiary: true;
+    }
 }
 declare module '@mui/material/IconButton' {
     interface IconButtonPropsColorOverrides extends IPalletteColors<true> {}

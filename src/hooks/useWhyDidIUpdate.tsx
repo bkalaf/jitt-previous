@@ -30,7 +30,6 @@ export function useWhyDidIUpdate(name: string, props: Record<string, any>) {
                 }
             });
             if (Object.keys(changesObj).length) {
-                // eslint-disable-next-line no-console
                 // process.stdout.write(name);
                 // process.stdout.write(JSON.stringify(changesObj, null, '\t'));
                 // console.log('[why-did-you-update]', name, changesObj)

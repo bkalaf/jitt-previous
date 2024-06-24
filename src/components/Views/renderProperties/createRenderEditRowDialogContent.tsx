@@ -7,12 +7,16 @@ import { useCallback } from 'react';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useLocalRealm } from '../../../hooks/useLocalRealm';
 import { useConvert } from '../../../hooks/useConvert';
-import { UpdateMode } from 'realm';
 import { runTransaction } from '../../../util/runTransaction';
 import { useMutation } from '@tanstack/react-query';
 import { useInvalidateCollection } from '../../../hooks/useInvalidateCollection';
 import { useInitial } from '../../../hooks/useInitial';
+import Realm, { UpdateMode } from 'realm';
 
+export function toJSON(obj: any) {
+    if (obj instanceof Realm.Object) return obj.toJSON();
+    return JSON.stringify(obj);
+}
 export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
     return function RenderEditRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
@@ -20,7 +24,7 @@ export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
         const collection = useCollectionRoute();
         const init = useInitial(collection);
         const realm = useLocalRealm();
-        const defaultValues = row.original as DefaultValues<any>;
+        const defaultValues = toJSON(row.original) as DefaultValues<any>;
         const formContext = useForm({
             defaultValues: init(),
             values: defaultValues,
@@ -70,7 +74,7 @@ export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
                     <DialogContent>{internalEditComponents}</DialogContent>
                     <DialogActions>
                         {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
-                        <Box className='flex justify-end w-full gap-x-2'>
+                        <Box className='flex w-full justify-end gap-x-2'>
                             <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
                                 Cancel
                             </Button>

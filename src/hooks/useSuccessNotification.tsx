@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
-import { useSnackbar } from 'notistack';
-import { Slide } from '@mui/material';
 import { useInvalidateCollection } from './useInvalidateCollection';
+import { useToaster } from '../components/Views/renderProperties/useToaster';
 
 export function useSuccessNotification<T>(messageGenerator: (x: T) => string, objectType?: string) {
-    const { enqueueSnackbar } = useSnackbar();
+    const { success } = useToaster(messageGenerator);
     const invalidator = useInvalidateCollection(objectType);
     return useCallback(
         (result: T) => {
+            success(result);
             invalidator();
-            enqueueSnackbar(messageGenerator(result), { preventDuplicate: true, variant: 'success', TransitionComponent: Slide });
+
         },
-        [enqueueSnackbar, invalidator, messageGenerator]
+        [invalidator, success]
     );
 }

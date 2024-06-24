@@ -10,5 +10,3 @@ export enum AttachmentDispositionString {
     sharedWithShortenedLink
 }
 
-console.log(AttachmentDispositionInt.denied)
-console.log(AttachmentType);

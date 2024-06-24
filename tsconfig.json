@@ -19,5 +19,5 @@
     "types": ["node"],
     "allowUmdGlobalAccess": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/renderer.ts"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/renderer.ts", "./tailwind.config.ts"]
 }
