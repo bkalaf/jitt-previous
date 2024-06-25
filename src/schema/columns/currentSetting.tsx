@@ -1,14 +1,13 @@
 import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
 import { ICurrentSetting } from '../../types';
-import { col } from '../defs/col';
-import { amperageUnits } from '../enums/amperageUnit';
+import { dimension } from './dimension';
+import { groupCol } from '../defs/groupCol';
 
 const h = createMRTColumnHelper<ICurrentSetting>();
-const helper = col(h);
 
 export const currentSettingColumns: MRT_ColumnDef<ICurrentSetting>[] = [
-    helper.double('amperage', 'Amperage', {}),
-    helper.enum('amperageUnit', 'Amperage Unit', { options: amperageUnits }),
-    helper.measure('voltage', 'Voltage', 'V', { min: 0 }),
-    helper.measure('wattage', 'Wattage', 'W', { min: 0 })
+    groupCol(h, 'Amperage', dimension('amperageUnits'), 'amperage', 'bg-pink-500', 'text-white'),
+    groupCol(h, 'Voltage', dimension('voltageUOM'), 'voltage', 'bg-orange-500', 'text-black'),
+    groupCol(h, 'Wattage', dimension('wattageUOM'), 'wattage', 'bg-cyan-500', 'text-white')
 ] as MRT_ColumnDef<ICurrentSetting>[];
+

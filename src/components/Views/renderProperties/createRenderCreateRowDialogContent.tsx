@@ -12,6 +12,7 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
     return function RenderCreateRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
         const { table, internalEditComponents } = props;
+        console.info(`internalEditComponents`, internalEditComponents);
         const collection = useCollectionRoute();
         const init = useInitial<T>(collection);
         const { handleSubmit } = useUpdateRecord<T>(table);

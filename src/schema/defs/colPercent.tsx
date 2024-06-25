@@ -5,8 +5,10 @@ import { FloatingPointTableCell } from '../../components/table/cells/FloatingPoi
 import { StringControl } from '../../components/table/controls/StringControl';
 
 export function colPercent<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
-    return function (name: keyof T & string, $header: string, opts: { min?: number; max?: number; required?: boolean; readonly?: boolean }): MRT_ColumnDef<T, number | undefined> {
-        const formatter = (x?: number | undefined) => x == null ? '' : truncateAuto(x * 100).concat('%');
-        return baseCol<T, number | undefined>(helper, name, FloatingPointTableCell, StringControl, $header, opts?.required, opts?.readonly, { type: 'number', min: opts?.min, max: opts?.max, formatter });
+    return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
+        return function (name: keyof T & string, $header: string, opts: { min?: number; max?: number; required?: boolean; readonly?: boolean }): MRT_ColumnDef<T, number | undefined> {
+            const formatter = (x?: number | undefined) => (x == null ? '' : truncateAuto(x * 100).concat('%'));
+            return baseCol<T, number | undefined>(helper, name, FloatingPointTableCell, StringControl, $header, opts?.required, opts?.readonly, { type: 'number', min: opts?.min, max: opts?.max, formatter }, undefined, ...dependencies);
+        };
     };
 }

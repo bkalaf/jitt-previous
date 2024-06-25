@@ -5,4 +5,4 @@ import { col } from '../defs/col';
 const h = createMRTColumnHelper<IMercariBrand>();
 const helper = col(h);
 
-export const mercariBrandColumns: MRT_ColumnDef<IMercariBrand>[] = [helper.pk(), helper.string('name', 'Name', undefined, { maxLength: 125 }), helper.listOfObject('hashTags', 'Hash Tags', 'hashTag')] as MRT_ColumnDef<IMercariBrand>[];
+export const mercariBrandColumns: MRT_ColumnDef<IMercariBrand>[] = [helper.PK(), helper.string()('name', 'Name', undefined, { maxLength: 125 }), helper.listOfObject()('hashTags', 'Hash Tags', 'hashTag')] as MRT_ColumnDef<IMercariBrand>[];

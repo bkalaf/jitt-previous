@@ -20,18 +20,31 @@ export type DBDictStringColOptions = {
 export type DBDictColOptions = DBDictEnumColOptions | DBDictFacetedColOptions | DBDictStringColOptions;
 
 export function dbDictCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
-    return function (name: keyof T & string, header: string, objectType: string, opts?: DBDictColOptions): MRT_ColumnDef<T> {
-        const { readonly, faceted, enumKey } = { readonly: false, faceted: false, enumKey: undefined, ...(opts ?? {}) };
-        // const Edit = createDBDictionaryControl(objectType, faceted, enumMap) as MRT_ColumnDef<T, DictionaryBack<any>>['Edit'];
-        return baseCol<T, DictionaryBack<any>>(helper, name, DictionaryTableCell, DBDictionaryControl, header, false, readonly, {
-            objectType,
-            keyType: faceted ? 'faceted' : enumKey ?? 'string'
-        }) as MRT_ColumnDef<T>;
-        // return helper.accessor(name as any, {
-        //     header: header ?? camelToProper(name),
-        //     enableEditing: !readonly,
-        //     Cell: createDictionaryCell(objectType),
-        //     Edit: (readonly ? NullCell : createDBDictionaryControl(objectType, faceted, enumMap)) as any
-        // }) as any;
+    return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
+        return function (name: keyof T & string, header: string, objectType: string, opts?: DBDictColOptions): MRT_ColumnDef<T> {
+            const { readonly, faceted, enumKey } = { readonly: false, faceted: false, enumKey: undefined, ...(opts ?? {}) };
+            // const Edit = createDBDictionaryControl(objectType, faceted, enumMap) as MRT_ColumnDef<T, DictionaryBack<any>>['Edit'];
+            return baseCol<T, DictionaryBack<any>>(
+                helper,
+                name,
+                DictionaryTableCell,
+                DBDictionaryControl,
+                header,
+                false,
+                readonly,
+                {
+                    objectType,
+                    keyType: faceted ? 'faceted' : enumKey ?? 'string'
+                },
+                undefined,
+                ...dependencies
+            ) as MRT_ColumnDef<T>;
+            // return helper.accessor(name as any, {
+            //     header: header ?? camelToProper(name),
+            //     enableEditing: !readonly,
+            //     Cell: createDictionaryCell(objectType),
+            //     Edit: (readonly ? NullCell : createDBDictionaryControl(objectType, faceted, enumMap)) as any
+            // }) as any;
+        };
     };
 }

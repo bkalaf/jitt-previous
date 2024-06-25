@@ -46,7 +46,8 @@ declare module '@tanstack/table-core' {
         enumInfo?: {
             asArray: { text: string, key: string }[],
             asRecord: Record<string, { text: string, selector?: string, key: string }>
-        }
+        };
+        dependencies?: IDependency<T, any>[];
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {}

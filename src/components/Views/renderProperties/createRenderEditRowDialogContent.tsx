@@ -11,16 +11,14 @@ import { runTransaction } from '../../../util/runTransaction';
 import { useMutation } from '@tanstack/react-query';
 import { useInvalidateCollection } from '../../../hooks/useInvalidateCollection';
 import { useInitial } from '../../../hooks/useInitial';
-import Realm, { UpdateMode } from 'realm';
+import { UpdateMode } from 'realm';
+import { toJSON } from './toJSON';
 
-export function toJSON(obj: any) {
-    if (obj instanceof Realm.Object) return obj.toJSON();
-    return JSON.parse(JSON.stringify(obj));
-}
 export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
     return function RenderEditRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
         const { table, internalEditComponents, row } = props;
+        console.info(`internalEditComponents`, internalEditComponents);
         const collection = useCollectionRoute();
         const init = useInitial(collection);
         const realm = useLocalRealm();

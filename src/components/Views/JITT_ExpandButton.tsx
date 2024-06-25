@@ -24,7 +24,7 @@ export function createJITTExpandButton(func: typeof expandAllRows): React.Functi
         const { className, ...restCellProps } = $className(cellProps, {}, 'rounded-lg text-cyan-300 bg-indigo-600 shadow shadow-inner shadow-black aria-expanded:bg-rose-600 aria-expanded:text-white');
         const tooltip = ['Expand', tooltipCenter, 'rows.'].join(' ');
         const onExpand = useStopAndPrevent(expandHandler());
-        return <IconBtn className={className} icon={icon} tooltip={tooltip} onClick={onExpand} {...restCellProps} aria-expanded={isExpanded()} iconSize='sm' innerDim={iconSVGDim} outerDim={iconButtonDim} />;
+        return <IconBtn className={className} icon={icon as any} tooltip={tooltip} onClick={onExpand} {...restCellProps} aria-expanded={isExpanded()} iconSize='sm' innerDim={iconSVGDim} outerDim={iconButtonDim} />;
         // return <MRT_ExpandButton {...props} classes={{ root: 'ml-0' }} />;
     };
 }

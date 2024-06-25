@@ -11,6 +11,34 @@
             "text": "mA"
         }
     ],
+    "rateOfEnergyCapacityUOM": [
+        {
+            "aliases": [],
+            "key": "mAh",
+            "text": "mAh"
+        }
+    ],
+    "powerConsumptionUOM": [
+        {
+            "aliases": [],
+            "key": "Wh",
+            "text": "Wh"
+        }
+    ],
+    "voltageUOM": [
+        {
+            "aliases": [],
+            "key": "V",
+            "text": "V"
+        }
+    ],
+    "wattageUOM": [
+        {
+            "aliases": [],
+            "key": "W",
+            "text": "W"
+        }
+    ],
     "applianceTypes": [
         {
             "aliases": [],
@@ -4268,6 +4296,18 @@
             "aliases": [],
             "key": "split-sleeve",
             "text": "split-sleeve"
+        }
+    ],
+    "productImageType": [
+        {
+            "aliases": [],
+            "key": "original",
+            "text": "original"
+        },
+        {
+            "aliases": [],
+            "key": "rembg",
+            "text": "removed-background"
         }
     ],
     "strapTypes": [

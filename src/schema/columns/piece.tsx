@@ -6,6 +6,6 @@ export const h = createMRTColumnHelper<IPiece>()
 export const helper = col(h);
 
 export const pieceColumns: MRT_ColumnDef<IPiece>[] = [
-    helper.int('count', 'Count', { min: 1, required: true }),
-    helper.enum('shape', 'Shape', { enumKey: 'shapeTypes' })
+    helper.int()('count', 'Count', { min: 1, required: true }),
+    helper.enum()('shape', 'Shape', { enumKey: 'shapeTypes' })
 ] as MRT_ColumnDef<IPiece>[];

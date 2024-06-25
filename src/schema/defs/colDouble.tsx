@@ -4,13 +4,14 @@ import { FloatingPointTableCell } from '../../components/table/cells/FloatingPoi
 import { StringControl } from '../../components/table/controls/StringControl';
 
 export function colDouble<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
+    return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
     return function (name: keyof T & string, $header: string, opts: { min?: number; max?: number; required?: boolean; readonly?: boolean }): MRT_ColumnDef<T> {
         return baseCol<T, number | undefined>(helper, name, FloatingPointTableCell, StringControl, $header, opts?.required, opts?.readonly, {
             formatter: x => x?.toString() ?? '',
             type: 'number',
             min: opts?.min,
             max: opts?.max
-        }) as MRT_ColumnDef<T>;
+        }, undefined, ...dependencies) as MRT_ColumnDef<T>;
         // return helper.accessor(name as any, {
         //     ...calculateSizes(header, { maxLength: 10, ...(opts ?? {}) }),
         //     header,
@@ -19,4 +20,5 @@ export function colDouble<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
         //     // ...calculateBodySize({ maxLength: 10, ...(opts ?? {}) })
         // }) as any as MRT_ColumnDef<T>;
     };
+    }
 }

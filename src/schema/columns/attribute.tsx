@@ -17,8 +17,8 @@ export const attributeColumns: MRT_ColumnDef<IAttribute>[] = [
     // helper.freeSolo('path', 'Path', (x?: string, y?: string) => (x != null && y != null) ? x.localeCompare(y) as Compared : 0, { required: true }),
     // helper.bool('unset', 'Unset'),
     // helper.string('value', 'Value', undefined, { maxLength: 150 })
-    helper.enum('path', 'Path', { enumKey: 'attributePaths' }),
-    helper.bool('unset', 'Unset'),
+    helper.enum()('path', 'Path', { enumKey: 'attributePaths' }),
+    helper.bool()('unset', 'Unset'),
     h.accessor('value', {
         Cell: AnyCell,
         header: 'Value',

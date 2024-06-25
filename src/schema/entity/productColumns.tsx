@@ -34,6 +34,7 @@ export const productColumns: MRT_ColumnDef<IProduct>[] = [
     helper.measure('width', 'Width', 'in', {}),
     helper.measure('height', 'Height', 'in', {}),
     helper.measure('weight', 'Weight', 'g', {}),
+    helper.enum('origin', 'Origin', { enumKey: 'countries' }),
     helper.string('modelNo', 'Model #', undefined, {}),
     helper.string('modelName', 'Model Name', undefined, {}),
     helper.listOfPrimitive('partNumbers', 'Part #s', 'string'),

@@ -617,7 +617,7 @@ export type MovieRatings = 'G' | 'PG' | 'PG-13' | 'R' | 'X' | 'UR' | 'NR' | 'Not
 
 export type MovieGenres = 'horror' | 'sci-fi' | 'action' | 'classic' | 'family' | 'comedy' | 'drama' | 'thriller' | 'documentary' | 'western' | 'romance' | 'anime' | 'mystery' | 'musical' | 'sports';
 
-export type AmperageUnits = 'A' | 'mA';
+export type AmperageUOM = 'A' | 'mA';
 
 export type ApplianceTypes =
     | 'bread maker'

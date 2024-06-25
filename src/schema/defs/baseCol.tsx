@@ -26,6 +26,7 @@ export function baseCol<T extends MRT_RowData, TValue>(
     required = false,
     readonly = false,
     {
+        id,
         multiple,
         ...options
     }: {
@@ -46,8 +47,10 @@ export function baseCol<T extends MRT_RowData, TValue>(
         comparator?: ColumnMeta<T, TValue>['comparator'];
         flags?: ColumnMeta<T, TValue>['flags'];
         keyType?: ColumnMeta<T, TValue>['keyType'];
+        id?: string
     } = {},
-    onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void
+    onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void,
+    ...dependencies: IDependency<T, any>[]
 ) {
     const header = $header ?? camelToProper(name);
     return helper.accessor(name as any, {
@@ -55,7 +58,9 @@ export function baseCol<T extends MRT_RowData, TValue>(
         enableEditing: !readonly,
         Edit: readonly ? NullCell : Edit,
         Cell,
+        id: id,
         meta: {
+            dependencies,
             onChange,
             columnName: name,
             required: required,

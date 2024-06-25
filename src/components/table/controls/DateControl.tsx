@@ -1,22 +1,26 @@
 import { MRT_RowData } from 'material-react-table';
-import { useCallback } from 'react';
-import { DatePickerElement } from 'react-hook-form-mui';
+import { useCallback, useMemo } from 'react';
+import { DatePickerElement, useFormContext } from 'react-hook-form-mui';
 import { useEditControlBase } from '../../../hooks/useControl';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
+import dayjs from 'dayjs';
 
 export function DateControl<T extends MRT_RowData>(props: EditFunctionParams<T, Date | undefined>) {
     useWhyDidIUpdate('DateControl', props);
     const { onChange: $onChange, dateType, readonly, invalid, ...rest } = useEditControlBase(props, 'dateType');
+    const formContext = useFormContext();
+    const value = useMemo(() => dayjs((formContext.watch(rest.name))), [formContext, rest.name]);
     const onChange = useCallback(
         (newValue: any, context: any) => {
             console.log(`newValue`, newValue);
             console.log('context', context);
-            $onChange(undefined, newValue);
+            $onChange(undefined, dayjs.isDayjs(newValue) ? newValue : dayjs(newValue));
         },
         [$onChange]
     );
     const disablePast = dateType === 'past';
     const disableFuture = dateType === 'future';
+    console.log('DatePickerElement', value, formContext.watch(rest.name));
     return <DatePickerElement disableFuture={disableFuture} disablePast={disablePast} onChange={onChange} formatDensity='dense' readOnly={readonly} aria-readonly={readonly} aria-invalid={invalid} {...rest} />;
 }
 // export function createDateControl<T extends MRT_RowData>(opts: { disablePast?: boolean; disableFuture?: boolean }) {

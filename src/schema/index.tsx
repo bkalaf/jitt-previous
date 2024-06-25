@@ -42,6 +42,7 @@ import { toysDetails } from './entity/details/toysDetails';
 import { pieceColumns } from './columns/piece';
 import { draftColumns } from './columns/draft';
 import { computerComponentsDetails, computerComponentsDrivesDetails, computerComponentsRamDetails } from './entity/details/computerComponentsDetails';
+import { dimension } from './columns/dimension';
 
 const h = createMRTColumnHelper<{ value: any; }>();
 const helper = col(h);
@@ -120,3 +121,5 @@ window.columns.draft = draftColumns as MRT_ColumnDef<any>[];
 window.columns.computerComponentsDetails = computerComponentsDetails as MRT_ColumnDef<any>[];
 window.columns.computerComponentsDrivesDetails = computerComponentsDrivesDetails as MRT_ColumnDef<any>[];
 window.columns.computerComponentsRamDetails = computerComponentsRamDetails as MRT_ColumnDef<any>[];
+
+window.columns.dimension = dimension as any;

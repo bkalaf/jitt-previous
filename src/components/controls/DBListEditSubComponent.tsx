@@ -1,27 +1,14 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { DefaultValues, FormProvider, UseFieldArrayReturn, useForm } from 'react-hook-form';
 import { useInitial } from '../../hooks/useInitial';
 import { useLogger, useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { groupCol } from '../../schema/defs/groupCol';
 import { is } from '../../common/is';
 import { useConvertDictionaryItem } from '../../hooks/useConvertDictionaryItem';
-import { useConvertListItem } from '../../hooks/useConvertListItem';
-
-export function toEdit<T extends MRT_RowData>(def: MRT_ColumnDef<T>): React.ReactNode {
-    if (def.columns) {
-        return <>{def.columns.map(toEdit)}</>;
-    }
-    if (def.Edit == null) {
-        return null;
-    }
-    const EditCntrl = def.Edit;
-    return <EditCntrl cell={undefined as any} row={undefined as any} table={undefined as any} column={{ columnDef: def as any } as any} />;
-}
-export function EditControls<T extends MRT_RowData>(props: { columns: MRT_ColumnDef<T>[] }) {
-    return <>{props.columns.map((x) => toEdit(x))}</>;
-}
+import { useConvertListItem } from '../../hooks/useConvertListItem'
+import { EditControls } from './EditControls';
 
 export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(props: {
     append: (data: { key: string; value: TValue }) => void;

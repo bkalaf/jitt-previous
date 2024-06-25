@@ -1,4 +1,4 @@
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import Realm, { BSON, PropertySchema } from 'realm';
 import { getProperty, objectMap } from '../../common/object';
 
@@ -13,10 +13,11 @@ export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
     double: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
     decimal128: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
     float: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
-    date: (value?: Date | string | Dayjs) => (value == null ? undefined : value instanceof Date ? value : typeof value === 'string' ? new Date(Date.parse(value)) : 'toDate' in value ? value.toDate() : undefined),
+    date: (value?: Date | string | Dayjs) => (value == null ? undefined : value instanceof Date ? value : typeof value === 'string' ? new Date(Date.parse(value)) : dayjs.isDayjs(value) ? value.toDate() : undefined),
     bool: (value?: boolean | string) => (value == null ? undefined : typeof value === 'boolean' ? value : value === 'true' ? true : value === 'false' ? false : undefined),
     data: (value?: ArrayBuffer) => value
 });
+// 'toDate' in value ? value.toDate()
 export const cnvrt = (types: RealmSchema, objectType?: string) => ({
     ...(cnvrtPrimitives() as Record<'objectId', (value?: any) => any>),
     object: (value?: any, override = false): any => {

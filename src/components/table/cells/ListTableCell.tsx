@@ -2,6 +2,7 @@ import { MRT_RowData } from 'material-react-table';
 import { Tooltip } from '@mui/material';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useGetLIComponent } from '../../../hooks/useGetLIComponent';
+import { ColumnMeta } from '@tanstack/react-table';
 
 export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunctionParams<T, ListBack<TValue>>) {
     useWhyDidIUpdate('ListTableCell', props);
@@ -11,7 +12,7 @@ export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunction
             columnDef: { meta }
         }
     } = props;
-    const { objectType } = meta ?? {};
+    const { objectType } = (meta as ColumnMeta<any, any>);
     if (objectType == null) {
         console.error('no objectType for list', props.column.columnDef);
         throw new Error('no objectType for list');

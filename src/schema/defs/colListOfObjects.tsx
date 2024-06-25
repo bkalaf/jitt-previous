@@ -5,7 +5,9 @@ import { AutocompleteControl } from '../../components/table/controls/Autocomplet
 import { BSON } from 'realm';
 
 export function colListOfObjects<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
-    return function ListObjectControl<U extends MRT_RowData & { _id: BSON.ObjectId }>(name: keyof T & string, header: string | undefined, objectType: string, readonly = false) {
-        return baseCol<T, ListBack<U> | undefined>(helper, name, ListTableCell, AutocompleteControl<T, U, true>, header, false, readonly, { objectType, multiple: true });
+    return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
+        return function ListObjectControl<U extends MRT_RowData & { _id: BSON.ObjectId }>(name: keyof T & string, header: string | undefined, objectType: string, readonly = false) {
+            return baseCol<T, ListBack<U> | undefined>(helper, name, ListTableCell, AutocompleteControl<T, U, true>, header, false, readonly, { objectType, multiple: true }, undefined, ...dependencies);
+        };
     };
 }

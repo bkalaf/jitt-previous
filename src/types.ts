@@ -41,7 +41,7 @@ import {
     TVRatings,
     VideoFormatTypes,
     VideoTypes,
-    AmperageUnits,
+    AmperageUOM,
     ConnectorGenders,
     PowerTypes,
     BatteryTypes,
@@ -78,7 +78,8 @@ import {
     HardDriveInterface,
     CapacityUOM,
     ComputerType,
-    CASLatency
+    CASLatency,
+    Countries
 } from './schema/enums';
 import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
 import { AttachmentStages } from './schema/choices/AttachmentStages';
@@ -90,6 +91,9 @@ export type Int = number;
 export type Double = number;
 export type Opt<T> = T | undefined;
 export type PowerConsumptionUOM = string;
+export type RateOfEnergyCapacityUOM = string;
+export type VoltageUOM = string;
+export type WattageUOM = string;
 export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
@@ -329,10 +333,9 @@ export type IConnector<TConnector extends PowerConnectorTypes | DataConnectorTyp
     generation: Opt<Int>;
 };
 export type ICurrentSetting = {
-    amperage?: Opt<Double>;
-    amperageUnit?: Opt<AmperageUnits>;
-    voltage?: Opt<Double>;
-    wattage?: Opt<Double>;
+    amperage?: Opt<IDimension<AmperageUOM>>;
+    voltage?: Opt<IDimension<VoltageUOM>>;
+    wattage?: Opt<IDimension<WattageUOM>>;
 };
 
 export type IMinMax<T extends Int | Double> = {
@@ -397,6 +400,7 @@ export type IProduct = IApparel & {
     notes?: Opt<string>;
     title?: Opt<string>;
     upcs: DBList<IBarcode>;
+    origin?: Opt<Countries>;
     circa?: Opt<string>;
     color: DBList<ProductColors>;
     description?: Opt<string>;
@@ -498,7 +502,11 @@ export type IProduct = IApparel & {
     batteryCount?: Opt<Int>;
     batteryType?: Opt<BatteryTypes>;
     batteryCapacity?: Opt<IDimension<PowerConsumptionUOM>>;
+    batteryStats?: Opt<ICurrentSetting>;
     powerTypes?: Opt<PowerTypes>;
+    manufactureDate?: Opt<Date>;
+    rateOfEnergyCapacity?: Opt<IDimension<RateOfEnergyCapacityUOM>>;
+    acAdapter?: Opt<ICurrentSetting>;
     // // cell-phones
     aspectRatio?: Opt<AspectRatios>;
     capacity?: Opt<Int>;
@@ -506,6 +514,27 @@ export type IProduct = IApparel & {
     os?: Opt<OperatingSystems>;
     osVersion?: Opt<string>;
     screenSize?: Opt<Double>;
+    // hard drive
+    driveType?: Opt<DriveType>;
+    driveForm?: Opt<HardDriveFormFactor>;
+    connectivity?: DBList<HardDriveConnectivity>;
+    driveInterface?: Opt<HardDriveInterface>;
+    driveSize?: Opt<IDimension<CapacityUOM>>;
+    writeSpeed?: Opt<Double>; // MB/s
+    readSpeed?: Opt<Double>; //MB/s
+    dataTransferRate?: Opt<Double>; // MBit/s
+    rpm?: Opt<Int>;
+    cacheSize?: Opt<IDimension<CapacityUOM>>;
+    // memory
+    memoryType?: Opt<MemoryType>;
+    memoryForm?: Opt<MemoryFormFactor>;
+    computerType?: Opt<ComputerType>;
+    memorySize?: Opt<IDimension<CapacityUOM>>;
+    memorySpeed?: Opt<Int>;
+    pinCount?: Opt<Int>;
+    dataTransferBandwidth?: Opt<string>;
+    voltage?: Opt<Double>;
+    CASLatency?: Opt<CASLatency>;
     // // jewelry
     massInAir?: Opt<Double>;
     massWaterDisplaced?: Opt<Double>;
@@ -539,27 +568,6 @@ export type IProduct = IApparel & {
     modelName: Opt<string>;
     overrideTitle: boolean;
     partNumbers: DBList<string>;
-    // hard drive
-    driveType?: Opt<DriveType>;
-    driveForm?: Opt<HardDriveFormFactor>;
-    connectivity?: DBList<HardDriveConnectivity>;
-    driveInterface?: Opt<HardDriveInterface>;
-    driveSize?: Opt<IDimension<CapacityUOM>>;
-    writeSpeed?: Opt<Double>; // MB/s
-    readSpeed?: Opt<Double>; //MB/s
-    dataTransferRate?: Opt<Double>; // MBit/s
-    rpm?: Opt<Int>;
-    cacheSize?: Opt<Double>;
-    // memory
-    memoryType?: Opt<MemoryType>;
-    memoryForm?: Opt<MemoryFormFactor>;
-    computerType?: Opt<ComputerType>;
-    memorySize?: Opt<IDimension<CapacityUOM>>;
-    memorySpeed?: Opt<Int>;
-    pinCount?: Opt<Int>;
-    dataTransferBandwidth?: Opt<string>;
-    voltage?: Opt<Double>;
-    CASLatency?: Opt<CASLatency>;
 
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];

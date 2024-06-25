@@ -1,30 +1,35 @@
 import { $ } from '../$';
-import { truncateAuto } from '../../components/Cells/truncateAuto';
-import { ICurrentSetting, Opt } from '../../types';
+import { ICurrentSetting, IDimension, Opt } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import { AmperageUnits } from '../enums';
+import { AmperageUOM } from '../enums';
 import { EntityBase } from './EntityBase';
+import { Dimension } from './capacity';
 
 export class CurrentSetting extends EntityBase<ICurrentSetting> implements ICurrentSetting {
-    amperage?: Opt<number>;
-    amperageUnit?: Opt<AmperageUnits>;
-    voltage?: Opt<number>;
-    wattage?: Opt<number>;
+    amperage?: Opt<IDimension<AmperageUOM>>;
+    wattage?: Opt<IDimension<string>>;
+    voltage?: Opt<IDimension<string>>;
     static schema: Realm.ObjectSchema = {
         name: schemaName($.currentSetting()),
         embedded: true,
         properties: {
-            amperage: $.double.opt,
-            amperageUnit: $.string.opt,
-            voltage: $.double.opt,
-            wattage: $.double.opt
+            amperage: $.dimension(),
+            voltage: $.dimension(),
+            wattage: $.dimension()
         }
     };
     static update(item: ICurrentSetting) {
         return item;
     }
     static init(): InitValue<ICurrentSetting> {
-        return {}
+        return {
+            amperage: Dimension.init(),
+            wattage: Dimension.init(),
+            voltage: Dimension.init()
+        };
     }
-    static liComponent: ListItemCellComponent<ICurrentSetting> = (value?: ICurrentSetting) => () => (value == null ? '' : [value.voltage ?? 0 > 0 ? truncateAuto(value.voltage).concat('V') : undefined, value.amperage ?? 0 > 0 ? truncateAuto(value.amperage).concat(value.amperageUnit ?? 'A') : undefined, value.wattage ?? 0 > 0 ? truncateAuto(value.wattage).concat('W') : undefined].filter(x => x != null).join(' '));
+    static liComponent: ListItemCellComponent<ICurrentSetting> = (value?: ICurrentSetting) => () => {
+        const stringify = Dimension.liComponent as (value?: IDimension<string>) => () => string;
+        return value == null ? '' : [stringify(value.voltage)(), stringify(value.amperage)(), stringify(value.wattage)()].filter((x) => x != null && x.length > 0).join(' ');
+    }
 }

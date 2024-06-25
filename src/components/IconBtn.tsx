@@ -1,9 +1,8 @@
 import { IconButton, IconButtonProps, Tooltip, Zoom } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/pro-solid-svg-icons';
+import { IconDefinition, SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { $className } from '../util/$className';
 import { useWhyDidIUpdate } from '../hooks/useWhyDidIUpdate';
-import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 import { iconButtonDim, iconSVGDim } from './Views/expandButtonHW';
 
 export function merge<T extends Record<string, any>>(rest: T, propName: string, value: any) {

@@ -60,7 +60,8 @@ import {
     FlatwareTypes,
     CableTypes,
     Materials,
-    CapacityUOM
+    CapacityUOM,
+    Countries
 } from '../enums';
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
@@ -90,6 +91,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     itemType: Opt<string>;
     cordLength: Opt<number>;
     connectors: DBList<AnyConnector>;
+    manufactureDate?: Opt<Date>;
     compatibleWith: DBList<string>;
     sleeveLength: Opt<SleeveLengths>;
     input: Opt<ICurrentSetting>;
@@ -376,14 +378,23 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             memorySize: $.dimension(),
             memorySpeed: $.int.opt,
             CASLatency: $.string.opt,
-            cacheSize: $.double.opt,
+            cacheSize: $.dimension(),
             dataTransferBandwidth: $.string.opt,
             pinCount: $.int.opt,
-            voltage: $.double.opt
+            voltage: $.double.opt,
+            manufactureDate: $.date.opt,
+            rateOfEnergyCapacity: $.dimension(),
+            origin: $.string.opt,
+            acAdapter: $.currentSetting(),
+            batteryStats: $.currentSetting()
         }
     };
+    batteryStats?: Opt<ICurrentSetting>;
+    acAdapter?: Opt<ICurrentSetting>;
+    origin?: Opt<Countries>;
+    rateOfEnergyCapacity?: Opt<IDimension<string>>;
     CASLatency?: Opt<string>;
-    cacheSize?: Opt<number>;
+    cacheSize?: Opt<IDimension<CapacityUOM>>;
     dataTransferBandwidth?: Opt<string>;
     pinCount?: Opt<number>;
     voltage?: Opt<number>;

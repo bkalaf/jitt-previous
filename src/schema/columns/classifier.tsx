@@ -25,20 +25,15 @@ export const helper = col(h);
 // ] as MRT_ColumnDef<{ value: string }, string | undefined>[];
 
 export const classifierColumns: MRT_ColumnDef<IClassifier>[] = [
-    helper.pk(),
-    helper.lookup('taxonomy', 'Taxonomy', { objectType: 'mercariTaxonomy' }),
-    helper.string('shortName', 'Short Name', undefined, { maxLength: 50, required: true }),
-    helper.lookup('parent', 'Parent', { objectType: 'classifier' }),
-    {
-        ...helper.string('name', 'Name', undefined, { maxLength: 150, required: false })
-        // muiTableBodyCellProps: (props) => ({
-        //     className: fromDepth(props.row.depth)
-        // })
-    },
-    helper.listofEnum('type', 'Detail Types', { enumKey: 'detailsTypes' }),
-    helper.listOfPrimitive('detailTypes', 'ALL Detail Types', 'string', true),
-    helper.listOfObject('hashTags', 'Hash Tags', 'hashTag'),
-    helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', true),
-    helper.listOfEmbed('attributes', 'Attribute', 'attribute'),
-    helper.listOfEmbed('allAttributes', 'ALL Attribute', 'attribute', true)
+    helper.PK(),
+    helper.lookup()('taxonomy', 'Taxonomy', { objectType: 'mercariTaxonomy' }),
+    helper.string()('shortName', 'Short Name', undefined, { maxLength: 50, required: true }),
+    helper.lookup()('parent', 'Parent', { objectType: 'classifier' }),
+    helper.string()('name', 'Name', undefined, { maxLength: 150, required: false }),
+    helper.listOfEnum()('type', 'Detail Types', { enumKey: 'detailsTypes' }),
+    helper.listOfPrimitive()('detailTypes', 'ALL Detail Types', 'string', true),
+    helper.listOfObject()('hashTags', 'Hash Tags', 'hashTag'),
+    helper.listOfObject()('allHashTags', 'ALL Hash Tags', 'hashTag', true),
+    helper.listOfEmbed()('attributes', 'Attribute', 'attribute'),
+    helper.listOfEmbed()('allAttributes', 'ALL Attribute', 'attribute', true)
 ] as MRT_ColumnDef<IClassifier>[];

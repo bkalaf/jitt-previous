@@ -6,6 +6,6 @@ const h = createMRTColumnHelper<IShipping>();
 const helper = col(h);
 
 export const shippingColumns: MRT_ColumnDef<IShipping>[] = [
-    helper.int('id', 'ID', { required: true }),
-    helper.int('version', 'Version', { required: true })
+    helper.int()('id', 'ID', { required: true }),
+    helper.int()('version', 'Version', { required: true })
 ]

@@ -18,6 +18,27 @@ import {
 import './mui.d.ts';
 
 declare global {
+    export type IDependencyEqualTo<T extends MRT_RowData, TKey extends keyof T> = {
+        equalTo: T[TKey];
+    };
+    export type IDependencyNull = {
+        isNull: true;
+    } 
+    export type IDependencyEmpty = {
+        isEmpty: true;
+    };
+    export type IDependencyIn<T extends MRT_RowData, TKey extends keyof T> = {
+        in: T[TKey][];
+    };
+    export type IDependencyUnary<T extends MRT_RowData, TKey extends keyof T> = [kind: 'not' | null, left: IDeps<T, TKey>];
+    export type IDependencyBinary<T extends MRT_RowData, TKey extends keyof T> = [kind: 'and' | 'or', left: IDeps<T, TKey>, right: IDeps<T, TKey>];
+    export type IDeps<T extends MRT_RowData, TKey extends keyof T> = IDependencyEmpty | IDependencyNull | IDependencyEqualTo<T, TKey> | IDependencyIn<T, TKey> | IDependencyUnary<T, TKey> | IDependencyBinary<T, TKey>;
+    export type IDependency<T extends MRT_RowData, TKey extends keyof T> = {
+        type: 'enable' | 'disable';
+        property: TKey;
+        dependency: IDeps<T, TKey>;
+        isLocal?: boolean;
+    }
     export interface Window {
         columns: Record<string, MRT_ColumnDef<any>[]>;
     }
@@ -27,7 +48,7 @@ declare global {
     export type IKVPCell<T> = React.FunctionComponent<{ id: string; value: T; className?: string }>;
 
     // eslint-disable-next-line @typescript-eslint/ban-types
-    export type ListItemCellComponent<T> = (value: T) => React.FunctionComponent<{}>;
+    export type ListItemCellComponent<T> = (value?: T) => React.FunctionComponent<{}>;
 
     export type EnumInfo = { key: string; text: string };
     export type ExtendedEnumInfo =
