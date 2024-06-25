@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from 'react';
-import { cnvrtPrimitives, convert as $convert, isPrimitive } from '../schema/conversion/cnvrt';
+import { convert as $convert, isPrimitive } from '../schema/conversion/cnvrt';
 import { useTypes } from './useTypes';
 
 export function useConvert(type: string, objectType: string) {
     const types = useTypes();
-    const convert  = useMemo(() => $convert(types, objectType), [objectType, types]);
+    const convert  = useMemo(() => $convert(types as any, objectType), [objectType, types]);
     return useCallback(
         (values: any) => {
             console.info(`attempting convert: ${type} ${objectType}`);
@@ -28,25 +28,3 @@ export function useConvert(type: string, objectType: string) {
     );
 }
 
-export function useConvertListItem(objectType: string) {
-    const types = useTypes();
-    const convert  = useCallback((objectType: string) => $convert(types, objectType), [types]);
-    const prim = isPrimitive(objectType);
-    const convertValue = useMemo(() => (prim ? ({ value }: { value: any }) => cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives](value) : convert(objectType)), [convert, objectType, prim]);
-    return convertValue;
-}
-
-export function useConvertDictionaryItem<TValue>(objectType: string, append: (data: { key: string, value: TValue }) => void) {
-    const types = useTypes();
-    const convert  = useCallback((objectType: string) => $convert(types, objectType), [types]);
-    const prim = isPrimitive(objectType);
-    const convertValue = useMemo(() => prim ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives] : convert(objectType), [convert, objectType, prim]);
-    return useCallback(({ key, value }: { key: string, value: any }) => {
-        const interim = {
-            key: cnvrtPrimitives()['string'](key),
-            value: convertValue(value)
-        };
-        console.info(`interim`, interim);
-        return append(interim);
-    }, [append, convertValue])
-}

@@ -6,7 +6,8 @@ import { List } from '@mui/material';
 import { DBDictionaryEditSubComponent, DBListEditSubComponent } from '../../controls/DBListEditSubComponent';
 import { useToggler } from '../../../hooks/useToggler';
 import { DBDictionaryItemSubComponent, DBListItemSubComponent } from '../../controls/DBListItemSubComponent';
-import { useFieldArrayControl, useFieldArrayControlForDictionary } from '../../../hooks/useFieldArrayControl';
+import { useFieldArrayControl } from '../../../hooks/useFieldArrayControl';
+import { useFieldArrayControlForDictionary } from '../../../hooks/useFieldArrayControlForDictionary';
 
 export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFunctionParams<T, DictionaryBack<TValue>>) {
     useWhyDidIUpdate('DBDictionaryControl', props);

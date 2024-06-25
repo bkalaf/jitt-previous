@@ -236,6 +236,11 @@
             "aliases": [],
             "key": "9V",
             "text": "9V"
+        },
+        {
+            "aliases": [],
+            "key": "li-ion",
+            "text": "lithium-ion"
         }
     ],
     "bookGenres": [

@@ -1,7 +1,3 @@
-import { IProductImage } from '../../types';
-import { runTransaction } from '../../util/runTransaction';
-import * as Realm from 'realm';
-
 export enum ProductImageStages {
     unknown = 'unknown',
     uploaded = 'uploaded',
@@ -23,13 +19,13 @@ export function nextStep<T extends string>(...ladder: T[]) {
     };
 }
 
-export function cycleProductImageStage(db: Realm, image: IProductImage, advance = false) {
-    const current = image?.stage ?? 'uploaded' as ProductImageStages;
-    const steps = ['uploaded', 'pending-bg-removal', 'bg-removed', 'captioned', 'awaiting-review'] as ProductImageStages[];
-    const getNextStage = nextStep<ProductImageStages>(...steps);
-    const $next = getNextStage(current, advance);
-    const func = () => {
-        db.create('productImage', { ...image, disposition: $next }, Realm.UpdateMode.Modified);
-    };
-    runTransaction(db, func);
-}
+// export function cycleProductImageStage(db: Realm, image: IProductImage, advance = false) {
+//     const current = image?. ?? 'uploaded' as ProductImageStages;
+//     const steps = ['uploaded', 'pending-bg-removal', 'bg-removed', 'captioned', 'awaiting-review'] as ProductImageStages[];
+//     const getNextStage = nextStep<ProductImageStages>(...steps);
+//     const $next = getNextStage(current, advance);
+//     const func = () => {
+//         db.create('productImage', { ...image, disposition: $next }, Realm.UpdateMode.Modified);
+//     };
+//     runTransaction(db, func);
+// }

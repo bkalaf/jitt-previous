@@ -1,12 +1,12 @@
-
 // const barcode = (): InitialValue<IBarcode> => ({ _id: new BSON.ObjectId(), value: '0000000000000', isValidated: false, type: 'ean', beenPrinted: false });
 
-// export const initialValue = {
-//     string: (): { value: string } => ({ value: '' }),
-//     int: (): { value: number } => ({ value: 0 }),
-//     float: (): { value: number } => ({ value: 0 }),
-//     double: (): { value: number } => ({ value: 0 }),
-//     bool: (): { value: boolean } => ({ value: false }),
+export const initialValue = {
+    string: (): { value: string } => ({ value: '' }),
+    int: (): { value: number } => ({ value: 0 }),
+    float: (): { value: number } => ({ value: 0 }),
+    double: (): { value: number } => ({ value: 0 }),
+    bool: (): { value: boolean } => ({ value: false })
+};
 //     classifier: (): InitialValue<IClassifier> => ({ _id: new BSON.ObjectId(), type: [], hashTags: [], attributes: [], shortName: '', name: '' }),
 //     attribute: (): InitialValue<IAttribute> => ({ path: '', unset: false, value: undefined }),
 //     mercariCategory: (): InitialValue<IMercariCategory> => ({ name: '', selector: '', hashTags: [] }),

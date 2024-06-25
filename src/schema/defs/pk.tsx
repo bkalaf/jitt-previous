@@ -1,8 +1,7 @@
-import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
+import { MRT_ColumnDef, MRT_ColumnHelper, MRT_Row, MRT_RowData } from 'material-react-table';
 import { faKey } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip, IconButton } from '@mui/material';
-import { Row } from '@tanstack/react-table';
 import { BSON } from 'realm';
 
 export function pk<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
@@ -21,10 +20,10 @@ export function pk<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
                     </IconButton>
                 </Tooltip>
             );
-        },
+        } as any,
         enableEditing: false,
-        filterFn: (row: Row<T>, columnId: string, filterValue: string) => {
+        filterFn: ((row: MRT_Row<T>, columnId: string, filterValue: string) => {
             return ((row.original as any) as { _id: BSON.ObjectId; })._id.toHexString() === filterValue;
-        }
+        }) as any
     }) as MRT_ColumnDef<T>;
 }

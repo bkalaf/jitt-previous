@@ -2494,7 +2494,7 @@ export const sizes = {
 
 // console.log(distinctBy((x: string, y: string) => x.localeCompare(y) === 0, Object.values(sizes).map(x => x.sizingType)))
 
-export function getSizeOptions(section: SizingGroups) {
+export function getSizeOptions(section: SizingGroups): any {
     return Object.values(sizes)
         .filter((x) => x.sizingType === section)
         .map(({ text, index }) => ({ key: index.toFixed(0), text }));

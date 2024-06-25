@@ -32,7 +32,7 @@ export class Dimension<T extends string> extends EntityBase<IDimension<T>> imple
             value: $.double.default(0)
         }
     };
-    static liComponent: ListItemCellComponent<IDimension<string>> = (value?: IDimension<string>) => () => (value == null ? '' : `${truncateAuto(value.value)}${value.uom}`);
+    static liComponent: ListItemCellComponent<IDimension<string>> = (value?: IDimension<string>) => () => (value == null || value.uom === '' ? '' : `${truncateAuto(value.value)}${value.uom}`);
     static update(item: IDimension<string>): IDimension<string> {
         return item;
     }

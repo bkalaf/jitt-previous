@@ -16,7 +16,8 @@ export function createRenderRowActions<T extends MRT_RowData>() {
         const { table, row } = props;
         const invalidator = useInvalidateCollection();
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const onEditClick = useStopAndPrevent((ev: MouseButtonEvent) => table.setEditingRow(createRow(table, row.original.toJSON())));
+        const onEditClick = useStopAndPrevent((ev: MouseButtonEvent) => table.setEditingRow(createRow(table, row.original)));
+        //  row.original.toJSON()
         const db = useLocalRealm();
         const { mutate } = useMutation({
             onSuccess: () => invalidator(),
@@ -29,8 +30,26 @@ export function createRenderRowActions<T extends MRT_RowData>() {
         const onDeleteClick = useStopAndPrevent((ev: MouseButtonEvent) => mutate(row.original));
         return (
             <Box className='flex flex-row flex-nowrap gap-x-1'>
-                <IconBtn icon={faPencilSquare} className='flex rounded-lg shadow-inner shadow-black' tooltip='Edit row' onClick={onEditClick} iconSize='sm' innerDim={iconSVGDim} outerDim={iconButtonDim} classes={{ iconButton: 'bg-black', fontAwesomeIcon: 'text-red-500 bg-white'}} />
-                <IconBtn icon={faTrashCan} className='flex rounded-lg shadow-inner shadow-black' tooltip='Delete row' onClick={onDeleteClick} iconSize='sm' innerDim={iconSVGDim} outerDim={iconButtonDim} classes={{ iconButton: 'bg-black', fontAwesomeIcon: 'bg-white text-emerald-600'}} />
+                <IconBtn
+                    icon={faPencilSquare}
+                    className='flex rounded-lg shadow-inner shadow-black'
+                    tooltip='Edit row'
+                    onClick={onEditClick}
+                    iconSize='lg'
+                    innerDim={iconSVGDim}
+                    outerDim={iconButtonDim}
+                    classes={{ iconButton: 'bg-black', fontAwesomeIcon: 'text-red-500 bg-white' }}
+                />
+                <IconBtn
+                    icon={faTrashCan}
+                    className='flex rounded-lg shadow-inner shadow-black'
+                    tooltip='Delete row'
+                    onClick={onDeleteClick}
+                    iconSize='lg'
+                    innerDim={iconSVGDim}
+                    outerDim={iconButtonDim}
+                    classes={{ iconButton: 'bg-black', fontAwesomeIcon: 'bg-white text-emerald-600' }}
+                />
             </Box>
         );
     };

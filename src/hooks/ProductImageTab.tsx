@@ -109,8 +109,8 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             x: x !== 'none' ? x : undefined,
             y: y !== 'none' ? y : undefined,
             z: z !== 'none' ? z : undefined
-        } as IFacing;
-        const capt = is.not.nil(caption) ? generateCaption(facing).concat(' - ').concat(caption) : generateCaption(facing);
+        } as InitValue<IFacing>;
+        const capt = is.not.nil(caption) ? generateCaption(facing as any).concat(' - ').concat(caption) : generateCaption(facing as any);
         const func = () => {
             realm.create<IProductImage>('productImage', {
                 _id: new BSON.ObjectId(),
@@ -127,7 +127,7 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
                     : doNotRemBG ? ProductImageDisposition.ready
                     : (ProductImageDisposition.bgRemoval as any),
                 selected: doNotRemBG ? 'original' : undefined,
-                facing: facing,
+                facing: facing as any,
                 caption: capt
             });
         };

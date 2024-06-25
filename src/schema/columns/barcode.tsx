@@ -9,7 +9,7 @@ const helper = col(h);
 
 export const barcodeColumns: MRT_ColumnDef<IBarcode>[] = [
     helper.pk(),
-    helper.string('value', 'Value', barcodeFormatter, { maxLength: 13, required: true }),
+    helper.string('value', 'Value', (x: unknown) => barcodeFormatter(x as IBarcode), { maxLength: 13, required: true }),
     helper.enum('type', 'Type', { options: barcodeTypes, required: true }),
     helper.bool('isValidated', 'Is Validated')
 ] as MRT_ColumnDef<IBarcode>[];

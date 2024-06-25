@@ -1,6 +1,9 @@
 import Realm from 'realm';
+import { isPrimitive } from '../conversion/cnvrt';
+import { initialValue } from '../../initialValue';
 
 export function getInitFor<T extends AnyObject>(Ctor: any, name: string): InitFunction<T> {
+    if (isPrimitive(name)) return initialValue[name as keyof typeof initialValue] as InitFunction<any>;
     const {
         localRealm: { schema }
     } = Ctor as { localRealm: Realm };

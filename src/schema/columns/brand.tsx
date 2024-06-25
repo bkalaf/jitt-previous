@@ -8,6 +8,7 @@ const helper = col(h);
 export const brandColumns: MRT_ColumnDef<IBrand>[] = [
     helper.pk(),
     helper.string('name', 'Name', undefined, { maxLength: 150 }),
+    helper.string('folder', 'Folder', undefined, { maxLength: 50 }),
     helper.lookup('mercariBrand', 'Mercari Brand', { objectType: 'mercariBrand' }),
     helper.listOfObject('hashTags', 'Hash Tags', 'hashTag'),
     helper.listOfObject('allHashTags', 'ALL Hash Tags', 'hashTag', true)

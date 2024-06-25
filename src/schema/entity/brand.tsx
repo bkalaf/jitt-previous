@@ -4,8 +4,24 @@ import { $ } from '../$';
 import { IBrand, IHashTag, IMercariBrand } from '../../types';
 import { distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
+import { runTransaction } from '../../util/runTransaction';
 
-export class Brand extends EntityBase<IBrand> {
+export function getRange(low: number, high: number): number[] {
+    if (low === high) return [];
+    return [low, ...getRange(low + 1, high)]
+}
+export function toCharCode(s: string) {
+    return s.charCodeAt(0);
+}
+export function fromCharCode(n: number) {
+    return String.fromCharCode(n);
+}
+export function createFolderName(name: string) {
+    const chars = [...getRange(toCharCode('a'), toCharCode('z')), ...getRange(toCharCode('A'),toCharCode('Z')), ...getRange(toCharCode('0'), toCharCode('9')), toCharCode('_'), toCharCode('-')];
+    return name.split('').filter(x => chars.includes(toCharCode(x))).join('').toLowerCase();
+}
+export class Brand extends EntityBase<IBrand> implements IBrand {
+    folder: string;
     _id: BSON.ObjectId;
     name: string;
     mercariBrand?: IMercariBrand | undefined;
@@ -21,18 +37,26 @@ export class Brand extends EntityBase<IBrand> {
             _id: $.objectId(),
             name: $.string(),
             mercariBrand: $.mercariBrand(),
-            hashTags: $.hashTag.list
+            hashTags: $.hashTag.list,
+            folder: $.string()
         }
     };
     static labelProperty = 'name';
     static update(item: IBrand): IBrand {
+        const func = () => {
+            if (item.folder == null || item.folder === '') {
+                item.folder = createFolderName(item.name);
+            }
+        }
+        runTransaction(Brand.localRealm, func);
         return item;
     }
     static init(): InitValue<IBrand> {
         return {
             _id: new BSON.ObjectId(),
             name: '',
-            hashTags: []
+            hashTags: [],
+            folder: ''
         }
     }
 }

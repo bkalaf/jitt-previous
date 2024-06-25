@@ -15,7 +15,7 @@ import Realm, { UpdateMode } from 'realm';
 
 export function toJSON(obj: any) {
     if (obj instanceof Realm.Object) return obj.toJSON();
-    return JSON.stringify(obj);
+    return JSON.parse(JSON.stringify(obj));
 }
 export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
     return function RenderEditRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {

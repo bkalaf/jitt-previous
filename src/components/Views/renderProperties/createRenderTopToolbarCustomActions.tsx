@@ -37,10 +37,10 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
             const next = route === 'sku' ? nextSku : nextBin;
             const innerFunc = (item: IBin | ISku) => {
                 if ('product' in item) {
-                    item.addBarcode(db, next);
+                    item.addBarcode(next);
                     return;
                 }
-                (item as IBin).addBarcode(db, next);
+                (item as IBin).addBarcode(next);
             };
             const func = () => {
                 selected.map(innerFunc);
@@ -51,7 +51,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
         const onNewSku = useCallback(() => {
             const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as IProduct);
             const func = () => {
-                selected.map((product) => Sku.addFromProduct(db, product));
+                selected.map((product) => Sku.addFromProduct(product as IProduct));
             };
             runTransaction(db, func);
         }, [db, table]);
@@ -82,7 +82,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                             const rowSelected = table.getSelectedRowModel().rows.map((x) => x.original) as RealmObj<T>[];
                             const results = [];
                             for (const iterator of rowSelected) {
-                                results.push(updater(db, iterator));
+                                results.push(updater(iterator));
                             }
                             enqueueSnackbar(`Updated ${results.length} rows.`, { preventDuplicate: true, variant: 'success', TransitionComponent: Slide });
                             table.setRowSelection({});

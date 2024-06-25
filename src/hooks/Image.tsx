@@ -23,5 +23,5 @@ export function Image(props: { filepath: string; caption?: string; selected?: bo
         }
         func();
     }, [blob]);
-    return is.not.nil(filepath) ? <img src={src} alt={caption} className='aria-selected:ring-4 aria-selected:ring-red-500 flex object-scale-down' aria-selected={selected ?? false} /> : null;
+    return is.not.nil(filepath) ? <img src={src} alt={caption} className='aria-selected:ring-4 aria-selected:ring-red-500 flex object-scale-down' width={250} aria-selected={selected ?? false} /> : null;
 }

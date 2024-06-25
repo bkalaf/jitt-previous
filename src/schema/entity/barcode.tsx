@@ -55,10 +55,11 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
         const func = () => {
             console.info('Barcode.update - running');
             obj.value = obj.value.padStart(13, '0');
+            const [isValidated, type] = classifyBarcode(obj.value);
+            obj.isValidated = isValidated;
+            obj.type = type as BarcodeTypes;
         };
-        if (obj.value.length !== 13) {
-            runTransaction(Barcode.localRealm, func);
-        }
+        runTransaction(Barcode.localRealm, func);
         return obj;
     }
     static createFromFullUPC(value: string, doNotCreate = false): IBarcode {

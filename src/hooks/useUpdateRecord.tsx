@@ -35,7 +35,7 @@ export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<
         },
         [failureMessage]
     );
-    const { mutateAsync } = useMutation({
+    const { mutate } = useMutation({
         mutationFn: (values: T) => {
             return new Promise<RealmObj<T>>((resolve) => {
                 if (db == null) throw new Error('no db');
@@ -55,6 +55,6 @@ export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<
     return {
         onSuccess,
         onError,
-        handleSubmit: mutateAsync
+        handleSubmit: mutate
     };
 }

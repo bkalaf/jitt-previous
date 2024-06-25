@@ -1,4 +1,3 @@
-
 export function truncateAuto(value?: number) {
     function inner(strValue: string) {
         if (strValue.endsWith('.')) return strValue.substring(0, strValue.length - 1);

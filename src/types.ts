@@ -89,7 +89,7 @@ import { Flags } from './schema/enums/flags';
 export type Int = number;
 export type Double = number;
 export type Opt<T> = T | undefined;
-
+export type PowerConsumptionUOM = string;
 export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
@@ -164,6 +164,7 @@ export type IBrand = {
     name: string;
     mercariBrand?: IMercariBrand;
     hashTags: DBList<IHashTag>;
+    folder: string;
     readonly allHashTags: IHashTag[];
 };
 
@@ -496,6 +497,7 @@ export type IProduct = IApparel & {
     // // electronics
     batteryCount?: Opt<Int>;
     batteryType?: Opt<BatteryTypes>;
+    batteryCapacity?: Opt<IDimension<PowerConsumptionUOM>>;
     powerTypes?: Opt<PowerTypes>;
     // // cell-phones
     aspectRatio?: Opt<AspectRatios>;

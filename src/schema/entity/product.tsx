@@ -95,6 +95,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     input: Opt<ICurrentSetting>;
     output: Opt<ICurrentSetting>;
     batteryCount: Opt<number>;
+    batteryCapacity?: Opt<IDimension<string>>;
     batteryType: Opt<BatteryTypes>;
     powerTypes: Opt<PowerTypes>;
     testedOn: Opt<Date>;
@@ -326,6 +327,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             output: $.currentSetting(),
             batteryCount: $.int.opt,
             batteryType: $.string.opt,
+            batteryCapacity: $.dimension(),
             powerType: $.string.opt,
             testedOn: $.date.opt,
             aspectRatio: $.string.opt,

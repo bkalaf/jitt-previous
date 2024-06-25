@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form-mui';
 import { createRules } from '../components/controls/createRules';
 import { ColumnMeta } from '@tanstack/react-table';
-import { useEditColumnMeta } from './useColumnMeta';
+import { useEditColumnMeta } from './useEditColumnMeta';
 
 export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>, TElement extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | Element>(
     props: EditFunctionParams<T, TValue | undefined>,
@@ -52,7 +52,7 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
 export function useBaseControl<T extends MRT_RowData, TValue>(column: MRT_Column<T, TValue>) {
     const { columnDef } = column;
     const { meta, accessorKey, id, header: label } = columnDef;
-    const { columnName: name, readonly, required, min, max, minLength, maxLength, pattern, validate, type: inputType, step, objectType } = { required: false, readonly: false, columnName: accessorKey ?? id ?? 'n/a', ...(meta ?? {}) };
+    const { columnName: name, readonly, required, min, max, minLength, maxLength, pattern, validate, type: inputType, step, objectType } = { required: false, readonly: false, columnName: accessorKey ?? id ?? 'n/a', ...(meta ?? {}) as ColumnMeta<any, any>};
     const validation = useMemo(() => createRules({ required, min, max, minLength, maxLength, pattern, validate }), [max, maxLength, min, minLength, pattern, required, validate]);
     return {
         name,
