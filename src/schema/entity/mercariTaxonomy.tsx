@@ -50,13 +50,13 @@ export class MercariTaxonomy extends EntityBase<IMercariTaxonomy> implements IMe
         const mercariCategory = getInitFor<IMercariCategory>(MercariTaxonomy as any, 'mercariCategory');
         return {
             _id: new BSON.ObjectId(),
-            fullname: '', 
+            fullname: '',
             hashTags: [],
             category: mercariCategory(),
             subCategory: mercariCategory(),
             subSubCategory: mercariCategory(),
             timestamp: new Date(Date.now()),
             sizes: []
-        }
+        };
     }
 }

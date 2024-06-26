@@ -34,4 +34,3 @@ export default function useAsyncEffect<Data = any>(callback: (isMounted: () => b
         };
     }, [callback, destroy]);
 }
-

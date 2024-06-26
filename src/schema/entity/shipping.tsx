@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { EntityBase } from './EntityBase';
@@ -15,12 +15,14 @@ export class Shipping extends EntityBase<IShipping> implements IShipping {
             version: $.int()
         }
     };
-    static update(item: IShipping): IShipping { return item }
+    static update(item: IShipping): IShipping {
+        return item;
+    }
     static labelProperty = 'id';
     static init(): InitValue<IShipping> {
         return {
             id: 9999,
             version: 9999
-        }
+        };
     }
 }

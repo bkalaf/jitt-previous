@@ -12,7 +12,10 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 const REACT_DEV_TOOLS_ID = 'fmkadmapgofadopljbjfkapdkoienihi';
 export function getDevToolsPath(id: string) {
-    const folder = process.platform === 'linux' ? '/home/bobby/.config/google-chrome/Default/Extensions' : process.platform === 'win32' ? 'C:\\Users\\bobby\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions' : '';
+    const folder =
+        process.platform === 'linux' ? '/home/bobby/.config/google-chrome/Default/Extensions'
+        : process.platform === 'win32' ? 'C:\\Users\\bobby\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions'
+        : '';
     const devPath = [folder, id].join(path.sep);
     const version = fs.readdirSync(devPath)[0];
     return [devPath, version].join(path.sep);
@@ -42,7 +45,7 @@ const createWindow = (): BrowserWindow => {
             webSecurity: false,
             contextIsolation: false,
             zoomFactor: 0.8
-        },
+        }
     });
 
     enable(mainWindow.webContents);
@@ -56,13 +59,15 @@ const createWindow = (): BrowserWindow => {
     return mainWindow;
 };
 
-app.whenReady().then(async () => {
-    const result = await session.defaultSession.loadExtension(getDevToolsPath(REACT_DEV_TOOLS_ID), { allowFileAccess: true });
-    console.log(result);    
-}).then(async () => {
-    const window = createWindow();
-    window.webContents.openDevTools();
-});
+app.whenReady()
+    .then(async () => {
+        const result = await session.defaultSession.loadExtension(getDevToolsPath(REACT_DEV_TOOLS_ID), { allowFileAccess: true });
+        console.log(result);
+    })
+    .then(async () => {
+        const window = createWindow();
+        window.webContents.openDevTools();
+    });
 
 // // This method will be called when Electron has finished
 // // initialization and is ready to create browser windows.
@@ -86,7 +91,6 @@ app.on('activate', () => {
     }
 });
 
-
 process.on('uncaughtException', (error, origin) => {
     console.error(error.name);
     console.error(error.message);
@@ -97,8 +101,7 @@ process.on('uncaughtException', (error, origin) => {
     process.stdout.write(error.message + '\n');
     process.stdout.write(error.stack + '\n');
     process.stdout.write(origin.toString() + '\n');
-
-})
+});
 process.setUncaughtExceptionCaptureCallback((error) => {
     fs.appendFileSync('error.json', JSON.stringify(error, null, '\t'));
     console.error(error.name);

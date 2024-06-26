@@ -1,7 +1,7 @@
 import { $ } from '../$';
 import { ICustomItemFieldType, ICustomItemFieldValue, IMercariBrand, Opt } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import Realm from "realm";
+import Realm from 'realm';
 import { EntityBase } from './EntityBase';
 
 export class CustomItemFieldType extends EntityBase<ICustomItemFieldType> implements ICustomItemFieldType {

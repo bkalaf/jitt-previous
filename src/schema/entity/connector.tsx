@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { IConnector, Opt } from '../../types';
@@ -30,8 +30,7 @@ export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTyp
         return item;
     }
     static init(): InitValue<IConnector<any>> {
-        return {
-        }
+        return {};
     }
     static liComponent = (value?: IConnector<any>) => () =>
         value == null ? '' : (
@@ -40,6 +39,8 @@ export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTyp
                 value.connectorGender ? surround('(', ')')(value.connectorGender) : undefined,
                 value.outerWidth ? [truncateAuto(value.outerWidth), 'mm'].join(' ') : undefined,
                 value.innerWidth ? [truncateAuto(value.innerWidth), 'mm'].join(' ') : undefined
-            ].filter(is.not.nil).join(' ')
+            ]
+                .filter(is.not.nil)
+                .join(' ')
         );
 }

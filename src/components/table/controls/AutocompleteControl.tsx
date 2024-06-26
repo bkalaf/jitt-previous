@@ -4,20 +4,20 @@ import { useQuery } from '@tanstack/react-query';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useLocalRealm } from '../../../hooks/useLocalRealm';
 import { BSON } from 'realm';
-import { useEditControlBase } from '../../../hooks/useControl';
 import { useAutoComplete } from '../../../hooks/useAutoComplete';
 import { useGetLabelProperty } from '../../../hooks/useGetLIComponent';
 import { useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
+import { useEditControlBase } from '../../../hooks/useEditControlBase';
 
 export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> : U | undefined>) {
     useWhyDidIUpdate('AutocompleteControl', props);
-    const { invalid, freeSolo, readonly, validation, helperText, objectType, multiple, onChange, ...rest } = useEditControlBase<T, TMultiple extends true ? ListBack<U> : U | undefined, 'objectType' | 'multiple' | 'freeSolo', HTMLSelectElement>(
-        props,
-        'objectType',
-        'multiple',
-        'freeSolo'
-    );
+    const { invalid, freeSolo, readonly, validation, helperText, objectType, multiple, onChange, isDisabled, ...rest } = useEditControlBase<
+        T,
+        TMultiple extends true ? ListBack<U> : U | undefined,
+        'objectType' | 'multiple' | 'freeSolo',
+        HTMLSelectElement
+    >(props, 'objectType', 'multiple', 'freeSolo');
     if (objectType == null) throw new Error('no objectType for lookup');
     const labelProperty = useGetLabelProperty(objectType);
     if (labelProperty == null) throw new Error(`no labelProperty for ${objectType} for lookup`);
@@ -61,15 +61,16 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
             rules={validation}
             autocompleteProps={{
                 freeSolo,
-                autoHighlight: true,   
+                autoHighlight: true,
                 isOptionEqualToValue,
-                getOptionLabel: (option) => option[labelProperty],              
+                getOptionLabel: (option) => option[labelProperty],
                 onChange: onChange as any,
                 filterOptions: filterOptions,
                 selectOnFocus: true,
                 clearOnBlur: true,
                 handleHomeEndKeys: true,
-                readOnly: readonly
+                readOnly: readonly,
+                disabled: isDisabled()
             }}
             textFieldProps={{
                 helperText: helperText
@@ -80,5 +81,3 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
         />
     );
 }
-
-

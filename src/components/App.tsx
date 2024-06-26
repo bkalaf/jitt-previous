@@ -18,7 +18,7 @@ import { useTypes } from '../hooks/useTypes';
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (
         <Link component={RRLink as any} underline='hover' href={path} className='text-white'>
-            <FontAwesomeIcon className='text-white mr-1.5' icon={faTable} size='sm' />
+            <FontAwesomeIcon className='mr-1.5 text-white' icon={faTable} size='sm' />
             {name}
         </Link>
     );
@@ -41,7 +41,7 @@ export function useEventListener<TEventMap, TEventName extends keyof TEventMap =
 }
 
 export function App() {
-    const { updateConfig, configuration }= useConfiguration();
+    const { updateConfig, configuration } = useConfiguration();
     const context = useEnv();
     console.log(context.REALM_APP_ID);
     const location = useLocation();
@@ -55,11 +55,14 @@ export function App() {
             .split('/')
             .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
     );
-    const modifyZoom = useCallback((modifier: number) => {
-        return () => {
-            updateConfig('zoomLevel', configuration.zoomLevel + modifier);
-        }
-    }, [configuration.zoomLevel, updateConfig]);
+    const modifyZoom = useCallback(
+        (modifier: number) => {
+            return () => {
+                updateConfig('zoomLevel', configuration.zoomLevel + modifier);
+            };
+        },
+        [configuration.zoomLevel, updateConfig]
+    );
     const incrementZoom = useMemo(() => modifyZoom(0.1), [modifyZoom]);
     const decrementZoom = useMemo(() => modifyZoom(-0.1), [modifyZoom]);
     const types = useTypes();

@@ -6,7 +6,7 @@ export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
 
 export const cellPhonesDetails: MRT_ColumnDef<IProduct>[] = [
-    helper.measure('screenSize', 'Screen Size', 'in', { min: 0, }),
+    helper.measure('screenSize', 'Screen Size', 'in', { min: 0 }),
     helper.measure('capacity', 'Capacity', 'GB', { min: 0 }),
     helper.enum('os', 'Operating System', { enumKey: 'operatingSystems' }),
     helper.string('osVersion', 'OS Version', undefined),

@@ -31,24 +31,30 @@ const helper = {
 };
 
 const keyColumn = helper.string('key', 'Key', undefined, { required: true });
-const facetedKeyColumn = helper.freeSolo('key', 'Key', (x?: string, y?: string) => x != null && y != null ? x.localeCompare(y) as Compared : 0, { required: true });
+const facetedKeyColumn = helper.freeSolo('key', 'Key', (x?: string, y?: string) => (x != null && y != null ? (x.localeCompare(y) as Compared) : 0), { required: true });
 const enumColumn = (emap: EnumMap<string>) => helper.enum('key', 'Key', { options: emap, required: true });
 
 export function useDictionaryColumns(objectType: string, faceted: boolean, enumMap?: EnumMap<string>) {
     const valueColumns = useColumns<any>(objectType);
-    const kColumn = useMemo(() => (enumMap != null ? enumColumn(enumMap) : faceted ? facetedKeyColumn : keyColumn), [enumMap, faceted]);
+    const kColumn = useMemo(
+        () =>
+            enumMap != null ? enumColumn(enumMap)
+            : faceted ? facetedKeyColumn
+            : keyColumn,
+        [enumMap, faceted]
+    );
     const columns = useMemo(
         () =>
-            isPrimitive(objectType)
-                ? [kColumn, ...valueColumns]
-                : [
-                      kColumn,
-                      h.group({
-                          header: 'Value',
-                          id: 'value',
-                          columns: valueColumns
-                      })
-                  ],
+            isPrimitive(objectType) ?
+                [kColumn, ...valueColumns]
+            :   [
+                    kColumn,
+                    h.group({
+                        header: 'Value',
+                        id: 'value',
+                        columns: valueColumns
+                    })
+                ],
         [kColumn, objectType, valueColumns]
     );
     return columns as MRT_ColumnDef<any, any>[];
@@ -68,7 +74,7 @@ export function createRealmListControl<T extends MRT_RowData, TValue>() {
             <fieldset>
                 <legend className='relative'>
                     {label}
-                    <IconBtn icon={faPlusSquare} color='highlight' className='absolute top-0 right-0' tooltip='Insert new item' onClick={handleOpen} />
+                    <IconBtn icon={faPlusSquare} color='highlight' className='absolute right-0 top-0' tooltip='Insert new item' onClick={handleOpen} />
                 </legend>
                 <small>{helperText}</small>
                 <div>
@@ -140,10 +146,10 @@ export function createDBListControl<TValue>(objectType: string): (props: EditFun
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const onClickInsert = useStopAndPrevent((ev: MouseButtonEvent) => table.setCreatingRow(true));
         return (
-            <div className='relative flex w-full h-auto border border-black rounded-md shadow-inner shadow-black'>
-                <div className='flex flex-col w-full h-auto'>
+            <div className='relative flex h-auto w-full rounded-md border border-black shadow-inner shadow-black'>
+                <div className='flex h-auto w-full flex-col'>
                     <MaterialReactTable table={table} />
-                    <div className='w-full flex text-base font-bold indent-1.5'>{label}</div>
+                    <div className='flex w-full indent-1.5 text-base font-bold'>{label}</div>
                     <List>
                         {list.map((item, index) => {
                             const LIComp = ListItemComponent(item);
@@ -154,7 +160,7 @@ export function createDBListControl<TValue>(objectType: string): (props: EditFun
                             );
                         })}
                     </List>
-                    <IconBtn icon={faPlusSquare} onClick={onClickInsert} tooltip='Insert a new row' className='absolute top-0 right-0' />
+                    <IconBtn icon={faPlusSquare} onClick={onClickInsert} tooltip='Insert a new row' className='absolute right-0 top-0' />
                 </div>
             </div>
         );

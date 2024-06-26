@@ -2,7 +2,38 @@ import { getProperty } from '../../../common/object';
 import { surroundQuotesIgnore, surroundParensIgnore } from '../../../common/text/surround';
 import { sizes } from '../../../schema/enums/sizes';
 import { ISku, Opt } from '../../../types';
-import { ofLookup, ofList, ofFlag, ofDimension, ofWeight, char, ofBarcode, ofBattery, ofCableType, ofClothingCare, ofConnector, ofCopyright, ofCurrent, ofDate, ofDictionary, ofEnum, ofFirst, ofHandOrientation, ofIdentity, ofMadeOf, ofMeasure, ofMinMax, ofPiece, ofPrefix, ofRating, ofSuffix, ofTrack, ofIncludedItem, ofSku, ofCapacity } from './titleParts';
+import {
+    ofLookup,
+    ofList,
+    ofFlag,
+    ofDimension,
+    ofWeight,
+    char,
+    ofBarcode,
+    ofBattery,
+    ofCableType,
+    ofClothingCare,
+    ofConnector,
+    ofCopyright,
+    ofCurrent,
+    ofDate,
+    ofDictionary,
+    ofEnum,
+    ofFirst,
+    ofHandOrientation,
+    ofIdentity,
+    ofMadeOf,
+    ofMeasure,
+    ofMinMax,
+    ofPiece,
+    ofPrefix,
+    ofRating,
+    ofSuffix,
+    ofTrack,
+    ofIncludedItem,
+    ofSku,
+    ofCapacity
+} from './titleParts';
 
 export const properties = [
     {

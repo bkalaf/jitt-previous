@@ -1,2 +1,1 @@
-declare module '@tanstack/material/Button' {
-}
+declare module '@tanstack/material/Button' {}

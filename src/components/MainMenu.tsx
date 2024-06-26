@@ -14,7 +14,7 @@ import * as path from 'path';
 import { MercariTaxonomy } from '../schema/entity/mercariTaxonomy';
 import { surroundQuotesIgnore, surroundQuotesNoIgnore } from '../common/text/surround';
 import { BSON } from 'realm';
-import * as cp from 'child_process'
+import * as cp from 'child_process';
 import { ignore } from '../common/ignore';
 // const mainMenuOptions = {
 //     auctions: {
@@ -112,7 +112,15 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
-        fs.renameSync(taxonomy, getAppConfigPathed(taxonomy.split('\\').reverse()[0].replaceAll(path.extname(taxonomy), '-completed-'.concat(dateText.concat(path.extname(taxonomy))))));
+        fs.renameSync(
+            taxonomy,
+            getAppConfigPathed(
+                taxonomy
+                    .split('\\')
+                    .reverse()[0]
+                    .replaceAll(path.extname(taxonomy), '-completed-'.concat(dateText.concat(path.extname(taxonomy))))
+            )
+        );
     }, [begin, db, noInputFileExists, processedByType, taxonomy]);
     const runBrands = useCallback(() => {
         if (!fs.existsSync(brands)) {
@@ -139,9 +147,17 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
-        fs.renameSync(brands, getAppConfigPathed(brands.split('\\').reverse()[0].replaceAll(path.extname(brands), '-completed-'.concat(dateText.concat(path.extname(brands))))));
+        fs.renameSync(
+            brands,
+            getAppConfigPathed(
+                brands
+                    .split('\\')
+                    .reverse()[0]
+                    .replaceAll(path.extname(brands), '-completed-'.concat(dateText.concat(path.extname(brands))))
+            )
+        );
     }, [begin, brands, db, noInputFileExists, processedByType]);
-        
+
     const runHashTags = useCallback(() => {
         if (!fs.existsSync(hashtags)) {
             return noInputFileExists();
@@ -175,7 +191,15 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         processedByType(total, inserted, modified);
         const ctime = new Date(Date.now());
         const dateText = [ctime.getMonth().toFixed(0).padStart(2, '0'), ctime.getDate().toFixed(0).padStart(2, '0'), ctime.getFullYear().toString()].join('-');
-        fs.renameSync(hashtags, getAppConfigPathed(hashtags.split('\\').reverse()[0].replaceAll(path.extname(hashtags), '-completed-'.concat(dateText.concat(path.extname(hashtags))))));
+        fs.renameSync(
+            hashtags,
+            getAppConfigPathed(
+                hashtags
+                    .split('\\')
+                    .reverse()[0]
+                    .replaceAll(path.extname(hashtags), '-completed-'.concat(dateText.concat(path.extname(hashtags))))
+            )
+        );
     }, [begin, db, hashtags, noInputFileExists, processedByType]);
     const fileNoExist = useCallback((name: string) => !fs.existsSync(name), []);
     const hasSkuToExport = useCallback(
@@ -230,7 +254,7 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         runTransaction(db, func);
         cp.spawnSync('bash', [`./toxlsx.sh`, `${outputfile.split('\\').reverse()[0]}`, `${outputfile.split('\\').reverse()[0].replaceAll('.csv', '.xlsx')}`], { cwd: 'C:/Users/bobby/Downloads/' });
     }, [db, binToPrint]);
-    const modalOpen = useMemo(() => progressValue != null, [progressValue])
+    const modalOpen = useMemo(() => progressValue != null, [progressValue]);
     return (
         <RootCategoryMenuItem header='Actions' direction='down'>
             <Dialog fullWidth maxWidth='sm' open={modalOpen} onClose={ignore}>

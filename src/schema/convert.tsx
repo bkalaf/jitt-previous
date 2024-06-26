@@ -9,7 +9,10 @@ import { BSON } from 'realm';
 //     return [name, value];
 // }
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _oid = (value?: string | BSON.ObjectId) => value == null ? undefined : value instanceof BSON.ObjectId ? value : new BSON.ObjectId(value);
+const _oid = (value?: string | BSON.ObjectId) =>
+    value == null ? undefined
+    : value instanceof BSON.ObjectId ? value
+    : new BSON.ObjectId(value);
 
 // const objectId = (name: string, { optional }: PropertySchema) => (obj: any): [string, BSON.ObjectId] => {
 //     const value = getProperty<any, BSON.ObjectId | string>(name, obj);
@@ -24,7 +27,7 @@ const _oid = (value?: string | BSON.ObjectId) => value == null ? undefined : val
 //     const def = optional ? undefined : defaultValue as number ?? 0;
 //     if (value == null) return [name, def];
 //     return [name, typeof value === 'string' ? parseInt(value, 10) : value]
-// } 
+// }
 // const double = (name: string, { optional, default: defaultValue }: PropertySchema) => (obj: any): [string, number | undefined] => {
 //     const value = getProperty<any, number | string>(name, obj);
 //     const def = optional ? undefined : defaultValue as number ?? 0;

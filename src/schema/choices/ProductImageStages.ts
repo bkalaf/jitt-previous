@@ -13,7 +13,7 @@ export enum ProductImageStages {
 
 export function nextStep<T extends string>(...ladder: T[]) {
     return function (current: T, advance = false) {
-        const op = advance ? ((index: number) => index + 1) : ((index: number) => index - 1);
+        const op = advance ? (index: number) => index + 1 : (index: number) => index - 1;
         const i = ladder.indexOf(current);
         return ladder[op(i)];
     };

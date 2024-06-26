@@ -1,4 +1,3 @@
-
 export enum DraftImpediments {
     unknown = 'unknown',
     mismatched = 'mismatched',

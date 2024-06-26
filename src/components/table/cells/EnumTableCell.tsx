@@ -12,10 +12,10 @@ export function EnumTableCell<T extends MRT_RowData>(props: Parameters<Exclude<M
     } = props;
     if (meta == null) throw new Error('no meta');
     const $meta = meta as ColumnMeta<any, any>;
-    const { enumInfo } = { ...$meta ?? { } };
+    const { enumInfo } = { ...($meta ?? {}) };
     if (enumInfo == null) throw new Error('no enuminfo in enumtablecell');
     const value = cell.getValue();
-    const lookup = value != null ? enumInfo.asRecord[value] : undefined
+    const lookup = value != null ? enumInfo.asRecord[value] : undefined;
     return (
         lookup == null ? ''
         : typeof lookup === 'string' ? lookup
@@ -31,4 +31,3 @@ export function toEnumMap<T>(enumItems: EnumItem<string>[], modifier?: (x: EnumI
             .map((ei) => [ei[0], (modifier ?? ((item: EnumItem) => item))(ei[1]) as T])
     );
 }
-

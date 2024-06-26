@@ -16,7 +16,7 @@
 //     //         throw error;
 //     //     }
 //     // }, [REALM_PASSWORD, REALM_USER, app, enqueueSnackbar, info]);
-    
+
 //     const openDB = useMemo(async () => {
 //         try {
 //             const result = await openRealm(REALM_USER)(app.currentUser);
@@ -27,7 +27,7 @@
 //             console.error(error);
 //             throw error;
 //         }
-        
+
 //     }, [REALM_USER, app.currentUser]);
 //     const realm = use(openDB);
 //     const [transfer, setTransfer] = useState<{ total: number; todo: number }>({ total: 0, todo: 0 });

@@ -6,15 +6,46 @@ export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int
 export const isDataStructure = (type: string) => ['list', 'dictionary', 'set'].includes(type);
 export type ConvertFunction<T = any, U = any> = (value?: T) => U | undefined;
 export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
-    string: (value?: string) => (value == null ? undefined : value != null && value.length === 0 ? undefined : value),
-    objectId: (value?: string | BSON.ObjectId) => (value == null ? undefined : value instanceof BSON.ObjectId ? value : new BSON.ObjectId(value)),
-    uuid: (value?: BSON.UUID | string) => (value == null ? undefined : value instanceof BSON.UUID ? value : new BSON.UUID(value)),
-    int: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseInt(value, 10) : value),
-    double: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
-    decimal128: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
-    float: (value?: string | number) => (value == null ? undefined : typeof value === 'string' ? parseFloat(value) : value),
-    date: (value?: Date | string | Dayjs) => (value == null ? undefined : value instanceof Date ? value : typeof value === 'string' ? new Date(Date.parse(value)) : dayjs.isDayjs(value) ? value.toDate() : undefined),
-    bool: (value?: boolean | string) => (value == null ? undefined : typeof value === 'boolean' ? value : value === 'true' ? true : value === 'false' ? false : undefined),
+    string: (value?: string) =>
+        value == null ? undefined
+        : value != null && value.length === 0 ? undefined
+        : value,
+    objectId: (value?: string | BSON.ObjectId) =>
+        value == null ? undefined
+        : value instanceof BSON.ObjectId ? value
+        : new BSON.ObjectId(value),
+    uuid: (value?: BSON.UUID | string) =>
+        value == null ? undefined
+        : value instanceof BSON.UUID ? value
+        : new BSON.UUID(value),
+    int: (value?: string | number) =>
+        value == null ? undefined
+        : typeof value === 'string' ? parseInt(value, 10)
+        : value,
+    double: (value?: string | number) =>
+        value == null ? undefined
+        : typeof value === 'string' ? parseFloat(value)
+        : value,
+    decimal128: (value?: string | number) =>
+        value == null ? undefined
+        : typeof value === 'string' ? parseFloat(value)
+        : value,
+    float: (value?: string | number) =>
+        value == null ? undefined
+        : typeof value === 'string' ? parseFloat(value)
+        : value,
+    date: (value?: Date | string | Dayjs) =>
+        value == null ? undefined
+        : value instanceof Date ? value
+        : typeof value === 'string' ? new Date(Date.parse(value))
+        : dayjs.isDayjs(value) ? value.toDate()
+        : undefined,
+    bool: (value?: boolean | string) =>
+        value == null ? undefined
+        : typeof value === 'boolean' ? value
+        : value === 'true' ? true
+        : value === 'false' ? false
+        : undefined,
     data: (value?: ArrayBuffer) => value
 });
 // 'toDate' in value ? value.toDate()
@@ -26,17 +57,17 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
         const schema = types.find((x) => x.name === objectType);
         if (schema == null) throw new Error(`schema not found for : ${objectType}`);
         const { embedded } = { embedded: false, ...schema };
-        return value == null
-            ? value
-            : value instanceof Realm.Object && !(embedded || override)
-            ? value
+        return (
+            value == null ? value
+            : value instanceof Realm.Object && !(embedded || override) ? value
             : Object.fromEntries(
-                  Object.entries(schema.properties).map(([name, propSchema]) => {
-                      console.log(`...${name}`);
-                      if (typeof propSchema === 'string') throw new Error('string type');
-                      return [name, ofType(types, propSchema)(getProperty(name, value))];
-                  })
-              );
+                    Object.entries(schema.properties).map(([name, propSchema]) => {
+                        console.log(`...${name}`);
+                        if (typeof propSchema === 'string') throw new Error('string type');
+                        return [name, ofType(types, propSchema)(getProperty(name, value))];
+                    })
+                )
+        );
         // if (override) {
         //     // || embedded
         // }
@@ -73,12 +104,18 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
 });
 
 function toConvert(func: (value?: any) => any) {
-    return ({ optional, default: defaultValue }: PropertySchema) => (value: any) => {
-        console.log(`value`, value);
-        const opt = optional ?? false;
-        const newValue = func(value);
-        return newValue == null ? (opt ? newValue : (defaultValue as any)) : newValue;
-    };
+    return ({ optional, default: defaultValue }: PropertySchema) =>
+        (value: any) => {
+            console.log(`value`, value);
+            const opt = optional ?? false;
+            const newValue = func(value);
+            return (
+                newValue == null ?
+                    opt ? newValue
+                    :   (defaultValue as any)
+                :   newValue
+            );
+        };
 }
 
 export const $cnvrt = (types: RealmSchema, objectType?: string) => objectMap(toConvert)(cnvrt(types, objectType));
@@ -88,4 +125,4 @@ export const ofType = (types: RealmSchema, propSchema: PropertySchema) => {
     return $cnvrt(types, objectType)[type](propSchema);
 };
 
-export const convert = (types: RealmSchema, objectType: string) => (value?: any) => isPrimitive(objectType) ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives](value) : cnvrt(types, objectType).object(value, true);
+export const convert = (types: RealmSchema, objectType: string) => (value?: any) => (isPrimitive(objectType) ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives](value) : cnvrt(types, objectType).object(value, true));

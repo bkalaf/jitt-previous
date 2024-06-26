@@ -4,7 +4,7 @@ import localforage from 'localforage';
 
 export type IForagerContext = {
     forager: LocalForage;
-}
+};
 
 export const ForagerContext = createContext<IForagerContext | undefined>(undefined);
 
@@ -13,7 +13,6 @@ export function useForager() {
 }
 
 export function useProvideForagerContext() {
-    const forager = useMemo(() => localforage.createInstance({ name: 'realm', storeName: 'jitt' }), [])
+    const forager = useMemo(() => localforage.createInstance({ name: 'realm', storeName: 'jitt' }), []);
     return useMemo(() => ({ forager }), [forager]);
 }
-

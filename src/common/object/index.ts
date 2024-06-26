@@ -2,14 +2,14 @@ import { Path } from 'react-hook-form';
 import { curry } from '../text';
 
 export function _objectMap<T, U>(func: (x: T) => U, obj: Record<string, T>) {
-    return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, func(v)]))
+    return Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, func(v)]));
 }
 
 export const objectMap = <T, U>(func: (x: T) => U) => curry(_objectMap<T, U>)(func);
 export function getProperty<T extends Record<string, any>, U = unknown>(name: Path<T>, obj: T): U | undefined {
     if (name.includes('.')) {
         const [head, ...tail] = name.split('.');
-        return getProperty(tail.join('.'), obj[head] ?? {})
+        return getProperty(tail.join('.'), obj[head] ?? {});
     }
     return obj[name];
 }

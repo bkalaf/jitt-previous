@@ -2,7 +2,7 @@ import { MRT_RowData } from 'material-react-table';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { CheckboxButtonGroup } from 'react-hook-form-mui';
 import { useCallback, useMemo } from 'react';
-import { useEditControlBase } from '../../hooks/useControl';
+import { useEditControlBase } from 'src/hooks/useEditControlBase';
 import { camelToProper } from '../../common/text';
 
 export function CheckGroupControl<T extends MRT_RowData>(props: EditFunctionParams<T, ListBack<string>>) {

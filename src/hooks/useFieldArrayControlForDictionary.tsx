@@ -7,17 +7,23 @@ import { useGetLIComponent } from './useGetLIComponent';
 import { useCallback } from 'react';
 import { StringControl } from '../components/table/controls/StringControl';
 import { SelectControl } from '../components/table/controls/SelectControl';
-
+import { useDependencies } from './useDependencies';
 
 export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>>(column: MRT_Column<T, TValue>, ...keys: TKeys[]) {
     const {
-        columnName: name, required, readonly, objectType, keyType, ...rest
-    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'columnName', ...keys);
+        columnName: name,
+        required,
+        readonly,
+        objectType,
+        keyType,
+        dependencies,
+        ...rest
+    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'dependencies', 'columnName', ...keys);
     const label = column.columnDef.header;
     const formContext = useFormContext();
     if (name == null) throw new Error('no name');
     const append = useCallback(
-        ({ key, value }: { key: string; value: TValue; }) => {
+        ({ key, value }: { key: string; value: TValue }) => {
             const current = formContext.getValues()[name];
             formContext.setValue(name, { ...current, [key]: value });
         },
@@ -40,17 +46,20 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
     const cols = useDirectColumns(objectType);
     const LiComponent = useGetLIComponent(objectType);
     console.info(`formContext`, formContext.getValues());
-    const enumType = keyType === 'string' ? undefined
+    const enumType =
+        keyType === 'string' ? undefined
         : keyType != null ? keyType
-            : undefined;
-    const KeyControl = keyType === 'string' ? (StringControl as React.FunctionComponent<EditFunctionParams<T>>)
+        : undefined;
+    const KeyControl =
+        keyType === 'string' ? (StringControl as React.FunctionComponent<EditFunctionParams<T>>)
         : keyType != null ? (SelectControl as React.FunctionComponent<EditFunctionParams<T>>)
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            : (((props: EditFunctionParams<T>) => null) as React.FunctionComponent<EditFunctionParams<T>>);
+        : (((props: EditFunctionParams<T>) => null) as React.FunctionComponent<EditFunctionParams<T>>);
     // const [KeyControl, enumType]: [React.FunctionComponent<EditFunctionParams<T>>, string | undefined] =
     //     keyType === 'string' ? [StringControl]
     //     : keyType != null ? [SelectControl, keyType]
     //     : [(props: EditFunctionParams<T>) => null];
+    const isDisabled = useDependencies(...(dependencies ?? []));
     return {
         KeyControl,
         keyType,
@@ -67,6 +76,7 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
         LiComponent,
         required,
         readonly,
+        isDisabled,
         ...rest
     };
 }

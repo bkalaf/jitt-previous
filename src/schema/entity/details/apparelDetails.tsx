@@ -79,13 +79,13 @@ export const apparelTops: MRT_ColumnDef<IProduct>[] = [
 
 export const apparelBras: MRT_ColumnDef<IProduct>[] = [
     helper.enum('swimsuitBottomStyle', 'Swimsuit Bottom Style', { enumKey: 'swimsuitBottomStyles' }),
-    helper.enum('swimsuitTopStyle', 'Swimsuit Top Style', {enumKey: 'swimsuitTopStyles' }),
+    helper.enum('swimsuitTopStyle', 'Swimsuit Top Style', { enumKey: 'swimsuitTopStyles' }),
     helper.enum('size', 'Bra Size', { options: getSizeOptions('bustSizes') }),
     helper.measure('bustSize', 'Bust Size', 'in', {})
 ] as MRT_ColumnDef<IProduct>[];
 
 export const apparelFootwear: MRT_ColumnDef<IProduct>[] = [
-    helper.enum('bootType', 'Boot Type', {enumKey: 'bootTypes' }),
+    helper.enum('bootType', 'Boot Type', { enumKey: 'bootTypes' }),
     helper.enum('closureType', 'Closure Type', { enumKey: 'closureTypes' }),
     helper.enum('heightMapType', 'Height Map Type', { enumKey: 'heightMaps' }),
     helper.enum('lifestyleType', 'Lifestyle Type', { enumKey: 'lifestyleTypes' }),

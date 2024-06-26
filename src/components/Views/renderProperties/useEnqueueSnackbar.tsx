@@ -16,4 +16,3 @@ export function useEnqueueSnackbar(variant: SnackBarProperty<'variant'>) {
         [enqueueSnackbar, variant]
     );
 }
-

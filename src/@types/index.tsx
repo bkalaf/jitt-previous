@@ -4,7 +4,7 @@ export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
     website?: string;
-}
+};
 
 export type IAddress = {
     mailing1?: string;
@@ -14,7 +14,7 @@ export type IAddress = {
     province: string;
     country: string;
     postalCode?: string;
-}
+};
 
 export type IFacility = {
     _id: BSON.ObjectId;
@@ -24,4 +24,4 @@ export type IFacility = {
     emailAddress?: string;
     phoneNumber?: string;
     name: string;
-}
+};

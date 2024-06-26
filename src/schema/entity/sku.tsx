@@ -1,4 +1,4 @@
-import Realm, { BSON } from "realm";
+import Realm, { BSON } from 'realm';
 import { IAuction, IBarcode, IHashTag, IProduct, IProductImage, IShipping, ISku, Opt } from '../../types';
 import { ItemConditions, ItemDispositions, Shippers } from '../enums';
 import { barcodeFormatter } from '../../util/barcodeFormatter';
@@ -31,8 +31,8 @@ export class Sku extends EntityBase<ISku> implements ISku {
             disposition: 'not-listed',
             condition: 'like-new',
             packingPercent: 1.3,
-            quantity: 1           
-        }
+            quantity: 1
+        };
     }
     static addFromProduct(product: IProduct): ISku {
         const sku = getInitFor(Sku as any, 'sku');
@@ -42,7 +42,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
         const func = () => {
             result = Sku.localRealm.create<ISku>('sku', item);
             Sku.update(result);
-        }
+        };
         runTransaction(Sku.localRealm, func);
         return result;
     }
@@ -50,7 +50,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
         const bc = Barcode.createFromFullUPC(generator());
         const func = () => {
             this.skus = [...(this.skus ?? []), bc] as any;
-        }
+        };
         runTransaction(Sku.localRealm, func);
         return this;
     }
@@ -81,15 +81,15 @@ export class Sku extends EntityBase<ISku> implements ISku {
             shipping: $.shipping(),
             hashTags: $.hashTag.list
         }
-    }
+    };
     get getIsMediaMail(): boolean {
         return this.product?.flags.includes('isMediaMail') ?? false;
     }
     get getShipping(): IShipping {
-        const { pounds, ounces } = { pounds: 0, ounces: 0, ...convertFromGrams(this.getShipWeight ?? 0) ?? {}};
-        const wght = pounds + (ounces / 16);
-        const { id } = { id: undefined, ...getShipping(wght ?? 0, this.getIsMediaMail) ?? {}};
-        return { id: id ?? 0, version: CURRENT_SHIPPING_VERSION }
+        const { pounds, ounces } = { pounds: 0, ounces: 0, ...(convertFromGrams(this.getShipWeight ?? 0) ?? {}) };
+        const wght = pounds + ounces / 16;
+        const { id } = { id: undefined, ...(getShipping(wght ?? 0, this.getIsMediaMail) ?? {}) };
+        return { id: id ?? 0, version: CURRENT_SHIPPING_VERSION };
     }
     get getShipWeight(): Opt<number> {
         if (this.product == null) throw new Error('no product');
@@ -103,7 +103,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
     get getShippingPrice(): Opt<number> {
         return getShippingById(this.shipping?.id)?.price;
     }
-    get getMaxWeight(): Opt<{ pounds: number, ounces: number }> {
+    get getMaxWeight(): Opt<{ pounds: number; ounces: number }> {
         return convertToPoundsOunces(getShippingById(this.shipping?.id)?.weight);
     }
     get getFolder(): string {
@@ -126,15 +126,14 @@ export class Sku extends EntityBase<ISku> implements ISku {
             const shipping = item.getShipping;
             item.shipping = shipping;
             if (Sku.barcodeGenerator == null) {
-                throw new Error('barcode generator null on Sku')
+                throw new Error('barcode generator null on Sku');
             }
             if (item.skus == null || item.skus.length === 0) {
                 console.info('adding sku to Sku');
                 item.addBarcode(Sku.barcodeGenerator);
             }
-        }
+        };
         runTransaction(realm, func);
         return item;
     }
 }
-

@@ -99,4 +99,3 @@ export const aliasColors = {
     copper: 'orange',
     goldenrod: 'gold'
 };
-

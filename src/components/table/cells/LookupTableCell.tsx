@@ -20,12 +20,11 @@ export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & {
     if (labelProperty == null) throw new Error(`no labelProperty for ${objectType}`);
     return (
         <Link
-            className='w-full cursor-pointer text-left indent-1 font-extrabold underline text-pink-500 decoration-pink-500 group-data-[row-depth="4"]:text-pink-500 group-data-[row-depth="5"]:text-pink-700 group-data-[row-depth="6"]:text-pink-700 group-data-[row-depth="4"]:decoration-pink-500 group-data-[row-depth="5"]:decoration-pink-700 group-data-[row-depth="6"]:decoration-pink-700'
+            className='w-full cursor-pointer text-left indent-1 font-extrabold text-pink-500 underline decoration-pink-500 group-data-[row-depth="4"]:text-pink-500 group-data-[row-depth="5"]:text-pink-700 group-data-[row-depth="6"]:text-pink-700 group-data-[row-depth="4"]:decoration-pink-500 group-data-[row-depth="5"]:decoration-pink-700 group-data-[row-depth="6"]:decoration-pink-700'
             underline='always'
             variant='button'
             component='button'
-            onClick={onClick}
-        >
+            onClick={onClick}>
             {value == null ? '' : (getProperty(labelProperty as any, value) as string)}
         </Link>
     );

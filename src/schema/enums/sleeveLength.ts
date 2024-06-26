@@ -6,4 +6,4 @@ export const sleeveLengths = {
     'short-sleeved': 'short-sleeve',
     'long-sleeved': 'long-sleeve',
     sleeveless: 'sleeveless'
-}
+};

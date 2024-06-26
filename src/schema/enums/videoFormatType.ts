@@ -3,6 +3,3 @@ export const videoFormatTypes = {
     'blu-ray': 'blu-ray',
     vhs: 'vhs'
 };
-
-
-

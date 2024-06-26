@@ -359,7 +359,6 @@ export type WashKeys = keyof typeof wash;
 export type PermanentPressKeys = keyof typeof permanentPress;
 export type GentleOrDelicateKeys = keyof typeof gentleOrDelicate;
 
-
 export type ClothingCareSectionKeys = keyof typeof ClothingCareMap;
 export type ClothingCareAllKeys = {
     [P in ClothingCareSectionKeys]: { [R in keyof (typeof ClothingCareMap)[P]]: R }[keyof (typeof ClothingCareMap)[P] & string];
@@ -369,10 +368,7 @@ export type ClothingCareIndividualKeys<T extends ClothingCareSectionKeys> = {
 }[T];
 
 export const ClothingCareCompleteMap = Object.fromEntries(
-    Object.entries(ClothingCareMap).map(([k, v]) => [
-        k,
-        Object.fromEntries(Object.entries(v).map(([k2, v2]) => [k2, { ...v2, name: camelToKebab(k2) }] as [string, { name: string; text: string; Element: React.FunctionComponent<{ props: any }> }]))
-    ])
+    Object.entries(ClothingCareMap).map(([k, v]) => [k, Object.fromEntries(Object.entries(v).map(([k2, v2]) => [k2, { ...v2, name: camelToKebab(k2) }] as [string, { name: string; text: string; Element: React.FunctionComponent<{ props: any }> }]))])
 ) as Record<'bleaching', Record<ClothingCareIndividualKeys<'bleaching'>, { name: string; text: string; Element: React.FunctionComponent<{ props: any }> }>> &
     Record<'drying', Record<ClothingCareIndividualKeys<'drying'>, { name: string; text: string; Element: React.FunctionComponent<{ props: any }> }>>;
 

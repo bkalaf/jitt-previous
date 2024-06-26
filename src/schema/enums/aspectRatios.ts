@@ -1,4 +1,3 @@
-
 export const aspectRatios = {
     '16:10': '16:10',
     '16:9': '16:9',

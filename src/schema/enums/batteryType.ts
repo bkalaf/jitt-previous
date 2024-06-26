@@ -1,4 +1,3 @@
-
 export const batteryTypes = {
     AA: 'AA',
     AAA: 'AAA',
@@ -7,6 +6,3 @@ export const batteryTypes = {
     CR2032: 'CR2032',
     '9V': '9V'
 };
-
-
-

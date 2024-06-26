@@ -25,7 +25,7 @@ export class Attribute extends EntityBase<IAttribute> implements IAttribute {
     static init(): InitValue<IAttribute> {
         return {
             path: '',
-            unset: false           
-        }
+            unset: false
+        };
     }
 }

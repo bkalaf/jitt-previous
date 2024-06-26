@@ -25,7 +25,7 @@ export async function checkFolder(folder: string) {
 
 export function verifyFolder(folder: string) {
     function inner(volume: string, ...parts: string[]) {
-        const current = [volume, ...parts].join('\\')
+        const current = [volume, ...parts].join('\\');
         console.log(`current`, current);
         if (fs.existsSync(current)) return;
         inner(volume, ...parts.slice(0, parts.length - 1));

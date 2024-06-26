@@ -1,4 +1,3 @@
-
 export const operatingSystems = {
     Android: 'Android',
     Blackberry: 'Blackberry',

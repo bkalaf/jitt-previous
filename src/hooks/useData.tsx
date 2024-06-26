@@ -208,6 +208,3 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         ...opts
     });
 }
-
-
-

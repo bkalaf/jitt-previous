@@ -43,32 +43,41 @@ export function useProvideConfigurationContext(): IConfigurationContext {
             return next;
         });
     }, []);
-    const checkCollection = useCallback((collection: CollectionNames) => {
-        const fullname = ['collections', collection].join('.');
-        if (!Object.hasOwn(configuration.collections, collection)) {
-            updateConfig(fullname as any, defaultState);
-        }
-    }, [configuration.collections, updateConfig])
-    const setCollectionSetting = useCallback(<TKey extends keyof IConfig, TValue>(collection: CollectionNames, name: TKey) => {
-        return (value: ((x: TValue) => TValue) | TValue) => {
-            checkCollection(collection);
-            const fullname = ['collections', collection, name].join('.');
-            updateConfig(fullname as any, value);
-        }
-    }, [checkCollection, updateConfig])
+    const checkCollection = useCallback(
+        (collection: CollectionNames) => {
+            const fullname = ['collections', collection].join('.');
+            if (!Object.hasOwn(configuration.collections, collection)) {
+                updateConfig(fullname as any, defaultState);
+            }
+        },
+        [configuration.collections, updateConfig]
+    );
+    const setCollectionSetting = useCallback(
+        <TKey extends keyof IConfig, TValue>(collection: CollectionNames, name: TKey) => {
+            return (value: ((x: TValue) => TValue) | TValue) => {
+                checkCollection(collection);
+                const fullname = ['collections', collection, name].join('.');
+                updateConfig(fullname as any, value);
+            };
+        },
+        [checkCollection, updateConfig]
+    );
     const getSection = useCallback(
         <TKey extends keyof IConfiguration, TValue>(name: TKey) => {
             return () => getProperty(name, configuration) as TValue;
         },
         [configuration]
     );
-    const getCollectionSetting = useCallback(<TKey extends keyof IConfig, TValue>(collection: CollectionNames, name: TKey) => {
-        return () => {
-            checkCollection(collection);
-            const fullname = ['collections', collection, name].join('.')
-            return getProperty(fullname as any, configuration) as TValue ?? defaultState[name] as TValue;
-        }
-    }, [checkCollection, configuration])
+    const getCollectionSetting = useCallback(
+        <TKey extends keyof IConfig, TValue>(collection: CollectionNames, name: TKey) => {
+            return () => {
+                checkCollection(collection);
+                const fullname = ['collections', collection, name].join('.');
+                return (getProperty(fullname as any, configuration) as TValue) ?? (defaultState[name] as TValue);
+            };
+        },
+        [checkCollection, configuration]
+    );
     const getCollectionSection = useCallback(
         (collection: CollectionNames) => {
             return () => getSection<'collections', Record<CollectionNames, IConfig>>('collections')()[collection];

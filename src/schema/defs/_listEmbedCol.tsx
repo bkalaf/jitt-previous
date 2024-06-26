@@ -8,4 +8,3 @@
 //         return helper.accessor(name as any, { header: header ?? camelToProper(name), enableEditing: !readonly, Cell: createListCell(RowCell), Edit: createListControl<T, U>(objectType, columns, RowCell) }) as MRT_ColumnDef<T, any>;
 //     };
 // }
-

@@ -21,5 +21,3 @@ export const electronicsDetails: MRT_ColumnDef<IProduct>[] = [
     ...$enableWhen.property('powerTypes', ['ac', 'both'])(groupCol(h, 'AC Adapter', currentSettingColumns, 'acAdapter', 'bg-yellow-500', 'text-black')),
     ...$enableWhen.property('powerTypes', ['battery', 'both'])(groupCol(h, 'Battery Stats', currentSettingColumns, 'batteryStats', 'bg-yellow-500', 'text-black'))
 ] as MRT_ColumnDef<IProduct>[];
-
-

@@ -7,4 +7,4 @@ export const auctionSites = {
         text: 'www.lockerfox.com',
         key: 'lockerfox'
     }
-}
+};

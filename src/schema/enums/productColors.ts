@@ -10,11 +10,11 @@ import { aliasColors, mercariColors } from './mercariColors';
 //     }] as [string, ExtendedEnumInfo];
 // })) as Record<keyof typeof aliasColors, ExtendedEnumInfo>;
 
-const colorsMap = Object.fromEntries(Object.entries(mercariColors).map(([k, v]) => [k, ({ key: k, text: k, ...v })]));
+const colorsMap = Object.fromEntries(Object.entries(mercariColors).map(([k, v]) => [k, { key: k, text: k, ...v }]));
 
 export const productColors = {
     ...colorsMap,
-    ...Object.fromEntries(Object.entries(aliasColors).map(([k, v]) => [k, { ...colorsMap[v] , key: k }]))
+    ...Object.fromEntries(Object.entries(aliasColors).map(([k, v]) => [k, { ...colorsMap[v], key: k }]))
 };
 
 console.log(productColors);

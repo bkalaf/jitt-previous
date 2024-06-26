@@ -5,9 +5,7 @@ import { col } from '../../defs/col';
 export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
 
-export const sportingGoodsDetails: MRT_ColumnDef<IProduct>[] = [
-
-] as MRT_ColumnDef<IProduct>[];
+export const sportingGoodsDetails: MRT_ColumnDef<IProduct>[] = [] as MRT_ColumnDef<IProduct>[];
 export const sportingGoodsGolfClubsDetails: MRT_ColumnDef<IProduct>[] = [
     helper.enum('gender', 'Gender', { enumKey: 'genders' }),
     helper.enum('clubType', 'Club Type', { enumKey: 'clubTypes' }),

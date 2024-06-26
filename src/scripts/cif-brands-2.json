@@ -790,7 +790,7 @@
             },
             "Needlecraft": {
                 "selector": "#subCategoryId-122",
-                "brands": ["Singer" ]
+                "brands": ["Singer"]
             },
             "Geekery": {
                 "selector": "#subCategoryId-123",
@@ -802,7 +802,7 @@
             },
             "Candles": {
                 "selector": "#subCategoryId-125",
-                "brands": ["Diptyque","Le Labo"]
+                "brands": ["Diptyque", "Le Labo"]
             },
             "Patterns": {
                 "selector": "#subCategoryId-126",

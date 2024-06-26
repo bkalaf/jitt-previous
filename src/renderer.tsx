@@ -1,5 +1,5 @@
-import Realm from "realm";
-Realm.flags.THROW_ON_GLOBAL_REALM = true
+import Realm from 'realm';
+Realm.flags.THROW_ON_GLOBAL_REALM = true;
 import './assets/css/app.css';
 import { createRoot } from 'react-dom/client';
 import { AppRoot } from './components/AppRoot';

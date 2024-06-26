@@ -32,9 +32,9 @@ export class MercariCategory extends EntityBase<IMercariCategory> implements IMe
     static labelProperty = 'name';
     static init(): InitValue<IMercariCategory> {
         return {
-            name: '', 
+            name: '',
             selector: '#',
             hashTags: []
-        }
+        };
     }
 }

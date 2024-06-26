@@ -4,7 +4,7 @@ import { useTypes } from './useTypes';
 
 export function useConvert(type: string, objectType: string) {
     const types = useTypes();
-    const convert  = useMemo(() => $convert(types as any, objectType), [objectType, types]);
+    const convert = useMemo(() => $convert(types as any, objectType), [objectType, types]);
     return useCallback(
         (values: any) => {
             console.info(`attempting convert: ${type} ${objectType}`);
@@ -27,4 +27,3 @@ export function useConvert(type: string, objectType: string) {
         [convert, objectType, type]
     );
 }
-

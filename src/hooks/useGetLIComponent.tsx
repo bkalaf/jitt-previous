@@ -38,7 +38,7 @@ export function useGetLIComponent<T = unknown>(objectType: string): ListItemCell
         return thisSchema.ctor.liComponent as ListItemCellComponent<T>;
     }
     if (thisSchema.ctor != null && 'labelProperty' in thisSchema.ctor) {
-        return (value?: T) => () => value != null ? getProperty((thisSchema.ctor as any).labelProperty as string, value as any) : '';
+        return (value?: T) => () => (value != null ? getProperty((thisSchema.ctor as any).labelProperty as string, value as any) : '');
     }
     throw new Error(`no liComponent for : ${objectType}`);
 }

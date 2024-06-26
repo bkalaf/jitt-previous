@@ -4,5 +4,3 @@ export const musicFormatTypes = {
     lp: 'lp',
     '8-track': '8-track'
 };
-
-

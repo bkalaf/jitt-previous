@@ -13,8 +13,7 @@ export function AppRoot({ ProviderComponents }: { ProviderComponents: React.Func
                 <Backdrop sx={{ color: '#fff', zIndex: 50 }} open={true}>
                     <CircularProgress color='inherit' />
                 </Backdrop>
-            }
-        >
+            }>
             <RouterProvider router={appRouter(ProviderComponents)} />
         </React.Suspense>
     );

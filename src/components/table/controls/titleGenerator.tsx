@@ -59,14 +59,16 @@ export function generateNarrative(sku: ISku, maxLength = false, importance = 0) 
         header?: string;
         section: Section;
     }[];
-    const order = justTitles.map((item) => {
-        try {
-            return [item.section, item.header, item.narrativeFunc(item.extractor(sku))] as [Section, string, string];
-        } catch (error) {
-            console.error(error);
-            console.error(item);
-        }
-    }).filter((item) => is.not.nil(item) && is.not.nil(item![2])) as [Section, string, string][];
+    const order = justTitles
+        .map((item) => {
+            try {
+                return [item.section, item.header, item.narrativeFunc(item.extractor(sku))] as [Section, string, string];
+            } catch (error) {
+                console.error(error);
+                console.error(item);
+            }
+        })
+        .filter((item) => is.not.nil(item) && is.not.nil(item![2])) as [Section, string, string][];
     const $title = generateTitle(sku, false);
     const result = {
         title: $title,
@@ -87,7 +89,7 @@ export function generateNarrative(sku: ISku, maxLength = false, importance = 0) 
         text != null && text.length > 0 ? char.newLine.concat(text.map((x) => x[1]).join(char.newLine)) : undefined
     ];
     console.info(`sections`, sections);
-    const output = (sections.filter(is.not.nil) as string[]).map(x => x.concat(char.newLine)).join(char.newLine);
+    const output = (sections.filter(is.not.nil) as string[]).map((x) => x.concat(char.newLine)).join(char.newLine);
     process.stdout.write(output.concat('\n'));
     if (maxLength) {
         if (output.length > 1000) {

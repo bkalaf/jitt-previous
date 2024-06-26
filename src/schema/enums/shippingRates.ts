@@ -93,10 +93,9 @@ const shippingRatesV1 = getLowestShippingRate(sortShippingRate(ShippingRatesV1 a
 
 // console.log(shippingRatesMap);
 
-
 export function getShipping(weight: number, isMediaMail = false) {
     const type = isMediaMail ? 'media-mail' : 'standard';
-    const result = shippingRatesV1[type].find(x => x.min < weight && x.max >= weight)
+    const result = shippingRatesV1[type].find((x) => x.min < weight && x.max >= weight);
     return result == null ? undefined : result;
 }
 

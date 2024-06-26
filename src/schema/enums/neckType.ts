@@ -26,9 +26,9 @@ export const neckTypesAliases = {
     'v neck': 'v-neck',
     'scoop neck': 'scoop-neck',
     'off-shoulder': 'off-shoulder-neck'
-}
+};
 
-const neckTypesMap = Object.fromEntries(Object.entries(_neckTypes).map(([k, v]) => [k, ({ key: k, text: v })]));
+const neckTypesMap = Object.fromEntries(Object.entries(_neckTypes).map(([k, v]) => [k, { key: k, text: v }]));
 
 export const neckTypes = {
     ...neckTypesMap,

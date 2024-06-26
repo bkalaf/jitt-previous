@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import { IPiece, Opt } from '../../types';
 import { ShapeTypes } from '../enums';
 import { schemaName } from '../../util/schemaName';
@@ -17,15 +17,15 @@ export class Piece extends EntityBase<IPiece> implements IPiece {
             shape: $.string.opt,
             count: $.int()
         }
-    }
+    };
 
-    static liComponent: ListItemCellComponent<IPiece> = (value: IPiece) => () => [value.count.toFixed(0).concat('x'), value.shape].filter(is.not.nil).join(' ')
+    static liComponent: ListItemCellComponent<IPiece> = (value: IPiece) => () => [value.count.toFixed(0).concat('x'), value.shape].filter(is.not.nil).join(' ');
     static update(item: IPiece) {
         return item;
     }
     static init(): InitValue<IPiece> {
         return {
             count: 1
-        }
+        };
     }
 }

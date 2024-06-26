@@ -1,4 +1,3 @@
-
 export function getGridClass(num: number) {
     switch (num) {
         case 1:

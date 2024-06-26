@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 import { IBrand, IProduct, ISku } from '../types';
-import Realm from "realm";
+import Realm from 'realm';
 
 export type IFileSystemContext = {
     inbound: string;
@@ -22,4 +22,3 @@ export type IFileSystemContext = {
 };
 
 export const FileSystemContext = createContext<IFileSystemContext | undefined>(undefined);
-

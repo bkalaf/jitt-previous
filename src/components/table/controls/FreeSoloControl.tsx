@@ -1,15 +1,15 @@
 import { MRT_RowData } from 'material-react-table';
 import { AutocompleteElement } from 'react-hook-form-mui';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import { useEditControlBase } from '../../../hooks/useControl';
 import { useAutoComplete } from '../../../hooks/useAutoComplete';
 import { useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
 import { useCreateOptionsFromUniqueFacetedValues } from '../../../hooks/useCreateOptionsFromUniqueFacetedValues';
+import { useEditControlBase } from '../../../hooks/useEditControlBase';
 
 export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> | undefined : U | undefined>) {
     useWhyDidIUpdate('AutocompleteControl', props);
-    const { invalid, freeSolo, readonly, comparator, validation, helperText, multiple, onChange, ...rest } = useEditControlBase<
+    const { invalid, freeSolo, readonly, comparator, validation, helperText, multiple, onChange, isDisabled, ...rest } = useEditControlBase<
         T,
         TMultiple extends true ? ListBack<U> : U | undefined,
         'objectType' | 'multiple' | 'freeSolo' | 'comparator',
@@ -44,7 +44,8 @@ export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultip
                 selectOnFocus: true,
                 clearOnBlur: true,
                 handleHomeEndKeys: true,
-                readOnly: readonly
+                readOnly: readonly,
+                disabled: isDisabled()
             }}
             textFieldProps={{
                 helperText: helperText

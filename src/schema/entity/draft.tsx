@@ -14,7 +14,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
     listingID: Opt<string>;
     get isListed(): boolean {
         return this.listingID == null;
-    };
+    }
     get getIsNoBrand(): boolean {
         return this.sku.product?.brand?.mercariBrand == null;
     }
@@ -74,12 +74,21 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
         return category;
     }
     get getHashTags(): string[] {
-        return this.sku.allHashTags.sort((l, r) => {
-            return l.maxCount > r.maxCount ? -1 : l.maxCount < r.maxCount ? 1 : 0;
-        }).map(x => x.name).slice(0, 7) ?? [];
+        return (
+            this.sku.allHashTags
+                .sort((l, r) => {
+                    return (
+                        l.maxCount > r.maxCount ? -1
+                        : l.maxCount < r.maxCount ? 1
+                        : 0
+                    );
+                })
+                .map((x) => x.name)
+                .slice(0, 7) ?? []
+        );
     }
     get getImages(): string[] {
-        return this.sku?.getProductImages.map(x => x.effective).filter(is.not.nil) as string[];
+        return this.sku?.getProductImages.map((x) => x.effective).filter(is.not.nil) as string[];
     }
     get getShouldLocalDelivery(): boolean {
         return this.getShipping.price > 14;
@@ -110,11 +119,11 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             if (item.sku == null) throw new Error('no sku');
             if (item.sku.product == null) throw new Error('no product');
             item.title = (item.sku.product.overrideTitle ? item.sku.product.title : generateTitle(item.sku, true)) ?? '';
-            item.description = generateNarrative(item.sku, true)
+            item.description = generateNarrative(item.sku, true);
             item.isLocalDelivery = item.getShouldLocalDelivery;
             item.smartPricing = item.getShouldSmartPricing;
             item.smartPrice = item.getShouldSmartPricing ? item.price * 0.8 : undefined;
-        }
+        };
         runTransaction(realm, func);
         return item;
     }
@@ -133,7 +142,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
                 smartPrice: undefined
             };
             result = realm.create<IDraft>(schemaName($.draft()), draft);
-        }
+        };
         runTransaction(realm, func);
         return Draft.update(result);
     }

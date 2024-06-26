@@ -1,4 +1,4 @@
-import Realm, { BSON } from "realm";
+import Realm, { BSON } from 'realm';
 import { IAttachment, ISku } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
@@ -69,7 +69,7 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
             sharedLink: $.string.opt,
             tinyURL: $.string.opt
         }
-    }
+    };
     static labelProperty = 'fullpath';
     static init(): InitValue<IAttachment> {
         return {
@@ -82,7 +82,7 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
             attachmentType: AttachmentType.unknown,
             attachmentDisposition: AttachmentDisposition.localOnly,
             attachmentPipelineStage: AttachmentStages.idle
-        }
+        };
     }
     static update(item: IAttachment) {
         return item;

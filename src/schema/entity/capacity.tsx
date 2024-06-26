@@ -36,10 +36,10 @@ export class Dimension<T extends string> extends EntityBase<IDimension<T>> imple
     static update(item: IDimension<string>): IDimension<string> {
         return item;
     }
-    static init(): InitValue<IDimension<string>>{
+    static init(): InitValue<IDimension<string>> {
         return {
             value: 0,
             uom: ''
-        }
+        };
     }
 }

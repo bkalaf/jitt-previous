@@ -23,7 +23,7 @@ declare global {
     };
     export type IDependencyNull = {
         isNull: true;
-    } 
+    };
     export type IDependencyEmpty = {
         isEmpty: true;
     };
@@ -38,7 +38,7 @@ declare global {
         property: TKey;
         dependency: IDeps<T, TKey>;
         isLocal?: boolean;
-    }
+    };
     export interface Window {
         columns: Record<string, MRT_ColumnDef<any>[]>;
     }

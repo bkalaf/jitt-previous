@@ -2500,7 +2500,7 @@ export function getSizeOptions(section: SizingGroups): any {
         .map(({ text, index }) => ({ key: index.toFixed(0), text }));
 }
 export function sizeLookup(index?: number) {
-    return index == null ? undefined : sizes[index.toFixed(0) as keyof typeof sizes]
+    return index == null ? undefined : sizes[index.toFixed(0) as keyof typeof sizes];
 }
 
 // console.log(getSizeOptions('waistSizes'))

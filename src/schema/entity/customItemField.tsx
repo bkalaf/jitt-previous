@@ -25,7 +25,7 @@ export class CustomItemField extends EntityBase<ICustomItemField> implements ICu
         }
     };
     static liComponent = (value?: ICustomItemField) => () => (value == null ? '' : [value.id].join(' - '));
-    static update(item:ICustomItemField) {
+    static update(item: ICustomItemField) {
         return item;
     }
     static init(): InitValue<ICustomItemField> {
@@ -33,6 +33,6 @@ export class CustomItemField extends EntityBase<ICustomItemField> implements ICu
             _id: new BSON.ObjectId(),
             brandsMap: {},
             id: ''
-        }
+        };
     }
 }

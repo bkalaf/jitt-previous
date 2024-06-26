@@ -30,5 +30,3 @@ export function writeConfig(binLeading: number, bin: number, skuLeading: number,
         )
     );
 }
-
-

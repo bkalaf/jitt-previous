@@ -1,4 +1,3 @@
-
 // export function createLookupCell<T extends MRT_RowData, U extends MRT_RowData>(objectType: string, labelProperty: Path<U>) {
 //     return function LookupCell({ cell }: Parameters<Exclude<MRT_ColumnDef<T, U | undefined>['Cell'], undefined>>[0]) {
 //         const value = cell.getValue<U | undefined>();

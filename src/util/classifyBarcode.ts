@@ -26,4 +26,3 @@ export function classifyBarcode(value: string): [boolean, string] {
     }
     return [calcEAN === checkdigit, 'ean'];
 }
-

@@ -1,4 +1,3 @@
-
 // export function createFreeSoloControl<T extends MRT_RowData, U extends string>(comparator: (x: U, y: U) => Compared, required = false, readonly = false, multiple = false) {
 //     return function FreeSoloControl(props: Parameters<Exclude<MRT_ColumnDef<T, U | undefined>['Edit'], undefined>>[0]) {
 //         useWhyDidIUpdate('FreeSoloControl', props);

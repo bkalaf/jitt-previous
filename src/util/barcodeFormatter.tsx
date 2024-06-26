@@ -1,7 +1,6 @@
 import { IBarcode } from '../types';
 import { is } from '../common/is';
 
-
 export function barcodeFormatter(x?: IBarcode | string) {
     const barcode = x as IBarcode | string | undefined;
     if (barcode == null) return '';

@@ -36,7 +36,7 @@ export class Auction extends EntityBase<IAuction> implements IAuction {
             unit: $.string.opt,
             size: $.squareFootage()
         }
-    };;
+    };
     static labelProperty = 'name';
     get totalPrice() {
         const { finalBid, premiumPercent, salesTaxPercent, taxExempt } = { salesTaxPercent: 0, premiumPercent: 0, finalBid: 0, ...this };
@@ -56,6 +56,6 @@ export class Auction extends EntityBase<IAuction> implements IAuction {
             auctionSite: 'storageTreasures',
             closeDate: new Date(Date.now()),
             taxExempt: false
-        }
+        };
     }
 }

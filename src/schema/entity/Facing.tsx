@@ -20,13 +20,13 @@ export class Facing extends EntityBase<IFacing> implements IFacing {
             pov: $.string.list
         }
     };
-    static liComponent: ListItemCellComponent<IFacing> = (value?: IFacing) => () => value == null ? '' : generateCaption(value);
+    static liComponent: ListItemCellComponent<IFacing> = (value?: IFacing) => () => (value == null ? '' : generateCaption(value));
     static update(item: IFacing): IFacing {
         return item;
     }
     static init(): InitValue<IFacing> {
         return {
             pov: []
-        }
+        };
     }
 }

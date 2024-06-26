@@ -27,7 +27,7 @@ export function createRenderCreateRowDialogContentListLink<T extends MRT_RowData
                         if (current instanceof Realm.Types.List) {
                             current.push(...netAdd);
                         } else {
-                            const next = current.push(...netAdd)
+                            const next = current.push(...netAdd);
                             console.log(`next`, next);
                             const result = setProperty(cell.column.columnDef.accessorKey ?? 'n/a', cell.row.original, next);
                             console.log(`result`, result);
@@ -43,10 +43,10 @@ export function createRenderCreateRowDialogContentListLink<T extends MRT_RowData
             (err: Error) => err.message,
             mutate
         );
-        const defaults = useMemo(() => ({ value: [...(cell.getValue() ?? ([] as any))] as any }), [])
+        const defaults = useMemo(() => ({ value: [...(cell.getValue() ?? ([] as any))] as any }), []);
         const context = useForm({
             criteriaMode: 'all',
-            defaultValues: defaults,
+            defaultValues: defaults
         });
         return (
             <FormProvider
@@ -63,15 +63,19 @@ export function createRenderCreateRowDialogContentListLink<T extends MRT_RowData
                     <LinkingControl cell={cell as any} objectType={objectType} labelProperty={labelProperty} />
                 </DialogContent>
                 <DialogActions>
-                    <Box className='flex justify-end w-full gap-x-2'>
+                    <Box className='flex w-full justify-end gap-x-2'>
                         <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
                             Cancel
                         </Button>
-                        <Button className='inline-flex' type='button' color='metal' onClick={(ev) => {
-                            ev.preventDefault();
-                            ev.stopPropagation();
-                            context.handleSubmit(onSuccess, (err: FieldErrors<any>) => onError(new Error(err.root?.message)))(ev);
-                        }}>
+                        <Button
+                            className='inline-flex'
+                            type='button'
+                            color='metal'
+                            onClick={(ev) => {
+                                ev.preventDefault();
+                                ev.stopPropagation();
+                                context.handleSubmit(onSuccess, (err: FieldErrors<any>) => onError(new Error(err.root?.message)))(ev);
+                            }}>
                             Submit
                         </Button>
                     </Box>

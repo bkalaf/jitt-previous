@@ -26,11 +26,11 @@ export const attributeColumns: MRT_ColumnDef<IAttribute>[] = [
         Edit: function AnyValueEdit(props: EditFunctionParams<IAttribute>) {
             const formContext = useFormContext();
             const pathValue = formContext.watch('path');
-            const attribute = attributePaths.find(x => x.key === pathValue);
+            const attribute = attributePaths.find((x) => x.key === pathValue);
             console.info(`pathValue`, pathValue, 'attribute', attribute);
             if (attribute == null) return null;
             const { Component } = attribute;
-            return <Component />
-        } 
+            return <Component />;
+        }
     })
 ] as MRT_ColumnDef<IAttribute>[];

@@ -1,6 +1,5 @@
 import { useEnqueueSnackbar } from './useEnqueueSnackbar';
 
-
 export function useToaster<T extends any[]>(func: (...args: T) => string) {
     const success = useEnqueueSnackbar('success');
     const error = useEnqueueSnackbar('error');

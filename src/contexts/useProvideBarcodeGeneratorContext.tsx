@@ -4,7 +4,6 @@ import { IBarcodeGeneratorContext, readConfig, writeConfig } from './BarcodeGene
 import { Bin } from '../schema/entity/bin';
 import { Sku } from '../schema/entity/sku';
 
-
 export function useProvideBarcodeGeneratorContext(): IBarcodeGeneratorContext {
     const nextBin = useCallback(() => {
         const data = readConfig();
@@ -39,7 +38,7 @@ export function useProvideBarcodeGeneratorContext(): IBarcodeGeneratorContext {
     useEffect(() => {
         Bin.barcodeGenerator = nextBin;
         Sku.barcodeGenerator = nextSku;
-    }, [nextBin, nextSku])
+    }, [nextBin, nextSku]);
     return {
         nextSku,
         nextBin

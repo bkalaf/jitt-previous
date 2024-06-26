@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 
 export type Item = {
     _id: Realm.BSON.ObjectId;
@@ -15,9 +15,9 @@ export const ItemSchema = {
         isComplete: 'bool',
         owner: 'string',
         owner_id: 'string',
-        summary: 'string',
+        summary: 'string'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type apparelBottomsDetails = {
@@ -48,8 +48,8 @@ export const apparelBottomsDetailsSchema = {
         pocketType: 'string?',
         riseType: 'string?',
         size: 'string?',
-        waistSize: 'double?',
-    },
+        waistSize: 'double?'
+    }
 };
 
 export type apparelBrasDetails = {
@@ -66,8 +66,8 @@ export const apparelBrasDetailsSchema = {
         bustSize: 'double?',
         size: 'string?',
         swimsuitBottomStyle: 'string?',
-        swimsuitTopStyle: 'string?',
-    },
+        swimsuitTopStyle: 'string?'
+    }
 };
 
 export type apparelDetails = {
@@ -94,8 +94,8 @@ export const apparelDetailsSchema = {
         rnNo: 'int?',
         styleNo: 'string?',
         text: 'string?',
-        topDetails: 'apparelTopsDetails',
-    },
+        topDetails: 'apparelTopsDetails'
+    }
 };
 
 export type apparelFootwearDetails = {
@@ -128,8 +128,8 @@ export const apparelFootwearDetailsSchema = {
         shoeWidth: 'string?',
         strapType: 'string?',
         toeStyle: 'string?',
-        womensSize: 'string?',
-    },
+        womensSize: 'string?'
+    }
 };
 
 export type apparelTopsDetails = {
@@ -176,8 +176,8 @@ export const apparelTopsDetailsSchema = {
         sleeveSize: 'double?',
         sleeveType: 'string?',
         suitSize: 'string?',
-        suitType: 'string?',
-    },
+        suitType: 'string?'
+    }
 };
 
 export type attribute = {
@@ -192,8 +192,8 @@ export const attributeSchema = {
     properties: {
         path: 'string',
         unset: 'bool',
-        value: 'mixed',
-    },
+        value: 'mixed'
+    }
 };
 
 export type auction = {
@@ -233,9 +233,9 @@ export const auctionSchema = {
         salesTaxPercent: 'double?',
         size: 'squareFootage',
         taxExempt: 'bool',
-        unit: 'string?',
+        unit: 'string?'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type auctionCost = {
@@ -254,8 +254,8 @@ export const auctionCostSchema = {
         finalBid: 'double?',
         isTaxExempt: 'bool',
         premiumPercent: 'double?',
-        salesTaxPercent: 'double?',
-    },
+        salesTaxPercent: 'double?'
+    }
 };
 
 export type barcode = {
@@ -317,9 +317,9 @@ export const brandSchema = {
         hashTags: 'hashTag[]',
         mercariBrand: 'mercariBrand',
         name: 'string',
-        owner: 'string',
+        owner: 'string'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type cableDetails = {
@@ -336,8 +336,8 @@ export const cableDetailsSchema = {
         cordLength: 'double?',
         dataCableDetails: 'dataCableDetails',
         powerCableDetails: 'powerCableDetails',
-        videoCableDetails: 'videoCableDetails',
-    },
+        videoCableDetails: 'videoCableDetails'
+    }
 };
 
 export type cellPhoneDetails = {
@@ -358,8 +358,8 @@ export const cellPhoneDetailsSchema = {
         carrier: 'string?',
         os: 'string?',
         osVersion: 'string?',
-        screenSize: 'double?',
-    },
+        screenSize: 'double?'
+    }
 };
 
 export type classifier = {
@@ -385,9 +385,9 @@ export const classifierSchema = {
         parent: 'classifier',
         shortName: 'string',
         taxonomy: 'mercariTaxonomy',
-        type: 'string[]',
+        type: 'string[]'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type clothingCare = {
@@ -414,8 +414,8 @@ export const clothingCareSchema = {
         permanentPress: 'string[]',
         tumbleDry: 'string[]',
         wash: 'string[]',
-        washTemperature: 'string[]',
-    },
+        washTemperature: 'string[]'
+    }
 };
 
 export type connector = {
@@ -432,8 +432,8 @@ export const connectorSchema = {
         connectorGender: 'string?',
         innerWidth: 'double?',
         outerWidth: 'double?',
-        type: 'string?',
-    },
+        type: 'string?'
+    }
 };
 
 export type currentSetting = {
@@ -450,8 +450,8 @@ export const currentSettingSchema = {
         amperage: 'double?',
         amperageUnit: 'string?',
         voltage: 'double?',
-        wattage: 'double?',
-    },
+        wattage: 'double?'
+    }
 };
 
 export type customAttribute = {
@@ -466,8 +466,8 @@ export const customAttributeSchema = {
     properties: {
         name: 'string?',
         selector: 'string?',
-        value: 'string?',
-    },
+        value: 'string?'
+    }
 };
 
 export type dataCableDetails = {
@@ -480,8 +480,8 @@ export const dataCableDetailsSchema = {
     embedded: true,
     properties: {
         connectorA: 'connector',
-        connectorB: 'connector',
-    },
+        connectorB: 'connector'
+    }
 };
 
 export type draft = {
@@ -539,9 +539,9 @@ export const draftSchema = {
         subCategory: 'valueAndSelector',
         subSubCategory: 'valueAndSelector',
         title: 'string',
-        width: 'double?',
+        width: 'double?'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type electronicsDetails = {
@@ -560,8 +560,8 @@ export const electronicsDetailsSchema = {
         batteryType: 'string?',
         cellPhoneDetails: 'cellPhoneDetails',
         powerTypes: 'string[]',
-        testedOn: 'date?',
-    },
+        testedOn: 'date?'
+    }
 };
 
 export type fabricContent = {
@@ -612,8 +612,8 @@ export const fabricContentSchema = {
         suede: 'double?',
         velvet: 'double?',
         viscose: 'double?',
-        wool: 'double?',
-    },
+        wool: 'double?'
+    }
 };
 
 export type facility = {
@@ -637,9 +637,9 @@ export const facilitySchema = {
         name: 'string',
         owner: 'string',
         phoneNumber: 'string?',
-        selfStorage: 'selfStorage',
+        selfStorage: 'selfStorage'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type generalDetails = {
@@ -650,8 +650,8 @@ export const generalDetailsSchema = {
     name: 'generalDetails',
     embedded: true,
     properties: {
-        itemType: 'string?',
-    },
+        itemType: 'string?'
+    }
 };
 
 export type golfClubDetails = {
@@ -682,8 +682,8 @@ export const golfClubDetailsSchema = {
         loft: 'double?',
         shaftType: 'string?',
         swingWeight: 'string?',
-        wedgeType: 'string?',
-    },
+        wedgeType: 'string?'
+    }
 };
 
 export type hashTag = {
@@ -701,9 +701,9 @@ export const hashTagSchema = {
         lastPing: 'date?',
         name: 'string',
         owner: 'string',
-        usage: 'hashTagUsage[]',
+        usage: 'hashTagUsage[]'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type hashTagUsage = {
@@ -716,8 +716,8 @@ export const hashTagUsageSchema = {
     embedded: true,
     properties: {
         count: 'int',
-        from: 'date',
-    },
+        from: 'date'
+    }
 };
 
 export type homeGoodsDetails = {
@@ -732,8 +732,8 @@ export const homeGoodsDetailsSchema = {
     properties: {
         dinnerwareDetails: 'homeGoodsDinnerwareDetails',
         flatwareDetails: 'homeGoodsFlatwareDetails',
-        kitchenApplianceDetails: 'kitchenAppliancesDetails',
-    },
+        kitchenApplianceDetails: 'kitchenAppliancesDetails'
+    }
 };
 
 export type homeGoodsDinnerwareDetails = {
@@ -752,8 +752,8 @@ export const homeGoodsDinnerwareDetailsSchema = {
         count: 'int?',
         dinnerwareType: 'string?',
         pattern: 'string?',
-        shapeType: 'string?',
-    },
+        shapeType: 'string?'
+    }
 };
 
 export type homeGoodsFlatwareDetails = {
@@ -766,8 +766,8 @@ export const homeGoodsFlatwareDetailsSchema = {
     embedded: true,
     properties: {
         brand: 'string?',
-        pattern: 'string?',
-    },
+        pattern: 'string?'
+    }
 };
 
 export type includedItem = {
@@ -780,8 +780,8 @@ export const includedItemSchema = {
     embedded: true,
     properties: {
         name: 'string',
-        qty: 'int',
-    },
+        qty: 'int'
+    }
 };
 
 export type jewelryDetails = {
@@ -802,8 +802,8 @@ export const jewelryDetailsSchema = {
         displacedWaterVolume: 'double?',
         massInAir: 'double?',
         metal: 'string?',
-        tare: 'double?',
-    },
+        tare: 'double?'
+    }
 };
 
 export type kitchenAppliancesDetails = {
@@ -814,8 +814,8 @@ export const kitchenAppliancesDetailsSchema = {
     name: 'kitchenAppliancesDetails',
     embedded: true,
     properties: {
-        applianceType: 'string?',
-    },
+        applianceType: 'string?'
+    }
 };
 
 export type listing = {
@@ -842,8 +842,8 @@ export const listingSchema = {
         shipmentInfo: 'shipmentInfo',
         shippingCost: 'double',
         stats: 'listingStats',
-        updatedOn: 'date?',
-    },
+        updatedOn: 'date?'
+    }
 };
 
 export type listingStats = {
@@ -856,8 +856,8 @@ export const listingStatsSchema = {
     embedded: true,
     properties: {
         commentsCount: 'int',
-        likesCount: 'int',
-    },
+        likesCount: 'int'
+    }
 };
 
 export type mediaBooksDetails = {
@@ -884,8 +884,8 @@ export const mediaBooksDetailsSchema = {
         illustrators: 'string[]',
         language: 'string?',
         pages: 'int?',
-        publishers: 'string[]',
-    },
+        publishers: 'string[]'
+    }
 };
 
 export type mediaDetails = {
@@ -910,8 +910,8 @@ export const mediaDetailsSchema = {
         subTitle: 'string?',
         title: 'string?',
         videoDetails: 'mediaVideosDetails',
-        videoGameDetails: 'mediaVideoGamesDetails',
-    },
+        videoGameDetails: 'mediaVideoGamesDetails'
+    }
 };
 
 export type mediaMusicDetails = {
@@ -928,8 +928,8 @@ export const mediaMusicDetailsSchema = {
         artist: 'string?',
         musicFormat: 'string?',
         musicGenre: 'string?',
-        tracks: 'track[]',
-    },
+        tracks: 'track[]'
+    }
 };
 
 export type mediaVideoGamesDetails = {
@@ -946,8 +946,8 @@ export const mediaVideoGamesDetailsSchema = {
         ESRBRating: 'string?',
         blurb: 'string?',
         consoleType: 'string?',
-        studio: 'string?',
-    },
+        studio: 'string?'
+    }
 };
 
 export type mediaVideosDetails = {
@@ -980,8 +980,8 @@ export const mediaVideosDetailsSchema = {
         starring: 'string[]',
         studio: 'string?',
         tvRating: 'string?',
-        videoType: 'string?',
-    },
+        videoType: 'string?'
+    }
 };
 
 export type mercariBrand = {
@@ -997,9 +997,9 @@ export const mercariBrandSchema = {
         _id: 'objectId',
         hashTags: 'hashTag[]',
         name: 'string',
-        owner: 'string',
+        owner: 'string'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type mercariCategory = {
@@ -1014,8 +1014,8 @@ export const mercariCategorySchema = {
     properties: {
         hashTags: 'hashTag[]',
         name: 'string',
-        selector: 'string',
-    },
+        selector: 'string'
+    }
 };
 
 export type mercariTaxonomy = {
@@ -1041,9 +1041,9 @@ export const mercariTaxonomySchema = {
         owner: 'string',
         subCategory: 'mercariCategory',
         subSubCategory: 'mercariCategory',
-        timestamp: 'date?',
+        timestamp: 'date?'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type payoutInfo = {
@@ -1060,8 +1060,8 @@ export const payoutInfoSchema = {
         cashedOut: 'bool',
         gracePeriodEndingDate: 'date?',
         ratedOn: 'date?',
-        totalPaid: 'double',
-    },
+        totalPaid: 'double'
+    }
 };
 
 export type powerCableDetails = {
@@ -1078,8 +1078,8 @@ export const powerCableDetailsSchema = {
         compatibleWith: 'string[]',
         connector: 'connector',
         input: 'currentSetting',
-        output: 'currentSetting',
-    },
+        output: 'currentSetting'
+    }
 };
 
 export type price = {
@@ -1094,8 +1094,8 @@ export const priceSchema = {
     properties: {
         effective: 'date?',
         pending: 'bool',
-        price: 'double',
-    },
+        price: 'double'
+    }
 };
 
 export type product = {
@@ -1145,9 +1145,9 @@ export const productSchema = {
         title: 'string?',
         upcs: 'barcode[]',
         weight: 'double?',
-        width: 'double?',
+        width: 'double?'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type productDetails = {
@@ -1178,8 +1178,8 @@ export const productDetailsSchema = {
         mediaDetails: 'mediaDetails',
         sportingGoodsDetails: 'sportingGoodsDetails',
         toysDetails: 'toysDetails',
-        type: 'string[]',
-    },
+        type: 'string[]'
+    }
 };
 
 export type productImage = {
@@ -1203,9 +1203,9 @@ export const productImageSchema = {
         original: 'objectId?',
         owner: 'string',
         removeBg: 'objectId?',
-        sku: 'sku',
+        sku: 'sku'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type purchasePrice = {
@@ -1224,8 +1224,8 @@ export const purchasePriceSchema = {
         purchasedOn: 'date?',
         shippingFee: 'double',
         shippingPaidBy: 'string?',
-        taxChargedToBuyer: 'double',
-    },
+        taxChargedToBuyer: 'double'
+    }
 };
 
 export type scan = {
@@ -1240,8 +1240,8 @@ export const scanSchema = {
     properties: {
         bin: 'bin',
         sku: 'sku',
-        timestamp: 'date',
-    },
+        timestamp: 'date'
+    }
 };
 
 export type selfStorage = {
@@ -1257,9 +1257,9 @@ export const selfStorageSchema = {
         _id: 'objectId',
         name: 'string',
         owner: 'string',
-        website: 'string?',
+        website: 'string?'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type shipmentInfo = {
@@ -1284,8 +1284,8 @@ export const shipmentInfoSchema = {
         estimatedDeliveryDate: 'date?',
         payoutInfo: 'payoutInfo',
         shippedOn: 'date?',
-        trackingNumber: 'string?',
-    },
+        trackingNumber: 'string?'
+    }
 };
 
 export type shippingService = {
@@ -1306,8 +1306,8 @@ export const shippingServiceSchema = {
         id: 'int',
         maxWeight: 'double',
         service: 'string?',
-        version: 'int',
-    },
+        version: 'int'
+    }
 };
 
 export type sku = {
@@ -1345,9 +1345,9 @@ export const skuSchema = {
         quantity: 'int',
         scans: 'scan[]',
         shippingService: 'shippingService',
-        skus: 'barcode[]',
+        skus: 'barcode[]'
     },
-    primaryKey: '_id',
+    primaryKey: '_id'
 };
 
 export type sportingGoodsDetails = {
@@ -1358,8 +1358,8 @@ export const sportingGoodsDetailsSchema = {
     name: 'sportingGoodsDetails',
     embedded: true,
     properties: {
-        golfClubDetails: 'golfClubDetails',
-    },
+        golfClubDetails: 'golfClubDetails'
+    }
 };
 
 export type squareFootage = {
@@ -1372,8 +1372,8 @@ export const squareFootageSchema = {
     embedded: true,
     properties: {
         length: 'double?',
-        width: 'double?',
-    },
+        width: 'double?'
+    }
 };
 
 export type toysDetails = {
@@ -1392,8 +1392,8 @@ export const toysDetailsSchema = {
         maxPlayers: 'int?',
         minAge: 'int?',
         minPlayers: 'int?',
-        puzzlePieceCount: 'int?',
-    },
+        puzzlePieceCount: 'int?'
+    }
 };
 
 export type track = {
@@ -1410,8 +1410,8 @@ export const trackSchema = {
         feat: 'string[]',
         index: 'int',
         name: 'string?',
-        runtimeSecs: 'int?',
-    },
+        runtimeSecs: 'int?'
+    }
 };
 
 export type valueAndSelector = {
@@ -1424,8 +1424,8 @@ export const valueAndSelectorSchema = {
     embedded: true,
     properties: {
         selector: 'string?',
-        value: 'string?',
-    },
+        value: 'string?'
+    }
 };
 
 export type videoCableDetails = {
@@ -1438,6 +1438,6 @@ export const videoCableDetailsSchema = {
     embedded: true,
     properties: {
         connectorA: 'connector',
-        connectorB: 'connector',
-    },
+        connectorB: 'connector'
+    }
 };

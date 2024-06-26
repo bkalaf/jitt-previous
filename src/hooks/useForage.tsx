@@ -1,4 +1,4 @@
-import  localforage from 'localforage';
+import localforage from 'localforage';
 import { useCallback } from 'react';
 import { LazyDataOrModifiedFn, useAsyncResource } from 'use-async-resource';
 
@@ -31,7 +31,7 @@ export function useProvideLocalValue(forage: LocalForage, individual: number = 0
             individual: $individual
         };
     }, [forage, individual, keys, manufacturer, value]);
-    return [value, incrementValue] as [LazyDataOrModifiedFn<IBarcodeCounter>, () => Promise<IBarcodeCounter>]
+    return [value, incrementValue] as [LazyDataOrModifiedFn<IBarcodeCounter>, () => Promise<IBarcodeCounter>];
 }
 export function useProvideLocalForage() {
     const forage = localforage.createInstance({
@@ -48,6 +48,5 @@ export function useProvideLocalForage() {
             incrementSku: incrementSku,
             incrementBin: incrementBin
         }
-    }
-
+    };
 }

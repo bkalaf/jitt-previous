@@ -1,16 +1,16 @@
 export const _genders = {
-    mens: "mens",
-    womens: "womens",
-    boys: "boys",
-    girls: "girls",
-    unisex: "unisex"
+    mens: 'mens',
+    womens: 'womens',
+    boys: 'boys',
+    girls: 'girls',
+    unisex: 'unisex'
 };
 
 export const aliasGenders = {
     "men's": 'mens',
-    "men": 'mens',
+    men: 'mens',
     "women's": 'womens',
-    "women": 'womens',
+    women: 'womens',
     boy: 'boys',
     "boy's": 'boys',
     girl: 'girls',
@@ -28,7 +28,7 @@ export const aliasGenders = {
 
 // as Record<keyof typeof _genders | keyof typeof aliasGenders, { text: string, key: string; }>
 
-const gendersMap = Object.fromEntries(Object.entries(_genders).map(([k, v]) => [k, ({ key: k, text: v })]));
+const gendersMap = Object.fromEntries(Object.entries(_genders).map(([k, v]) => [k, { key: k, text: v }]));
 
 export const genders = {
     ...gendersMap,

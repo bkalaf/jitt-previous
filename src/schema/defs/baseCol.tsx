@@ -47,7 +47,7 @@ export function baseCol<T extends MRT_RowData, TValue>(
         comparator?: ColumnMeta<T, TValue>['comparator'];
         flags?: ColumnMeta<T, TValue>['flags'];
         keyType?: ColumnMeta<T, TValue>['keyType'];
-        id?: string
+        id?: string;
     } = {},
     onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void,
     ...dependencies: IDependency<T, any>[]

@@ -1,4 +1,3 @@
-
 export enum AttachmentDispositionString {
     unknown,
     identifyType,
@@ -9,4 +8,3 @@ export enum AttachmentDispositionString {
     sharedWithLink,
     sharedWithShortenedLink
 }
-

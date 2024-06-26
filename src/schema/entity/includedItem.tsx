@@ -24,6 +24,6 @@ export class IncludedItem extends EntityBase<IIncludedItem> implements IIncluded
         return {
             qty: 1,
             name: ''
-        }
+        };
     }
 }

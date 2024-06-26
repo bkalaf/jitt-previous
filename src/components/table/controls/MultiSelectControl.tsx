@@ -4,11 +4,11 @@ import { useCallback, useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useAutoComplete } from '../../../hooks/useAutoComplete';
-import { useEditControlBase } from '../../../hooks/useControl';
+import { useEditControlBase } from '../../../hooks/useEditControlBase';
 
 export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<string>>(props: EditFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('MultiSelectControl', props);
-    const { invalid, multiple, helperText, onChange, validation, readonly, enumInfo, ...rest } = useEditControlBase<T, U, 'enumInfo' | 'multiple', Element>(props, 'enumInfo', 'multiple');
+    const { invalid, multiple, helperText, onChange, validation, readonly, enumInfo, isDisabled, ...rest } = useEditControlBase<T, U, 'enumInfo' | 'multiple', Element>(props, 'enumInfo', 'multiple');
     if (enumInfo == null) throw new Error('no enuminfo in MultiSelectControl');
     const filterOptions = useMemo(
         () =>
@@ -43,7 +43,8 @@ export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<str
                 selectOnFocus: true,
                 clearOnBlur: true,
                 handleHomeEndKeys: true,
-                readOnly: readonly
+                readOnly: readonly,
+                disabled: isDisabled()
             }}
             textFieldProps={{
                 helperText: helperText

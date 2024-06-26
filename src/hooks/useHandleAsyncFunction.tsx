@@ -1,3 +1,1 @@
-export function useHandleAsyncFunction() {
-    
-}
+export function useHandleAsyncFunction() {}

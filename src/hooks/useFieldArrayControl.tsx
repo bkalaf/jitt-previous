@@ -4,6 +4,7 @@ import { useDirectColumns } from './useColumns';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useEditColumnMeta';
 import { useGetLIComponent } from './useGetLIComponent';
+import { useDependencies } from './useDependencies';
 
 export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>>(column: MRT_Column<T, TValue>, ...keys: TKeys[]) {
     const {
@@ -12,8 +13,9 @@ export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extend
         readonly,
         objectType,
         keyType,
+        dependencies,
         ...rest
-    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'columnName', ...keys);
+    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'dependencies', 'columnName', ...keys);
     const label = column.columnDef.header;
     const formContext = useFormContext();
     if (name == null) throw new Error('no name');
@@ -29,6 +31,7 @@ export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extend
     const cols = useDirectColumns(objectType);
     const LiComponent = useGetLIComponent(objectType);
     console.info(`formContext`, formContext.getValues());
+    const isDisabled = useDependencies(...(dependencies ?? []));
     return {
         keyType,
         cols,
@@ -43,6 +46,7 @@ export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extend
         objectType,
         LiComponent,
         required,
+        isDisabled,
         readonly,
         ...rest
     };

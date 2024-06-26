@@ -1,14 +1,4 @@
-import {
-    MRT_ColumnFiltersState,
-    MRT_ColumnOrderState,
-    MRT_ColumnPinningState,
-    MRT_ColumnSizingState,
-    MRT_DensityState,
-    MRT_ExpandedState,
-    MRT_GroupingState, MRT_RowSelectionState,
-    MRT_SortingState, MRT_VisibilityState
-} from 'material-react-table';
-
+import { MRT_ColumnFiltersState, MRT_ColumnOrderState, MRT_ColumnPinningState, MRT_ColumnSizingState, MRT_DensityState, MRT_ExpandedState, MRT_GroupingState, MRT_RowSelectionState, MRT_SortingState, MRT_VisibilityState } from 'material-react-table';
 
 export const defaultState = {
     columnFilters: [] as MRT_ColumnFiltersState,

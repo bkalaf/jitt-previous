@@ -108,7 +108,7 @@ export function ofDate(format: string) {
 export function ofWeight(grams?: Opt<number>) {
     const total = convertFromGrams(grams);
     if (total == null) return total;
-    const {  pounds, ounces } = total
+    const { pounds, ounces } = total;
     const poundsOunces = [pounds === 0 ? undefined : [pounds, pounds === 1 ? 'lb' : 'lbs'].join(''), ounces === 0 ? undefined : [ounces, ounces === 1 ? 'oz' : 'ozs'].join('')].filter(is.not.nil).join(' ');
     const metric = grams == null ? undefined : [truncateAuto(grams), 'g'].join('');
     return [poundsOunces, surroundParensIgnore(metric)].filter(is.not.nil).join(' ');
@@ -122,7 +122,7 @@ export function ofFlag(flag: Flags) {
 export function ofPrimaryColor(color: DBList<ProductColors>) {
     if (color == null || color.length === 0) return undefined;
     const primary = color[0];
-    return $me.productColors.find(x => x.key === primary)?.text ?? primary;
+    return $me.productColors.find((x) => x.key === primary)?.text ?? primary;
 }
 export function ofCopyright({ copyright, musicFormat, videoFormat }: IProduct) {
     const $musicFormat = ofEnum('musicFormatTypes')(musicFormat);
@@ -168,12 +168,11 @@ export function ofPiece(enumKey: keyof typeof $me) {
     };
 }
 
-
 export function ofDictionary<T>(func: (tuple: [string, T]) => string | undefined, joiner = '\n') {
     return (value: Opt<DBDictionary<T>>) => {
         if (value == null) return undefined;
-        return Object.entries(value).map(func).join(joiner)
-    }
+        return Object.entries(value).map(func).join(joiner);
+    };
 }
 export function ofBattery({ batteryCount, batteryType }: IProduct) {
     if (batteryType == null) return undefined;
@@ -190,7 +189,7 @@ export function ofCurrent(value: ICurrentSetting) {
 export function ofCableType(value: Opt<CableTypes>) {
     if (value == null) return undefined;
     if (value === 'data') return 'Data Cable';
-    if (value === 'power') return 'AC Power Cable'; 
+    if (value === 'power') return 'AC Power Cable';
     if (value === 'video') return 'Video Cable';
 }
 export function ofConnector({ connectors, cableType }: IProduct) {
@@ -204,12 +203,14 @@ export function ofConnector({ connectors, cableType }: IProduct) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return (value: Opt<string>) => undefined;
     }
-    return connectors.map(conn => {
-        const { generation, innerWidth, outerWidth, type } = conn;
-        const widths = innerWidth == null && outerWidth == null ? undefined : [ofMeasure('mm')(outerWidth), surroundParensIgnore(ofMeasure('mm')(innerWidth))].filter(is.not.nil).join(' ');
-        const connType = inner()(type);
-        return [connType, widths, generation].some(is.not.nil) ? [connType, generation?.toFixed(1), widths].filter(is.not.nil).join(' ') : undefined;
-    }).join(' to ')
+    return connectors
+        .map((conn) => {
+            const { generation, innerWidth, outerWidth, type } = conn;
+            const widths = innerWidth == null && outerWidth == null ? undefined : [ofMeasure('mm')(outerWidth), surroundParensIgnore(ofMeasure('mm')(innerWidth))].filter(is.not.nil).join(' ');
+            const connType = inner()(type);
+            return [connType, widths, generation].some(is.not.nil) ? [connType, generation?.toFixed(1), widths].filter(is.not.nil).join(' ') : undefined;
+        })
+        .join(' to ');
 }
 export function ofClothingCare(value?: IClothingCare) {
     if (value == null) return;

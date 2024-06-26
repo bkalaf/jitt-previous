@@ -3,7 +3,6 @@
 // import { createListControl } from '../../components/controls/createListControl';
 // import { createListCell } from '../../components/Cells/createListCell';
 
-
 // export function listPrimitiveCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
 //     return function <U extends JSPrimitives>(
 //         name: keyof T & string,
@@ -21,6 +20,6 @@
 // // export function dictionaryPrimitiveCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
 // //     return function <U extends JSPrimitives>(name: keyof T & string,
 // //         header: string | undefined, objectType: RealmPrimitives, RowCell: IRowCell<U>, readonly = false) {
-// //         return helper.accessor(name as any, { header: header ?? camelToProper(name), enableEditing: !readonly, Cell: createDictionaryCell<T, U>(RowCell)}), Edit: 
+// //         return helper.accessor(name as any, { header: header ?? camelToProper(name), enableEditing: !readonly, Cell: createDictionaryCell<T, U>(RowCell)}), Edit:
 // //     }
 // // }

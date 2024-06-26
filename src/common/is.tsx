@@ -1,11 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="./../global.d.ts" />
-import Realm, { BSON } from "realm";
+import Realm, { BSON } from 'realm';
 import { isPrimitive } from '../schema/conversion/cnvrt';
 
 function typeCheck<T>(name: string) {
     return function (obj?: any): obj is T {
-        return obj == null ? (name === 'undefined' ? typeof obj === 'undefined' : obj == null && typeof obj === 'object') : typeof obj === name;
+        return (
+            obj == null ?
+                name === 'undefined' ?
+                    typeof obj === 'undefined'
+                :   obj == null && typeof obj === 'object'
+            :   typeof obj === name
+        );
     };
 }
 function instanceCheck<T>(Ctor: { new (...args: any[]): T }) {
@@ -131,13 +137,12 @@ export const is = {
 // console.log(slice([0, 1, 2, 3, 4, 5, 6], 6))
 // console.log(slice([0, 1, 2, 3, 4, 5, 6], 7))
 
-
 // console.log(roundUp(5)(76));
 // console.log(roundUp(5)(75));
 // console.log(roundUp(5)(74));
 // console.log(_roundUp(10, 91));
 // console.log(calculateSize(2))
-// console.log(calculateSize(100)) 
+// console.log(calculateSize(100))
 // console.log(calculateSize(101))
 
 // console.log(cc()(10));
@@ -145,7 +150,6 @@ export const is = {
 // console.log(cc(5)(13));
 // console.log(cc(9)(11));
 // console.log(cc(4)(11));
-
 
 // export function testLoggingLevel(setAs: ConsoleLoggingLevel, testFor: ConsoleLoggingLevel) {
 //     const LOG_LEVEL = setAs;

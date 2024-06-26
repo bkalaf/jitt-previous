@@ -94,5 +94,35 @@ export function usePersistState(collection: CollectionNames) {
             onSortingChange: onSortingChange,
             initialState: defaultState
         };
-    }, [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, expanded, globalFilter, grouping, onColumnFiltersChange, onColumnOrderChange, onColumnPinningChange, onColumnSizingChange, onColumnVisibilityChange, onDensityChange, onExpandedChange, onGlobalFilterChange, onGroupingChange, onPaginationChange, onRowSelectionChange, onShowColumnFiltersChange, onShowGlobalFilterChange, onSortingChange, pagination, resetSettings, rowSelection, showColumnFilters, showGlobalFilter, sorting]);
+    }, [
+        columnFilters,
+        columnOrder,
+        columnPinning,
+        columnSizing,
+        columnVisibility,
+        density,
+        expanded,
+        globalFilter,
+        grouping,
+        onColumnFiltersChange,
+        onColumnOrderChange,
+        onColumnPinningChange,
+        onColumnSizingChange,
+        onColumnVisibilityChange,
+        onDensityChange,
+        onExpandedChange,
+        onGlobalFilterChange,
+        onGroupingChange,
+        onPaginationChange,
+        onRowSelectionChange,
+        onShowColumnFiltersChange,
+        onShowGlobalFilterChange,
+        onSortingChange,
+        pagination,
+        resetSettings,
+        rowSelection,
+        showColumnFilters,
+        showGlobalFilter,
+        sorting
+    ]);
 }

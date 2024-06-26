@@ -61,6 +61,6 @@ export class ClothingCare extends EntityBase<IClothingCare> implements IClothing
             permanentPress: [],
             gentleOrDelicate: [],
             tumbleDry: []
-        }
+        };
     }
 }

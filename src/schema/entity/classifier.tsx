@@ -51,7 +51,7 @@ export class Classifier extends EntityBase<IClassifier> implements IClassifier {
             hashTags: [],
             type: [],
             attributes: []
-        }
+        };
     }
     get allHashTags(): IHashTag[] {
         return distinctByOID<IHashTag>([...this.hashTags, ...(this.taxonomy?.allHashTags ?? []), ...(this.parent?.allHashTags ?? [])]);
@@ -61,7 +61,7 @@ export class Classifier extends EntityBase<IClassifier> implements IClassifier {
     }
     get allAttributes(): IAttribute[] {
         const map = new Map<string, IAttribute>();
-        distinctBy((left: IAttribute, right: IAttribute) => left.path === right.path, [...(this?.parent?.allAttributes ?? []), ...(this.attributes ?? [])]).forEach(x => map.set(x.path, x));
+        distinctBy((left: IAttribute, right: IAttribute) => left.path === right.path, [...(this?.parent?.allAttributes ?? []), ...(this.attributes ?? [])]).forEach((x) => map.set(x.path, x));
         return Array.from(map.values());
     }
     get subRows(): Realm.Results<any> {

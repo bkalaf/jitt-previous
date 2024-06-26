@@ -25,9 +25,7 @@ export function AppProviders({ children }: { children: Children }) {
                                     <QueryClientProvider client={queryClient}>
                                         <ForagerProvider>
                                             <ConfigurationProvider>
-                                                <BarcodeGeneratorProvider>
-                                                    {children}
-                                                </BarcodeGeneratorProvider>
+                                                <BarcodeGeneratorProvider>{children}</BarcodeGeneratorProvider>
                                             </ConfigurationProvider>
                                         </ForagerProvider>
                                     </QueryClientProvider>

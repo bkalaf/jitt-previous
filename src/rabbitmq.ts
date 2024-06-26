@@ -49,12 +49,15 @@ function nextSkuConsumer(event: Electron.IpcMainInvokeEvent) {
     const output = ['4', skuLeading.toFixed(0), sku.toFixed(0).padStart(5, '0')].join('');
     const checkDigit = calculateUPCCheckDigit(output);
     const fullbarcode = [output, checkDigit].join('');
-    fs.writeFileSync(barcodeData, JSON.stringify({
-        sku,
-        skuLeading,
-        bin,
-        binLeading
-    }));
+    fs.writeFileSync(
+        barcodeData,
+        JSON.stringify({
+            sku,
+            skuLeading,
+            bin,
+            binLeading
+        })
+    );
     return Promise.resolve(fullbarcode);
 }
 function nextBinConsumer(event: Electron.IpcMainInvokeEvent) {
@@ -81,12 +84,15 @@ function nextBinConsumer(event: Electron.IpcMainInvokeEvent) {
     const output = ['4', binLeading.toFixed(0), bin.toFixed(0).padStart(5, '0')].join('');
     const checkDigit = calculateUPCCheckDigit(output);
     const fullbarcode = [output, checkDigit].join('');
-    fs.writeFileSync(barcodeData, JSON.stringify({
-        sku, 
-        skuLeading,
-        bin,
-        binLeading
-    }));
+    fs.writeFileSync(
+        barcodeData,
+        JSON.stringify({
+            sku,
+            skuLeading,
+            bin,
+            binLeading
+        })
+    );
     return Promise.resolve(fullbarcode);
 }
 
@@ -173,11 +179,14 @@ ipcMain.handle('fileSystemChange', async (event: Electron.IpcMainInvokeEvent, ty
     const newChannel = await conn.createChannel();
     console.info(`channel created`);
     process.stdout.write('newChannel created\n');
-    newChannel?.sendToQueue(fileSystemChangeQueue, toBuffer({
-        type,
-        origin,
-        destination
-    }));
+    newChannel?.sendToQueue(
+        fileSystemChangeQueue,
+        toBuffer({
+            type,
+            origin,
+            destination
+        })
+    );
     return Promise.resolve();
 });
 

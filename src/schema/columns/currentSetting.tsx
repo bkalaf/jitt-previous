@@ -10,4 +10,3 @@ export const currentSettingColumns: MRT_ColumnDef<ICurrentSetting>[] = [
     groupCol(h, 'Voltage', dimension('voltageUOM'), 'voltage', 'bg-orange-500', 'text-black'),
     groupCol(h, 'Wattage', dimension('wattageUOM'), 'wattage', 'bg-cyan-500', 'text-white')
 ] as MRT_ColumnDef<ICurrentSetting>[];
-

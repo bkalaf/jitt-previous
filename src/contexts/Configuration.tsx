@@ -11,5 +11,3 @@ export type IConfigurationContext = {
 };
 
 export const ConfigurationContext = createContext<IConfigurationContext | undefined>(undefined);
-
-

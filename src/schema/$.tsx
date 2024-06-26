@@ -2,28 +2,28 @@ import { PropertyTypeName } from 'realm';
 import { objectMap } from '../common/object';
 import { appendText } from '../common/text';
 
-const obj = function(name: string) {
-    const output = function() {
-        return appendText('?')(name);;
-    }
+const obj = function (name: string) {
+    const output = function () {
+        return appendText('?')(name);
+    };
     output.list = appendText('[]')(name);
     output.set = appendText('<>')(name);
     output.dictionary = appendText('{}')(name);
     return output;
-}
-const primitive = function(name: string) {
-    const output = function() {
+};
+const primitive = function (name: string) {
+    const output = function () {
         return name;
-    }
+    };
     output.opt = appendText('?')(name);
     output.list = appendText('[]')(name);
     output.set = appendText('<>')(name);
     output.dictionary = appendText('{}')(name);
-    output.default = function(x?: any) {
-        return { type: name as PropertyTypeName, optional: false, default: x }
-    }
+    output.default = function (x?: any) {
+        return { type: name as PropertyTypeName, optional: false, default: x };
+    };
     return output;
-}
+};
 
 const primitiveNames = {
     objectId: 'objectId',
@@ -36,9 +36,9 @@ const primitiveNames = {
     string: 'string',
     date: 'date',
     data: 'data'
-}
+};
 
-const _primitives = objectMap(primitive)(primitiveNames) as Record<keyof typeof primitiveNames, ReturnType<typeof primitive>>;;
+const _primitives = objectMap(primitive)(primitiveNames) as Record<keyof typeof primitiveNames, ReturnType<typeof primitive>>;
 
 const objectNames = {
     address: 'address',
@@ -83,7 +83,7 @@ const objectNames = {
     minMax: 'minMax',
     piece: 'piece',
     apparelSize: 'apparelSize'
-}
+};
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;
 
@@ -91,4 +91,4 @@ export const $ = {
     ..._objects,
     ..._primitives,
     mixed: () => 'mixed'
-}
+};

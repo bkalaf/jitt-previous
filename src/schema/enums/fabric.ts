@@ -18,6 +18,6 @@ export const fabric = {
     velvet: 'velvet',
     viscose: 'viscose',
     wool: 'wool'
-}
+};
 
 export type FabricTypes = keyof typeof fabric;

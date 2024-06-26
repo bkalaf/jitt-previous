@@ -55,7 +55,7 @@ export function createRenderCreateRowDialogContentNested(objectType: string, ini
                 <DialogTitle>{camelToProper(objectType)}</DialogTitle>
                 <DialogContent>{internalEditComponents}</DialogContent>
                 <DialogActions>
-                    <Box className='flex justify-end w-full gap-x-2'>
+                    <Box className='flex w-full justify-end gap-x-2'>
                         <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
                             Cancel
                         </Button>

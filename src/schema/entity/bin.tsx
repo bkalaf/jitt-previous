@@ -53,6 +53,6 @@ export class Bin extends EntityBase<IBin> implements IBin {
             _id: new BSON.ObjectId(),
             name: '',
             barcode: barcode()
-        }
+        };
     }
 }

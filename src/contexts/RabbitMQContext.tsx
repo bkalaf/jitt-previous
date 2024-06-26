@@ -1,4 +1,3 @@
-
 export type IRabbitMQContext = {
     fileSystemChange: (type: FileSystemActions['type'], origin: string, destination?: string) => void;
     nextBinBarcode: () => Promise<string>;
@@ -6,4 +5,3 @@ export type IRabbitMQContext = {
 };
 
 // const $draftReviewPipeline = camelToKebab('draftApprovalPipeline');
-

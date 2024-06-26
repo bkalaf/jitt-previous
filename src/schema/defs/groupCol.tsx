@@ -18,5 +18,5 @@ export function groupCol<T extends MRT_RowData, U extends MRT_RowData>(
             columns: mapEmbed<V, U, VKey>(columns as any, propertyName, ...dependencies),
             ...(groupProps(bgColor, textColor) as any)
         });
-    } as any
+    } as any;
 }

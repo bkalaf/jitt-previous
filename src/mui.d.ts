@@ -44,8 +44,8 @@ declare module '@tanstack/table-core' {
         flags?: string[];
         keyType?: 'faceted' | 'string' | string;
         enumInfo?: {
-            asArray: { text: string, key: string }[],
-            asRecord: Record<string, { text: string, selector?: string, key: string }>
+            asArray: { text: string; key: string }[];
+            asRecord: Record<string, { text: string; selector?: string; key: string }>;
         };
         dependencies?: IDependency<T, any>[];
     }

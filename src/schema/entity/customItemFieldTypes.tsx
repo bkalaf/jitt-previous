@@ -1,5 +1,5 @@
 import { ICustomItemFieldType, ICustomItemFieldTypes } from '../../types';
-import Realm from "realm";
+import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { EntityBase } from './EntityBase';

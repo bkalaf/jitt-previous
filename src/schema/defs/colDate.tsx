@@ -18,7 +18,18 @@ export function colDate<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
             readonly = false
         ): MRT_ColumnDef<T> {
             const format = 'YYYY/MM/DD';
-            return baseCol<T, Date | undefined>(helper, name, StringTableCell, DateControl, $header, required, readonly, { formatter: (x?: Date) => (x == null ? '' : dayjs(x).format(format)), ...(opts ?? {})}, undefined, ...dependencies) as MRT_ColumnDef<T>;
+            return baseCol<T, Date | undefined>(
+                helper,
+                name,
+                StringTableCell,
+                DateControl,
+                $header,
+                required,
+                readonly,
+                { formatter: (x?: Date) => (x == null ? '' : dayjs(x).format(format)), ...(opts ?? {}) },
+                undefined,
+                ...dependencies
+            ) as MRT_ColumnDef<T>;
             // return helper.accessor(name as any, {
             //     ...calculateSizes(header, { maxLength, minLength, ...(opts ?? {}) }),
             //     Cell: createStringCell<T, Date>(formatter ?? ((x?: Date) => (x == null ? '' : dayjs(x).format(format)))),

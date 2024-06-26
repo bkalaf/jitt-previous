@@ -28,9 +28,9 @@ export const _legStyles = {
     'wide-leg': 'wide-leg'
 };
 
-const legStylesMap = Object.fromEntries(Object.entries(_legStyles).map(([k, v]) => [k, ({ key: k, text: v })]));
+const legStylesMap = Object.fromEntries(Object.entries(_legStyles).map(([k, v]) => [k, { key: k, text: v }]));
 
 export const legStyles = {
     ...legStylesMap,
     ...Object.fromEntries(Object.entries(aliasLegStyles).map(([k, v]) => [k, legStylesMap[v]]))
-}
+};

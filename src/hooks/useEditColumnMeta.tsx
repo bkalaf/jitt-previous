@@ -2,7 +2,6 @@ import { MRT_RowData } from 'material-react-table';
 import { useMemo } from 'react';
 import { ColumnMeta } from '@tanstack/react-table';
 
-
 export function useEditColumnMeta<T extends MRT_RowData, U, TKey extends keyof ColumnMeta<T, U>>(props: EditFunctionParams<T, U | undefined>, ...keys: TKey[]) {
     const {
         column: {
@@ -13,9 +12,10 @@ export function useEditColumnMeta<T extends MRT_RowData, U, TKey extends keyof C
     // const { columnName, objectType } = meta;
     // if (columnName == null || objectType == null) throw new Error('no columnName or objectType');
     return useMemo(
-        () => ({
-            ...Object.fromEntries(keys.map((k) => [k, (meta as any)[k]]))
-        }) as {
+        () =>
+            ({
+                ...Object.fromEntries(keys.map((k) => [k, (meta as any)[k]]))
+            }) as {
                 [P in TKey]: ColumnMeta<T, U>[P];
             },
         [keys, meta]

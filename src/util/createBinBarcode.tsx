@@ -2,7 +2,7 @@
 
 import { surround } from '../common/text/surround';
 
-export function createBinBarcode(bin: { barcode: { scanValue?: string }, name?: string, notes?: string }) {
+export function createBinBarcode(bin: { barcode: { scanValue?: string }; name?: string; notes?: string }) {
     const barcode = bin.barcode?.scanValue;
     const name = bin.name;
     const notes = bin.notes;

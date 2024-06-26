@@ -18,8 +18,7 @@ export function openRealm(partitionValue: string) {
                     type: Realm.OpenRealmBehaviorType.OpenImmediately,
                     timeOut: 1000 * 60 * 5,
                     timeOutBehavior: Realm.OpenRealmTimeOutBehavior.ThrowException
-                },
-                
+                }
             }
         });
         return realm;

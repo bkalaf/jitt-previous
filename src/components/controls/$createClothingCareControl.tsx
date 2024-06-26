@@ -20,9 +20,12 @@ export function $createClothingCareControl(section: keyof typeof ClothingCareMap
                 ev.preventDefault();
                 ev.stopPropagation();
                 if (isSelected(key)) {
-                    formContext.setValue(name, list.filter(x => x !== key));
+                    formContext.setValue(
+                        name,
+                        list.filter((x) => x !== key)
+                    );
                 } else {
-                    formContext.setValue(name, [...list, key])
+                    formContext.setValue(name, [...list, key]);
                 }
             },
             [formContext, isSelected, list]
@@ -33,7 +36,7 @@ export function $createClothingCareControl(section: keyof typeof ClothingCareMap
                 <FormGroup row aria-labelledby='' className='grid grid-cols-10 gap-2'>
                     {options.map(({ Element, text, key }) => (
                         <Tooltip key={key} title={text}>
-                            <IconButton key={key} className='w-10 aria-unselected:bg-sky-400 flex h-10 rounded-none object-contain object-contain p-0 aria-selected:bg-red-500' aria-selected={isSelected(key)} onClick={onClick(key)}>
+                            <IconButton key={key} className='flex h-10 w-10 rounded-none object-contain object-contain p-0 aria-selected:bg-red-500 aria-unselected:bg-sky-400' aria-selected={isSelected(key)} onClick={onClick(key)}>
                                 <Element className='inline-block ' />
                             </IconButton>
                         </Tooltip>

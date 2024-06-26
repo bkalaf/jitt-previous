@@ -5,4 +5,3 @@ export const garmentLengths = {
     short: 'short',
     standard: 'standard'
 };
-

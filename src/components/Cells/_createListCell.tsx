@@ -16,11 +16,11 @@ export function createListCell<T extends MRT_RowData, U>(objectType: string) {
                 className='flex'
                 title={
                     <>
-                        <div className='flex flex-col w-full h-full text-white list-disc list-inside bg-slate-500'>
+                        <div className='flex h-full w-full list-inside list-disc flex-col bg-slate-500 text-white'>
                             {value.map((el, ix) => {
                                 const Row = RowCell(el);
                                 return (
-                                    <div key={ix} className='flex justify-start w-full text-base whitespace-pre before:content-["◘_"]'>
+                                    <div key={ix} className='flex w-full justify-start whitespace-pre text-base before:content-["◘_"]'>
                                         <div className='flex w-full text-left indent-1'>
                                             <Row />
                                         </div>
@@ -29,8 +29,7 @@ export function createListCell<T extends MRT_RowData, U>(objectType: string) {
                             })}
                         </div>
                     </>
-                }
-            >
+                }>
                 <span>{value.length} items.</span>
             </Tooltip>
         );

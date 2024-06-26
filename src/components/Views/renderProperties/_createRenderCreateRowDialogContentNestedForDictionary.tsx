@@ -13,7 +13,6 @@
 // import { useIsEmbedded } from './useIsEmbedded';
 // import { useConvertDictionaryItem } from '../../../hooks/useConvertDictionaryItem';
 
-
 // export function createRenderCreateRowDialogContentNestedForDictionary(objectType: string, dictionary: DictionaryBack<any>, row: MRT_Row<any>, name: string) {
 //     return function RenderCreateRowDialogContentNestedForDictionary({ table, internalEditComponents }: Parameters<Exclude<MRT_TableOptions<any>['renderCreateRowDialogContent'], undefined>>[0]) {
 //         const initializer = useInitial(objectType);

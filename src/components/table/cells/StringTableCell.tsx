@@ -15,7 +15,7 @@ export function StringTableCell<T extends MRT_RowData, U>(props: CellFunctionPar
         }
     } = props;
     const collection = useEffectiveCollection();
-    const { columnName, formatter } = (meta as ColumnMeta<any, any>);
+    const { columnName, formatter } = meta as ColumnMeta<any, any>;
     const $formatter = formatter ?? ((x?: U) => x?.toString() ?? '');
     const className = useMemo(() => (collection === 'classifier' && columnName === 'shortName' ? fromDepth(row.depth) : ''), [collection, columnName, row.depth]);
     return <span className={className}>{$formatter(cell.getValue())}</span>;

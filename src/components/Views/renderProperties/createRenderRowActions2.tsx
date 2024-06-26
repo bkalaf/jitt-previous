@@ -47,7 +47,7 @@ export function createRenderRowActions2<T extends MRT_RowData>() {
 
         return (
             <Box className='flex flex-nowrap gap-x-2'>
-                <IconBtn icon={faPencilSquare} className='text-orange-500 bg-white' tooltip='Edit row' onClick={onEditClick} text='Edit' />
+                <IconBtn icon={faPencilSquare} className='bg-white text-orange-500' tooltip='Edit row' onClick={onEditClick} text='Edit' />
                 <IconBtn icon={faTrashCan} className='bg-white text-lime-600' tooltip='Delete row' onClick={onDeleteClick} text='Delete' />
             </Box>
         );

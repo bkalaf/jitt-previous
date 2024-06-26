@@ -4,8 +4,8 @@ import { useCallback, useEffect, useRef } from 'react';
 export function useLogger() {
     const log = useCallback((...args: string[]) => {
         console.log(...args);
-        process.stdout.write(args.join(','))
-    }, [])
+        process.stdout.write(args.join(','));
+    }, []);
     return log;
 }
 

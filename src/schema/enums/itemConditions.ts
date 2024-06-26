@@ -48,4 +48,4 @@ export const itemConditions = {
     getSelector: getEnumSelector(_itemConditions)
 };
 
-export const ItemConditionsMap = Object.fromEntries(Object.entries(_itemConditions).map(([k, v]) => [k, v.text] as [string, string]))
+export const ItemConditionsMap = Object.fromEntries(Object.entries(_itemConditions).map(([k, v]) => [k, v.text] as [string, string]));

@@ -44,13 +44,15 @@ export function _calculateSize(maxLength: number, pxPerChar = 7.5) {
 }
 export const $calculateSize = (x?: number) => curry(flip(_calculateSize))(x);
 export const _calculateBodySize = $calculateSize();
-export const calculateBodySize = (opts?: { maxLength?: number, minLength?: number }) => ({
+export const calculateBodySize = (opts?: { maxLength?: number; minLength?: number }) => ({
     maxSize: opts?.maxLength ? _calculateBodySize(opts?.maxLength) : undefined,
     minSize: opts?.minLength ? _calculateBodySize(opts?.minLength) : undefined
-})
-export const calculateHeadSize = (headerJunkPx = 97) => (header: string) => ({
-    minSize: $calculateSize(8.8)(header.length + 5) + headerJunkPx
 });
+export const calculateHeadSize =
+    (headerJunkPx = 97) =>
+    (header: string) => ({
+        minSize: $calculateSize(8.8)(header.length + 5) + headerJunkPx
+    });
 
 export function calculateSize(maxLength: number) {
     const size = 7.5 * maxLength;
@@ -60,7 +62,6 @@ export function calculateSize(maxLength: number) {
     // console.log(size.toFixed(0).includes('.'))
     return roundUp(5)(Number.isInteger(size) ? size : Math.ceil(size));
 }
-
 
 // export function calculateSizes(header: string, opts?: { options?: { text: string }[],  maxLength?: number, minLength?: number  }) {
 //     return {}

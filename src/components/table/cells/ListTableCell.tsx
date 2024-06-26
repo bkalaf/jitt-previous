@@ -12,7 +12,7 @@ export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunction
             columnDef: { meta }
         }
     } = props;
-    const { objectType } = (meta as ColumnMeta<any, any>);
+    const { objectType } = meta as ColumnMeta<any, any>;
     if (objectType == null) {
         console.error('no objectType for list', props.column.columnDef);
         throw new Error('no objectType for list');

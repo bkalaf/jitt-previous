@@ -14,7 +14,7 @@ export function ErrorBoundary() {
                     {error.data?.message && <p>{error.data.message}</p>}
                 </div>
                 <div>
-                    <button className='text-xl font-bold text-white uppercase bg-red-500 border-2 border-white' onClick={() => navigate('/')}>
+                    <button className='border-2 border-white bg-red-500 text-xl font-bold uppercase text-white' onClick={() => navigate('/')}>
                         Redirect
                     </button>
                 </div>
@@ -25,7 +25,7 @@ export function ErrorBoundary() {
             <div>
                 <div>Oops</div>
                 <div>
-                    <button className='text-xl font-bold text-white uppercase bg-red-500 border-2 border-white' onClick={() => navigate('/')}>
+                    <button className='border-2 border-white bg-red-500 text-xl font-bold uppercase text-white' onClick={() => navigate('/')}>
                         Redirect
                     </button>
                 </div>

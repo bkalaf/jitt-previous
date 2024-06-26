@@ -15,7 +15,13 @@ export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?
     return useMemo(
         () => ({
             getOptionLabel: labelProperty ? toGetOptionLabel(labelProperty) : (option: T) => option?.toString() ?? '',
-            isOptionEqualToValue: toIsOptionEqualToValue(comparator ?? ((l: any, r: any) => l < r ? -1 : l > r ? 1 : 0))
+            isOptionEqualToValue: toIsOptionEqualToValue(
+                comparator ??
+                    ((l: any, r: any) =>
+                        l < r ? -1
+                        : l > r ? 1
+                        : 0)
+            )
         }),
         [comparator, labelProperty]
     );

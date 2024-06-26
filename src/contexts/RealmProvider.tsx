@@ -4,7 +4,9 @@ import { useProvideRealmPromiseContext } from '../hooks/useProvideRealmPromiseCo
 
 export function RealmProvider({ children }: { children: Children }) {
     const value = useProvideRealmPromiseContext();
-    return <React.Suspense fallback={<div>Loading...</div>}>
-        <RealmContext.Provider value={value}>{children}</RealmContext.Provider>
-    </React.Suspense>;
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+            <RealmContext.Provider value={value}>{children}</RealmContext.Provider>
+        </React.Suspense>
+    );
 }

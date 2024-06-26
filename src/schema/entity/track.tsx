@@ -22,10 +22,10 @@ export class Track extends EntityBase<ITrack> implements ITrack {
     static update(item: ITrack): ITrack {
         return item;
     }
-    static liComponent: ListItemCellComponent<ITrack> = (value?: ITrack) => () => (value == null ? '' : [value.index?.toFixed(0), value.name, value.feat ? `feat: ${value.feat.join(', ')}` : undefined].filter(x => x != null).join('- '));
+    static liComponent: ListItemCellComponent<ITrack> = (value?: ITrack) => () => (value == null ? '' : [value.index?.toFixed(0), value.name, value.feat ? `feat: ${value.feat.join(', ')}` : undefined].filter((x) => x != null).join('- '));
     static init(): InitValue<ITrack> {
         return {
             feat: []
-        }
+        };
     }
 }

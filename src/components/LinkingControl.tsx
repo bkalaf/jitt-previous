@@ -50,4 +50,3 @@ export function LinkingControl<T extends MRT_RowData & { _id: BSON.ObjectId }, U
         />
     );
 }
-

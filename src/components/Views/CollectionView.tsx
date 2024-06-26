@@ -13,16 +13,16 @@ export function CollectionView<T extends MRT_RowData>() {
     const route = useEffectiveCollection();
     const data = useCollectionQuery<T>(route);
     const table = useData(data ?? [], columns);
-    
+
     // useEffect(() => {
     //     if (route === 'sku') {
     //         ((data ?? []) as any as RealmObj<ISku>[]).map(item => {
-    //             generateNarrative(item, true);  
+    //             generateNarrative(item, true);
     //         })
     //     }
     // }, [data, route]);
     return (
-        <Box component='section' className='overflow-scroll table-auto border-seperate'>
+        <Box component='section' className='border-seperate table-auto overflow-scroll'>
             <MaterialReactTable table={table} />
         </Box>
     );

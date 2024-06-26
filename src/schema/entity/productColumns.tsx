@@ -8,22 +8,25 @@ export const helper = col(h);
 export const productColumns: MRT_ColumnDef<IProduct>[] = [
     helper.pk(),
     helper.lookup('brand', 'Brand', { objectType: 'brand' }),
-    helper.lookup('classifier', 'Classifier', { objectType: 'classifier', onChange: (setValue: (name: string, value: any) => void, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {
-        if (oldValue) {
-            oldValue.allAttributes.forEach(({ path, value }) => {
-                setValue(path, typeof value === 'boolean' ? !value : undefined);
-            })
+    helper.lookup('classifier', 'Classifier', {
+        objectType: 'classifier',
+        onChange: (setValue: (name: string, value: any) => void, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {
+            if (oldValue) {
+                oldValue.allAttributes.forEach(({ path, value }) => {
+                    setValue(path, typeof value === 'boolean' ? !value : undefined);
+                });
+            }
+            if (newValue) {
+                newValue.allAttributes.forEach(({ path, unset, value }) => {
+                    if (unset) {
+                        setValue(path, undefined);
+                    } else {
+                        setValue(path, value);
+                    }
+                });
+            }
         }
-        if (newValue) {
-            newValue.allAttributes.forEach(({ path, unset, value }) => {
-                if (unset) {
-                    setValue(path, undefined);
-                } else {
-                    setValue(path, value);
-                }
-            });
-        }
-    } }),
+    }),
     helper.listOfEmbed('includes', 'Includes', 'includedItem'),
     helper.listOfEmbed('customAttributes', 'Custom Item Field', 'customItemField'),
     helper.listOfPrimitive('asins', 'ASINs', 'string'),

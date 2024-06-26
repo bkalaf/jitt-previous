@@ -46,22 +46,24 @@ export function createRenderCreateRowDialogContentNestedForList(objectType: stri
         const cancelClick = useCallback(() => table.setCreatingRow(null), [table]);
         const resetClick = useCallback(() => formContext.reset(), [formContext]);
 
-        return <FormContainer context={formContext}>
-            <DialogTitle>{camelToProper(objectType)}</DialogTitle>
-            <DialogContent>{internalEditComponents}</DialogContent>
-            <DialogActions>
-                <Box className='flex justify-end w-full gap-x-2'>
-                    <Button className='inline-flex' type='button' color='metal' onClick={cancelClick}>
-                        Cancel
-                    </Button>
-                    <Button className='inline-flex' type='button' color='metal' onClick={resetClick}>
-                        Reset
-                    </Button>
-                    <Button className='inline-flex' type='button' color='metal' onClick={submitClick}>
-                        Submit
-                    </Button>
-                </Box>
-            </DialogActions>
-        </FormContainer>;
+        return (
+            <FormContainer context={formContext}>
+                <DialogTitle>{camelToProper(objectType)}</DialogTitle>
+                <DialogContent>{internalEditComponents}</DialogContent>
+                <DialogActions>
+                    <Box className='flex w-full justify-end gap-x-2'>
+                        <Button className='inline-flex' type='button' color='metal' onClick={cancelClick}>
+                            Cancel
+                        </Button>
+                        <Button className='inline-flex' type='button' color='metal' onClick={resetClick}>
+                            Reset
+                        </Button>
+                        <Button className='inline-flex' type='button' color='metal' onClick={submitClick}>
+                            Submit
+                        </Button>
+                    </Box>
+                </DialogActions>
+            </FormContainer>
+        );
     };
 }

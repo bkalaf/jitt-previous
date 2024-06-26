@@ -40,12 +40,17 @@ export function IconBtn(
         'hover:bg-fuchsia-500 p-0 flex text-center mx-auto bg-slate-500 rounded-lg',
         classes?.iconButton ?? ''
     );
-   
+
     return (
         <Tooltip title={tooltip} placement='bottom' TransitionComponent={Zoom}>
             <IconButton
                 color={color}
-                size={iconSize === 'sm' ? 'small' : iconSize === 'lg' ? 'large' : 'medium'}
+                size={
+                    iconSize === 'sm' ? 'small'
+                    : iconSize === 'lg' ?
+                        'large'
+                    :   'medium'
+                }
                 disabled={disabled ?? false}
                 onClick={onClick}
                 className={cn}
@@ -53,8 +58,7 @@ export function IconBtn(
                     height: outerDim,
                     width: outerDim
                 }}
-                {...rest}
-            >
+                {...rest}>
                 <FontAwesomeIcon
                     icon={icon}
                     size={iconSize}

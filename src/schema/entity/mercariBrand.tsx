@@ -30,7 +30,7 @@ export class MercariBrand extends EntityBase<IMercariBrand> {
                 item.timestamp = new Date(Date.now());
             }
             return item;
-        }
+        };
         return runTransaction(MercariBrand.localRealm, func);
     }
     static init(): InitValue<IMercariBrand> {
@@ -40,6 +40,6 @@ export class MercariBrand extends EntityBase<IMercariBrand> {
             hashTags: [],
             timestamp: new Date(Date.now()),
             customItemFields: []
-        }
+        };
     }
 }

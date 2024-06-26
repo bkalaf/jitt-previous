@@ -1,4 +1,3 @@
-
 export function fromDepth(depth: number) {
     // const char = '▸_'
     switch (depth) {

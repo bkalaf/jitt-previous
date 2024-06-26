@@ -167,7 +167,7 @@ export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
                 rowSelection,
                 showGlobalFilter,
                 sorting
-            } as MRT_TableState<T>),
+            }) as MRT_TableState<T>,
         [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, globalFilter, grouping, pageIndex, pageSize, rowSelection, showGlobalFilter, sorting]
     );
 

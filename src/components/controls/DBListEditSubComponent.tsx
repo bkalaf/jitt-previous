@@ -7,7 +7,7 @@ import { useLogger, useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { groupCol } from '../../schema/defs/groupCol';
 import { is } from '../../common/is';
 import { useConvertDictionaryItem } from '../../hooks/useConvertDictionaryItem';
-import { useConvertListItem } from '../../hooks/useConvertListItem'
+import { useConvertListItem } from '../../hooks/useConvertListItem';
 import { EditControls } from './EditControls';
 
 export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(props: {
@@ -48,9 +48,11 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     const formContext = useForm({
         defaultValues: {
             key: '',
-            ...is.primitive(objectType) ? defaultValues : {
-                value: defaultValues as DefaultValues<T>
-            }
+            ...(is.primitive(objectType) ? defaultValues : (
+                {
+                    value: defaultValues as DefaultValues<T>
+                }
+            ))
         } as any
     });
     logger(`formContext.getValues()`, JSON.stringify(formContext.getValues(), null, '\t'));

@@ -58,7 +58,7 @@ export const cuffTypesAliases = {
     'single cuff': 'single-cuff'
 };
 
-const cuffTypesMap = Object.fromEntries(Object.entries(_cuffTypes).map(([k, v]) => [k, ({ key: k, text: v })]));
+const cuffTypesMap = Object.fromEntries(Object.entries(_cuffTypes).map(([k, v]) => [k, { key: k, text: v }]));
 
 export const cuffTypes = {
     ...cuffTypesMap,

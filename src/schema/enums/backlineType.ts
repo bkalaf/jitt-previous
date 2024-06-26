@@ -43,16 +43,16 @@ export const _backlineTypes = {
 };
 
 export const backlineTypesAliases = {
-  'open back': 'open-back',
-  'u-shape back': 'u-shape-back',
-  'v-shape back': 'v-shape-back',
-  'bare back': 'bare-back',
-  'x-cross back': 'x-cross-back',
-  'bow back': 'bow-back',
-  'strappy back': 'strappy-back'
-}
+    'open back': 'open-back',
+    'u-shape back': 'u-shape-back',
+    'v-shape back': 'v-shape-back',
+    'bare back': 'bare-back',
+    'x-cross back': 'x-cross-back',
+    'bow back': 'bow-back',
+    'strappy back': 'strappy-back'
+};
 
-export const backlineTypesMap = Object.fromEntries(Object.entries(_backlineTypes).map(([k, v]) => [k, ({ key: k, text: v })]));
+export const backlineTypesMap = Object.fromEntries(Object.entries(_backlineTypes).map(([k, v]) => [k, { key: k, text: v }]));
 
 export const backlineTypes = {
     ...backlineTypesMap,

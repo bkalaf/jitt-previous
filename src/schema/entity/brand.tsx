@@ -8,7 +8,7 @@ import { runTransaction } from '../../util/runTransaction';
 
 export function getRange(low: number, high: number): number[] {
     if (low === high) return [];
-    return [low, ...getRange(low + 1, high)]
+    return [low, ...getRange(low + 1, high)];
 }
 export function toCharCode(s: string) {
     return s.charCodeAt(0);
@@ -17,8 +17,12 @@ export function fromCharCode(n: number) {
     return String.fromCharCode(n);
 }
 export function createFolderName(name: string) {
-    const chars = [...getRange(toCharCode('a'), toCharCode('z')), ...getRange(toCharCode('A'),toCharCode('Z')), ...getRange(toCharCode('0'), toCharCode('9')), toCharCode('_'), toCharCode('-')];
-    return name.split('').filter(x => chars.includes(toCharCode(x))).join('').toLowerCase();
+    const chars = [...getRange(toCharCode('a'), toCharCode('z')), ...getRange(toCharCode('A'), toCharCode('Z')), ...getRange(toCharCode('0'), toCharCode('9')), toCharCode('_'), toCharCode('-')];
+    return name
+        .split('')
+        .filter((x) => chars.includes(toCharCode(x)))
+        .join('')
+        .toLowerCase();
 }
 export class Brand extends EntityBase<IBrand> implements IBrand {
     folder: string;
@@ -47,7 +51,7 @@ export class Brand extends EntityBase<IBrand> implements IBrand {
             if (item.folder == null || item.folder === '') {
                 item.folder = createFolderName(item.name);
             }
-        }
+        };
         runTransaction(Brand.localRealm, func);
         return item;
     }
@@ -57,6 +61,6 @@ export class Brand extends EntityBase<IBrand> implements IBrand {
             name: '',
             hashTags: [],
             folder: ''
-        }
+        };
     }
 }

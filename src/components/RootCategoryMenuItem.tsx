@@ -9,14 +9,14 @@ export function RootCategoryMenuItem({ children, direction, header }: { children
     const ref = useRef<HTMLAnchorElement | null>();
     useEffect(() => {
         const listener = (ev: Event) => {
-            const target = ev.target as HTMLElement;            
+            const target = ev.target as HTMLElement;
             if (open && target.dataset.inMenu !== 'true') onClose();
         };
         document.addEventListener('click', listener);
         return () => document.removeEventListener('click', listener);
     }, [onClose, open]);
     return (
-        <ListItemButton onClick={onClick} className='text-white bg-black border border-white' ref={ref as any} data-in-menu>
+        <ListItemButton onClick={onClick} className='border border-white bg-black text-white' ref={ref as any} data-in-menu>
             <ListItemText primary={<span data-in-menu>{header}</span>} data-in-menu />
             <Popover
                 onClose={onClose}
@@ -27,8 +27,7 @@ export function RootCategoryMenuItem({ children, direction, header }: { children
                 transformOrigin={{
                     vertical: 'top',
                     horizontal: 'left'
-                }}
-            >
+                }}>
                 {children}
             </Popover>
         </ListItemButton>

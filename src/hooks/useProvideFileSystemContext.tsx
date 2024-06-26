@@ -23,16 +23,19 @@ export function useProvideFileSystemContext(): IFileSystemContext {
         []
     );
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const updateValue = useCallback((db: Realm, collection: string, propertyName: string, value?: any) => (obj: Record<string, any>) => {
-        const func = () => {
-            const text = `function () { obj[propertyName] = value; console.log('DONE!'); return obj; }()`;
-            const nextValue = eval(text);
-            console.log(nextValue);
-            db.create(collection, nextValue);
-            // setProperty(propertyName, obj, value)
-        }
-        runTransaction(db, func);
-    }, [])
+    const updateValue = useCallback(
+        (db: Realm, collection: string, propertyName: string, value?: any) => (obj: Record<string, any>) => {
+            const func = () => {
+                const text = `function () { obj[propertyName] = value; console.log('DONE!'); return obj; }()`;
+                const nextValue = eval(text);
+                console.log(nextValue);
+                db.create(collection, nextValue);
+                // setProperty(propertyName, obj, value)
+            };
+            runTransaction(db, func);
+        },
+        []
+    );
     const toRemBG = useCallback(
         (filename: string) => {
             return pathExt.filename(filename).concat(REMOVE_BG_SUFFIX).concat(REMOVE_BG_EXT);

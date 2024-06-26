@@ -23,5 +23,3 @@ export function useColumnMeta<T extends MRT_RowData, U, TKey extends keyof Colum
         [cell, defaultValue, keys, meta]
     );
 }
-
-

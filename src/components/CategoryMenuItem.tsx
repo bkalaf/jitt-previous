@@ -17,7 +17,7 @@ export function CategoryMenuItem({
     const [anchorEl, open, onClick, onClose] = useAnchorEl();
     const anchorOrigin = useMemo(() => origins[direction], [direction]);
     return (
-        <Component data-in-menu onClick={onClick} className='text-white bg-black border border-white'>
+        <Component data-in-menu onClick={onClick} className='border border-white bg-black text-white'>
             {label}
             <Popover
                 onClose={onClose}
@@ -28,8 +28,7 @@ export function CategoryMenuItem({
                 transformOrigin={{
                     vertical: 'top',
                     horizontal: 'left'
-                }}
-            >
+                }}>
                 {children}
             </Popover>
         </Component>

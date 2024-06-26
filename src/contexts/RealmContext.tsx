@@ -14,4 +14,3 @@ export type IRealmContext = {
 };
 
 export const RealmContext = createContext<undefined | IRealmContext>(undefined);
-

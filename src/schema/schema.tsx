@@ -38,7 +38,7 @@ import { Track } from './entity/track';
 export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
     SelfStorage,
     Facility,
-    Address, 
+    Address,
     Auction,
     HashTagUsage,
     HashTag,

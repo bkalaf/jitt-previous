@@ -3,7 +3,7 @@ import { Opt } from '../../../types';
 export function convertFromGrams(grams: Opt<number>) {
     if (grams == null) return undefined;
     const totalPounds = grams / 453.59;
-    return convertToPoundsOunces(totalPounds)
+    return convertToPoundsOunces(totalPounds);
 }
 
 export function convertToPoundsOunces(totalPounds: Opt<number>) {

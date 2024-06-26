@@ -177,7 +177,7 @@ export type IApparelSize = {
     key: string;
     text: string;
     readonly selector: string;
-}
+};
 
 export type IMercariCategory = {
     name: string;
@@ -376,7 +376,7 @@ export type AnyConnector = IConnector<DataConnectorTypes> | IConnector<VideoConn
 export type ICapacity = {
     uom: CapacityUOM;
     value: Double;
-}
+};
 export type IDimension<T extends string> = {
     uom: T;
     value: Double;
@@ -704,5 +704,5 @@ export type IDraft = {
     readonly getShouldLocalDelivery: boolean;
     readonly getShouldSmartPricing: boolean;
     listingID: Opt<string>;
-    readonly isListed: boolean
+    readonly isListed: boolean;
 };

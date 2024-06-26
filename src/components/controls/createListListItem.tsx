@@ -13,13 +13,13 @@ export function createListListItem(Component: React.FunctionComponent<{ data: an
     return function ListListItem(props: { index: number | string; data: any; labelProperty?: string }) {
         useWhyDidIUpdate('ListListItem', props);
         const Comp: React.FunctionComponent<{ data: any }> =
-            props.labelProperty == null
-                ? Component
-                : function LP({ data: d }: { data: any }) {
-                      useWhyDidIUpdate('LP', { data: d });
-                      const value = getProperty(props.labelProperty ?? '', d) as string;
-                      return value;
-                  };
+            props.labelProperty == null ?
+                Component
+            :   function LP({ data: d }: { data: any }) {
+                    useWhyDidIUpdate('LP', { data: d });
+                    const value = getProperty(props.labelProperty ?? '', d) as string;
+                    return value;
+                };
         const invalidator = useInvalidateCollection();
         const { mutate } = useMutation({
             mutationFn: (data: { index: any; ev: React.MouseEvent<HTMLButtonElement> }) => {

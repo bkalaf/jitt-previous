@@ -33,6 +33,6 @@ export class HashTag extends EntityBase<IHashTag> {
             _id: new BSON.ObjectId(),
             name: '',
             usage: []
-        }
+        };
     }
 }

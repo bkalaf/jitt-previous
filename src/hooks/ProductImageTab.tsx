@@ -110,7 +110,12 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             y: y !== 'none' ? y : undefined,
             z: z !== 'none' ? z : undefined
         } as InitValue<IFacing>;
-        const capt = is.not.nil(caption) ? generateCaption(facing as any).concat(' - ').concat(caption) : generateCaption(facing as any);
+        const capt =
+            is.not.nil(caption) ?
+                generateCaption(facing as any)
+                    .concat(' - ')
+                    .concat(caption)
+            :   generateCaption(facing as any);
         const func = () => {
             realm.create<IProductImage>('productImage', {
                 _id: new BSON.ObjectId(),
@@ -225,7 +230,7 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             )}
             <Grid columns={4} gap={2} className='w-full'>
                 {data.map((image, ix) => (
-                    <Item key={ix} className='flex flex-col w-full'>
+                    <Item key={ix} className='flex w-full flex-col'>
                         <Images productImage={image} />
                     </Item>
                 ))}

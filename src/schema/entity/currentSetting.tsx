@@ -31,5 +31,5 @@ export class CurrentSetting extends EntityBase<ICurrentSetting> implements ICurr
     static liComponent: ListItemCellComponent<ICurrentSetting> = (value?: ICurrentSetting) => () => {
         const stringify = Dimension.liComponent as (value?: IDimension<string>) => () => string;
         return value == null ? '' : [stringify(value.voltage)(), stringify(value.amperage)(), stringify(value.wattage)()].filter((x) => x != null && x.length > 0).join(' ');
-    }
+    };
 }

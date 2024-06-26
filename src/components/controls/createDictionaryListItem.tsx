@@ -9,16 +9,19 @@ import { getProperty } from '../../common/object';
 import { useMutation } from '@tanstack/react-query';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 
-export function createDictionaryListItem(Component: React.FunctionComponent<{ data: any; }>, toDelete: (index: any) => (ev: React.SyntheticEvent<HTMLButtonElement>) => void) {
-    return function DictionaryListItem(props: { index: number | string; data: any; labelProperty?: string; }) {
-        useWhyDidIUpdate('DictionaryLIstItem', props)
-        const Comp: React.FunctionComponent<{ data: any; }> = props.labelProperty == null ? Component : function LP({ data: d }: { data: any; }) {
-            const value = getProperty(props.labelProperty ?? '', d) as string;
-            return value;
-        };
+export function createDictionaryListItem(Component: React.FunctionComponent<{ data: any }>, toDelete: (index: any) => (ev: React.SyntheticEvent<HTMLButtonElement>) => void) {
+    return function DictionaryListItem(props: { index: number | string; data: any; labelProperty?: string }) {
+        useWhyDidIUpdate('DictionaryLIstItem', props);
+        const Comp: React.FunctionComponent<{ data: any }> =
+            props.labelProperty == null ?
+                Component
+            :   function LP({ data: d }: { data: any }) {
+                    const value = getProperty(props.labelProperty ?? '', d) as string;
+                    return value;
+                };
         const invalidator = useInvalidateCollection();
         const { mutate } = useMutation({
-            mutationFn: (data: { index: any; ev: React.MouseEvent<HTMLButtonElement>; }) => {
+            mutationFn: (data: { index: any; ev: React.MouseEvent<HTMLButtonElement> }) => {
                 toDelete(data.index)(data.ev);
                 return Promise.resolve();
             },

@@ -37,7 +37,11 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
         return this.linkingObjects<IBin>('bin', 'barcode') as any;
     }
     get kind() {
-        return this.linkedSkus.length > 0 ? 'sku' : this.linkedBin.length > 0 ? 'bin' : 'unknown';
+        return (
+            this.linkedSkus.length > 0 ? 'sku'
+            : this.linkedBin.length > 0 ? 'bin'
+            : 'unknown'
+        );
     }
     static schema: Realm.ObjectSchema = {
         name: schemaName($.barcode()),
@@ -96,8 +100,6 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
             type: 'unknown',
             value: '0000000000000',
             beenPrinted: false
-        }
+        };
     }
 }
-
-

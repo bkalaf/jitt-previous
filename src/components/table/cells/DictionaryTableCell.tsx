@@ -15,13 +15,13 @@ export function DictionaryTableCell<T extends MRT_RowData, TValue>(props: CellFu
             className='flex'
             title={
                 <>
-                    <div className='grid w-full h-full grid-cols-2 text-white bg-slate-500'>
+                    <div className='grid h-full w-full grid-cols-2 bg-slate-500 text-white'>
                         {value.map(([key, value]) => {
                             const Row = ValueCell(value);
                             return (
                                 <>
-                                    <span className='flex justify-start w-full text-base whitespace-pre'>{key?.toString() ?? ''}</span>
-                                    <span className='flex justify-start w-full text-base whitespace-pre'>
+                                    <span className='flex w-full justify-start whitespace-pre text-base'>{key?.toString() ?? ''}</span>
+                                    <span className='flex w-full justify-start whitespace-pre text-base'>
                                         <Row />
                                     </span>
                                 </>
@@ -34,8 +34,7 @@ export function DictionaryTableCell<T extends MRT_RowData, TValue>(props: CellFu
                         })}
                     </div>
                 </>
-            }
-        >
+            }>
             <span>{value.length} keys.</span>
         </Tooltip>
     );

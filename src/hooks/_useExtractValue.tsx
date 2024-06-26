@@ -27,7 +27,7 @@
 //     );
 // }
 
-// /* 
+// /*
 
 // (typeKind === 'primitive' ? (data == null ? undefined : (data as any)?.value) : convert(objectType)), [convert, objectType, typeKind])
 

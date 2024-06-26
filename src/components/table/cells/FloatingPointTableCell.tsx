@@ -10,7 +10,7 @@ export function FloatingPointTableCell<T extends MRT_RowData>(props: EditFunctio
             columnDef: { meta }
         }
     } = props;
-    const { formatter } = (meta as ColumnMeta<any, any>);
+    const { formatter } = meta as ColumnMeta<any, any>;
     const $formatter = formatter ?? ((value?: number) => truncateAuto(value));
     const value = props.cell.getValue();
     return $formatter(value);

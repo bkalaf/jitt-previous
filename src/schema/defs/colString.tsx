@@ -5,7 +5,7 @@ import { StringTableCell } from '../../components/table/cells/StringTableCell';
 import { StringControl } from '../../components/table/controls/StringControl';
 
 export function colString<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>) {
-    return function<TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
+    return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
         return function (
             name: keyof T & string,
             $header?: string,
@@ -27,6 +27,5 @@ export function colString<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>)
             //     enableClickToCopy: true
             // });
         };
-    }
+    };
 }
-

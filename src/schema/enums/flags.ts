@@ -24,7 +24,7 @@ export const mediaVideoFlags = {
 export type MediaFlags = keyof typeof mediaVideoFlags;
 export const mediaVideoFlagsOptions: MediaFlags[] = ['isDirectorsEdition', 'isCollectorsEdition', 'isUnrated', 'isWidescreen', 'isSubtitled', 'isClosedCaptioned'];
 
-export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaVideoFlags)).map(x => [x[0], { text: x[1], key: x[0] }]));
+export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaVideoFlags)).map((x) => [x[0], { text: x[1], key: x[0] }]));
 
 console.log(allFlags);
 

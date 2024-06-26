@@ -45,9 +45,9 @@ export const dictionaryInsert = function <T>(row: any, propName: string, diction
         return { ...dictionary, ...obj };
     }
     return (obj: Record<string, T>) => {
-        const newValue = inner(obj)
+        const newValue = inner(obj);
         setProperty(propName, row, newValue);
-    }
+    };
     // return cataDictionary<T, DictionaryBack<T>>(
     //     (obj: Record<string, T>) => {
     //         const key = Object.getOwnPropertyNames(obj)[0];

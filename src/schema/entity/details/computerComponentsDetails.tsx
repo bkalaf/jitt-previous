@@ -31,4 +31,3 @@ export const computerComponentsRamDetails: MRT_ColumnDef<IProduct>[] = [
     helper.enum('CASLatency', 'Column Address Strobe Latency', { enumKey: 'casLatency' }),
     helper.string('dataTransferBandwidth', 'Data Transfer Bandwidth', undefined)
 ] as MRT_ColumnDef<IProduct>[];
-

@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { IAddress } from '../../types';
@@ -13,7 +13,7 @@ export class Address extends EntityBase<IAddress> {
             city: '',
             province: 'CA',
             country: 'US'
-        }
+        };
     }
     mailing1?: string | undefined;
     mailing2?: string | undefined;

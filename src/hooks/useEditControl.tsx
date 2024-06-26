@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 
 export function useEditControl<T extends MRT_RowData, TValue>(column: MRT_Column<T>) {
     const { accessorKey, id, header } = column.columnDef;
-    const name = (column.columnDef.meta as ColumnMeta<any, any>)?.columnName as string | undefined ?? accessorKey ?? id;
+    const name = ((column.columnDef.meta as ColumnMeta<any, any>)?.columnName as string | undefined) ?? accessorKey ?? id;
     if (name == null) throw new Error('no name');
     const formContext = useFormContext();
     const list = formContext.watch(name) as TValue[];

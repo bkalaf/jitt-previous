@@ -1,4 +1,4 @@
-import Realm from "realm";
+import Realm from 'realm';
 import { ICustomItemField, ICustomItemFieldValue, Opt } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';

@@ -9,7 +9,6 @@ export function useSuccessNotification<T>(messageGenerator: (x: T) => string, ob
         (result: T) => {
             success(result);
             invalidator();
-
         },
         [invalidator, success]
     );

@@ -76,25 +76,35 @@ export const h = createMRTColumnHelper<DictionaryItem<any>>();
 export function generateColumns(cell: MRT_Cell<any>, types: RealmSchema, columns: MRT_ColumnDef<any>[], type: 'list' | 'dictionary' | 'set', objectType: string, labelProperty: string) {
     const prim = isPrimitive(objectType);
     const isEmbed = prim ? false : types.find((x) => x.name === objectType)?.embedded ?? false;
-    const typeKind = prim ? 'primitive' : isEmbed ? 'embedded' : 'reference';
-    const effectiveCols = (typeKind === 'reference'
-        ? ([
-            h.accessor('value', {
-                header: 'Value',
-                Cell: () => null,
-                Edit: createLinkingControl(objectType, labelProperty)
-            })
-        ] as MRT_ColumnDef<any>[])
-        : typeKind === 'primitive' ? [columns[0]].map(x => ({ ...x, Cell: () => null })) : typeKind === 'embedded' ? columns.map(x => ({ ...x, Cell: () => null })) : []) as MRT_ColumnDef<any>[];
+    const typeKind =
+        prim ? 'primitive'
+        : isEmbed ? 'embedded'
+        : 'reference';
+    const effectiveCols = (
+        typeKind === 'reference' ?
+            ([
+                h.accessor('value', {
+                    header: 'Value',
+                    Cell: () => null,
+                    Edit: createLinkingControl(objectType, labelProperty)
+                })
+            ] as MRT_ColumnDef<any>[])
+        : typeKind === 'primitive' ? [columns[0]].map((x) => ({ ...x, Cell: () => null }))
+        : typeKind === 'embedded' ? columns.map((x) => ({ ...x, Cell: () => null }))
+        : []) as MRT_ColumnDef<any>[];
     return {
         name: cell.column.columnDef.accessorKey ?? cell.column.columnDef.id ?? 'n/a',
         label: cell.column.columnDef.header,
         typeKind,
-        dataStructureType: type === 'list' ? 'list' : type === 'set' ? 'set' : type === 'dictionary' ? 'dictionary' : undefined,
-        columns: type === 'list' || type === 'set'
-            ? [groupCol(h, 'Value', effectiveCols, 'address', 'bg-blue-700', 'text-white')]
-            : type === 'dictionary'
-                ? [
+        dataStructureType:
+            type === 'list' ? 'list'
+            : type === 'set' ? 'set'
+            : type === 'dictionary' ? 'dictionary'
+            : undefined,
+        columns:
+            type === 'list' || type === 'set' ? [groupCol(h, 'Value', effectiveCols, 'address', 'bg-blue-700', 'text-white')]
+            : type === 'dictionary' ?
+                [
                     h.accessor('key', {
                         header: 'Key'
                     }),
@@ -103,16 +113,28 @@ export function generateColumns(cell: MRT_Cell<any>, types: RealmSchema, columns
                         columns: effectiveCols
                     })
                 ]
-                : effectiveCols,
-        defaultValue: type === 'list' || type === 'set' ? [] : type === 'dictionary' ? {} : undefined,
+            :   effectiveCols,
+        defaultValue:
+            type === 'list' || type === 'set' ? []
+            : type === 'dictionary' ? {}
+            : undefined,
         toData: (data: any) => {
-            const inner = type === 'list' || type === 'set' ? data.toJSON().map((x: any) => ({ value: x })) : type === 'dictionary' ? Object.entries(data.toJSON() as Record<string, any> ?? {} as Record<string, any>).map(([k, v]) => ({ key: k, value: v })) as DictionaryItem<any>[] : data;
+            const inner =
+                type === 'list' || type === 'set' ? data.toJSON().map((x: any) => ({ value: x }))
+                : type === 'dictionary' ? (Object.entries((data.toJSON() as Record<string, any>) ?? ({} as Record<string, any>)).map(([k, v]) => ({ key: k, value: v })) as DictionaryItem<any>[])
+                : data;
             console.error('inner', inner);
             return inner;
         },
-        normalizeValues: (values: any) => (typeKind === 'primitive' || typeKind === 'embedded' ? [values] : Array.isArray(values) ? values : [values]),
+        normalizeValues: (values: any) =>
+            typeKind === 'primitive' || typeKind === 'embedded' ? [values]
+            : Array.isArray(values) ? values
+            : [values],
         labelProp: labelProperty ?? '',
-        initializer: (init: () => any) => () => (type === 'list' || type === 'set' ? { value: typeKind === 'reference' ? [] : init() } : type === 'dictionary' ? { key: '', value: init() } : undefined),
+        initializer: (init: () => any) => () =>
+            type === 'list' || type === 'set' ? { value: typeKind === 'reference' ? [] : init() }
+            : type === 'dictionary' ? { key: '', value: init() }
+            : undefined,
         insertFunc: (ds: any, obj: any, prop: any, converter: any) => (value: any) => {
             if (type === 'list' || type === 'set') {
                 const nv = [...ds, ...value.map(converter)];

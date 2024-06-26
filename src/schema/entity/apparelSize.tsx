@@ -17,10 +17,10 @@ export class ApparelSize extends EntityBase<IApparelSize> implements IApparelSiz
         properties: {
             index: $.int(),
             key: $.string(),
-            text: $.string(),
+            text: $.string()
         }
-    }  
-    static liComponent: ListItemCellComponent<IApparelSize> = (value?: IApparelSize) => () => value == null ? '' : value.text;
+    };
+    static liComponent: ListItemCellComponent<IApparelSize> = (value?: IApparelSize) => () => (value == null ? '' : value.text);
     static update(item: IApparelSize): IApparelSize {
         return item;
     }
@@ -29,6 +29,6 @@ export class ApparelSize extends EntityBase<IApparelSize> implements IApparelSiz
             index: 999,
             key: '',
             text: ''
-        }
+        };
     }
 }

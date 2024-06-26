@@ -7,7 +7,7 @@ export function Image(props: { filepath: string; caption?: string; selected?: bo
     useWhyDidIUpdate('Image', props);
     const { filepath, caption, selected } = props;
     const [src, setSrc] = useState<string | undefined>(undefined);
-    const blob = useMemo(() => fs.existsSync(filepath) ? new Blob([new Uint8Array(fs.readFileSync(filepath).buffer)]) : undefined, [filepath]);
+    const blob = useMemo(() => (fs.existsSync(filepath) ? new Blob([new Uint8Array(fs.readFileSync(filepath).buffer)]) : undefined), [filepath]);
     useEffect(() => {
         const func = () => {
             if (blob == null) return;
@@ -20,8 +20,8 @@ export function Image(props: { filepath: string; caption?: string; selected?: bo
                     console.log(`revoke: ${local}`);
                 }
             };
-        }
+        };
         func();
     }, [blob]);
-    return is.not.nil(filepath) ? <img src={src} alt={caption} className='aria-selected:ring-4 aria-selected:ring-red-500 flex object-scale-down' width={250} aria-selected={selected ?? false} /> : null;
+    return is.not.nil(filepath) ? <img src={src} alt={caption} className='flex object-scale-down aria-selected:ring-4 aria-selected:ring-red-500' width={250} aria-selected={selected ?? false} /> : null;
 }
