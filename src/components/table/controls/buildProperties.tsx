@@ -1,4 +1,4 @@
-import { getProperty } from '../../../common/object';
+import { getProperty } from 'src/common/object/getProperty';
 import { surroundQuotesIgnore, surroundParensIgnore } from '../../../common/text/surround';
 import { sizes } from '../../../schema/enums/sizes';
 import { ISku, Opt } from '../../../types';

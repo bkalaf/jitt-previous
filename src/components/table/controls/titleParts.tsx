@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import { is } from '../../../common/is';
-import { getProperty } from '../../../common/object';
+import { getProperty } from 'src/common/object/getProperty';
 import { surroundParensIgnore, surroundSquareBracesIgnore } from '../../../common/text/surround';
 import $me, { BarcodeTypes, CableTypes, HandOrientations, ProductColors } from '../../../schema/enums';
 import { Flags, allFlags } from '../../../schema/enums/flags';
 import { IBarcode, ICapacity, IClothingCare, ICurrentSetting, IIncludedItem, IMadeOfSection, IMinMax, IPiece, IProduct, ISku, ITrack, Opt } from '../../../types';
 import { barcodeFormatter } from '../../../util/barcodeFormatter';
-import { truncateAuto } from '../../Cells/truncateAuto';
+import { truncateAuto } from '../../../common/number/truncateAuto';
 import { converted } from '../../../schema/defs/colDBList';
 import { convertFromGrams } from './convertFromGrams';
 

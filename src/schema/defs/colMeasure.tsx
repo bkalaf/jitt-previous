@@ -1,5 +1,5 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
-import { truncateAuto } from '../../components/Cells/truncateAuto';
+import { truncateAuto } from '../../common/number/truncateAuto';
 import { baseCol } from './baseCol';
 import { FloatingPointTableCell } from '../../components/table/cells/FloatingPointTableCell';
 import { StringControl } from '../../components/table/controls/StringControl';

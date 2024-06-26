@@ -6,7 +6,7 @@ import { faCircleLeft, faHome, faTable } from '@fortawesome/pro-solid-svg-icons'
 import { Outlet, useLocation } from 'react-router';
 import { NavLink as RRLink } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
-import { camelToProper } from '../common/text';
+import { camelToProper } from 'src/common/text/camelToProper';
 import { useEnv } from '../hooks/useEnv';
 import { IconBtn } from './IconBtn';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';

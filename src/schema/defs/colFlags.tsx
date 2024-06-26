@@ -1,5 +1,5 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
-import { camelToProper } from '../../common/text';
+import { camelToProper } from 'src/common/text/camelToProper';
 import { baseCol } from './baseCol';
 import { CheckGroupControl } from './CheckGroupControl';
 import { FlattenedListTableCell } from '../../components/table/cells/FlattenedListTableCell';

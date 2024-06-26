@@ -1,6 +1,6 @@
 import { MRT_RowData } from 'material-react-table';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import { truncateAuto } from '../../Cells/truncateAuto';
+import { truncateAuto } from '../../../common/number/truncateAuto';
 import { ColumnMeta } from '@tanstack/react-table';
 
 export function FloatingPointTableCell<T extends MRT_RowData>(props: EditFunctionParams<T, number | undefined>) {

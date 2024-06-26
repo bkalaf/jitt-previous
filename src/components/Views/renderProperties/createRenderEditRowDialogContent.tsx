@@ -1,7 +1,7 @@
 import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
 import { Box, Button, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form-mui';
-import { camelToProper } from '../../../common/text';
+import { camelToProper } from 'src/common/text/camelToProper';
 import { useCollectionRoute } from '../../../hooks/useCollectionRoute';
 import { useCallback } from 'react';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';

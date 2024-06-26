@@ -1,7 +1,8 @@
 import { MRT_RowData } from 'material-react-table';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
-import { $createClothingCareControl } from './$createClothingCareControl';
+import { IndividualClothingCareControl } from './IndividualClothingCareControl';
 import { FlattenedClothingCareCell } from '../table/cells/FlattenedListTableCell';
+import { ColumnMeta } from '@tanstack/react-table';
 
 export function FlattenedClothingCare<T extends MRT_RowData>(props: CellFunctionParams<T, any>): JSX.Element {
     const BleachingCell = FlattenedClothingCareCell('bleaching');
@@ -45,17 +46,19 @@ export function FlattenedClothingCare<T extends MRT_RowData>(props: CellFunction
         </ul>
     );
 }
+
 export function ClothingCareControl<T extends MRT_RowData>(props: EditFunctionParams<T>): JSX.Element {
     useWhyDidIUpdate('ClothingCareControl', props);
-    const BleachingControl = $createClothingCareControl('bleaching', 'clothingCare.bleaching');
-    const DryCleanControl = $createClothingCareControl('dryClean', 'clothingCare.dryClean');
-    const DryingControl = $createClothingCareControl('drying', 'clothingCare.drying');
-    const GentleOrDelicateControl = $createClothingCareControl('gentleOrDelicate', 'clothingCare.gentleOrDelicate');
-    const IroningControl = $createClothingCareControl('ironing', 'clothingCare.ironing');
-    const PermanentPressControl = $createClothingCareControl('permanentPress', 'clothingCare.permanentPress');
-    const TumbleDryControl = $createClothingCareControl('tumbleDry', 'clothingCare.tumbleDry');
-    const WashControl = $createClothingCareControl('wash', 'clothingCare.wash');
-    const WashTemperatureControl = $createClothingCareControl('washTemperature', 'clothingCare.washTemperature');
+    const { dependencies } = props.column.columnDef.meta as ColumnMeta<any, any>;
+    const BleachingControl = IndividualClothingCareControl('bleaching', 'clothingCare.bleaching', ...dependencies ?? []);
+    const DryCleanControl = IndividualClothingCareControl('dryClean', 'clothingCare.dryClean', ...dependencies ?? []);
+    const DryingControl = IndividualClothingCareControl('drying', 'clothingCare.drying', ...dependencies ?? []);
+    const GentleOrDelicateControl = IndividualClothingCareControl('gentleOrDelicate', 'clothingCare.gentleOrDelicate', ...dependencies ?? []);
+    const IroningControl = IndividualClothingCareControl('ironing', 'clothingCare.ironing', ...(dependencies ?? []));
+    const PermanentPressControl = IndividualClothingCareControl('permanentPress', 'clothingCare.permanentPress', ...(dependencies ?? []));
+    const TumbleDryControl = IndividualClothingCareControl('tumbleDry', 'clothingCare.tumbleDry', ...(dependencies ?? []));
+    const WashControl = IndividualClothingCareControl('wash', 'clothingCare.wash', ...(dependencies ?? []));
+    const WashTemperatureControl = IndividualClothingCareControl('washTemperature', 'clothingCare.washTemperature', ...(dependencies ?? []));
     return (
         <div className='flex flex-col'>
             <BleachingControl />

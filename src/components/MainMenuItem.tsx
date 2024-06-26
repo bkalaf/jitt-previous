@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useCallback } from 'react';
-import { camelToProper } from '../common/text';
+import { camelToProper } from 'src/common/text/camelToProper';
 import { BaseMenuItem } from './BaseMenuItem';
 
 export function MainMenuItem({ segment, baseUrl }: { segment: string; baseUrl: string }) {

@@ -1,6 +1,6 @@
 import { is } from '../common/is';
 import dayjs from 'dayjs';
-import { getProperty } from '../common/object';
+import { getProperty } from 'src/common/object/getProperty';
 import { useTypes } from './useTypes';
 
 const liComponents = {

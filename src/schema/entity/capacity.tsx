@@ -2,7 +2,7 @@ import { IDimension } from '../../types';
 import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { truncateAuto } from '../../components/Cells/truncateAuto';
+import { truncateAuto } from '../../common/number/truncateAuto';
 import { EntityBase } from './EntityBase';
 
 // export class Capacity extends EntityBase<ICapacity> implements ICapacity {

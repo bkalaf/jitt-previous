@@ -46,11 +46,11 @@ import { dimension } from './columns/dimension';
 
 const h = createMRTColumnHelper<{ value: any }>();
 const helper = col(h);
-const stringColumn = helper.string('value', 'Value', undefined, { required: true });
-const intColumn = helper.int('value', 'Value', { required: true });
-const doubleColumn = helper.double('value', 'Value', { required: true });
-const boolColumn = helper.bool('value', 'Value');
-const dateColumn = helper.date('value', 'Value', {}, true);
+const stringColumn = helper.string()('value', 'Value', undefined, { required: true });
+const intColumn = helper.int()('value', 'Value', { required: true });
+const doubleColumn = helper.double()('value', 'Value', { required: true });
+const boolColumn = helper.bool()('value', 'Value');
+const dateColumn = helper.date()('value', 'Value', {}, true);
 
 // (Realm.ObjectSchema | Realm.ObjectClass<any>)
 
@@ -62,7 +62,8 @@ window.columns.date = [dateColumn] as MRT_ColumnDef<any>[];
 window.columns.bool = [boolColumn] as MRT_ColumnDef<any>[];
 // window.columns. = [Column] as MRT_ColumnDef<any>[];
 
-window.columns.address = addressColumns as MRT_ColumnDef<any>[];
+window.columns.address = addressColumns as any;
+// as <T extends MRT_RowData>(...dependencies: IDependency<IAddress, any>[]) => MRT_ColumnDef<T>[];
 window.columns.attribute = attributeColumns as MRT_ColumnDef<any>[];
 window.columns.auction = auctionColumns as MRT_ColumnDef<any>[];
 window.columns.barcode = barcodeColumns as MRT_ColumnDef<any>[];
@@ -77,7 +78,8 @@ window.columns.facility = facilityColumns as MRT_ColumnDef<any>[];
 window.columns.hashTag = hashTagColumns as MRT_ColumnDef<any>[];
 window.columns.hashTagUsage = hashTagUsageColumns as MRT_ColumnDef<any>[];
 window.columns.includedItem = includedItemColumns as MRT_ColumnDef<any>[];
-window.columns.madeOfSection = madeOfSectionColumns as MRT_ColumnDef<any>[];
+window.columns.madeOfSection = madeOfSectionColumns as any; 
+// as MRT_ColumnDef<any>[];
 window.columns.mercariBrand = mercariBrandColumns as MRT_ColumnDef<any>[];
 window.columns.mercariCategory = mercariCategoryColumns as MRT_ColumnDef<any>[];
 window.columns.mercariTaxonomy = mercariTaxonomyColumns as MRT_ColumnDef<any>[];

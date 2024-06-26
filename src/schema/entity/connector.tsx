@@ -4,7 +4,7 @@ import { schemaName } from '../../util/schemaName';
 import { IConnector, Opt } from '../../types';
 import { ConnectorGenders, DataConnectorTypes, PowerConnectorTypes, VideoConnectorTypes } from '../enums';
 import { surround } from '../../common/text/surround';
-import { truncateAuto } from '../../components/Cells/truncateAuto';
+import { truncateAuto } from '../../common/number/truncateAuto';
 import { is } from '../../common/is';
 import { EntityBase } from './EntityBase';
 

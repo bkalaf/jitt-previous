@@ -1,5 +1,5 @@
 import { is } from '../../../common/is';
-import { capitalize } from '../../../common/text';
+import { capitalize } from 'src/common/text/capitalize';
 import { ISku } from '../../../types';
 import { properties } from './buildProperties';
 import { char } from './titleParts';

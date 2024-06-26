@@ -1,6 +1,6 @@
 import { PropertyTypeName } from 'realm';
-import { objectMap } from '../common/object';
-import { appendText } from '../common/text';
+import { objectMap } from 'src/common/object/objectMap';
+import { appendText } from 'src/common/text/appendText';
 
 const obj = function (name: string) {
     const output = function () {
