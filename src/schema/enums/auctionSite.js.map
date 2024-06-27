@@ -1,0 +1,1 @@
+{"version":3,"file":"auctionSite.js","sourceRoot":"","sources":["auctionSite.ts"],"names":[],"mappings":";;;AAAa,QAAA,YAAY,GAAG;IACxB,gBAAgB,EAAE;QACd,IAAI,EAAE,0BAA0B;QAChC,GAAG,EAAE,kBAAkB;KAC1B;IACD,SAAS,EAAE;QACP,IAAI,EAAE,mBAAmB;QACzB,GAAG,EAAE,WAAW;KACnB;CACJ,CAAC"}

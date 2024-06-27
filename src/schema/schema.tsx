@@ -30,46 +30,89 @@ import { Draft } from './entity/draft';
 import { CustomItemFieldValue } from './entity/customItemFieldValue';
 import { CustomItemFieldType } from './entity/customItemFieldType';
 import { CustomItemFieldTypes } from './entity/customItemFieldTypes';
-import { Dimension } from './entity/capacity';
 import { Attachment } from './entity/attachment';
 import { ApparelSize } from './entity/apparelSize';
 import { Track } from './entity/track';
+import { OperatingSystemInfo } from './entity/operatingSystemInfo';
+import { Award } from './entity/award';
+import { AmperageMeasure } from './dimensions/AmperageMeasure';
+import { AngleMeasure } from './dimensions/AngleMeasure';
+import { CaliperSizeMeasure } from './dimensions/CaliperSizeMeasure';
+import { CapacityMeasure } from './dimensions/CapacityMeasure';
+import { DataTransferRateMeasure } from './dimensions/DataTransferRateMeasure';
+import { DensityMeasure } from './dimensions/DensityMeasure';
+import { DistanceMeasure } from './dimensions/DistanceMeasure';
+import { LengthMeasure } from './dimensions/LengthMeasure';
+import { MemorySpeedMeasure } from './dimensions/MemorySpeedMeasure';
+import { MusicDurationMeasure } from './dimensions/MusicDurationMeasure';
+import { PowerConsumptionMeasure } from './dimensions/PowerConsumptionMeasure';
+import { RateOfEnergyCapacityMeasure } from './dimensions/RateOfEnergyCapacityMeasure';
+import { RotationalSpeedMeasure } from './dimensions/RotationalSpeedMeasure';
+import { VideoRuntimeMeasure } from './dimensions/VideoRuntime';
+import { VoltageMeasure } from './dimensions/VoltageMeasure';
+import { WattageMeasure } from './dimensions/WattageMeasure';
+import { WeightMeasure } from './dimensions/WeightMeasure';
 
 export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
-    SelfStorage,
-    Facility,
     Address,
-    Auction,
-    HashTagUsage,
-    HashTag,
-    MercariBrand,
-    Brand,
-    SquareFootage,
-    MercariCategory,
+    AmperageMeasure,
+    AngleMeasure,
     ApparelSize,
-    MercariTaxonomy,
+    Attachment,
     Attribute,
-    Classifier,
+    Auction,
     Barcode,
     Bin,
-    IncludedItem,
-    CustomItemField,
-    CustomItemFieldValue,
-    CustomItemFieldType,
-    CustomItemFieldTypes,
+    Brand,
+    CaliperSizeMeasure,
+    CapacityMeasure,
+    Classifier,
     ClothingCare,
-    MadeOfSection,
-    Track,
-    Product,
     Connector,
     CurrentSetting,
-    MinMax,
-    Shipping,
-    Facing,
-    ProductImage,
-    Sku,
-    Piece,
+    CustomItemField,
+    CustomItemFieldType,
+    CustomItemFieldTypes,
+    CustomItemFieldValue,
+    DataTransferRateMeasure,
+    DensityMeasure,
+    DistanceMeasure,
     Draft,
-    Dimension,
-    Attachment
+    Facility,
+    Facing,
+    HashTag,
+    HashTagUsage,
+    IncludedItem,
+    LengthMeasure,
+    MadeOfSection,
+    MemorySpeedMeasure,
+    MercariBrand,
+    MercariCategory,
+    MercariTaxonomy,
+    MinMax,
+    MusicDurationMeasure,
+    OperatingSystemInfo,
+    Piece,
+    PowerConsumptionMeasure,
+    Product,
+    ProductImage,
+    RateOfEnergyCapacityMeasure,
+    RotationalSpeedMeasure,
+    SelfStorage,
+    Shipping,
+    Sku,
+    SquareFootage,
+    Track,
+    VideoRuntimeMeasure,
+    VoltageMeasure,
+    WattageMeasure,
+    WeightMeasure,
+    Award
+    // OscarAward,
+    // HugoAward,
+    // PulitzerAward,
+    // GrammyAward,
+    // EmmyAward,
+    // NYTimesAward,
+    // TonyAward
 ];

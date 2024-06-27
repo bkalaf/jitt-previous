@@ -30,9 +30,13 @@ declare global {
     export type IDependencyIn<T extends MRT_RowData, TKey extends keyof T> = {
         in: T[TKey][];
     };
+
+    export type IDependencyHasOneOf<T extends MRT_RowData, TKey extends keyof T> = {
+        hasOneOf: ArrayOf<T[TKey]>[];
+    };
     export type IDependencyUnary<T extends MRT_RowData, TKey extends keyof T> = [kind: 'not' | null, left: IDeps<T, TKey>];
     export type IDependencyBinary<T extends MRT_RowData, TKey extends keyof T> = [kind: 'and' | 'or', left: IDeps<T, TKey>, right: IDeps<T, TKey>];
-    export type IDeps<T extends MRT_RowData, TKey extends keyof T> = IDependencyEmpty | IDependencyNull | IDependencyEqualTo<T, TKey> | IDependencyIn<T, TKey> | IDependencyUnary<T, TKey> | IDependencyBinary<T, TKey>;
+    export type IDeps<T extends MRT_RowData, TKey extends keyof T> = IDependencyEmpty | IDependencyNull | IDependencyEqualTo<T, TKey> | IDependencyIn<T, TKey> | IDependencyUnary<T, TKey> | IDependencyBinary<T, TKey> | IDependencyHasOneOf<T, TKey>;
     export type IDependency<T extends MRT_RowData, TKey extends keyof T> = {
         type: 'enable' | 'disable';
         property: TKey;
@@ -49,7 +53,7 @@ declare global {
 
     // eslint-disable-next-line @typescript-eslint/ban-types
     export type ListItemCellComponent<T> = (value?: T) => React.FunctionComponent<{}>;
-
+    export type StringifyComponent<T> = (value?: T, emptyStringForNull?: boolean) => () => string | undefined;
     export type EnumInfo = { key: string; text: string };
     export type ExtendedEnumInfo =
         | {
@@ -159,7 +163,7 @@ declare global {
     export type InitFunction<T> = () => InitValue<T>;
     export type UpdateFunction<T> = (item: T) => T;
     export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T; init: InitFunction<T>; update: UpdateFunction<T> };
-    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { liComponent: ListItemCellComponent<T>; init: InitFunction<T>; update: UpdateFunction<T> };
+    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { liComponent: ListItemCellComponent<T>; stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T> };
     export type MyClass<T extends Record<string, unknown>> = ReferenceClass<T> | EmbeddedClass<T>;
     export type EditFunctionParams<T extends MRT_RowData, TValue = any> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Edit'], undefined>>[0];
     export type EditFunctionComponent<T extends MRT_RowData, TValue = any> = React.FunctionComponent<EditFunctionParams<T, TValue>>;

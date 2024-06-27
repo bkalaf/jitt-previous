@@ -1,14 +1,27 @@
 import dayjs from 'dayjs';
 import { is } from '../../../common/is';
-import { getProperty } from 'src/common/object/getProperty';
-import { surroundParensIgnore, surroundSquareBracesIgnore } from '../../../common/text/surround';
+import { surroundParensIgnore, surroundQuotesIgnore, surroundSquareBracesIgnore } from '../../../common/text/surround';
 import $me, { BarcodeTypes, CableTypes, HandOrientations, ProductColors } from '../../../schema/enums';
 import { Flags, allFlags } from '../../../schema/enums/flags';
-import { IBarcode, ICapacity, IClothingCare, ICurrentSetting, IIncludedItem, IMadeOfSection, IMinMax, IPiece, IProduct, ISku, ITrack, Opt } from '../../../types';
+import { CaliperSizeUnitsOfMeasure, DistanceUnitsOfMeasure, IBarcode, IClothingCare, ICurrentSetting, IIncludedItem, IMadeOfSection, IMeasure, IMinMax, IPiece, IProduct, ISku, ITrack, LengthUnitsOfMeasure, MusicDurationUnitsOfMeasure, Opt, CapacityUnitsOfMeasure, AmperageUnitsOfMeasure, VoltageUnitsOfMeasure, WattageUnitsOfMeasure, PowerConsumptionUnitsOfMeasure, RateOfEnergyCapacityUnitsOfMeasure, DataTransferRateUnitsOfMeasure, MemorySpeedUnitsOfMeasure, RotationalSpeedUnitsOfMeasure, VideoRuntimeUnitsOfMeasure } from '../../../types';
 import { barcodeFormatter } from '../../../util/barcodeFormatter';
 import { truncateAuto } from '../../../common/number/truncateAuto';
 import { converted } from '../../../schema/defs/colDBList';
 import { convertFromGrams } from './convertFromGrams';
+import { getProperty } from '../../../common/object/getProperty';
+import { AngleMeasure } from '../../../schema/dimensions/AngleMeasure';
+import { DensityMeasure } from '../../../schema/dimensions/DensityMeasure';
+import { $measure, joinUOM } from '../../../schema/dimensions/$measure';
+import { RotationalSpeedMeasure } from '../../../schema/dimensions/RotationalSpeedMeasure';
+import { MemorySpeedMeasure } from '../../../schema/dimensions/MemorySpeedMeasure';
+import { DataTransferRateMeasure } from '../../../schema/dimensions/DataTransferRateMeasure';
+import { PowerConsumptionMeasure } from '../../../schema/dimensions/PowerConsumptionMeasure';
+import { RateOfEnergyCapacityMeasure } from '../../../schema/dimensions/RateOfEnergyCapacityMeasure';
+import { VoltageMeasure } from '../../../schema/dimensions/VoltageMeasure';
+import { WattageMeasure } from '../../../schema/dimensions/WattageMeasure';
+import { AmperageMeasure } from '../../../schema/dimensions/AmperageMeasure';
+import { CapacityMeasure } from '../../../schema/dimensions/CapacityMeasure';
+import { WeightMeasure } from '../../../schema/dimensions/WeightMeasure';
 
 export const char = {
     newLine: '\n',
@@ -27,8 +40,77 @@ export function toAttribute<TKey extends keyof IProduct>(header: string, ...para
 export function ofSku(skus: DBList<IBarcode>) {
     return skus != null && skus.length > 0 ? barcodeFormatter(skus[0]) : undefined;
 }
-export function ofCapacity(value?: ICapacity) {
-    return value == null ? undefined : [truncateAuto(value.value), value.uom].join(' ');
+
+export function quickFold(n: number, uom: string) {
+    return [n, uom].join('');
+}
+export function toMetricConversion({ original, originalUOM, target, targetUOM }: { original: number, originalUOM: string, target: number, targetUOM: string }) {
+    const $first = quickFold(original, originalUOM);
+    const $second = surroundParensIgnore(quickFold(target, targetUOM));
+    return [$first, $second].filter(is.not.nil).join(' ');
+}
+export function ofAngle(value?: AngleMeasure) {
+    return AngleMeasure.stringify(value)();
+}
+export function ofDensity(value?: DensityMeasure) {
+    if (value == null) return undefined;
+    return toMetricConversion($measure.convert.density(value.value))
+}
+export function ofRPM(value?: IMeasure<RotationalSpeedUnitsOfMeasure>) {
+    return RotationalSpeedMeasure.stringify(value)();
+}
+export function ofMemorySpeed(value?: IMeasure<MemorySpeedUnitsOfMeasure>) {
+    return MemorySpeedMeasure.stringify(value)();
+}
+export function ofDataTransfer(value?: IMeasure<DataTransferRateUnitsOfMeasure>) {
+    return DataTransferRateMeasure.stringify(value)();
+}
+export function ofPowerConsumption(value?: IMeasure<PowerConsumptionUnitsOfMeasure>) {
+    return PowerConsumptionMeasure.stringify(value)();
+}
+export function ofRateOfEnergy(value?: IMeasure<RateOfEnergyCapacityUnitsOfMeasure>) {
+    return RateOfEnergyCapacityMeasure.stringify(value)()
+}
+export function ofVoltage(value?: IMeasure<VoltageUnitsOfMeasure>) {
+    return VoltageMeasure.stringify(value)();
+}
+export function ofWattage(value?: IMeasure<WattageUnitsOfMeasure>) {
+    return WattageMeasure.stringify(value)();
+}
+export function ofAmperage(value?: IMeasure<AmperageUnitsOfMeasure>) {
+    return AmperageMeasure.stringify(value)();
+}
+export function ofCapacity(value?: IMeasure<CapacityUnitsOfMeasure>) {
+    return CapacityMeasure.stringify(value)();
+}
+export function ofLength(value?: IMeasure<LengthUnitsOfMeasure>) {
+    if (value == null) return undefined;
+    const { original, originalUOM, target, targetUOM } = $measure.convert.length(value.value)
+    return [joinUOM(original, originalUOM), surroundQuotesIgnore(joinUOM(target, targetUOM))].filter(is.not.nil).join(' ');
+}
+export function ofCaliper(value?: IMeasure<CaliperSizeUnitsOfMeasure>) {
+    if (value == null) return undefined;
+    const { original, originalUOM, target, targetUOM } = $measure.convert.caliperSize(value.value);
+    return [joinUOM(original, originalUOM), surroundQuotesIgnore(joinUOM(target, targetUOM))].filter(is.not.nil).join(' ');
+}
+export function ofDistance(value?: IMeasure<DistanceUnitsOfMeasure>) {
+    if (value == null) return undefined;
+    const { original, originalUOM, target, targetUOM } = $measure.convert.distance(value.value);
+    return [joinUOM(original, originalUOM), surroundQuotesIgnore(joinUOM(target, targetUOM))].filter(is.not.nil).join(' ');
+}
+export function ofDuration(value?: IMeasure<MusicDurationUnitsOfMeasure>) {
+    if (value == null) return undefined;
+    const { uom1, uom2, value1, value2 } = $measure.simplify.duration(value.value);
+    const first = joinUOM(value.value, value.uom);
+    const second = surroundParensIgnore([joinUOM(value1, uom1), joinUOM(value2, uom2)].join(''));
+    return [first, second].filter(is.not.nil).join(' ');
+}
+export function ofRuntime(value?: IMeasure<VideoRuntimeUnitsOfMeasure>) {
+    if (value == null) return undefined;
+    const { uom1, uom2, value1, value2 } = $measure.simplify.runtime(value.value);
+    const first = joinUOM(value.value, value.uom);
+    const second = surroundParensIgnore([joinUOM(value1, uom1), joinUOM(value2, uom2)].join(''));
+    return [first, second].filter(is.not.nil).join(' ');
 }
 export function ofEnum<T extends string>(key: keyof typeof $me) {
     const lookup = $me[key];
@@ -105,7 +187,16 @@ export function ofBarcode(barcodeType: BarcodeTypes) {
 export function ofDate(format: string) {
     return (value: Opt<Date>) => (value == null ? undefined : dayjs(value).format(format));
 }
-export function ofWeight(grams?: Opt<number>) {
+export function ofWeight(weight?: Opt<WeightMeasure>) {
+    if (weight == null || weight.value === 0) return undefined;
+    const metric = joinUOM(weight.value, weight.uom);
+    const { target } = $measure.convert.weight(weight.value);
+    const { uom1, uom2, value1, value2 } = $measure.simplify.weight(target);
+    const english = surroundQuotesIgnore([joinUOM(value1, uom1), joinUOM(value2, uom2)].filter(is.not.nil).join(''));
+    return [metric, english].filter(is.not.nil).join(' ');
+}
+/** @deprecated */
+export function OBSOLETE_ofWeight(grams?: Opt<number>) {
     const total = convertFromGrams(grams);
     if (total == null) return total;
     const { pounds, ounces } = total;
@@ -130,34 +221,30 @@ export function ofCopyright({ copyright, musicFormat, videoFormat }: IProduct) {
     const $format = $musicFormat ?? $videoFormat;
     return surroundParensIgnore(copyright == null && $format == null ? undefined : [copyright, $format].filter(is.not.nil).join(','));
 }
+export function unparent(str?: string) {
+    if (str == null) return undefined;
+    if (str.startsWith('(')) return str.slice(1, str.endsWith(')') ? str.length - 2 : str.length - 1);
+    return str.endsWith(')') ? str.slice(0, str.length - 1) : str;
+}
 export function ofDimension({ height, width, length }: IProduct) {
-    const heightSI = ofMeasure('"')(height);
-    const widthSI = ofMeasure('"')(width);
-    const lengthSI = ofMeasure('"')(length);
-    const heightMetric = ofMeasure('cm')(height ? height * 2.54 : undefined);
-    const widthMetric = ofMeasure('cm')(width ? width * 2.54 : undefined);
-    const lengthMetric = ofMeasure('cm')(length ? length * 2.54 : undefined);
+    const [heightSI, heightMetric] = ofLength(height)?.split(' ') ?? [undefined, undefined];
+    const [widthSI, widthMetric] = ofLength(width)?.split(' ') ?? [undefined, undefined];
+    const [lengthSI, lengthMetric] = ofLength(length)?.split(' ') ?? [undefined, undefined];
 
-    const key = [length != null ? 'l' : undefined, width != null ? 'w' : undefined, height != null ? 'h' : undefined].filter(is.not.nil).join('');
+    const key = [lengthSI != null ? 'l' : undefined, widthSI != null ? 'w' : undefined, heightSI != null ? 'h' : undefined].filter(is.not.nil).join('');
     const value = [lengthSI, widthSI, heightSI].filter(is.not.nil).join(' x ');
-    const valueMetric = [lengthMetric, widthMetric, heightMetric].filter(is.not.nil).join(' x ');
+    const valueMetric = [unparent(lengthMetric), unparent(widthMetric), unparent(heightMetric)].filter(is.not.nil).join(' x ');
     const result = {
         label: ['Dimensions', surroundParensIgnore(key)].join(' '),
-        value: [value, surroundParensIgnore(valueMetric)].join(' ')
+        value: [value, surroundParensIgnore(valueMetric)].filter(is.not.nil).join(' ')
     };
-    return [length, width, height].some((x) => x != null && x !== 0) ? [result.label, result.value].join('\n') : undefined;
+    return [length, width, height].some((x) => x != null && x.value !== 0) ? [result.label, result.value].join('\n') : undefined;
 }
 
 export function ofTrack(value?: ITrack) {
     if (value == null) return '';
-    const { index, feat, name, runtimeSecs } = value;
-    function inner() {
-        if (runtimeSecs == null) return undefined;
-        const minutes = Math.floor(runtimeSecs / 60);
-        const seconds = Math.floor(runtimeSecs - minutes * 60);
-        return [minutes.toFixed(0), seconds.toFixed(0)].join(':');
-    }
-    const time = inner();
+    const { index, feat, name, duration } = value;
+    const time = ofDuration(duration);
     return [index?.toFixed(0)?.concat(':'), name, surroundParensIgnore(feat == null ? undefined : (feat ?? []).join(',')), surroundSquareBracesIgnore(time)].filter(is.not.nil).join(' ');
 }
 export function ofPiece(enumKey: keyof typeof $me) {
@@ -180,10 +267,10 @@ export function ofBattery({ batteryCount, batteryType }: IProduct) {
 }
 export function ofCurrent(value: ICurrentSetting) {
     if (value == null) return undefined;
-    const { amperage, amperageUnit, voltage, wattage } = value;
-    const w = ofMeasure('W')(wattage);
-    const v = ofMeasure('V')(voltage);
-    const a = ofMeasure(amperageUnit ?? 'A')(amperage);
+    const { amperage, voltage, wattage } = value;
+    const w = ofWattage(wattage);
+    const v = ofVoltage(voltage);
+    const a = ofAmperage(amperage);
     return [w, v, a].filter(is.not.nil).join(' ');
 }
 export function ofCableType(value: Opt<CableTypes>) {
@@ -206,7 +293,7 @@ export function ofConnector({ connectors, cableType }: IProduct) {
     return connectors
         .map((conn) => {
             const { generation, innerWidth, outerWidth, type } = conn;
-            const widths = innerWidth == null && outerWidth == null ? undefined : [ofMeasure('mm')(outerWidth), surroundParensIgnore(ofMeasure('mm')(innerWidth))].filter(is.not.nil).join(' ');
+            const widths = innerWidth == null && outerWidth == null ? undefined : [ofCaliper(outerWidth), surroundParensIgnore(ofCaliper(innerWidth))].filter(is.not.nil).join(' ');
             const connType = inner()(type);
             return [connType, widths, generation].some(is.not.nil) ? [connType, generation?.toFixed(1), widths].filter(is.not.nil).join(' ') : undefined;
         })

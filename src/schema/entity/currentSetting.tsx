@@ -1,14 +1,14 @@
 import { $ } from '../$';
-import { ICurrentSetting, IDimension, Opt } from '../../types';
+import { ICurrentSetting, IOldDimension, Opt } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { AmperageUOM } from '../enums';
 import { EntityBase } from './EntityBase';
-import { Dimension } from './capacity';
+import { OldDimension } from './capacity';
 
 export class CurrentSetting extends EntityBase<ICurrentSetting> implements ICurrentSetting {
-    amperage?: Opt<IDimension<AmperageUOM>>;
-    wattage?: Opt<IDimension<string>>;
-    voltage?: Opt<IDimension<string>>;
+    amperage?: Opt<IOldDimension<AmperageUOM>>;
+    wattage?: Opt<IOldDimension<string>>;
+    voltage?: Opt<IOldDimension<string>>;
     static schema: Realm.ObjectSchema = {
         name: schemaName($.currentSetting()),
         embedded: true,
@@ -23,13 +23,13 @@ export class CurrentSetting extends EntityBase<ICurrentSetting> implements ICurr
     }
     static init(): InitValue<ICurrentSetting> {
         return {
-            amperage: Dimension.init(),
-            wattage: Dimension.init(),
-            voltage: Dimension.init()
+            amperage: OldDimension.init(),
+            wattage: OldDimension.init(),
+            voltage: OldDimension.init()
         };
     }
     static liComponent: ListItemCellComponent<ICurrentSetting> = (value?: ICurrentSetting) => () => {
-        const stringify = Dimension.liComponent as (value?: IDimension<string>) => () => string;
+        const stringify = OldDimension.liComponent as (value?: IOldDimension<string>) => () => string;
         return value == null ? '' : [stringify(value.voltage)(), stringify(value.amperage)(), stringify(value.wattage)()].filter((x) => x != null && x.length > 0).join(' ');
     };
 }

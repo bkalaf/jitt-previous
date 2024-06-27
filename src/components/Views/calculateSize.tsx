@@ -1,5 +1,5 @@
-import { curry } from 'src/common/text/curry';
-import { flip } from 'src/common/text/flip';
+import { curry } from '../../common/text/curry';
+import { flip } from '../../common/text/flip';
 import { roundUp } from './roundUp';
 
 // import { useEffectiveCollection } from '../../hooks/useEffectiveCollection';

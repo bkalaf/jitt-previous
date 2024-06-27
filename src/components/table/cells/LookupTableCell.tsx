@@ -1,13 +1,13 @@
 import { MRT_RowData } from 'material-react-table';
-import { getProperty } from 'src/common/object/getProperty';
 import { useNavigate } from 'react-router';
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { BSON } from 'realm';
 import { Link } from '@mui/material';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import { useGetLabelProperty } from '../../../hooks/useGetLIComponent';
 import { useColumnMeta } from '../../../hooks/useColumnMeta';
+import { getProperty } from '../../../common/object/getProperty';
+import { useGetLabelProperty } from '../../../hooks/useGetLabelProperty';
 
 export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }>(props: CellFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('LookupTableCell', props);

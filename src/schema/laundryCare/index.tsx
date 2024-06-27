@@ -59,7 +59,7 @@ import {
     WetCleanDelicate,
     WetCleanPermanentPress
 } from '../../assets/laundrySVG';
-import { camelToKebab } from 'src/common/text/camelToKebab';
+import { camelToKebab } from '../../common/text/camelToKebab';
 
 // console.log(camelToKebab('laundryCare'));
 // console.log(camelToKebab('barcode'));

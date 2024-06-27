@@ -1,6 +1,5 @@
 import { getProperty } from './getProperty';
 
-
 export function setProperty<T extends Record<string, any>, U = unknown>(name: string, $obj: T, value: U) {
     const obj = { ...$obj };
     if (name.includes('.')) {

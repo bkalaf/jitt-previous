@@ -1,12 +1,12 @@
 import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
 import { Box, Button, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { DefaultValues, FormProvider, useForm } from 'react-hook-form-mui';
-import { camelToProper } from 'src/common/text/camelToProper';
 import { useUpdateRecord } from '../../../hooks/useUpdateRecord';
 import { useCollectionRoute } from '../../../hooks/useCollectionRoute';
 import { useCallback } from 'react';
 import { useInitial } from '../../../hooks/useInitial';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
+import { camelToProper } from '../../../common/text/camelToProper';
 
 export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
     return function RenderCreateRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {

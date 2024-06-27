@@ -1,9 +1,9 @@
 import Realm, { BSON } from 'realm';
-import { AnyConnector, DetailTypes, IBarcode, IBrand, IClassifier, IClothingCare, ICurrentSetting, ICustomItemField, IDimension, IHashTag, IIncludedItem, IMadeOfSection, IMinMax, IPiece, IProduct, ITrack, Opt } from '../../types';
+import { AnyConnector, DetailTypes, IAward, IBarcode, IBrand, IClassifier, IClothingCare, ICurrentSetting, ICustomItemField, IHashTag, IIncludedItem, IMadeOfSection, IMinMax, IOperatingSystemInfo, IPiece, IProduct, ITrack, MonthYear, Opt, Year } from '../../types';
 
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { distinctByOID } from '../../common/array/distinct';
+import { distinctByOID, distinctByString } from '../../common/array/distinct';
 import { sizeLookup } from '../enums/sizes';
 import {
     ProductColors,
@@ -52,36 +52,73 @@ import {
     HandOrientations,
     IronTypes,
     MetalTypes,
-    OperatingSystems,
-    PowerTypes,
     ShaftTypes,
     WedgeTypes,
     SleeveLengths,
     FlatwareTypes,
     CableTypes,
     Materials,
-    CapacityUOM,
-    Countries
+    Countries,
+    CompatibleDevices,
+    AwardNames,
+    PowerTypes
 } from '../enums';
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
 import { EntityBase } from './EntityBase';
+import { DensityDimension } from '../dimensions/DensityMeasure';
+import { WeightDimension } from '../dimensions/WeightMeasure';
+import { AngleDimension } from '../dimensions/AngleMeasure';
+import { CapacityDimension } from '../dimensions/CapacityMeasure';
+import { DataTransferRateDimension } from '../dimensions/DataTransferRateMeasure';
+import { LengthDimension } from '../dimensions/LengthMeasure';
+import { MemorySpeedDimension } from '../dimensions/MemorySpeedMeasure';
+import { PowerConsumptionDimension } from '../dimensions/PowerConsumptionMeasure';
+import { RateOfEnergyDimension } from '../dimensions/RateOfEnergyCapacityMeasure';
+import { RotationalSpeedDimension } from '../dimensions/RotationalSpeedMeasure';
+import { VideoRuntimeDimension } from '../dimensions/VideoRuntime';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
-    computerType?: Opt<string>;
-    memorySpeed?: Opt<number>;
-    driveForm?: Opt<string>;
-    driveInterface?: Opt<string>;
-    driveSize?: Opt<IDimension<CapacityUOM>>;
+    inseamSize?: Opt<LengthDimension>;
+    lengthSize?: Opt<LengthDimension>;
+    waistSize?: Opt<LengthDimension>;
+    height?: Opt<LengthDimension>;
+    width?: Opt<LengthDimension>;
+    length?: Opt<LengthDimension>;
+    weight?: Opt<LengthDimension>;
+    footSize?: Opt<LengthDimension>;
+    heelHeight?: Opt<LengthDimension>;
+    bustSize?: Opt<LengthDimension>;
+    chestSize?: Opt<LengthDimension>;
+    neckSize?: Opt<LengthDimension>;
+    sleeveSize?: Opt<LengthDimension>;
+    awards: DBList<IAward<AwardNames>>;
+    runtime?: Opt<VideoRuntimeDimension>;
+    cordLength?: Opt<LengthDimension>;
+    batteryCapacity?: Opt<PowerConsumptionDimension>;
+    powerTypes?: DBList<PowerTypes> | undefined;
+    manufactureDate?: Opt<MonthYear>;
+    rateOfEnergyCapacity?: Opt<RateOfEnergyDimension>;
+    capacity?: Opt<CapacityDimension<'GB'>>;
+    operatingSystem?: Opt<IOperatingSystemInfo>;
+    screenSize?: Opt<LengthDimension>;
     driveType?: Opt<string>;
-    connectivity?: DBList<string>;
-    dataTransferRate?: Opt<number>;
-    memoryForm?: Opt<string>;
-    memorySize?: Opt<IDimension<CapacityUOM>>;
+    driveForm?: Opt<string>;
+    connectivity: DBList<string>;
+    driveInterface?: Opt<string>;
+    writeSpeed?: Opt<DataTransferRateDimension>;
+    readSpeed?: Opt<DataTransferRateDimension>;
+    dataTransferRate?: Opt<DataTransferRateDimension>;
+    rpm?: Opt<RotationalSpeedDimension>;
+    cacheSize?: Opt<CapacityDimension<'MB'>>;
     memoryType?: Opt<string>;
-    readSpeed?: Opt<number>;
-    rpm?: Opt<number>;
-    writeSpeed?: Opt<number>;
+    memoryForm?: Opt<string>;
+    memorySpeed?: Opt<MemorySpeedDimension>;
+    clubLength?: Opt<LengthDimension>;
+    lie?: Opt<AngleDimension>;
+    loft?: Opt<AngleDimension>;
+    swingWeight?: Opt<WeightDimension>;
+    compatibleDevices: DBList<CompatibleDevices>;
     partNumbers: DBList<string>;
     overrideTitle: boolean;
     material?: Opt<Materials>;
@@ -89,29 +126,24 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
     flatwareInventory: Opt<Record<FlatwareTypes, number>>;
     itemType: Opt<string>;
-    cordLength: Opt<number>;
     connectors: DBList<AnyConnector>;
-    manufactureDate?: Opt<Date>;
     compatibleWith: DBList<string>;
     sleeveLength: Opt<SleeveLengths>;
     input: Opt<ICurrentSetting>;
     output: Opt<ICurrentSetting>;
     batteryCount: Opt<number>;
-    batteryCapacity?: Opt<IDimension<string>>;
     batteryType: Opt<BatteryTypes>;
-    powerTypes: Opt<PowerTypes>;
     testedOn: Opt<Date>;
     aspectRatio: Opt<AspectRatios>;
-    capacity: Opt<number>;
     cellCarrier: Opt<CellCarriers>;
-    os: Opt<OperatingSystems>;
-    osVersion: Opt<string>;
-    screenSize: Opt<number>;
-    massInAir: Opt<number>;
-    massWaterDisplaced: Opt<number>;
-    get density(): Opt<number> {
-        if (this.massInAir == null || this.massWaterDisplaced == null) return undefined;
-        return this.massInAir / this.massWaterDisplaced;
+    massInAir?: Opt<WeightDimension>;
+    massWaterDisplaced?: Opt<WeightDimension>;
+    get density(): Opt<DensityDimension> {
+        if (this.massInAir == null || this.massInAir.value === 0 || this.massWaterDisplaced == null || this.massWaterDisplaced.value === 0) return undefined;
+        return {
+            ...DensityDimension.init(),
+            value: this.massInAir.value / this.massWaterDisplaced.value
+        } as any;
     }
     metal: Opt<MetalTypes>;
     dinnerwareType: Opt<DinnerwareTypes>;
@@ -121,11 +153,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     flexType: Opt<FlexTypes>;
     handOrientation: Opt<HandOrientations>;
     ironType: Opt<IronTypes>;
-    clubLength: Opt<number>;
-    lie: Opt<number>;
-    loft: Opt<number>;
     shaftType: Opt<ShaftTypes>;
-    swingWeight: Opt<string>;
     wedgeType: Opt<WedgeTypes>;
     ages: Opt<IMinMax<number>>;
     players: Opt<IMinMax<number>>;
@@ -139,15 +167,11 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     features: DBList<string>;
     flags: DBList<Flags>;
     hashTags: DBList<IHashTag>;
-    height: Opt<number>;
-    width: Opt<number>;
-    length: Opt<number>;
-    weight: Opt<number>;
     modelNo: Opt<string>;
     notes: Opt<string>;
     title: Opt<string>;
     upcs: DBList<IBarcode>;
-    circa: Opt<string>;
+    circa: Opt<Year>;
     color: DBList<ProductColors>;
     description: Opt<string>;
     madeOf: DBList<IMadeOfSection>;
@@ -159,37 +183,27 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     clothingCare: Opt<IClothingCare>;
     closureType: Opt<ClosureTypes>;
     fitType: Opt<FitTypes>;
-    inseamSize: Opt<number>;
     legStyle: Opt<LegStyles>;
-    lengthSize: Opt<number>;
     lengthType: Opt<GarmentLengths>;
     lifestyleType: Opt<LifestyleTypes>;
     pocketType: Opt<PocketTypes>;
     riseType: Opt<RiseTypes>;
     size: Opt<number>;
-    waistSize: Opt<number>;
     bootType: Opt<BootTypes>;
-    footSize: Opt<number>;
-    heelHeight: Opt<number>;
     heightMapType: Opt<HeightMaps>;
     shoeHeelType: Opt<ShoeHeelTypes>;
     shoeWidth: Opt<ShoeWidths>;
     strapType: Opt<StrapTypes>;
     toeStyle: Opt<ToeStyles>;
-    bustSize: Opt<number>;
     swimsuitBottomStyle: Opt<SwimsuitBottomStyles>;
     swimsuitTopStyle: Opt<SwimsuitTopStyles>;
     backlineType: Opt<BacklineTypes>;
-    chestSize: Opt<number>;
     collarType: Opt<CollarTypes>;
     cuffType: Opt<CuffTypes>;
     dressType: Opt<DressTypes>;
-    neckSize: Opt<number>;
     neckType: Opt<NeckTypes>;
-    sleeveSize: Opt<number>;
     sleeveType: Opt<SleeveTypes>;
     suitType: Opt<SuitTypes>;
-    awards: DBList<string>;
     copyright: Opt<string>;
     mediaSubtitle: Opt<string>;
     mediaTitle: Opt<string>;
@@ -208,7 +222,6 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     videoFormat: Opt<VideoFormatTypes>;
     videoGenre: Opt<MovieGenres>;
     movieRating: Opt<MovieRatings>;
-    runtime: Opt<number>;
     starring: DBList<string>;
     tvRating: Opt<TVRatings>;
     videoType: Opt<VideoTypes>;
@@ -374,7 +387,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             rpm: $.int.opt,
             memoryType: $.string.opt,
             memoryForm: $.string.opt,
-            computerType: $.string.opt,
+            compatibleDevices: $.string.list,
             memorySize: $.dimension(),
             memorySpeed: $.int.opt,
             CASLatency: $.string.opt,
@@ -386,18 +399,20 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             rateOfEnergyCapacity: $.dimension(),
             origin: $.string.opt,
             acAdapter: $.currentSetting(),
-            batteryStats: $.currentSetting()
+            batteryStats: $.currentSetting(),
+            type: $.string.list,
+            season: $.int.opt
         }
     };
+    type: DBList<DetailTypes>;
     batteryStats?: Opt<ICurrentSetting>;
     acAdapter?: Opt<ICurrentSetting>;
     origin?: Opt<Countries>;
-    rateOfEnergyCapacity?: Opt<IDimension<string>>;
     CASLatency?: Opt<string>;
-    cacheSize?: Opt<IDimension<CapacityUOM>>;
     dataTransferBandwidth?: Opt<string>;
     pinCount?: Opt<number>;
     voltage?: Opt<number>;
+    season?: Opt<number>;
 
     get sizeText(): string | undefined {
         return sizeLookup(this.size)?.text;
@@ -417,7 +432,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
         return distinctByOID([...(this.brand?.allHashTags ?? []), ...(this?.classifier?.allHashTags ?? [])]);
     }
     get detailTypes(): DetailTypes[] {
-        return ['general', ...Array.from(this.classifier?.detailTypes ?? [])];
+        return distinctByString(['general', ...Array.from(this.type ?? []), ...Array.from(this.classifier?.detailTypes ?? [])]);
     }
     static labelProperty = 'title';
     static update(item: IProduct): IProduct {
@@ -446,7 +461,10 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             starring: [],
             tracks: [],
             connectors: [],
-            compatibleWith: []
+            compatibleWith: [],
+            type: [],
+            compatibleDevices: [],
+            connectivity: []
         };
     }
 }

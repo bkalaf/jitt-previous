@@ -1,7 +1,7 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
-import { camelToProper } from 'src/common/text/camelToProper';
 import { NullCell } from './NullCell';
 import { ColumnMeta } from '@tanstack/react-table';
+import { camelToProper } from '../../common/text/camelToProper';
 
 export type PrimType = {
     type: RealmPrimitives;

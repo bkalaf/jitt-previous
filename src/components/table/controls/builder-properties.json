@@ -459,13 +459,13 @@
         "importance": 61
     },
     {
-        "key": "computerType",
-        "extractor": "(p) => getProperty('computerType', p)",
+        "key": "compatibleDevices",
+        "extractor": "(p) => getProperty('compatibleDevices', p)",
         "titleIndex": 61,
-        "titleFunc": "ofEnum('computerTypes')",
-        "narrativeFunc": "ofEnum('computerTypes')",
+        "titleFunc": "ofEnum('compatibleDevices')",
+        "narrativeFunc": "ofEnum('compatibleDevices')",
         "section": "attributes",
-        "header": "Computer Type",
+        "header": "Compatible Devices",
         "importance": 65
     },
     { "key": "memorySize", "extractor": "(p) => getProperty('memorySize', p)", "titleIndex": 54, "titleFunc": "ofCapacity", "narrativeFunc": "ofCapacity", "section": "attributes", "header": "Memory Size", "importance": 57 },

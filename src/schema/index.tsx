@@ -42,7 +42,7 @@ import { toysDetails } from './entity/details/toysDetails';
 import { pieceColumns } from './columns/piece';
 import { draftColumns } from './columns/draft';
 import { computerComponentsDetails, computerComponentsDrivesDetails, computerComponentsRamDetails } from './entity/details/computerComponentsDetails';
-import { dimension } from './columns/dimension';
+import { dimension } from './columns/_dimension';
 
 const h = createMRTColumnHelper<{ value: any }>();
 const helper = col(h);
@@ -78,7 +78,7 @@ window.columns.facility = facilityColumns as MRT_ColumnDef<any>[];
 window.columns.hashTag = hashTagColumns as MRT_ColumnDef<any>[];
 window.columns.hashTagUsage = hashTagUsageColumns as MRT_ColumnDef<any>[];
 window.columns.includedItem = includedItemColumns as MRT_ColumnDef<any>[];
-window.columns.madeOfSection = madeOfSectionColumns as any; 
+window.columns.madeOfSection = madeOfSectionColumns as any;
 // as MRT_ColumnDef<any>[];
 window.columns.mercariBrand = mercariBrandColumns as MRT_ColumnDef<any>[];
 window.columns.mercariCategory = mercariCategoryColumns as MRT_ColumnDef<any>[];

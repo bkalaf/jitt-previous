@@ -9,7 +9,7 @@ import * as fs from 'graceful-fs';
 import { useLocalRealm } from '../hooks/useLocalRealm';
 import { IBarcode, IHashTag, IMercariBrand, IMercariTaxonomy } from '../types';
 import { runTransaction } from '../util/runTransaction';
-import { useToaster } from './Views/renderProperties/useToaster';
+import { useToaster } from '../hooks/useToaster';
 import * as path from 'path';
 import { MercariTaxonomy } from '../schema/entity/mercariTaxonomy';
 import { surroundQuotesIgnore, surroundQuotesNoIgnore } from '../common/text/surround';

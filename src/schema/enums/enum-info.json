@@ -2101,43 +2101,38 @@
     "detailsTypes": [
         {
             "aliases": [],
-            "key": "apparel-bottoms",
-            "text": "apparel-bottoms"
-        },
-        {
-            "aliases": [],
-            "key": "apparel-bras",
-            "text": "apparel-bras"
-        },
-        {
-            "aliases": [],
-            "key": "apparel-footwear",
-            "text": "apparel-footwear"
-        },
-        {
-            "aliases": [],
-            "key": "apparel-tops",
-            "text": "apparel-tops"
-        },
-        {
-            "aliases": [],
             "key": "apparel",
             "text": "apparel"
         },
         {
             "aliases": [],
-            "key": "cables-data",
-            "text": "cables-data"
+            "key": "apparel/bottoms",
+            "text": "apparel/bottoms"
         },
         {
             "aliases": [],
-            "key": "cables-power",
-            "text": "cables-power"
+            "key": "apparel/bottoms/legged",
+            "text": "apparel/bottoms/legged"
         },
         {
             "aliases": [],
-            "key": "cables-video",
-            "text": "cables-video"
+            "key": "apparel/bras",
+            "text": "apparel/bras"
+        },
+        {
+            "aliases": [],
+            "key": "apparel/bras/swimsuit",
+            "text": "apparel/bras/swimsuit"
+        },
+        {
+            "aliases": [],
+            "key": "apparel/footwear",
+            "text": "apparel/footwear"
+        },
+        {
+            "aliases": [],
+            "key": "apparel/tops",
+            "text": "apparel/tops"
         },
         {
             "aliases": [],
@@ -2146,8 +2141,18 @@
         },
         {
             "aliases": [],
-            "key": "cell-phones",
-            "text": "cell-phones"
+            "key": "cables/data",
+            "text": "cables/data"
+        },
+        {
+            "aliases": [],
+            "key": "cables/power",
+            "text": "cables/power"
+        },
+        {
+            "aliases": [],
+            "key": "cables/video",
+            "text": "cables/video"
         },
         {
             "aliases": [],
@@ -2156,38 +2161,38 @@
         },
         {
             "aliases": [],
-            "key": "computer-components",
-            "text": "computer-components"
+            "key": "electronics/visual",
+            "text": "electronics/visual"
         },
         {
             "aliases": [],
-            "key": "computer-components-drives",
-            "text": "computer-components-drives"
+            "key": "electronics/visual/cell-phones",
+            "text": "electronics/visual/cell-phones"
         },
         {
             "aliases": [],
-            "key": "computer-components-ram",
-            "text": "computer-components-ram"
+            "key": "electronics/computer-components",
+            "text": "electronics/computer-components"
         },
         {
             "aliases": [],
-            "key": "computer-components-other",
-            "text": "computer-components-other"
+            "key": "electronics/computer-components/drives",
+            "text": "electronics/computer-components/drives"
         },
         {
             "aliases": [],
-            "key": "general",
-            "text": "general"
+            "key": "electronics/computer-components/ram",
+            "text": "electronics/computer-components/ram"
         },
         {
             "aliases": [],
-            "key": "home-goods-dinnerware",
-            "text": "home-goods-dinnerware"
+            "key": "electronics/computer-components/battery",
+            "text": "electronics/computer-components/battery"
         },
         {
             "aliases": [],
-            "key": "home-goods-flatware",
-            "text": "home-goods-flatware"
+            "key": "electronics/kitchen-appliances",
+            "text": "electronics/kitchen-appliances"
         },
         {
             "aliases": [],
@@ -2196,43 +2201,28 @@
         },
         {
             "aliases": [],
-            "key": "jewelry",
-            "text": "jewelry"
+            "key": "home-goods/decor",
+            "text": "home-goods/decor"
         },
         {
             "aliases": [],
-            "key": "kitchen-appliances",
-            "text": "kitchen-appliances"
+            "key": "home-goods/decor/wall-art",
+            "text": "home-goods/decor/wall-art"
         },
         {
             "aliases": [],
-            "key": "media-books",
-            "text": "media-books"
+            "key": "home-goods/dinnerware",
+            "text": "home-goods/dinnerware"
         },
         {
             "aliases": [],
-            "key": "media-music",
-            "text": "media-music"
+            "key": "home-goods/flatware",
+            "text": "home-goods/flatware"
         },
         {
             "aliases": [],
-            "key": "media-video-games",
-            "text": "media-video-games"
-        },
-        {
-            "aliases": [],
-            "key": "media-videos-film",
-            "text": "media-videos-film"
-        },
-        {
-            "aliases": [],
-            "key": "media-videos-tv-series",
-            "text": "media-videos-tv-series"
-        },
-        {
-            "aliases": [],
-            "key": "media-videos",
-            "text": "media-videos"
+            "key": "home-goods/glassware",
+            "text": "home-goods/glassware"
         },
         {
             "aliases": [],
@@ -2241,8 +2231,33 @@
         },
         {
             "aliases": [],
-            "key": "sporting-goods-golf-clubs",
-            "text": "sporting-goods-golf-clubs"
+            "key": "media/books",
+            "text": "media/books"
+        },
+        {
+            "aliases": [],
+            "key": "media/music",
+            "text": "media/music"
+        },
+        {
+            "aliases": [],
+            "key": "media/video-games",
+            "text": "media/video-games"
+        },
+        {
+            "aliases": [],
+            "key": "media/videos",
+            "text": "media/videos"
+        },
+        {
+            "aliases": [],
+            "key": "media/videos/film",
+            "text": "media/videos/film"
+        },
+        {
+            "aliases": [],
+            "key": "media/videos/tv-series",
+            "text": "media/videos/tv-series"
         },
         {
             "aliases": [],
@@ -2251,8 +2266,63 @@
         },
         {
             "aliases": [],
+            "key": "sporting-goods/golf",
+            "text": "sporting-goods/golf"
+        },
+        {
+            "aliases": [],
+            "key": "sporting-goods/golf/clubs",
+            "text": "sporting-goods/golf/clubs"
+        },
+        {
+            "aliases": [],
+            "key": "sporting-goods/tennis",
+            "text": "sporting-goods/tennis"
+        },
+        {
+            "aliases": [],
+            "key": "sporting-goods/tennis/rackets",
+            "text": "sporting-goods/tennis/rackets"
+        },
+        {
+            "aliases": [],
+            "key": "sporting-goods/bowling",
+            "text": "sporting-goods/bowling"
+        },
+        {
+            "aliases": [],
+            "key": "sporting-goods/bowling/balls",
+            "text": "sporting-goods/bowling/balls"
+        },
+        {
+            "aliases": [],
+            "key": "general",
+            "text": "general"
+        },
+        {
+            "aliases": [],
+            "key": "jewelry",
+            "text": "jewelry"
+        },
+        {
+            "aliases": [],
+            "key": "jewelry/precious-metal",
+            "text": "jewelry/precious-metal"
+        },
+        {
+            "aliases": [],
+            "key": "jewelry/costume",
+            "text": "jewelry/costume"
+        },
+        {
+            "aliases": [],
             "key": "toys",
             "text": "toys"
+        },
+        {
+            "aliases": [],
+            "key": "toys/board-games",
+            "text": "toys/board-games"
         }
     ],
     "dinnerwareTypes": [
@@ -3484,6 +3554,58 @@
             "text": "Amazon Fire"
         }
     ],
+    "operatingSystemNames": [
+        {
+            "key": "unknown",
+            "text": "unknown",
+            "aliases": []
+        },
+        {
+            "key": "android",
+            "text": "Android",
+            "aliases": []
+        },
+        {
+            "key": "ios",
+            "text": "iOS",
+            "aliases": []
+        },
+        {
+            "key": "blackberry",
+            "text": "Blackberry",
+            "aliases": []
+        },
+        {
+            "key": "linux",
+            "text": "Linux",
+            "aliases": []
+        },
+        {
+            "key": "nucleus",
+            "text": "Nucleus OS",
+            "aliases": []
+        },
+        {
+            "key": "symbian",
+            "text": "Symbian",
+            "aliases": []
+        },
+        {
+            "key": "macOS",
+            "text": "macOS",
+            "aliases": []
+        },
+        {
+            "key": "fire",
+            "text": "Amazon Fire",
+            "aliases": []
+        },
+        {
+            "key": "windows",
+            "text": "Windows",
+            "aliases": []
+        }
+    ],
     "payorTypes": [
         {
             "aliases": [],
@@ -4644,6 +4766,13 @@
             "text": "External"
         }
     ],
+    "memorySpeedUOM": [
+        { 
+            "aliases": [],
+            "key": "MHz",
+            "text": "MHz"
+        }
+    ],
     "memoryFormFactors": [
         {
             "aliases": [],
@@ -4661,16 +4790,31 @@
             "text": "SODIMM"
         }
     ],
-    "computerTypes": [
+    "compatibleDevices": [
         {
             "aliases": [],
-            "key": "desktop",
-            "text": "Desktop"
+            "key": "desktop-computers",
+            "text": "Desktop Computers"
         },
         {
             "aliases": [],
-            "key": "laptop",
-            "text": "laptop"
+            "key": "laptop-computers",
+            "text": "Laptop Computers"
+        },
+        {
+            "aliases": [],
+            "key": "smart-phones",
+            "text": "Smart Phones"
+        },
+        {
+            "aliases": [],
+            "key": "tablet",
+            "text": "Tablets"
+        },
+        {
+            "aliases": [],
+            "key": "e-readers",
+            "text": "E-Readers"
         }
     ],
     "memoryTypes": [
@@ -4791,7 +4935,995 @@
             "text": "3.5 inch"
         }
     ],
+    "awardNames": [
+        {
+            "key": "oscar",
+            "text": "Academy Award (Oscar)",
+            "aliases": []
+        },
+        {
+            "key": "emmy",
+            "text": "Emmy Award",
+            "aliases": []
+        },
+        {
+            "key": "tony",
+            "text": "Tony Award",
+            "aliases": []
+        },
+        {
+            "key": "pulitzer",
+            "text": "Pulitzer Prize",
+            "aliases": []
+        },
+        {
+            "key": "grammy",
+            "text": "Grammy Award",
+            "aliases": []
+        },
+        {
+            "key": "hugo",
+            "text": "Hugo Award",
+            "aliases": []
+        },
+        {
+            "key": "ny-times",
+            "text": "New York Times Bestseller List",
+            "aliases": []
+        }
+    ],
+    "hugoAwardCategories": [
+        {
+            "key": "novel",
+            "text": "Best Novel",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "novella",
+            "text": "Best Novella",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "novelette",
+            "text": "Best Novelette",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "short-story",
+            "text": "Best Short Story",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "series",
+            "text": "Best Series",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "graphic-story",
+            "text": "Best Graphic Story",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "fan-writer",
+            "text": "Best Fan Writer",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "game",
+            "text": "Best Game or Interactive Work",
+            "aliases": [],
+            "parent": "hugo"
+        },
+        {
+            "key": "related-work",
+            "text": "Best Related Work",
+            "aliases": [],
+            "parent": "hugo"
+        }
+    ],
+    "emmyAwardCategories": [
+        {
+            "key": "comedy",
+            "text": "Outstanding Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "drama",
+            "text": "Outstanding Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "limited",
+            "text": "Outstanding Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "reality",
+            "text": "Outstanding Reality Competition",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "variety",
+            "text": "Outstanding Scripted Variety Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "talk",
+            "text": "Outstanding Talk Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "movie",
+            "text": "Outstanding Television Movie",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "directing-comedy",
+            "text": "Outstanding Directing for a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "directing-drama",
+            "text": "Outstanding Directing for a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "directing-limited",
+            "text": "Outstanding Directing for a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "directing-variety",
+            "text": "Outstanding Directing for a Variety Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "writing-comedy",
+            "text": "Outstanding Writing for a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "writing-drama",
+            "text": "Outstanding Writing for a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "writing-limited",
+            "text": "Outstanding Writing for a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "writing-variety",
+            "text": "Outstanding Writing for a Variety Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actor-comedy",
+            "text": "Outstanding Lead Actor in a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actor-drama",
+            "text": "Outstanding Lead Actor in a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actor-limited",
+            "text": "Outstanding Lead Actor in a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actress-comedy",
+            "text": "Outstanding Lead Actress in a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actress-drama",
+            "text": "Outstanding Lead Actress in a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "actress-limited",
+            "text": "Outstanding Lead Actress in a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actor-comedy",
+            "text": "Outstanding Supporting Actor in a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actor-drama",
+            "text": "Outstanding Supporting Actor in a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actor-limited",
+            "text": "Outstanding Supporting Actor in a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actress-comedy",
+            "text": "Outstanding Supporting Actress in a Comedy Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actress-drama",
+            "text": "Outstanding Supporting Actress in a Drama Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "supporting-actress-limited",
+            "text": "Outstanding Supporting Actress in a Limited/Anthology Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "documentary-series",
+            "text": "Outstanding Documentary or Nonfiction Series",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "documentary-special",
+            "text": "Outstanding Documentary or Nonfiction Special",
+            "aliases": [],
+            "parent": "emmy"
+        },
+        {
+            "key": "animated",
+            "text": "Outstanding Animated Program",
+            "aliases": [],
+            "parent": "emmy"
+        }
+    ],
+    "grammyAwardCategories": [
+        {
+            "key": "album",
+            "text": "Album of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "record",
+            "text": "Record of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "song",
+            "text": "Song of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "artist",
+            "text": "Best New Artist of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "songwriter",
+            "text": "Songwriter of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "producer",
+            "text": "Producer of the Year",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "pop-solo",
+            "text": "Best Pop Solo Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "pop-duo",
+            "text": "Best Pop Duo/Group Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "pop-vocal",
+            "text": "Best Pop Vocal Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "dance",
+            "text": "Best Dance/Electronic Recording",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "dance-pop",
+            "text": "Best Dance Pop Recording",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "dance-album",
+            "text": "Best Dance/Electronic Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "remix",
+            "text": "Best Remixed Recording",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rock",
+            "text": "Best Rock Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "metal",
+            "text": "Best Metal Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rock-song",
+            "text": "Best Rock Song Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rock-album",
+            "text": "Best Rock Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "alternative",
+            "text": "Best Alternative Music Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "alternative-album",
+            "text": "Best Alternative Music Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rnb",
+            "text": "Best R&B Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "traditional-rnb",
+            "text": "Best Traditional R&B Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rnb-song",
+            "text": "Best R&B Song",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "progressive-rnb",
+            "text": "Best Progressive R&B Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rnb-album",
+            "text": "Best R&B Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rap",
+            "text": "Best Rap Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "melodic-rap",
+            "text": "Best Melodic Rap Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rap-song",
+            "text": "Best Rap Song",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "rap-album",
+            "text": "Best Rap Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "spoken-word",
+            "text": "Best Spoken Word Poetry Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "musical-theatre",
+            "text": "Best Musical Theatre Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "country-solo",
+            "text": "Best Country Solo Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "country-duo",
+            "text": "Best Country Duo/Group Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "country-song",
+            "text": "Best Country Song",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "country-album",
+            "text": "Best Country Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "bluegrass",
+            "text": "Best Bluegrass Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "folk",
+            "text": "Best Folk Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "americana-album",
+            "text": "Best Americana Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "americana",
+            "text": "Best Americana Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "american-roots",
+            "text": "Best American Roots Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "traditional-blues",
+            "text": "Best Traditional Blues Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "contemporary-blues",
+            "text": "Best Contemporary Blues Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "regional-roots",
+            "text": "Best Regional Roots Music Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "gospel",
+            "text": "Best Gospel Performance/Song",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "gospel-album",
+            "text": "Best Gospel Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "contemporary-christian",
+            "text": "Best Contemporary Christian Music Performance/Song",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "contemporary-christian-album",
+            "text": "Best Contemporary Christian Music Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "traditional-pop",
+            "text": "Best Traditional Pop Vocal Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "jazz",
+            "text": "Best Jazz Performance",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "jazz-vocal",
+            "text": "Best Jazz Vocal Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "jazz-instrumental",
+            "text": "Best Jaxx Instrumental Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "large-jazz",
+            "text": "Best Large Jazz Ensemble Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "latin-jazz",
+            "text": "Best Latin Jazz Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "alternative-jazz",
+            "text": "Best Alternative Jazz Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "latin-pop",
+            "text": "Best Latin Pop Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "musica-urbana",
+            "text": "Best Musica Urbana Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "latin-rock",
+            "text": "Best Latin Rock Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "musica mexicana",
+            "text": "Best Música Mexicana Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "tropical-latin",
+            "text": "Best Tropical Latin Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "global-music",
+            "text": "Best Global Music Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "raggae",
+            "text": "Best Reggae Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "new-age",
+            "text": "Best New Age, Ambient, or Chant Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "childrens",
+            "text": "Best Children's Music Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "comedy",
+            "text": "Best Comedy Album",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "audio-book",
+            "text": "Best Audio Book, Narration & Storytelling Recording",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "compilation",
+            "text": "Best Compilation Soundtrack for Visual Media",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "soundtrack",
+            "text": "Best Score Soundtrack Album for Visual Media",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "soundtrack-video-games",
+            "text": "Best Score Soundtrack for Video Games and Other Interactive Media",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "song-visual-media",
+            "text": "Best Song Written for Visual Media",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "music-video",
+            "text": "Best Music Video",
+            "aliases": [],
+            "parent": "grammy"
+        },
+        {
+            "key": "music-film",
+            "text": "Best Music Film",
+            "aliases": [],
+            "parent": "grammy"
+        }
+    ],
+    "tonyAwardCategories": [
+        {
+            "key": "play",
+            "text": "Best Play",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "musical",
+            "text": "Best Musical",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "choreography",
+            "text": "Best Choreography",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "actor-play",
+            "text": "Best Performance by a Leading Actor in a Play",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "actor-musical",
+            "text": "Best Performance by a Leading Actor in a Musical",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "featured-actor-play",
+            "text": "Best Performance by a Leading Actor in a Play",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "featured-actor-musical",
+            "text": "Best Performance by a Featured Actor in a Musical",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "actress-play",
+            "text": "Best Performance by a Leading Actress in a Play",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "actress-musical",
+            "text": "Best Performance by a Leading Actress in a Musical",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "featured-actress-play",
+            "text": "Best Performance by a Featured Actress in a Play",
+            "aliases": [],
+            "parent": "tony"
+        },
+        {
+            "key": "featured-actress-musical",
+            "text": "Best Performance by a Featured Actress in a Musical",
+            "aliases": [],
+            "parent": "tony"
+        }
+    ],
+    "pulizerPrizeCategories": [
+        {
+            "key": "biography",
+            "text": "Biography",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "memoir",
+            "text": "Memoir or Autobiography",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "history",
+            "text": "History",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "nonfiction",
+            "text": "General Nonfiction",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "fiction",
+            "text": "Fiction",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "poetry",
+            "text": "Poetry",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "drama",
+            "text": "Drama",
+            "aliases": [],
+            "parent": "pulitzer"
+        },
+        {
+            "key": "music",
+            "text": "Music",
+            "aliases": [],
+            "parent": "pulitzer"
+        }
+    ],
+    "oscarAwardCategories": [
+        {
+            "key": "picture",
+            "text": "Best Picture",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "actor",
+            "text": "Best Leading Actor",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "actress",
+            "text": "Best Leading Actress",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "director",
+            "text": "Best Director",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "supporting-actor",
+            "text": "Best Supporting Actor",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "supporting-actress",
+            "text": "Best Supporting Actress",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "original-screenplay",
+            "text": "Best Original Screenplay",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "song",
+            "text": "Best Original Song",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "cinematography",
+            "text": "Best Cinematography",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "design",
+            "text": "Best Production Design",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "adapted-screenplay",
+            "text": "Best Adapted Screenplay",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "sound",
+            "text": "Best Sound",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "animated",
+            "text": "Best Animated Feature Film",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "editing",
+            "text": "Best Editing",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "score",
+            "text": "Best Original Score",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "effects",
+            "text": "Best Visual Effects",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "short-documentary",
+            "text": "Best Documentary Short Film",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "documentary",
+            "text": "Best Documentary Feature Film",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "international",
+            "text": "Best International Film",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "costume",
+            "text": "Best Costume Design",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "makeup",
+            "text": "Best Makeup and Hairstyling",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "animated-short",
+            "text": "Best Animated Short Film",
+            "aliases": [],
+            "parent": "oscar"
+        },
+        {
+            "key": "casting",
+            "text": "Best Casting",
+            "aliases": [],
+            "parent": "oscar"
+        }
+    ],
+    "durationUOM": {
+
+    },
+    "nyTimesAwardCategories": [
+        {
+            "key": "fiction",
+            "text": "Fiction",
+            "aliases": [],
+            "parent": "ny-times"
+        },
+        {
+            "key": "nonfiction",
+            "text": "Non-Fiction",
+            "aliases": [],
+            "parent": "ny-times"
+        },
+        {
+            "key": "childrens",
+            "text": "Children's Books",
+            "aliases": [],
+            "parent": "ny-times"
+        }
+    ],
     "capacityUOM": [
+        {
+            "aliases": [],
+            "key": "KB",
+            "text": "KB"
+        },
+        {
+            "aliases": [],
+            "key": "MB",
+            "text": "MB"
+        },
         {
             "aliases": [],
             "key": "GB",

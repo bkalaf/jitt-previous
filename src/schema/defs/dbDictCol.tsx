@@ -1,7 +1,7 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { baseCol } from './baseCol';
 import { DictionaryTableCell } from '../../components/table/cells/DictionaryTableCell';
-import { DBDictionaryControl } from 'src/components/table/controls/DBDictionaryControl';
+import { DBDictionaryControl } from '../../components/table/controls/DBDictionaryControl';
 
 export type DBDictFacetedColOptions = {
     readonly?: boolean;

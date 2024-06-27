@@ -51,7 +51,7 @@ export const tabList: Record<
             value: 'apparelTops',
             key: 'apparelTops',
             label: 'Apparel - Tops',
-            detailType: 'apparel-tops',
+            detailType: 'apparel/tops',
             objectType: 'apparelTopsDetails',
             Component: ProductDetailsTab
         },
@@ -59,7 +59,7 @@ export const tabList: Record<
             value: 'apparelBottoms',
             key: 'apparelBottoms',
             label: 'Apparel - Bottoms',
-            detailType: 'apparel-bottoms',
+            detailType: 'apparel/bottoms',
             objectType: 'apparelBottomsDetails',
             Component: ProductDetailsTab
         },
@@ -67,7 +67,7 @@ export const tabList: Record<
             value: 'apparelBras',
             key: 'apparelBras',
             label: 'Apparel - Bras',
-            detailType: 'apparel-bras',
+            detailType: 'apparel/bras',
             objectType: 'apparelBrasDetails',
             Component: ProductDetailsTab
         },
@@ -75,7 +75,7 @@ export const tabList: Record<
             value: 'apparelFootwear',
             key: 'apparelFootwear',
             label: 'Apparel - Footwear',
-            detailType: 'apparel-footwear',
+            detailType: 'apparel/footwear',
             objectType: 'apparelFootwearDetails',
             Component: ProductDetailsTab
         },
@@ -91,7 +91,7 @@ export const tabList: Record<
             value: 'mediaBooks',
             key: 'mediaBooks',
             label: 'Media - Books',
-            detailType: 'media-books',
+            detailType: 'media/books',
             objectType: 'mediaBooksDetails',
             Component: ProductDetailsTab
         },
@@ -99,7 +99,7 @@ export const tabList: Record<
             value: 'mediaMusic',
             key: 'mediaMusic',
             label: 'Media - Music',
-            detailType: 'media-music',
+            detailType: 'media/music',
             objectType: 'mediaMusicDetails',
             Component: ProductDetailsTab
         },
@@ -107,7 +107,7 @@ export const tabList: Record<
             value: 'mediaVideoGames',
             key: 'mediaVideoGames',
             label: 'Media - Video Games',
-            detailType: 'media-video-games',
+            detailType: 'media/video-games',
             objectType: 'mediaVideoGameDetails',
             Component: ProductDetailsTab
         },
@@ -115,8 +115,24 @@ export const tabList: Record<
             value: 'mediaVideos',
             key: 'mediaVideos',
             label: 'Media - Videos',
-            detailType: 'media-videos',
+            detailType: 'media/videos',
             objectType: 'mediaVideoDetails',
+            Component: ProductDetailsTab
+        },
+        mediaVideosTvSeries: {
+            value: 'mediaVideosTvSeries',
+            key: 'mediaVideosTvSeries',
+            label: 'Media - Videos - TV Series',
+            detailType: 'media/videos/tv-series',
+            objectType: 'mediaVideosTvSeriesDetails',
+            Component: ProductDetailsTab
+        },
+        mediaVideosFilm: {
+            value: 'mediaVideosFilm',
+            key: 'mediaVideosFilm',
+            label: 'Media - Videos - Film',
+            detailType: 'media/videos/film',
+            objectType: 'mediaVideosFilmDetails',
             Component: ProductDetailsTab
         },
         cables: {
@@ -131,7 +147,7 @@ export const tabList: Record<
             value: 'cablesData',
             key: 'cablesData',
             label: 'Cables - Data',
-            detailType: 'cables-data',
+            detailType: 'cables/data',
             objectType: 'cablesDataDetails',
             Component: ProductDetailsTab
         },
@@ -139,7 +155,7 @@ export const tabList: Record<
             value: 'cablesPower',
             key: 'cablesPower',
             label: 'Cables - Power',
-            detailType: 'cables-power',
+            detailType: 'cables/power',
             objectType: 'cablesPowerDetails',
             Component: ProductDetailsTab
         },
@@ -147,15 +163,15 @@ export const tabList: Record<
             value: 'cablesVideo',
             key: 'cablesVideo',
             label: 'Cables - Video',
-            detailType: 'cables-video',
+            detailType: 'cables/video',
             objectType: 'cablesVideoDetails',
             Component: ProductDetailsTab
         },
         cellPhones: {
             value: 'cellPhones',
             key: 'cellPhones',
-            label: 'Cell Phones',
-            detailType: 'cell-phones',
+            label: 'Electronics - Visual - Cell Phones',
+            detailType: 'electronics/visual/cell-phones',
             objectType: 'cellPhonesDetails',
             Component: ProductDetailsTab
         },
@@ -167,11 +183,19 @@ export const tabList: Record<
             objectType: 'electronicsDetails',
             Component: ProductDetailsTab
         },
+        visual: {
+            value: 'visual',
+            key: 'visual',
+            label: 'Electronics - Visual',
+            detailType: 'electronics/visual',
+            objectType: 'electronicsVisualDetails',
+            Component: ProductDetailsTab
+        },
         kitchenAppliances: {
             value: 'kitchenAppliances',
             key: 'kitchenAppliances',
-            label: 'Kitchen Appliances',
-            detailType: 'kitchen-appliances',
+            label: 'Electronics - Kitchen Appliances',
+            detailType: 'electronics/kitchen-appliances',
             objectType: 'kitchenAppliancesDetails',
             Component: ProductDetailsTab
         },
@@ -183,11 +207,27 @@ export const tabList: Record<
             objectType: 'homeGoodsDetails',
             Component: ProductDetailsTab
         },
+        homeGoodsDecor: {
+            value: 'homeGoodsDecor',
+            key: 'homeGoodsDecor',
+            label: 'Home Goods - Decor',
+            detailType: 'home-goods/decor',
+            objectType: 'homeGoodsDecorDetails',
+            Component: ProductDetailsTab
+        },
+        homeGoodsDecorWallArt: {
+            value: 'homeGoodsDecorWallArt',
+            key: 'homeGoodsDecorWallArt',
+            label: 'Home Goods - Decor - Wall Art',
+            detailType: 'home-goods/decor/wall-art',
+            objectType: 'homeGoodsDecorWallArtDetails',
+            Component: ProductDetailsTab
+        },
         homeGoodsDinnerware: {
             value: 'homeGoodsDinnerware',
             key: 'homeGoodsDinnerware',
             label: 'Home Goods - Dinnereware',
-            detailType: 'home-goods-dinnerware',
+            detailType: 'home-goods/dinnerware',
             objectType: 'homeGoodsDinnerwareDetails',
             Component: ProductDetailsTab
         },
@@ -195,7 +235,7 @@ export const tabList: Record<
             value: 'homeGoodsFlatware',
             key: 'homeGoodsFlatware',
             label: 'Home Goods - Flatware',
-            detailType: 'home-goods-flatware',
+            detailType: 'home-goods/flatware',
             objectType: 'homeGoodsFlatwareDetails',
             Component: ProductDetailsTab
         },
@@ -207,11 +247,11 @@ export const tabList: Record<
             objectType: 'sportingGoodsDetails',
             Component: ProductDetailsTab
         },
-        sportingGoodsGolf: {
-            value: 'sportingGoodsGolf',
-            key: 'sportingGoodsGolf',
-            label: 'Sporting Goods - Golf',
-            detailType: 'sporting-goods-golf-clubs',
+        sportingGoodsGolfClubs: {
+            value: 'sportingGoodsGolfClubs',
+            key: 'sportingGoodsGolfClubs',
+            label: 'Sporting Goods - Golf - Clubs',
+            detailType: 'sporting-goods/golf/clubs',
             objectType: 'sportingGoodsGolfDetails',
             Component: ProductDetailsTab
         },
@@ -223,6 +263,14 @@ export const tabList: Record<
             objectType: 'toysDetails',
             Component: ProductDetailsTab
         },
+        boardGames: {
+            value: 'boardGames',
+            key: 'boardGames',
+            label: 'Toys - Board Games',
+            detailType: 'toys/board-games',
+            objectType: 'toysBoardGameDetails',
+            Component: ProductDetailsTab
+        },
         jewelry: {
             value: 'jewelry',
             key: 'jewelry',
@@ -231,11 +279,27 @@ export const tabList: Record<
             objectType: 'jewelryDetails',
             Component: ProductDetailsTab
         },
+        jewelryPreciousMetal: {
+            value: 'jewelryPreciousMetal',
+            key: 'jewelryPreciousMetal',
+            label: 'Jewelry - Precious Metal',
+            detailType: 'jewelry/precious-metal',
+            objectType: 'jewelryPreciousMetalDetails',
+            Component: ProductDetailsTab
+        },
+        jewelryCostume: {
+            value: 'jewelryCostume',
+            key: 'jewelryCostume',
+            label: 'Jewelry - Costume',
+            detailType: 'jewelry/costume',
+            objectType: 'jewelryCostumeDetails',
+            Component: ProductDetailsTab
+        },
         computerComponents: {
             value: 'computerComponents',
             key: 'computerComponents',
             label: 'Computer Components',
-            detailType: 'computer-components',
+            detailType: 'electronics/computer-components',
             objectType: 'computerComponentsDetails',
             Component: ProductDetailsTab
         },
@@ -243,7 +307,7 @@ export const tabList: Record<
             value: 'computerComponentsDrives',
             key: 'computerComponentsDrives',
             label: 'Computer Components - Drives',
-            detailType: 'computer-components-drives',
+            detailType: 'electronics/computer-components/drives',
             objectType: 'computerComponentsDrivesDetails',
             Component: ProductDetailsTab
         },
@@ -251,8 +315,16 @@ export const tabList: Record<
             value: 'computerComponentsRam',
             key: 'computerComponentRam',
             label: 'Computer Components - RAM',
-            detailType: 'computer-components-ram',
+            detailType: 'electronics/computer-components/ram',
             objectType: 'computerComponentsRamDetails',
+            Component: ProductDetailsTab
+        },
+        computerComponentsBattery: {
+            value: 'computerComponentsBattery',
+            key: 'computerComponentsBattery',
+            label: 'Computer Components - Battery',
+            detailType: 'electronics/computer-components/battery',
+            objectType: 'computerComponentsBatteryDetails',
             Component: ProductDetailsTab
         }
     }

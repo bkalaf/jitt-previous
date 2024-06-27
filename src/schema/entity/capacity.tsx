@@ -1,4 +1,4 @@
-import { IDimension } from '../../types';
+import { IOldDimension } from '../../types';
 import Realm from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
@@ -20,7 +20,8 @@ import { EntityBase } from './EntityBase';
 //     static liComponent: ListItemCellComponent<ICapacity> = (value?: ICapacity) => () => (value == null ? '' : `${truncateAuto(value.value)}${value.uom}`);
 // }
 
-export class Dimension<T extends string> extends EntityBase<IDimension<T>> implements IDimension<T> {
+/** @deprecated */
+export class OldDimension<T extends string> extends EntityBase<IOldDimension<T>> implements IOldDimension<T> {
     uom: T;
     value: number;
 
@@ -32,11 +33,11 @@ export class Dimension<T extends string> extends EntityBase<IDimension<T>> imple
             value: $.double.default(0)
         }
     };
-    static liComponent: ListItemCellComponent<IDimension<string>> = (value?: IDimension<string>) => () => (value == null || value.uom === '' ? '' : `${truncateAuto(value.value)}${value.uom}`);
-    static update(item: IDimension<string>): IDimension<string> {
+    static liComponent: ListItemCellComponent<IOldDimension<string>> = (value?: IOldDimension<string>) => () => (value == null || value.uom === '' ? '' : `${truncateAuto(value.value)}${value.uom}`);
+    static update(item: IOldDimension<string>): IOldDimension<string> {
         return item;
     }
-    static init(): InitValue<IDimension<string>> {
+    static init(): InitValue<IOldDimension<string>> {
         return {
             value: 0,
             uom: ''

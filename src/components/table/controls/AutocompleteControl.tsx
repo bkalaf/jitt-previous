@@ -5,10 +5,10 @@ import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useLocalRealm } from '../../../hooks/useLocalRealm';
 import { BSON } from 'realm';
 import { useAutoComplete } from '../../../hooks/useAutoComplete';
-import { useGetLabelProperty } from '../../../hooks/useGetLIComponent';
 import { useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
 import { useEditControlBase } from '../../../hooks/useEditControlBase';
+import { useGetLabelProperty } from '../../../hooks/useGetLabelProperty';
 
 export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> : U | undefined>) {
     useWhyDidIUpdate('AutocompleteControl', props);

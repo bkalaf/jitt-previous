@@ -1,0 +1,1 @@
+{"version":3,"file":"removeLeadingZero.js","sourceRoot":"","sources":["removeLeadingZero.tsx"],"names":[],"mappings":";;;AAAA,SAAgB,kBAAkB,CAAC,GAAW;IAC1C,IAAI,GAAG,CAAC,UAAU,CAAC,GAAG,CAAC,EAAE,CAAC;QACtB,OAAO,kBAAkB,CAAC,GAAG,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC;IAC5C,CAAC;IACD,OAAO,GAAG,CAAC;AACf,CAAC;AALD,gDAKC"}

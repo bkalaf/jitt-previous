@@ -19,10 +19,11 @@ export const computerComponentsDrivesDetails: MRT_ColumnDef<IProduct>[] = [
     helper.intMeasure('rpm', 'Rotational Speed', 'RPM', { min: 0 }),
     helper.measure('cacheSize', 'Cache Size', 'MB', { min: 0 })
 ] as MRT_ColumnDef<IProduct>[];
+
 export const computerComponentsRamDetails: MRT_ColumnDef<IProduct>[] = [
     helper.enum('memoryType', 'Memory Type', { enumKey: 'memoryTypes' }),
     helper.enum('memoryForm', 'Memory Form', { enumKey: 'memoryFormFactors' }),
-    helper.enum('computerType', 'Computer Type', { enumKey: 'computerTypes' }),
+    helper.enum('compatibleDevices', 'Compatible Devices', { enumKey: 'compatibleDevices' }),
     helper.measure('memorySpeed', 'Memory Speed', 'MHz', { min: 0 }),
     helper.double('memorySize.value' as any, 'Drive Size', { min: 0 }),
     helper.enum('memorySize.uom' as any, 'Drive Size UOM', { enumKey: 'capacityUOM' }),

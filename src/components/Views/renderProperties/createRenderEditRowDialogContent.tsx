@@ -1,7 +1,6 @@
 import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
 import { Box, Button, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form-mui';
-import { camelToProper } from 'src/common/text/camelToProper';
 import { useCollectionRoute } from '../../../hooks/useCollectionRoute';
 import { useCallback } from 'react';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
@@ -13,6 +12,7 @@ import { useInvalidateCollection } from '../../../hooks/useInvalidateCollection'
 import { useInitial } from '../../../hooks/useInitial';
 import { UpdateMode } from 'realm';
 import { toJSON } from './toJSON';
+import { camelToProper } from '../../../common/text/camelToProper';
 
 export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
     return function RenderEditRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {

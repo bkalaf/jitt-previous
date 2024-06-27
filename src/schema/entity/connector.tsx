@@ -7,21 +7,21 @@ import { surround } from '../../common/text/surround';
 import { truncateAuto } from '../../common/number/truncateAuto';
 import { is } from '../../common/is';
 import { EntityBase } from './EntityBase';
+import { CaliperSizeDimension } from '../dimensions/CaliperSizeMeasure';
 
 export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTypes | VideoConnectorTypes> extends EntityBase<IConnector<TConnector>> implements IConnector<TConnector> {
+    innerWidth?: Opt<CaliperSizeDimension>;
+    outerWidth?: Opt<CaliperSizeDimension>;
     connectorGender?: Opt<ConnectorGenders>;
     generation: Opt<number>;
-    connectorGenders: Opt<ConnectorGenders>;
-    innerWidth: Opt<number>;
-    outerWidth: Opt<number>;
     type: Opt<TConnector>;
     static schema: Realm.ObjectSchema = {
         name: schemaName($.connector()),
         embedded: true,
         properties: {
             connectorGender: $.string.opt,
-            innerWidth: $.double.opt,
-            outerWidth: $.double.opt,
+            innerWidth: $.caliperSizeDimension(),
+            outerWidth: $.caliperSizeDimension(),
             type: $.string.opt,
             generation: $.int.opt
         }

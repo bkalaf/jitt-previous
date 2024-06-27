@@ -6,7 +6,6 @@ import { faCircleLeft, faHome, faTable } from '@fortawesome/pro-solid-svg-icons'
 import { Outlet, useLocation } from 'react-router';
 import { NavLink as RRLink } from 'react-router-dom';
 import { MainMenu } from './MainMenu';
-import { camelToProper } from 'src/common/text/camelToProper';
 import { useEnv } from '../hooks/useEnv';
 import { IconBtn } from './IconBtn';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
@@ -14,6 +13,7 @@ import { getCurrentWebContents } from '@electron/remote';
 import { useConfiguration } from '../hooks/useConfiguration';
 import { useToggler } from '../hooks/useToggler';
 import { useTypes } from '../hooks/useTypes';
+import { camelToProper } from '../common/text/camelToProper';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (

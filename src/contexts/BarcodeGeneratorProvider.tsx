@@ -1,5 +1,5 @@
 import { BarcodeGeneratorContext } from './BarcodeGeneratorContext';
-import { useProvideBarcodeGeneratorContext } from './useProvideBarcodeGeneratorContext';
+import { useProvideBarcodeGeneratorContext } from '../hooks/useProvideBarcodeGeneratorContext';
 
 export function BarcodeGeneratorProvider({ children }: { children: Children }) {
     const value = useProvideBarcodeGeneratorContext();

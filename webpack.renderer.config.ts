@@ -29,4 +29,7 @@ export const rendererConfig: Configuration = {
             child_process: false
         }
     },
+    watchOptions: {
+        ignored: /node_modules/
+    }
 };

@@ -25,7 +25,7 @@ export function convertProduct(product: IProduct & Realm.Object<IProduct>) {
 export function ProductDetailsTab(props: { original: IProduct; objectType: string }) {
     const { original, objectType } = props;
     const columns = useDirectColumns(objectType);
-    const defaultValues = useMemo(() => convertProduct(original as any), []);
+    const defaultValues = useMemo(() => convertProduct(original as any), [original]);
     const formContext = useForm({
         defaultValues: Product.init() as DefaultValues<IProduct>,
         values: defaultValues

@@ -1,8 +1,8 @@
 import { MRT_RowData } from 'material-react-table';
 import { Tooltip } from '@mui/material';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import { useGetLIComponent } from '../../../hooks/useGetLIComponent';
 import { ColumnMeta } from '@tanstack/react-table';
+import { useGetLIComponent } from '../../../hooks/useGetLIComponent';
 
 export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunctionParams<T, ListBack<TValue>>) {
     useWhyDidIUpdate('ListTableCell', props);

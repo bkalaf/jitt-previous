@@ -1,4 +1,4 @@
-import { getProperty } from 'src/common/object/getProperty';
+import { getProperty } from '../../../common/object/getProperty';
 import { surroundQuotesIgnore, surroundParensIgnore } from '../../../common/text/surround';
 import { sizes } from '../../../schema/enums/sizes';
 import { ISku, Opt } from '../../../types';
@@ -7,7 +7,7 @@ import {
     ofList,
     ofFlag,
     ofDimension,
-    ofWeight,
+    OBSOLETE_ofWeight,
     char,
     ofBarcode,
     ofBattery,
@@ -222,7 +222,7 @@ export const properties = [
         header: 'Weight',
         key: 'weight',
         titleFunc: null,
-        narrativeFunc: ofWeight,
+        narrativeFunc: OBSOLETE_ofWeight,
         titleIndex: null,
         importance: 69
     },
@@ -1176,26 +1176,26 @@ export const properties = [
         titleIndex: null,
         importance: 120
     },
-    {
-        extractor: (p: ISku) => getProperty('product.os', p),
-        section: 'attributes',
-        header: 'OS',
-        key: 'os',
-        titleFunc: null,
-        narrativeFunc: ofEnum('operatingSystems'),
-        titleIndex: null,
-        importance: 126
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.osVersion', p),
-        section: 'attributes',
-        header: 'OS Version',
-        key: 'osVersion',
-        titleFunc: null,
-        narrativeFunc: ofIdentity,
-        titleIndex: null,
-        importance: 127
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.os', p),
+    //     section: 'attributes',
+    //     header: 'OS',
+    //     key: 'os',
+    //     titleFunc: null,
+    //     narrativeFunc: ofEnum('operatingSystems'),
+    //     titleIndex: null,
+    //     importance: 126
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.osVersion', p),
+    //     section: 'attributes',
+    //     header: 'OS Version',
+    //     key: 'osVersion',
+    //     titleFunc: null,
+    //     narrativeFunc: ofIdentity,
+    //     titleIndex: null,
+    //     importance: 127
+    // },
     {
         extractor: (p: ISku) => getProperty('product.screenSize', p),
         section: 'specifications',
@@ -1497,10 +1497,10 @@ export const properties = [
         importance: 154
     },
     {
-        extractor: (p: ISku) => getProperty('product.driveSize', p),
+        extractor: (p: ISku) => getProperty('product.capacity', p),
         section: 'attributes',
-        header: 'Drive Size',
-        key: 'driveSize',
+        header: 'Capacity',
+        key: 'capacity',
         titleFunc: ofCapacity,
         narrativeFunc: ofCapacity,
         titleIndex: 65,
@@ -1567,25 +1567,25 @@ export const properties = [
         importance: 61
     },
     {
-        extractor: (p: ISku) => getProperty('product.computerType', p),
+        extractor: (p: ISku) => getProperty('product.compatibleDevices', p),
         section: 'attributes',
-        header: 'Computer Type',
-        key: 'computerType',
-        titleFunc: ofEnum('computerTypes'),
-        narrativeFunc: ofEnum('computerTypes'),
+        header: 'Compatible Devices',
+        key: 'compatibleDevices',
+        titleFunc: ofList(', ', ofEnum('compatibleDevices')),
+        narrativeFunc: ofList(', ', ofEnum('compatibleDevices')),
         titleIndex: 61,
         importance: 65
     },
-    {
-        extractor: (p: ISku) => getProperty('product.memorySize', p),
-        section: 'attributes',
-        header: 'Memory Size',
-        key: 'memorySize',
-        titleFunc: ofCapacity,
-        narrativeFunc: ofCapacity,
-        titleIndex: 54,
-        importance: 57
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.memorySize', p),
+    //     section: 'attributes',
+    //     header: 'Memory Size',
+    //     key: 'memorySize',
+    //     titleFunc: OBSOLETE_ofCapacity,
+    //     narrativeFunc: OBSOLETE_ofCapacity,
+    //     titleIndex: 54,
+    //     importance: 57
+    // },
     {
         extractor: (p: ISku) => getProperty('product.memorySpeed', p),
         section: 'attributes',
@@ -1616,16 +1616,16 @@ export const properties = [
         titleIndex: 56,
         importance: 60
     },
-    {
-        extractor: (p: ISku) => getProperty('product.voltage', p),
-        section: 'attributes',
-        header: 'Voltage',
-        key: 'voltage',
-        titleFunc: ofMeasure('V'),
-        narrativeFunc: ofMeasure('V'),
-        titleIndex: 58,
-        importance: 63
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.voltage', p),
+    //     section: 'attributes',
+    //     header: 'Voltage',
+    //     key: 'voltage',
+    //     titleFunc: ofMeasure('V'),
+    //     narrativeFunc: ofMeasure('V'),
+    //     titleIndex: 58,
+    //     importance: 63
+    // },
     {
         extractor: (p: ISku) => getProperty('product.CASLatency', p),
         section: 'attributes',

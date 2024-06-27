@@ -1,0 +1,22 @@
+export declare const fabric: {
+    acrylic: string;
+    cashmere: string;
+    cotton: string;
+    denim: string;
+    lace: string;
+    leather: string;
+    linen: string;
+    modal: string;
+    nylon: string;
+    organicCotton: string;
+    polyester: string;
+    rayon: string;
+    satin: string;
+    silk: string;
+    spandex: string;
+    suede: string;
+    velvet: string;
+    viscose: string;
+    wool: string;
+};
+export type FabricTypes = keyof typeof fabric;

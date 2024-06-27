@@ -41,13 +41,11 @@ import {
     TVRatings,
     VideoFormatTypes,
     VideoTypes,
-    AmperageUOM,
     ConnectorGenders,
     PowerTypes,
     BatteryTypes,
     AspectRatios,
     CellCarriers,
-    OperatingSystems,
     DinnerwareTypes,
     ShapeTypes,
     ApplianceTypes,
@@ -76,10 +74,17 @@ import {
     HardDriveFormFactor,
     HardDriveConnectivity,
     HardDriveInterface,
-    CapacityUOM,
-    ComputerType,
+    CompatibleDevices,
     CASLatency,
-    Countries
+    Countries,
+    AwardNames,
+    HugoAwardCategories,
+    EmmyAwardCategories,
+    OscarAwardCategories,
+    TonyAwardCategories,
+    PulitzerPrizeAwardCategories,
+    GrammyAwardCategories,
+    NYTimesAwardCategories
 } from './schema/enums';
 import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
 import { AttachmentStages } from './schema/choices/AttachmentStages';
@@ -87,13 +92,33 @@ import { AttachmentType } from './schema/choices/AttachmentType';
 import { ProductImageDisposition } from './schema/entity/ProductImageDisposition';
 import { Flags } from './schema/enums/flags';
 
+export type AmperageUnitsOfMeasure = 'A' | 'mA';
+export type AngleUnitsOfMeasure = '°';
+export type CaliperSizeUnitsOfMeasure = 'mm' | '″';
+export type CapacityUnitsOfMeasure = 'GB' | 'TB' | 'MB';
+export type DataTransferRateUnitsOfMeasure = 'MB/s' | 'MBit/s';
+export type DensityUnitsOfMeasure = 'g/cm³' | 'lb/floz';
+export type DistanceUnitsOfMeasure = 'ft' | 'm';
+export type LengthUnitsOfMeasure = 'cm' | '″';
+export type MemorySpeedUnitsOfMeasure = 'MHz';
+export type MusicDurationUnitsOfMeasure = 's' | 'm';
+export type PowerConsumptionUnitsOfMeasure = 'WHr';
+export type RateOfEnergyCapacityUnitsOfMeasure = 'mAh';
+export type RotationalSpeedUnitsOfMeasure = 'RPM';
+export type VideoRuntimeUnitsOfMeasure = 'm' | 'h';
+export type VoltageUnitsOfMeasure = 'V' | 'mV';
+export type WattageUnitsOfMeasure = 'W';
+export type WeightUnitsOfMeasure = 'lb' | 'oz' | 'g';
+
+export type OperatingSystemNames = 'unknown' | 'android' | 'ios' | 'blackberry' | 'linux' | 'nucleus' | 'symbian' | 'macOS' | 'fire' | 'windows';
 export type Int = number;
 export type Double = number;
 export type Opt<T> = T | undefined;
-export type PowerConsumptionUOM = string;
-export type RateOfEnergyCapacityUOM = string;
-export type VoltageUOM = string;
-export type WattageUOM = string;
+
+export type IMeasure<TUnit extends string> = {
+    value: number;
+    uom: TUnit;
+};
 export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
@@ -123,8 +148,8 @@ export type IFacility = {
 export type AuctionSite = keyof typeof auctionSites;
 
 export type ISquareFootage = {
-    length: Opt<number>;
-    width: Opt<number>;
+    length: IMeasure<DistanceUnitsOfMeasure>;
+    width: IMeasure<DistanceUnitsOfMeasure>;
 };
 export type IAuction = {
     _id: BSON.ObjectId;
@@ -206,33 +231,51 @@ export type IAttribute = {
 };
 
 export type DetailTypes =
-    | 'apparel-bottoms'
-    | 'apparel-bras'
-    | 'apparel-footwear'
-    | 'apparel-tops'
     | 'apparel'
-    | 'cables-data'
-    | 'cables-power'
-    | 'cables-video'
+    | 'apparel/bottoms'
+    | 'apparel/bottoms/legged'
+    | 'apparel/bras'
+    | 'apparel/bras/swimsuit'
+    | 'apparel/footwear'
+    | 'apparel/tops'
     | 'cables'
-    | 'cell-phones'
+    | 'cables/data'
+    | 'cables/power'
+    | 'cables/video'
     | 'electronics'
-    | 'general'
-    | 'home-goods-dinnerware'
-    | 'home-goods-flatware'
+    | 'electronics/visual'
+    | 'electronics/visual/cell-phones'
+    | 'electronics/computer-components'
+    | 'electronics/computer-components/drives'
+    | 'electronics/computer-components/ram'
+    | 'electronics/computer-components/battery'
+    | 'electronics/kitchen-appliances'
     | 'home-goods'
-    | 'jewelry'
-    | 'kitchen-appliances'
-    | 'media-books'
-    | 'media-music'
-    | 'media-video-games'
-    | 'media-videos-film'
-    | 'media-videos-tv-series'
-    | 'media-videos'
+    | 'home-goods/decor'
+    | 'home-goods/decor/wall-art'
+    | 'home-goods/dinnerware'
+    | 'home-goods/flatware'
+    | 'home-goods/glassware'
     | 'media'
-    | 'sporting-goods-golf-clubs'
+    | 'media/books'
+    | 'media/music'
+    | 'media/video-games'
+    | 'media/videos'
+    | 'media/videos/film'
+    | 'media/videos/tv-series'
     | 'sporting-goods'
-    | 'toys';
+    | 'sporting-goods/golf'
+    | 'sporting-goods/golf/clubs'
+    | 'sporting-goods/tennis'
+    | 'sporting-goods/tennis/rackets'
+    | 'sporting-goods/bowling'
+    | 'sporting-goods/bowling/balls'
+    | 'general'
+    | 'jewelry'
+    | 'jewelry/precious-metal'
+    | 'jewelry/costume'
+    | 'toys'
+    | 'toys/board-games';
 
 export type IClassifier = {
     _id: BSON.ObjectId;
@@ -318,24 +361,23 @@ export type IMadeOfSection = {
 
 export type MadeOf = DBDictionary<IMadeOfSection>;
 
-export type Seconds = Int;
 export type ITrack = {
     feat: DBList<string>;
     index: Opt<number>;
     name: Opt<string>;
-    runtimeSecs: Opt<Seconds>;
+    duration: Opt<IMeasure<MusicDurationUnitsOfMeasure>>;
 };
 export type IConnector<TConnector extends PowerConnectorTypes | DataConnectorTypes | VideoConnectorTypes> = {
     connectorGender?: Opt<ConnectorGenders>;
-    innerWidth?: Opt<Double>;
-    outerWidth?: Opt<Double>;
+    innerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    outerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
     type?: Opt<TConnector>;
     generation: Opt<Int>;
 };
 export type ICurrentSetting = {
-    amperage?: Opt<IDimension<AmperageUOM>>;
-    voltage?: Opt<IDimension<VoltageUOM>>;
-    wattage?: Opt<IDimension<WattageUOM>>;
+    amperage?: Opt<IMeasure<AmperageUnitsOfMeasure>>;
+    voltage?: Opt<IMeasure<VoltageUnitsOfMeasure>>;
+    wattage?: Opt<IMeasure<WattageUnitsOfMeasure>>;
 };
 
 export type IMinMax<T extends Int | Double> = {
@@ -346,15 +388,15 @@ export type IMinMax<T extends Int | Double> = {
 export type IApparelBottom = {
     closureType?: Opt<ClosureTypes>;
     fitType?: Opt<FitTypes>;
-    inseamSize?: Opt<Double>;
+    inseamSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     legStyle?: Opt<LegStyles>;
-    lengthSize?: Opt<Double>;
+    lengthSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     lengthType?: Opt<GarmentLengths>;
     lifestyleType?: Opt<LifestyleTypes>;
     pocketType?: Opt<PocketTypes>;
     riseType?: Opt<RiseTypes>;
     size?: Opt<Int>;
-    waistSize?: Opt<Double>;
+    waistSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
 };
 export type IApparel = IApparelBottom & {
     madeOf: DBList<IMadeOfSection>;
@@ -373,15 +415,58 @@ export type IPiece = {
 
 export type AnyConnector = IConnector<DataConnectorTypes> | IConnector<VideoConnectorTypes> | IConnector<PowerConnectorTypes>;
 
-export type ICapacity = {
-    uom: CapacityUOM;
-    value: Double;
-};
-export type IDimension<T extends string> = {
+
+/**
+ * @deprecated
+ */
+export type IOldDimension<T extends string> = {
     uom: T;
     value: Double;
 };
 
+// export type MeasureType = 'amperage' | 'wattage' | 'voltage' | 'length' | 'distance' | 'weight' | 'rotational-speed' | 'angle' | 'caliper-size' | 'data-transfer-rate' | 'density' | 'memory-speed' | 'duration' | 'power-consumption' | 'rate-of-energy' | 'runtime' | 'capacity';
+
+export type Year = string;
+export type AwardStatus = 'won' | 'nominated' | 'unclear';
+export type IAwardHeader<T extends AwardNames> = {
+    name: T;
+    category: Opt<
+        'hugo' extends T ? HugoAwardCategories
+        : 'oscar' extends T ? OscarAwardCategories
+        : 'emmy' extends T ? EmmyAwardCategories
+        : 'tony' extends T ? TonyAwardCategories
+        : 'pulitzer' extends T ? PulitzerPrizeAwardCategories
+        : 'grammy' extends T ? GrammyAwardCategories
+        : 'ny-times' extends T ? NYTimesAwardCategories
+        : never
+    >;
+};
+export type IAward<T extends AwardNames> = {
+    year: Opt<Year>;
+    who: Opt<string>;
+    status: Opt<AwardStatus>;
+} & IAwardHeader<T>;
+
+// MUSIC
+export type GrammyAward = IAward<'grammy'>;
+export type TonyAward = IAward<'tony'>;
+// VIDEO
+export type OscarAward = IAward<'oscar'>;
+export type EmmyAward = IAward<'emmy'>;
+// BOOKS
+export type HugoAward = IAward<'hugo'>;
+export type NewYorkTimesAward = IAward<'ny-times'>;
+export type PulitzerPrizeAward = IAward<'pulitzer'>;
+
+export type IOperatingSystemInfo = {
+    operatingSystem: OperatingSystemNames;
+    version: Opt<string>;
+};
+export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type MonthYear = {
+    month: Month;
+    year: Year;
+};
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -392,16 +477,16 @@ export type IProduct = IApparel & {
     features: DBList<string>;
     flags: DBList<Flags>;
     hashTags: DBList<IHashTag>;
-    height?: Opt<Double>;
-    width?: Opt<Double>;
-    length?: Opt<Double>;
-    weight?: Opt<Double>;
+    height?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    width?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    length?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    weight?: Opt<IMeasure<WeightUnitsOfMeasure>>;
     modelNo?: Opt<string>;
     notes?: Opt<string>;
     title?: Opt<string>;
     upcs: DBList<IBarcode>;
     origin?: Opt<Countries>;
-    circa?: Opt<string>;
+    circa?: Opt<Year>;
     color: DBList<ProductColors>;
     description?: Opt<string>;
     // general
@@ -418,44 +503,44 @@ export type IProduct = IApparel & {
     // apparel-bottoms
     closureType?: Opt<ClosureTypes>;
     fitType?: Opt<FitTypes>;
-    inseamSize?: Opt<Double>;
+    inseamSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     legStyle?: Opt<LegStyles>;
-    lengthSize?: Opt<Double>;
+    lengthSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     lengthType?: Opt<GarmentLengths>;
     lifestyleType?: Opt<LifestyleTypes>;
     pocketType?: Opt<PocketTypes>;
     riseType?: Opt<RiseTypes>;
     size?: Opt<Int>;
-    waistSize?: Opt<Double>;
+    waistSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     // // apparel-footwear
     bootType?: Opt<BootTypes>;
-    footSize?: Opt<Double>;
-    heelHeight?: Opt<Double>;
+    footSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    heelHeight?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     heightMapType?: Opt<HeightMaps>;
     shoeHeelType?: Opt<ShoeHeelTypes>;
     shoeWidth?: Opt<ShoeWidths>;
     strapType?: Opt<StrapTypes>;
     toeStyle?: Opt<ToeStyles>;
     // // apparel-bras
-    bustSize?: Opt<Double>;
+    bustSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     swimsuitBottomStyle?: Opt<SwimsuitBottomStyles>;
     swimsuitTopStyle?: Opt<SwimsuitTopStyles>;
     // // apparel-tops
     backlineType?: Opt<BacklineTypes>;
-    chestSize?: Opt<Double>;
+    chestSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     collarType?: Opt<CollarTypes>;
     cuffType?: Opt<CuffTypes>;
     dressType?: Opt<DressTypes>;
-    neckSize?: Opt<Double>;
+    neckSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     neckType?: Opt<NeckTypes>;
-    sleeveSize?: Opt<Double>;
+    sleeveSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     sleeveType?: Opt<SleeveTypes>;
     sleeveLength?: Opt<SleeveLengths>;
     suitType?: Opt<SuitTypes>;
 
     // // media
-    awards: DBList<string>;
-    copyright?: Opt<string>;
+    awards: DBList<IAward<AwardNames>>;
+    copyright?: Opt<Year>;
     mediaSubtitle?: Opt<string>;
     mediaTitle?: Opt<string>;
     // // media-books
@@ -475,10 +560,11 @@ export type IProduct = IApparel & {
     videoFormat?: Opt<VideoFormatTypes>;
     videoGenre?: Opt<MovieGenres>;
     movieRating?: Opt<MovieRatings>;
-    runtime?: Opt<Int>;
+    runtime?: Opt<IMeasure<VideoRuntimeUnitsOfMeasure>>;
     starring: DBList<string>;
     tvRating?: Opt<TVRatings>;
     videoType?: Opt<VideoTypes>;
+    season?: Opt<Int>;
     // // media-video-games
     ESRBRating?: Opt<ESRBRatings>;
     consoleType?: Opt<ConsoleTypes>;
@@ -490,7 +576,7 @@ export type IProduct = IApparel & {
     tracks: DBList<ITrack>;
     // // cables
     cableType?: Opt<CableTypes>;
-    cordLength?: Opt<Double>;
+    cordLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     // // cables-data
     connectors: DBList<AnyConnector>;
     // // cables-power
@@ -501,44 +587,40 @@ export type IProduct = IApparel & {
     // // electronics
     batteryCount?: Opt<Int>;
     batteryType?: Opt<BatteryTypes>;
-    batteryCapacity?: Opt<IDimension<PowerConsumptionUOM>>;
+    batteryCapacity?: Opt<IMeasure<PowerConsumptionUnitsOfMeasure>>;
     batteryStats?: Opt<ICurrentSetting>;
-    powerTypes?: Opt<PowerTypes>;
-    manufactureDate?: Opt<Date>;
-    rateOfEnergyCapacity?: Opt<IDimension<RateOfEnergyCapacityUOM>>;
+    powerTypes?: DBList<PowerTypes>;
+    manufactureDate?: Opt<MonthYear>;
+    rateOfEnergyCapacity?: Opt<IMeasure<RateOfEnergyCapacityUnitsOfMeasure>>;
     acAdapter?: Opt<ICurrentSetting>;
     // // cell-phones
     aspectRatio?: Opt<AspectRatios>;
-    capacity?: Opt<Int>;
+    capacity?: Opt<IMeasure<'GB'>>;
     cellCarrier?: Opt<CellCarriers>;
-    os?: Opt<OperatingSystems>;
-    osVersion?: Opt<string>;
-    screenSize?: Opt<Double>;
+    operatingSystem?: Opt<IOperatingSystemInfo>;
+    screenSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     // hard drive
     driveType?: Opt<DriveType>;
     driveForm?: Opt<HardDriveFormFactor>;
-    connectivity?: DBList<HardDriveConnectivity>;
+    connectivity: DBList<HardDriveConnectivity>;
     driveInterface?: Opt<HardDriveInterface>;
-    driveSize?: Opt<IDimension<CapacityUOM>>;
-    writeSpeed?: Opt<Double>; // MB/s
-    readSpeed?: Opt<Double>; //MB/s
-    dataTransferRate?: Opt<Double>; // MBit/s
-    rpm?: Opt<Int>;
-    cacheSize?: Opt<IDimension<CapacityUOM>>;
+    writeSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; // MB/s
+    readSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; //MB/s
+    dataTransferRate?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; // MBit/s
+    rpm?: Opt<IMeasure<RotationalSpeedUnitsOfMeasure>>;
+    cacheSize?: Opt<IMeasure<'MB'>>;
     // memory
     memoryType?: Opt<MemoryType>;
     memoryForm?: Opt<MemoryFormFactor>;
-    computerType?: Opt<ComputerType>;
-    memorySize?: Opt<IDimension<CapacityUOM>>;
-    memorySpeed?: Opt<Int>;
+    compatibleDevices: DBList<CompatibleDevices>;
+    memorySpeed?: Opt<IMeasure<MemorySpeedUnitsOfMeasure>>;
     pinCount?: Opt<Int>;
     dataTransferBandwidth?: Opt<string>;
-    voltage?: Opt<Double>;
     CASLatency?: Opt<CASLatency>;
     // // jewelry
-    massInAir?: Opt<Double>;
-    massWaterDisplaced?: Opt<Double>;
-    readonly density?: Opt<Double>;
+    massInAir?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    massWaterDisplaced?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    readonly density?: Opt<IMeasure<DensityUnitsOfMeasure>>;
     metal?: Opt<MetalTypes>;
     // // home-goods
     // // home-goods-flatware
@@ -554,11 +636,11 @@ export type IProduct = IApparel & {
     flexType?: Opt<FlexTypes>;
     handOrientation?: Opt<HandOrientations>;
     ironType?: Opt<IronTypes>;
-    clubLength?: Opt<Double>;
-    lie?: Opt<Double>;
-    loft?: Opt<Double>;
+    clubLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    lie?: Opt<IMeasure<AngleUnitsOfMeasure>>;
+    loft?: Opt<IMeasure<AngleUnitsOfMeasure>>;
     shaftType?: Opt<ShaftTypes>;
-    swingWeight?: Opt<string>;
+    swingWeight?: Opt<IMeasure<WeightUnitsOfMeasure>>;
     wedgeType?: Opt<WedgeTypes>;
     material?: Opt<Materials>;
     // // toys
@@ -568,6 +650,7 @@ export type IProduct = IApparel & {
     modelName: Opt<string>;
     overrideTitle: boolean;
     partNumbers: DBList<string>;
+    type: DBList<DetailTypes>;
 
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];

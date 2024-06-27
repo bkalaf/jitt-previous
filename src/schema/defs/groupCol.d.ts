@@ -1,0 +1,2 @@
+import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
+export declare function groupCol<T extends MRT_RowData, U extends MRT_RowData>(helper: MRT_ColumnHelper<T>, header: string, columns: MRT_ColumnDef<U>[], propertyName: string, bgColor: string, textColor: string): <V extends MRT_RowData, VKey extends keyof V>(...dependencies: IDependency<V, VKey>[]) => MRT_ColumnDef<V>;

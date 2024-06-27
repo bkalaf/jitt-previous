@@ -1,0 +1,1 @@
+{"version":3,"file":"BarcodeGeneratorProvider.js","sourceRoot":"","sources":["BarcodeGeneratorProvider.tsx"],"names":[],"mappings":";;;;AAAA,uEAAoE;AACpE,kGAA+F;AAE/F,SAAgB,wBAAwB,CAAC,EAAE,QAAQ,EAA0B;IACzE,MAAM,KAAK,GAAG,IAAA,qEAAiC,GAAE,CAAC;IAClD,OAAO,uBAAC,iDAAuB,CAAC,QAAQ,IAAC,KAAK,EAAE,KAAK,YAAG,QAAQ,GAAoC,CAAC;AACzG,CAAC;AAHD,4DAGC"}

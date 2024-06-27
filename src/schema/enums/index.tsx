@@ -3,6 +3,137 @@ import $masterEnum from './enum-info.json';
 import { useFormContext } from 'react-hook-form';
 import { CheckboxElement, TextFieldElement, SelectElement } from 'react-hook-form-mui';
 
+export type AwardNames = 'oscar' | 'emmy' | 'tony' | 'pulitzer' | 'grammy' | 'hugo' | 'ny-times' | 'unknown';
+export type HugoAwardCategories = 'novel' | 'novella' | 'novelette' | 'short-story' | 'series' | 'graphic-story' | 'fan-writer' | 'game' | 'related-work';
+export type EmmyAwardCategories =
+    | 'comedy'
+    | 'drama'
+    | 'limited'
+    | 'reality'
+    | 'variety'
+    | 'talk'
+    | 'movie'
+    | 'directing-comedy'
+    | 'directing-drama'
+    | 'directing-limited'
+    | 'directing-variety'
+    | 'writing-comedy'
+    | 'writing-drama'
+    | 'writing-limited'
+    | 'writing-variety'
+    | 'actor-comedy'
+    | 'actor-drama'
+    | 'actor-limited'
+    | 'actress-comedy'
+    | 'actress-drama'
+    | 'actress-limited'
+    | 'supporting-actor-comedy'
+    | 'supporting-actor-drama'
+    | 'supporting-actor-limited'
+    | 'supporting-actress-comedy'
+    | 'supporting-actress-drama'
+    | 'supporting-actress-limited'
+    | 'documentary-series'
+    | 'documentary-special'
+    | 'animated';
+export type OscarAwardCategories =
+    | 'picture'
+    | 'actor'
+    | 'actress'
+    | 'director'
+    | 'supporting-actor'
+    | 'supporting-actress'
+    | 'original-screenplay'
+    | 'song'
+    | 'cinematography'
+    | 'design'
+    | 'adapted-screenplay'
+    | 'sound'
+    | 'animated'
+    | 'editing'
+    | 'score'
+    | 'effects'
+    | 'short-documentary'
+    | 'documentary'
+    | 'international'
+    | 'costume'
+    | 'makeup'
+    | 'animated-short'
+    | 'casting';
+export type NYTimesAwardCategories = 'fiction' | 'nonfiction' | 'childrens';
+export type PulitzerPrizeAwardCategories = 'biography' | 'memoir' | 'history' | 'nonfiction' | 'fiction' | 'poetry' | 'drama' | 'music';
+export type GrammyAwardCategories =
+    | 'album'
+    | 'record'
+    | 'song'
+    | 'artist'
+    | 'songwriter'
+    | 'producer'
+    | 'pop-solo'
+    | 'pop-duo'
+    | 'pop-vocal'
+    | 'dance'
+    | 'dance-pop'
+    | 'dance-album'
+    | 'remix'
+    | 'rock'
+    | 'metal'
+    | 'rock-song'
+    | 'rock-album'
+    | 'alternative'
+    | 'alternative-album'
+    | 'rnb'
+    | 'traditional-rnb'
+    | 'rnb-song'
+    | 'progressive-rnb'
+    | 'rnb-album'
+    | 'rap'
+    | 'melodic-rap'
+    | 'rap-song'
+    | 'rap-album'
+    | 'spoken-word'
+    | 'musical-theatre'
+    | 'country-solo'
+    | 'country-duo'
+    | 'country-song'
+    | 'country-album'
+    | 'bluegrass'
+    | 'folk'
+    | 'americana-album'
+    | 'americana'
+    | 'american-roots'
+    | 'traditional-blues'
+    | 'contemporary-blues'
+    | 'regional-roots'
+    | 'gospel'
+    | 'gospel-album'
+    | 'contemporary-christian'
+    | 'contemporary-christian-album'
+    | 'traditional-pop'
+    | 'jazz'
+    | 'jazz-vocal'
+    | 'jazz-instrumental'
+    | 'large-jazz'
+    | 'latin-jazz'
+    | 'alternative-jazz'
+    | 'latin-pop'
+    | 'musica-urbana'
+    | 'latin-rock'
+    | 'musica mexicana'
+    | 'tropical-latin'
+    | 'global-music'
+    | 'raggae'
+    | 'new-age'
+    | 'childrens'
+    | 'comedy'
+    | 'audio-book'
+    | 'compilation'
+    | 'soundtrack'
+    | 'soundtrack-video-games'
+    | 'song-visual-media'
+    | 'music-video'
+    | 'music-film';
+export type TonyAwardCategories = 'play' | 'musical' | 'choreography' | 'actor-play' | 'actor-musical' | 'featured-actor-play' | 'featured-actor-musical' | 'actress-play' | 'actress-musical' | 'featured-actress-play' | 'featured-actress-musical';
 export type BacklineTypes = 'open-back' | 'u-shape-back' | 'v-shape-back' | 'bare-back' | 'x-cross-back' | 'bow-back' | 'strappy-back' | 'open back' | 'u-shape back' | 'v-shape back' | 'bare back' | 'x-cross back' | 'bow back' | 'strappy back';
 
 export type BarcodeTypes = 'upc' | 'ean' | 'isbn-10' | 'isbn-13' | 'locator' | 'sku' | 'unknown';
@@ -685,7 +816,7 @@ export type OperatingSystems = 'Android' | 'Blackberry' | 'iOS' | 'Linux' | 'Nuc
 
 export type PayorTypes = 'buyer' | 'seller';
 
-export type PowerTypes = 'battery' | 'ac' | 'both';
+export type PowerTypes = 'battery' | 'ac';
 
 export type ShaftTypes = 'graphite' | 'steel';
 
@@ -705,7 +836,7 @@ export type MemoryType = string;
 export type MemoryFormFactor = string;
 export type DriveType = string;
 export type CapacityUOM = 'GB' | 'TB';
-export type ComputerType = string;
+export type CompatibleDevices = string;
 export type CASLatency = string;
 
 // fs.writeFileSync('enum-info.json', JSON.stringify($masterEnum, null, '\t'));
@@ -1024,9 +1155,9 @@ export const attributePaths = [
         Component: toSelectValueControl('casLatency')
     },
     {
-        key: 'computerType',
-        text: 'computerType',
-        Component: toSelectValueControl('computerTypes')
+        key: 'compatibleDevices',
+        text: 'compatibleDevices',
+        Component: toSelectValueControl('compatibleDevices')
     }
 ];
 

@@ -36,7 +36,8 @@ export class Address extends EntityBase<IAddress> {
             postalCode: $.string.opt
         }
     };
-    static liComponent = (value?: IAddress) => () => [value?.mailing1, value?.mailing2, [getCityState(value), value?.postalCode].filter(is.not.nil).join(' ')].filter(is.not.nil).join('\n');
+    static stringify = (value?: IAddress) => () => [value?.mailing1, value?.mailing2, [getCityState(value), value?.postalCode].filter(is.not.nil).join(' ')].filter(is.not.nil).join('\n');
+    static liComponent = Address.stringify;
     static update(item: IAddress): IAddress {
         return item;
     }

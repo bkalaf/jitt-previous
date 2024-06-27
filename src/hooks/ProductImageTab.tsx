@@ -15,7 +15,7 @@ import { useToggler } from './useToggler';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Image } from './Image';
 import { runTransaction } from '../util/runTransaction';
-import { useFileSystem } from '../contexts/useFileSystem';
+import { useFileSystem } from './useFileSystem';
 import { getFolderNames, getRemBgName } from '../util/getFolderNames';
 import { CheckboxButtonGroup, CheckboxElement, RadioButtonGroup, TextFieldElement } from 'react-hook-form-mui';
 import { is } from '../common/is';

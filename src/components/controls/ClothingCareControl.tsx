@@ -1,7 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { IndividualClothingCareControl } from './IndividualClothingCareControl';
-import { FlattenedClothingCareCell } from '../table/cells/FlattenedListTableCell';
+import { FlattenedClothingCareCell } from '../table/cells/FlattenedClothingCareCell';
 import { ColumnMeta } from '@tanstack/react-table';
 
 export function FlattenedClothingCare<T extends MRT_RowData>(props: CellFunctionParams<T, any>): JSX.Element {
@@ -50,10 +50,10 @@ export function FlattenedClothingCare<T extends MRT_RowData>(props: CellFunction
 export function ClothingCareControl<T extends MRT_RowData>(props: EditFunctionParams<T>): JSX.Element {
     useWhyDidIUpdate('ClothingCareControl', props);
     const { dependencies } = props.column.columnDef.meta as ColumnMeta<any, any>;
-    const BleachingControl = IndividualClothingCareControl('bleaching', 'clothingCare.bleaching', ...dependencies ?? []);
-    const DryCleanControl = IndividualClothingCareControl('dryClean', 'clothingCare.dryClean', ...dependencies ?? []);
-    const DryingControl = IndividualClothingCareControl('drying', 'clothingCare.drying', ...dependencies ?? []);
-    const GentleOrDelicateControl = IndividualClothingCareControl('gentleOrDelicate', 'clothingCare.gentleOrDelicate', ...dependencies ?? []);
+    const BleachingControl = IndividualClothingCareControl('bleaching', 'clothingCare.bleaching', ...(dependencies ?? []));
+    const DryCleanControl = IndividualClothingCareControl('dryClean', 'clothingCare.dryClean', ...(dependencies ?? []));
+    const DryingControl = IndividualClothingCareControl('drying', 'clothingCare.drying', ...(dependencies ?? []));
+    const GentleOrDelicateControl = IndividualClothingCareControl('gentleOrDelicate', 'clothingCare.gentleOrDelicate', ...(dependencies ?? []));
     const IroningControl = IndividualClothingCareControl('ironing', 'clothingCare.ironing', ...(dependencies ?? []));
     const PermanentPressControl = IndividualClothingCareControl('permanentPress', 'clothingCare.permanentPress', ...(dependencies ?? []));
     const TumbleDryControl = IndividualClothingCareControl('tumbleDry', 'clothingCare.tumbleDry', ...(dependencies ?? []));

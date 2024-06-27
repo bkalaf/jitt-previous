@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as fs from 'graceful-fs';
 import { app } from '@electron/remote';
-import { setProperty } from 'src/common/object/setProperty';
-import { getProperty } from 'src/common/object/getProperty';
 import { deepEqual } from './deepEqual';
 import { IConfigurationContext } from '../contexts/Configuration';
 import { is } from '../common/is';
 import { defaultState } from './defaultState';
+import { getProperty } from '../common/object/getProperty';
+import { setProperty } from '../common/object/setProperty';
 
 export function useProvideConfigurationContext(): IConfigurationContext {
     const appDataPath = useMemo(() => app.getPath('appData'), []);

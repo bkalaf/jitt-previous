@@ -22,8 +22,8 @@ export function useProvideFileSystemContext(): IFileSystemContext {
         }),
         []
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const updateValue = useCallback(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (db: Realm, collection: string, propertyName: string, value?: any) => (obj: Record<string, any>) => {
             const func = () => {
                 const text = `function () { obj[propertyName] = value; console.log('DONE!'); return obj; }()`;

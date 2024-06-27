@@ -3,7 +3,7 @@ import { useWhyDidIUpdate } from './useWhyDidIUpdate';
 import { useCallback, useState } from 'react';
 import { IProductImage } from '../types';
 import { getFolderNames } from '../util/getFolderNames';
-import { useFileSystem } from '../contexts/useFileSystem';
+import { useFileSystem } from './useFileSystem';
 import { checkFolder } from '../contexts/checkFolder';
 import { Image } from './Image';
 import { useLocalRealm } from './useLocalRealm';

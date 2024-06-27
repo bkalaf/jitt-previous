@@ -1,4 +1,4 @@
-import { curry } from 'src/common/text/curry';
+import { curry } from '../../common/text/curry';
 
 export function _roundUp(nearestStep: number, value: number) {
     // console.log();

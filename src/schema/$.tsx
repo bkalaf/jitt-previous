@@ -1,6 +1,6 @@
 import { PropertyTypeName } from 'realm';
-import { objectMap } from 'src/common/object/objectMap';
-import { appendText } from 'src/common/text/appendText';
+import { objectMap } from '../common/object/objectMap';
+import { appendText } from '../common/text/appendText';
 
 const obj = function (name: string) {
     const output = function () {
@@ -57,7 +57,9 @@ const objectNames = {
     customItemFieldType: 'customItemFieldType',
     customItemFieldTypes: 'customItemFieldTypes',
     draft: 'draft',
-    dimension: 'dimension',
+    award: 'award',
+    operatingSystemInfo: 'operatingSystemInfo',
+    monthYear: 'monthYear',
     facility: 'facility',
     hashTag: 'hashTag',
     hashTagUsage: 'hashTagUsage',
@@ -82,7 +84,31 @@ const objectNames = {
     currentSetting: 'currentSetting',
     minMax: 'minMax',
     piece: 'piece',
-    apparelSize: 'apparelSize'
+    apparelSize: 'apparelSize',
+    amperageMeasure: 'amperageMeasure',
+    angleMeasure: 'angleMeasure',
+    caliperSizeMeasure: 'caliperSizeMeasure',
+    capacityMeasure: 'capacityMeasure',
+    dataTransferRateMeasure: 'dataTransferRateMeasure',
+    densityMeasure: 'densityMeasure',
+    distanceMeasure: 'distanceMeasure',
+    lengthMeasure: 'lengthMeasure',
+    memorySpeedMeasure: 'memorySpeedMeasure',
+    musicDurationMeasure: 'musicDurationMeasure',
+    powerConsumptionMeasure: 'powerConsumptionMeasure',
+    rateOfEnergyMeasure: 'rateOfEnergyMeasure',
+    rotationalSpeedMeasure: 'rotationalSpeedMeasure',
+    videoRuntimeMeasure: 'videoRuntimeMeasure',
+    voltageMeasure: 'voltageMeasure',
+    wattageMeasure: 'wattageMeasure',
+    weightMeasure: 'weightMeasure',
+    nyTimesAward: 'nyTimesAward',
+    oscarAward: 'oscarAward',
+    grammyAward: 'grammyAward',
+    tonyAward: 'tonyAward',
+    emmyAward: 'emmyAward',
+    pulitzerAward: 'pulitzerAward',
+    hugoAward: 'hugoAward'
 };
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;
