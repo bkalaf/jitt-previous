@@ -34,13 +34,12 @@ import { Attachment } from './entity/attachment';
 import { ApparelSize } from './entity/apparelSize';
 import { Track } from './entity/track';
 import { OperatingSystemInfo } from './entity/operatingSystemInfo';
-import { Award } from './entity/award';
+import { BaseAward } from './entity/award';
 import { AmperageMeasure } from './dimensions/AmperageMeasure';
 import { AngleMeasure } from './dimensions/AngleMeasure';
 import { CaliperSizeMeasure } from './dimensions/CaliperSizeMeasure';
 import { CapacityMeasure } from './dimensions/CapacityMeasure';
 import { DataTransferRateMeasure } from './dimensions/DataTransferRateMeasure';
-import { DensityMeasure } from './dimensions/DensityMeasure';
 import { DistanceMeasure } from './dimensions/DistanceMeasure';
 import { LengthMeasure } from './dimensions/LengthMeasure';
 import { MemorySpeedMeasure } from './dimensions/MemorySpeedMeasure';
@@ -52,6 +51,16 @@ import { VideoRuntimeMeasure } from './dimensions/VideoRuntime';
 import { VoltageMeasure } from './dimensions/VoltageMeasure';
 import { WattageMeasure } from './dimensions/WattageMeasure';
 import { WeightMeasure } from './dimensions/WeightMeasure';
+import { MonthYear } from './entity/monthYear';
+import { Individual } from './entity/individual';
+import { Contributor } from './entity/contributor';
+import { Book } from './entity/book';
+import { Album } from './entity/album';
+import { Movie } from './entity/movie';
+import { TvSeriesEpisode } from './entity/tvSeriesEpisode';
+import { TvSeries } from './entity/tvSeries';
+import { PartNumber } from './entity/partNumber';
+import { Rn } from './entity/rn';
 
 export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
     Address,
@@ -75,7 +84,6 @@ export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
     CustomItemFieldTypes,
     CustomItemFieldValue,
     DataTransferRateMeasure,
-    DensityMeasure,
     DistanceMeasure,
     Draft,
     Facility,
@@ -83,13 +91,18 @@ export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
     HashTag,
     HashTagUsage,
     IncludedItem,
+    Contributor,
+    Individual,
     LengthMeasure,
     MadeOfSection,
     MemorySpeedMeasure,
     MercariBrand,
     MercariCategory,
     MercariTaxonomy,
+    PartNumber,
     MinMax,
+    Rn,
+    MonthYear,
     MusicDurationMeasure,
     OperatingSystemInfo,
     Piece,
@@ -107,7 +120,12 @@ export const schema: (MyClass<any> | Realm.ObjectSchema)[] = [
     VoltageMeasure,
     WattageMeasure,
     WeightMeasure,
-    Award
+    BaseAward,
+    Album,
+    Book,
+    Movie,
+    TvSeriesEpisode,
+    TvSeries
     // OscarAward,
     // HugoAward,
     // PulitzerAward,

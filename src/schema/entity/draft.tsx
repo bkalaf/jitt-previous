@@ -5,12 +5,24 @@ import { $ } from '../$';
 import $me, { PayorTypes, Shippers, ShippingSpeeds } from '../enums';
 import { getShippingById } from '../enums/shippingRates';
 import { itemConditions } from '../enums/itemConditions';
-import { is } from '../../common/is';
-import { generateNarrative, generateTitle } from '../../components/table/controls/titleGenerator';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
+import { $generateDescription } from '../generators';
+import { $fields } from '../generatorFields';
+import * as fs from 'graceful-fs';
 
 export class Draft extends EntityBase<IDraft> implements IDraft {
+    get titleLength(): number {
+        return this.title?.length ?? 0;
+    }
+    get descriptionLength(): number {
+        return this.description?.length ?? 0;
+    }
+    get imageCount(): number {
+        return this.getImages.length;
+    }
+    lockTitle: Opt<boolean>;
+    lockDescription: Opt<boolean>;
     listingID: Opt<string>;
     get isListed(): boolean {
         return this.listingID == null;
@@ -28,8 +40,8 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
     smartPricing: boolean;
     smartPrice: Opt<number>;
     get getDims(): { length: number; width: number; height: number } {
-        const { length, width, height } = { length: 0, width: 0, height: 0, ...(this.sku.product ?? {}) };
-        return { length, width, height };
+        const { length, width, height } = { length: { value: 0 }, width: { value: 0 }, height: { value: 0 }, ...(this.sku.product ?? {}) };
+        return { length: Math.ceil(length.value * 1.2), width: Math.ceil(width.value * 1.2), height: Math.ceil(height.value * 1.2) };
     }
     get getWeight(): { pounds: number; ounces: number } {
         const { pounds, ounces } = { pounds: 0, ounces: 0, ...(this.sku.getMaxWeight ?? {}) };
@@ -41,7 +53,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
         const { id, version } = { id: 0, version: 0, ...(this.sku.getShipping ?? {}) };
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { category: service, carrier, price, weight } = { category: 'standard' as ShippingSpeeds, price: 0, carrier: 'USPS Ground Advantage' as Shippers, weight: 0, ...(getShippingById(id) ?? {}) };
-        const selector = `input#{id}`;
+        const selector = `input[id="${id}"]`;
         return { carrier, price, selector, service };
     }
     get getColor(): Opt<{ selector: string; name: string }> {
@@ -88,7 +100,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
         );
     }
     get getImages(): string[] {
-        return this.sku?.getProductImages.map((x) => x.effective).filter(is.not.nil) as string[];
+        return this.sku.$images;
     }
     get getShouldLocalDelivery(): boolean {
         return this.getShipping.price > 14;
@@ -109,7 +121,9 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             payor: $.string.default('buyer'),
             smartPricing: $.bool.default(false),
             smartPrice: $.float.opt,
-            listingID: $.string.opt
+            listingID: $.string.opt,
+            lockTitle: $.bool.opt,
+            lockDescription: $.bool.opt
         }
     };
     static labelProperty = 'title';
@@ -118,8 +132,13 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
         const func = () => {
             if (item.sku == null) throw new Error('no sku');
             if (item.sku.product == null) throw new Error('no product');
-            item.title = (item.sku.product.overrideTitle ? item.sku.product.title : generateTitle(item.sku, true)) ?? '';
-            item.description = generateNarrative(item.sku, true);
+            const { boundTitle, boundDescription } = $generateDescription($fields(item.sku));
+            if (!(item.lockTitle ?? false)) {
+                item.title = boundTitle;
+            }
+            if (!(item.lockDescription ?? false)) {
+                item.description = boundDescription;
+            }
             item.isLocalDelivery = item.getShouldLocalDelivery;
             item.smartPricing = item.getShouldSmartPricing;
             item.smartPrice = item.getShouldSmartPricing ? item.price * 0.8 : undefined;
@@ -158,5 +177,32 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             smartPricing: false,
             smartPrice: undefined
         };
+    }
+
+    output() {
+        const out = {
+            _id: this._id.toHexString(),
+            title: this.title,
+            description: this.description,
+            price: this.price,
+            images: this.getImages,
+            brand: this.getBrandName,
+            isNoBrand: this.getIsNoBrand,
+            category: this.getCategory.selector,
+            subcategory: this.getSubCategory.selector,
+            subsubcategory: this.getSubSubCategory.selector,
+            hashTags: this.getHashTags,
+            shipping: this.getShipping.selector,
+            color: this.getColor?.selector,
+            condition: this.getCondition.selector,
+            ounces: this.getWeight.ounces,
+            pounds: this.getWeight.pounds,
+            smartPricing: this.smartPricing,
+            smartPrice: this.smartPrice,
+            isLocalDelivery: this.isLocalDelivery,
+            ...this.getDims
+        }
+        const current = JSON.parse(fs.readFileSync('C:/Users/bobby/OneDrive/Desktop/drafts-todo.json').toString()) as any[];
+        fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/drafts-todo.json', JSON.stringify([...current, out], null, '\t'));
     }
 }

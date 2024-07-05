@@ -1,190 +1,164 @@
-// import { useCallback, useEffect, useMemo, useState } from 'react';
-// import {
-//     MRT_ColumnFiltersState,
-//     MRT_ColumnOrderState,
-//     MRT_ColumnPinningState,
-//     MRT_ColumnSizingState,
-//     MRT_DensityState,
-//     MRT_GroupingState,
-//     MRT_PaginationState,
-//     MRT_RowData,
-//     MRT_RowSelectionState,
-//     MRT_SortingState,
-//     MRT_TableState,
-//     MRT_VisibilityState
-// } from 'material-react-table';
-// import { useForager } from '../contexts/ForagerContext';
-// import { useQueryString } from './useQueryString';
-// import { useEffectiveCollection } from './useEffectiveCollection';
+// import localforage from 'localforage';
+// import { useCallback, useMemo } from 'react';
+// import { MRT_RowData } from 'material-react-table';
+// import { composeR } from '../common/composeR.1';
+// import { usePersistedSetting } from './usePersistedSetting';
+// import { ignore } from '../common/ignore';
 
-// export const $array = function <T>(): T {
-//     return [] as T;
-// };
-// export const $object = function <T>(): T {
-//     return {} as T;
-// };
-// export const $pinning = function () {
-//     return { left: [], right: [] };
-// };
+// const constantArray = [] as any[];
+// const constantObject = {} as Record<string, any>;
 
-// const keys = (collection: string) => ({
-//     $columnFilters: [collection, 'column-filters'].join('-'),
-//     $columnOrder: [collection, 'column-order'].join('-'),
-//     $columnPinning: [collection, 'column-pinning'].join('-'),
-//     $columnSizing: [collection, 'column-sizing'].join('-'),
-//     $columnVisibility: [collection, 'column-visibility'].join('-'),
-//     $density: [collection, 'density'].join('-'),
-//     $globalFilter: [collection, 'global-filter'].join('-'),
-//     $grouping: [collection, 'grouping'].join('-'),
-//     $pageIndex: [collection, 'page-index'].join('-'),
-//     $pageSize: [collection, 'page-size'].join('-'),
-//     $rowSelection: [collection, 'row-selection'].join('-'),
-//     $showGlobalFilter: [collection, 'show-global-filter'].join('-'),
-//     $sorting: [collection, 'sorting'].join('-')
-// });
-
-// export function usePersistedState<T extends MRT_RowData>(objectType?: string) {
-//     const { forager } = useForager();
-//     const collection = useEffectiveCollection(objectType);
-//     const { _id } = useQueryString<'_id'>();
-//     const { $columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting } = useMemo(() => keys(collection), [collection]);
-
-//     const [columnFilters, onColumnFiltersChange] = useState<MRT_ColumnFiltersState>($array());
-//     const [columnOrder, onColumnOrderChange] = useState<MRT_ColumnOrderState>($array());
-//     const [columnSizing, onColumnSizingChange] = useState<MRT_ColumnSizingState>($object());
-//     const [columnVisibility, onColumnVisibilityChange] = useState<MRT_VisibilityState>($object());
-//     const [density, onDensityChange] = useState<MRT_DensityState>('compact');
-//     const [globalFilter, onGlobalFilterChange] = useState<unknown>(undefined);
-//     const [grouping, onGroupingChange] = useState<MRT_GroupingState>($array());
-//     const [pageIndex, onPageIndexChange] = useState(0);
-//     const [pageSize, onPageSizeChange] = useState(20);
-//     const [rowSelection, onRowSelectionChange] = useState<MRT_RowSelectionState>($object());
-//     const [showGlobalFilter, onShowGlobalFilterChange] = useState(false);
-//     const [sorting, onSortingChange] = useState<MRT_SortingState>($array());
-//     const [columnPinning, onColumnPinningChange] = useState<MRT_ColumnPinningState>($pinning());
-//     const onPaginationChange = useCallback((updater: MRT_PaginationState | Updater<MRT_PaginationState>) => {
-//         let result: MRT_PaginationState = { pageIndex: 0, pageSize: 20 };
-//         onPageIndexChange((oldIndex) => {
-//             onPageSizeChange((oldSize) => {
-//                 result = typeof updater === 'function' ? updater({ pageSize: oldSize, pageIndex: oldIndex }) : updater;
-//                 return result.pageSize;
-//             });
-//             return result.pageIndex;
-//         });
-//         return result;
-//     }, []);
-
-//     useEffect(() => {
-//         forager.getItem<MRT_ColumnFiltersState>($columnFilters).then((x) => onColumnFiltersChange(_id != null ? [{ id: '_id', value: _id }] : x ?? $array()));
-//         forager.getItem<MRT_ColumnOrderState>($columnOrder).then((x) => onColumnOrderChange(x ?? $array()));
-//         forager.getItem<MRT_SortingState>($sorting).then((x) => onSortingChange(x ?? $array()));
-//         forager.getItem<MRT_ColumnPinningState>($columnPinning).then((x) => onColumnPinningChange(x ?? $pinning()));
-//         forager.getItem<MRT_ColumnSizingState>($columnSizing).then((x) => onColumnSizingChange(x ?? $object()));
-//         forager.getItem<MRT_VisibilityState>($columnVisibility).then((x) => onColumnVisibilityChange(x ?? $object()));
-//         forager.getItem<MRT_DensityState>($density).then((x) => onDensityChange(x ?? 'compact'));
-//         forager.getItem<unknown>($globalFilter).then((x) => onGlobalFilterChange(x ?? undefined));
-//         forager.getItem<boolean>($showGlobalFilter).then((x) => onShowGlobalFilterChange(x ?? false));
-//         forager.getItem<MRT_RowSelectionState>($rowSelection).then((x) => onRowSelectionChange(x ?? $object()));
-//         forager.getItem<number>($pageIndex).then((x) => onPageIndexChange(x ?? 0));
-//         forager.getItem<number>($pageSize).then((x) => onPageSizeChange(x ?? 20));
-//         forager.getItem<MRT_GroupingState>($grouping).then((x) => onGroupingChange(x ?? $array()));
-//     }, [$columnFilters, $columnOrder, $columnPinning, $columnSizing, $columnVisibility, $density, $globalFilter, $grouping, $pageIndex, $pageSize, $rowSelection, $showGlobalFilter, $sorting, _id, forager]);
-
-//     useEffect(() => {
-//         if (_id == null) {
-//             forager.setItem($columnFilters, columnFilters);
-//         } else {
-//             onColumnFiltersChange([{ id: '_id', value: _id }]);
-//         }
-//     }, [$columnFilters, _id, columnFilters, forager]);
-//     useEffect(() => {
-//         forager.setItem($columnOrder, columnOrder);
-//     }, [$columnOrder, columnOrder, forager]);
-//     useEffect(() => {
-//         forager.setItem($columnPinning, columnPinning);
-//     }, [$columnPinning, columnPinning, forager]);
-//     useEffect(() => {
-//         forager.setItem($columnSizing, columnSizing);
-//     }, [$columnSizing, columnSizing, forager]);
-//     useEffect(() => {
-//         forager.setItem($columnVisibility, columnVisibility);
-//     }, [$columnVisibility, columnVisibility, forager]);
-//     useEffect(() => {
-//         forager.setItem($density, density);
-//     }, [$density, density, forager]);
-//     useEffect(() => {
-//         forager.setItem($globalFilter, globalFilter);
-//     }, [$globalFilter, forager, globalFilter]);
-//     useEffect(() => {
-//         forager.setItem($showGlobalFilter, showGlobalFilter);
-//     }, [$showGlobalFilter, forager, showGlobalFilter]);
-//     useEffect(() => {
-//         forager.setItem($sorting, sorting);
-//     }, [$sorting, forager, sorting]);
-//     useEffect(() => {
-//         forager.setItem($pageIndex, pageIndex);
-//     }, [$pageIndex, forager, pageIndex]);
-//     useEffect(() => {
-//         forager.setItem($pageSize, pageSize);
-//     }, [$pageSize, forager, pageSize]);
-//     useEffect(() => {
-//         forager.setItem($rowSelection, rowSelection);
-//     }, [$rowSelection, forager, rowSelection]);
-//     useEffect(() => {
-//         forager.setItem($grouping, grouping);
-//     }, [$grouping, forager, grouping]);
-
-//     const resetSettings = useCallback(() => {
-//         onColumnFiltersChange($array());
-//         onColumnOrderChange($array());
-//         onColumnPinningChange($pinning());
-//         onColumnSizingChange($object());
-//         onColumnVisibilityChange($object());
-//         onDensityChange('compact');
-//         onGlobalFilterChange(undefined);
-//         onGroupingChange($array());
-//         onPaginationChange({ pageSize: 20, pageIndex: 0 });
-//         onRowSelectionChange($object());
-//         onShowGlobalFilterChange(false);
-//         onSortingChange($array());
-//     }, [onPaginationChange]);
-
-//     const state = useMemo(
+// export function usePersistedState<T extends MRT_RowData>(collection: string) {
+//     const storage = useMemo(
 //         () =>
-//             ({
-//                 columnFilters,
-//                 columnOrder,
-//                 columnPinning,
-//                 columnSizing,
-//                 columnVisibility,
-//                 density,
-//                 globalFilter,
-//                 grouping,
-//                 pagination: {
-//                     pageIndex,
-//                     pageSize
-//                 },
-//                 rowSelection,
-//                 showGlobalFilter,
-//                 sorting
-//             }) as MRT_TableState<T>,
-//         [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, globalFilter, grouping, pageIndex, pageSize, rowSelection, showGlobalFilter, sorting]
+//             localforage.createInstance({
+//                 name: 'JITT',
+//                 storeName: 'JITT',
+//                 version: 2
+//             }),
+//         []
 //     );
-
+//     const [density, onDensityChange, resetDensity] = usePersistedSetting<T, 'density'>(collection, storage, 'density', 'spacious');
+//     const [showGlobalFilter, onShowGlobalFilterChange, resetShowGlobalFilter] = usePersistedSetting<T, 'showGlobalFilter'>(collection, storage, 'showGlobalFilter', false);
+//     const [showColumnFilters, onShowColumnFiltersChange, resetShowColumnFilters] = usePersistedSetting<T, 'showColumnFilters'>(collection, storage, 'showColumnFilters', false);
+//     const [globalFilter, onGlobalFilterChange, resetGlobalFilter] = usePersistedSetting<T, 'globalFilter'>(collection, storage, 'globalFilter', undefined);
+//     const [columnFilters, onColumnFiltersChange, resetColumnFilters] = usePersistedSetting<T, 'columnFilters'>(collection, storage, 'columnFilters', constantArray);
+//     const [columnOrder, onColumnOrderChange, resetColumnOrder] = usePersistedSetting<T, 'columnOrder'>(collection, storage, 'columnOrder', constantArray);
+//     const [columnPinning, onColumnPinningChange, resetColumnPinning] = usePersistedSetting<T, 'columnPinning'>(collection, storage, 'columnPinning', constantObject);
+//     const [columnSizing, onColumnSizingChange, resetColumnSizing] = usePersistedSetting<T, 'columnSizing'>(collection, storage, 'columnSizing', constantObject);
+//     const [columnVisibility, onColumnVisibilityChange, resetColumnVisibility] = usePersistedSetting<T, 'columnVisibility'>(collection, storage, 'columnVisibility', constantObject);
+//     const [expanded, onExpandedChange, resetExpanded] = usePersistedSetting<T, 'expanded'>(collection, storage, 'expanded', constantObject);
+//     const [grouping, onGroupingChange, resetGrouping] = usePersistedSetting<T, 'grouping'>(collection, storage, 'grouping', constantArray);
+//     const [rowSelection, onRowSelectionChange, resetRowSelection] = usePersistedSetting<T, 'rowSelection'>(collection, storage, 'rowSelection', constantObject);
+//     const [sorting, onSortingChange, resetSorting] = usePersistedSetting<T, 'sorting'>(collection, storage, 'sorting', constantArray);
+//     const [pagination, onPaginationChange, resetPagination] = usePersistedSetting<T, 'pagination'>(collection, storage, 'pagination', { pageIndex: 0, pageSize: 20 });
+//     // const [showSkeletons, onShowSkeletonsChange, resetShowSkeletons] = usePersistedSetting<T, 'showSkeletons'>(collection, storage, 'showSkeletons', false);
+//     const pageIndex = useMemo(() => pagination?.pageIndex ?? 0, [pagination?.pageIndex]);
+//     const pageSize = useMemo(() => pagination?.pageSize ?? 20, [pagination?.pageSize]);
+//     const onPageIndexChange: React.Dispatch<React.SetStateAction<number>> = useCallback(
+//         (index: number | ((x: number) => number)) => {
+//             onPaginationChange((old) => {
+//                 const { pageIndex: oldIndex, ...rest } = old ?? { pageIndex: 0, pageSize: 20 };
+//                 if (typeof index === 'function') {
+//                     const nextIndex = index(oldIndex);
+//                     const nextPagination = { ...rest, pageIndex: nextIndex };
+//                     return nextPagination;
+//                 }
+//                 const nextPagination = { ...rest, pageIndex: index };
+//                 return nextPagination;
+//             });
+//         },
+//         [onPaginationChange]
+//     );
+//     const onPageSizeChange: React.Dispatch<React.SetStateAction<number>> = useCallback(
+//         (index: number | ((x: number) => number)) => {
+//             onPaginationChange((old) => {
+//                 const { pageSize: oldSize, ...rest } = old ?? { pageIndex: 0, pageSize: 20 };
+//                 if (typeof index === 'function') {
+//                     const nextSize = index(oldSize);
+//                     const nextPagination = { ...rest, pageSize: nextSize };
+//                     return nextPagination;
+//                 }
+//                 const nextPagination = { ...rest, pageSize: index };
+//                 return nextPagination;
+//             });
+//         },
+//         [onPaginationChange]
+//     );
+//     const resetSettings = useMemo(() => {
+//         return [
+//             resetColumnFilters,
+//             resetColumnOrder,
+//             resetColumnPinning,
+//             resetColumnSizing,
+//             resetColumnVisibility,
+//             resetDensity,
+//             resetExpanded,
+//             resetGlobalFilter,
+//             resetGrouping,
+//             resetPagination,
+//             resetRowSelection,
+//             resetShowColumnFilters,
+//             resetShowGlobalFilter,
+//             // resetShowSkeletons,
+//             resetSorting
+//         ].reduce((pv, cv) => composeR(pv, cv), ignore);
+//     }, [
+//         resetColumnFilters,
+//         resetColumnOrder,
+//         resetColumnPinning,
+//         resetColumnSizing,
+//         resetColumnVisibility,
+//         resetDensity,
+//         resetExpanded,
+//         resetGlobalFilter,
+//         resetGrouping,
+//         resetPagination,
+//         resetRowSelection,
+//         resetShowColumnFilters,
+//         resetShowGlobalFilter,
+//         resetSorting
+//     ]);
+//     const state = useMemo(
+//         () => ({
+//             columnFilters,
+//             columnOrder,
+//             columnPinning,
+//             columnSizing,
+//             columnVisibility,
+//             expanded,
+//             grouping,
+//             sorting,
+//             showColumnFilters,
+//             showGlobalFilter,
+//             globalFilter,
+//             density,
+//             rowSelection,
+//             pagination
+//         }),
+//         [columnFilters, columnOrder, columnPinning, columnSizing, columnVisibility, density, expanded, globalFilter, grouping, pagination, rowSelection, showColumnFilters, showGlobalFilter, sorting]
+//     );
 //     return {
+//         resetSettings,
 //         onColumnFiltersChange,
 //         onColumnOrderChange,
 //         onColumnPinningChange,
 //         onColumnSizingChange,
 //         onColumnVisibilityChange,
-//         onDensityChange,
-//         onGlobalFilterChange,
-//         onGroupingChange,
-//         onPaginationChange,
-//         onRowSelectionChange,
-//         onShowGlobalFilterChange,
+//         onExpandedChange,
 //         onSortingChange,
+//         onGroupingChange,
+//         onShowColumnFiltersChange,
+//         onShowGlobalFilterChange,
+//         onGlobalFilterChange,
+//         onDensityChange,
+//         onRowSelectionChange,
+//         onPaginationChange,
 //         state,
-//         resetSettings
+//         pageIndex,
+//         pageSize,
+//         onPageSizeChange,
+//         onPageIndexChange
+//     } as {
+//         onPageSizeChange: StateSetter<number>;
+//         onPageIndexChange: StateSetter<number>;
+//         pageIndex: number;
+//         pageSize: number;
+//         resetSettings: (x?: any) => void;
+//         onColumnOrderChange: OnTableStateChange<T, 'onColumnOrderChange'>;
+//         onColumnPinningChange: OnTableStateChange<T, 'onColumnPinningChange'>;
+//         onColumnSizingChange: OnTableStateChange<T, 'onColumnSizingChange'>;
+//         onColumnVisibilityChange: OnTableStateChange<T, 'onColumnVisibilityChange'>;
+//         onRowSelectionChange: OnTableStateChange<T, 'onRowSelectionChange'>;
+//         onExpandedChange: OnTableStateChange<T, 'onExpandedChange'>;
+//         onSortingChange: OnTableStateChange<T, 'onSortingChange'>;
+//         onGroupingChange: OnTableStateChange<T, 'onGroupingChange'>;
+//         onPaginationChange: OnTableStateChange<T, 'onPaginationChange'>;
+//         onShowGlobalFilterChange: OnTableStateChange<T, 'onShowGlobalFilterChange'>;
+//         onShowColumnFiltersChange: OnTableStateChange<T, 'onShowColumnFiltersChange'>;
+//         onGlobalFilterChange: OnTableStateChange<T, 'onGlobalFilterChange'>;
+//         onColumnFiltersChange: OnTableStateChange<T, 'onColumnFiltersChange'>;
+//         onDensityChange: OnTableStateChange<T, 'onDensityChange'>;
+//         state: JITTTableState<T>;
 //     };
 // }

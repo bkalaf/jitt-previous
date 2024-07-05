@@ -20,7 +20,8 @@ export class ApparelSize extends EntityBase<IApparelSize> implements IApparelSiz
             text: $.string()
         }
     };
-    static liComponent: ListItemCellComponent<IApparelSize> = (value?: IApparelSize) => () => (value == null ? '' : value.text);
+    static stringify = (value?: IApparelSize) => () => (value == null ? '' : value.text);
+    static liComponent: ListItemCellComponent<IApparelSize> = ApparelSize.stringify;
     static update(item: IApparelSize): IApparelSize {
         return item;
     }

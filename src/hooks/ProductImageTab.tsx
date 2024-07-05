@@ -24,6 +24,7 @@ import { getBaseName } from './getBaseName';
 import { ProductImageDisposition } from '../schema/entity/ProductImageDisposition';
 import { checkPath } from '../contexts/checkFolder';
 import { Grid, Item } from './Grid';
+import { useEventListener } from '../components/App';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {
     useWhyDidIUpdate('ProductImageTab', props);
@@ -149,9 +150,13 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
         formContext.reset();
         popQueue();
     });
+    const [width, setWidth] = useState(Math.floor(window.innerWidth / 8));
+    useEventListener<any, any, Event, Document>(document, 'resize', () => {
+        setWidth(Math.floor(window.innerWidth / 8));
+    });
     return (
-        <div className='flex w-screen flex-col'>
-            <div className='flex w-full justify-start'>
+        <div className='flex flex-col w-screen'>
+            <div className='flex justify-start w-full'>
                 <Button component='label' role={undefined} variant='contained' tabIndex={-1} disabled={queue.length > 0} startIcon={<FontAwesomeIcon icon={faUpload} size='lg' />}>
                     Upload file
                     <VisuallyHiddenInput type='file' onChange={onChange} />
@@ -162,10 +167,10 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
                     <FormProvider {...formContext}>
                         <DialogContent>
                             <div className='flex flex-col'>
-                                <div className='flex h-2/3 w-full object-scale-down'>
-                                    <Image filepath={nextInQueue?.path ?? ''} selected={false} caption='' />
+                                <div className='flex object-scale-down w-full h-2/3'>
+                                    <Image filepath={nextInQueue?.path ?? ''} selected={false} caption='' width={width * 3} />
                                 </div>
-                                <div className='h-full w-full'>
+                                <div className='w-full h-full'>
                                     <TextFieldElement name='caption' type='text' label='Caption' control={formContext.control} />
                                     <CheckboxElement name='doNotRemBG' label='Do Not Remove BG' control={formContext.control} />
                                     <CheckboxElement name='ignore' label='Ignore' control={formContext.control} />
@@ -230,8 +235,8 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             )}
             <Grid columns={4} gap={2} className='w-full'>
                 {data.map((image, ix) => (
-                    <Item key={ix} className='flex w-full flex-col'>
-                        <Images productImage={image} />
+                    <Item key={ix} className='flex flex-col w-full'>
+                        <Images productImage={image} width={width} />
                     </Item>
                 ))}
             </Grid>

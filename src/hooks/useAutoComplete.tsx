@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 export function toGetOptionLabel<T extends Record<string, any>>(labelProperty: string & keyof T) {
     return function (option: T) {
@@ -12,17 +12,29 @@ export function toIsOptionEqualToValue<T>(comparator: (left: T, right: string) =
     };
 }
 export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?: (left: T, right: string) => Compared) {
-    return useMemo(
-        () => ({
-            getOptionLabel: labelProperty ? toGetOptionLabel(labelProperty) : (option: T) => option?.toString() ?? '',
-            isOptionEqualToValue: toIsOptionEqualToValue(
+    const getOptionLabel = useCallback(
+        (option?: any): string => {
+            return labelProperty ? (toGetOptionLabel(labelProperty)(option) as string) : option?.toString() ?? '';
+        },
+        [labelProperty]
+    );
+    const isOptionEqualToValue = useCallback(
+        (option: T, value: string) => {
+            return toIsOptionEqualToValue(
                 comparator ??
                     ((l: any, r: any) =>
                         l < r ? -1
                         : l > r ? 1
                         : 0)
-            )
+            )(option, value);
+        },
+        [comparator]
+    );
+    return useMemo(
+        () => ({
+            getOptionLabel,
+            isOptionEqualToValue
         }),
-        [comparator, labelProperty]
+        [getOptionLabel, isOptionEqualToValue]
     );
 }

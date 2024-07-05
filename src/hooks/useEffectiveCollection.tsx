@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { useCollectionName } from './useCollectionRoute';
+import { useCollectionName } from './useCollectionName';
 
 export function useEffectiveCollection(objectType?: string) {
     const collection = useCollectionName();
-    const effectiveCollection = useMemo(() => collection ?? objectType, [collection, objectType]);
+    const effectiveCollection = useMemo(() => objectType ?? collection ?? 'n/a', [collection, objectType]);
     if (effectiveCollection == null) throw new Error('no effective collection');
     return effectiveCollection;
 }

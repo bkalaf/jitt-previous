@@ -2,7 +2,7 @@ import { capitalize } from './capitalize';
 import { splitWhen } from './splitWhen';
 
 export function camelToProper(str: string) {
-    return splitWhen((x) => /[A-Z]/.test(x))(str)
-        .map(capitalize)
+    return splitWhen<string>((x) => /[A-Z]/.test(x))(str.split(''))
+        .map(x => capitalize(x.join('')))
         .join(' ');
 }

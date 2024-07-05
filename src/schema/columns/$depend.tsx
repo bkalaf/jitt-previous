@@ -1,5 +1,6 @@
 import { MRT_RowData } from 'material-react-table';
-import { DetailTypes, IProduct } from '../../types';
+import { DetailTypes, IAward, IContributor, IProduct } from '../../types';
+import { AwardNames } from '../enums';
 
 export const $depend = {
     notZeroOrNull: <T extends MRT_RowData, TKey extends keyof T>(property: TKey, isLocal = false): IDependency<T, TKey> => ({ isLocal, type: 'disable', property, dependency: ['or', { isNull: true }, { equalTo: 0 as T[TKey] }] }),
@@ -17,7 +18,25 @@ export const $depend = {
         (...values: ArrayOf<TValue>[]): IDependency<T, TKey> => ({ isLocal, type: 'enable', property, dependency: { hasOneOf: values } }),
     notIn:
         <T extends MRT_RowData, TKey extends keyof T>(property: TKey, isLocal = false) =>
-        (...values: T[TKey][]): IDependency<T, TKey> => ({ isLocal, type: 'disable', property, dependency: { in: values } })
+        (...values: T[TKey][]): IDependency<T, TKey> => ({ isLocal, type: 'disable', property, dependency: { in: values } }),
+    and: (type: 'enable' | 'disable', left: IDependency<any, any>, right: IDependency<any, any>): IDependency<any, any> => {
+        if (left.property !== right.property) throw new Error(`property mismatch on and: ${left.property} ${right.property}`);
+        return {
+            isLocal: left.isLocal,
+            type,
+            property: left.property,
+            dependency: ['and', left.dependency, right.dependency] as IDependencyBinary<any, any>
+        };
+    },
+    or: (type: 'enable' | 'disable', left: IDependency<any, any>, right: IDependency<any, any>): IDependency<any, any> => {
+        if (left.property !== right.property) throw new Error(`property mismatch on or: ${left.property} ${right.property}`);
+        return {
+            isLocal: left.isLocal,
+            type,
+            property: left.property,
+            dependency: ['or', left.dependency, right.dependency] as IDependencyBinary<any, any>
+        };
+    }
 };
 
 function hasDetailType(detailType: DetailTypes) {
@@ -28,6 +47,9 @@ function propertyEqualTo<TKey extends keyof IProduct & string>(propertyName: TKe
 }
 function propertyOneOf<TKey extends keyof IProduct & string>(propertyName: TKey) {
     return (...values: IProduct[TKey][]) => $depend.in(propertyName)(...values);
+}
+function propOneOf<T extends MRT_RowData, TKey extends keyof T & string>(propertyName: TKey, isLocal = false) {
+    return (...values: T[TKey][]) => $depend.in(propertyName, isLocal)(...values);
 }
 const apparel = function () {
     return hasDetailType('apparel');
@@ -217,7 +239,15 @@ export const $hasDetailType = {
     jewelry,
     toys
 };
-
+const role = {
+    group: propOneOf<IContributor, 'role'>('role')('publisher', 'studio'),
+    individual: propOneOf<IContributor, 'role'>('role')('actor', 'author', 'director', 'illustrator', 'songwriter', 'performer', 'producer'),
+    forBook: propOneOf<IContributor, 'role'>('role')('author', 'illustrator', 'publisher'),
+    forAlbum: propOneOf<IContributor, 'role'>('role')('performer', 'songwriter', 'studio'),
+    forMovie: propOneOf<IContributor, 'role'>('role')('actor', 'director', 'producer', 'studio'),
+    forTvSeries: propOneOf<IContributor, 'role'>('role')('actor', 'director', 'producer', 'studio'),
+    allowCreditedAs: propOneOf<IContributor, 'role'>('role')('actor')
+};
 const gender = {
     womens: propertyEqualTo('gender')('womens'),
     mens: propertyEqualTo('gender')('mens'),
@@ -238,8 +268,36 @@ const cableType = {
     power: $cableType('power'),
     video: $cableType('video')
 };
+const andTopsBottoms = $depend.and('enable', $hasDetailType.apparel.tops(), $hasDetailType.apparel.bottoms());
+
+const capacity = $depend.or('enable', $hasDetailType.electronics.computerComponents.ram(), $depend.or('enable', $hasDetailType.electronics.visual.cellPhones(), $hasDetailType.electronics.computerComponents.drives()));     
+
+const awardName = {
+    oscar: propOneOf<IAward<AwardNames>, 'name'>('name', true)('oscar'),
+    emmy: propOneOf<IAward<AwardNames>, 'name'>('name', true)('emmy'),
+    nyTimes: propOneOf<IAward<AwardNames>, 'name'>('name', true)('ny-times'),
+    hugo: propOneOf<IAward<AwardNames>, 'name'>('name', true)('hugo'),
+    pulitzer: propOneOf<IAward<AwardNames>, 'name'>('name', true)('pulitzer'),
+    grammy: propOneOf<IAward<AwardNames>, 'name'>('name', true)('grammy'),
+    tony: propOneOf<IAward<AwardNames>, 'name'>('name', true)('tony')
+};
+const clubType = {
+    iron: propertyEqualTo('clubType')('iron'),
+    driver: propertyEqualTo('clubType')('driver'),
+    wedge: propertyEqualTo('clubType')('wedge')
+}
+const hasLength = $depend.notZeroOrNull('length.value');
+const hasWidth = $depend.notZeroOrNull('width.value');
+
 export const $productInfo = {
     gender,
     shoeHeelType,
-    cableType
+    cableType,
+    andTopsBottoms,
+    contributorRole: role,
+    awardName,
+    clubType,
+    hasCapacity: capacity,
+    hasLength,
+    hasWidth
 };

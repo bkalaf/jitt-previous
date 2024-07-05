@@ -1,13 +1,5 @@
 import { process } from '@electron/remote';
-import { useCallback, useEffect, useRef } from 'react';
-
-export function useLogger() {
-    const log = useCallback((...args: string[]) => {
-        console.log(...args);
-        process.stdout.write(args.join(','));
-    }, []);
-    return log;
-}
+import { useEffect, useRef } from 'react';
 
 export function useWhyDidIUpdate(name: string, props: Record<string, any>) {
     // Get a mutable ref object where we can store props ...
@@ -29,10 +21,14 @@ export function useWhyDidIUpdate(name: string, props: Record<string, any>) {
                     };
                 }
             });
-            if (Object.keys(changesObj).length) {
-                // process.stdout.write(name);
-                // process.stdout.write(JSON.stringify(changesObj, null, '\t'));
-                // console.log('[why-did-you-update]', name, changesObj)
+            if (Object.keys(changesObj).length > 0) {
+                try {
+                    process.stdout.write(name.concat('\n'));
+                    process.stdout.write(JSON.stringify(changesObj, null, '\t').concat('\n'));
+                    // console.log('[why-did-you-update]', name, changesObj)
+                } catch (error) {
+                    console.error(error);
+                }
             }
         }
         previousProps.current = props;

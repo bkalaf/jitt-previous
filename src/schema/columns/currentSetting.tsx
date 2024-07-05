@@ -1,14 +1,13 @@
-import { createMRTColumnHelper, MRT_ColumnDef } from 'material-react-table';
-import { ICurrentSetting, IProduct } from '../../types';
+import { createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-react-table';
+import { ICurrentSetting } from '../../types';
 import { groupCol } from '../defs/groupCol';
-import { ignore } from '../../common/ignore';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 
 const h = createMRTColumnHelper<ICurrentSetting>();
 
-const dimension = ignore;
-export const currentSettingColumns: (...dependencies: IDependency<IProduct, any>[]) => MRT_ColumnDef<ICurrentSetting>[] = (...dependencies: IDependency<IProduct, any>[]) =>
+export const currentSettingColumns: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
     [
-        groupCol(h, 'Amperage', dimension('amperageUnits'), 'amperage', 'bg-pink-500', 'text-white')(...dependencies),
-        groupCol(h, 'Voltage', dimension('voltageUOM'), 'voltage', 'bg-orange-500', 'text-black')(...dependencies),
-        groupCol(h, 'Wattage', dimension('wattageUOM'), 'wattage', 'bg-cyan-500', 'text-white')(...dependencies)
-    ] as MRT_ColumnDef<ICurrentSetting>[];
+        groupCol(h, 'Voltage', doubleMeasureColumns(h, 'voltageUnitOfMeasure'), 'voltage', 'bg-red-500', 'text-white')(...dependencies),
+        groupCol(h, 'Wattage', doubleMeasureColumns(h, 'wattageUnitOfMeasure'), 'wattage', 'bg-orange-500', 'text-white')(...dependencies),
+        groupCol(h, 'Amperage', doubleMeasureColumns(h, 'amperageUnits'), 'amperage', 'bg-blue-500', 'text-white')(...dependencies)
+    ] as MRT_ColumnDef<T>[];

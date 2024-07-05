@@ -29,3 +29,7 @@ export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flag
 console.log(allFlags);
 
 export type Flags = keyof typeof flags | keyof typeof mediaVideoFlags;
+
+console.log(Object.entries({ ...mediaVideoFlags, ...flags }).map(x => x.join(',').concat('\n')).join('\n'));
+
+console.log(allFlags['isUnrated'].text)

@@ -3,18 +3,19 @@ import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-reac
 import React, { useMemo } from 'react';
 import { DefaultValues, FormProvider, UseFieldArrayReturn, useForm } from 'react-hook-form';
 import { useInitial } from '../../hooks/useInitial';
-import { useLogger, useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
+import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { groupCol } from '../../schema/defs/groupCol';
 import { is } from '../../common/is';
 import { useConvertDictionaryItem } from '../../hooks/useConvertDictionaryItem';
 import { useConvertListItem } from '../../hooks/useConvertListItem';
 import { EditControls } from './EditControls';
+import { useLogger } from '../../hooks/useLogger';
 
 export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(props: {
     append: (data: { key: string; value: TValue }) => void;
     // index: number;
     // value: Record<string, any>;
-    columns: MRT_ColumnDef<T>[];
+    columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[];
     isOpen: boolean;
     handleClose: () => void;
     objectType: string;
@@ -27,18 +28,20 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     const { append, handleClose, isOpen, columns, objectType, KeyControl, keyType } = props;
     const dictionaryColumns = useMemo(
         () =>
-            [
-                {
-                    accessorKey: 'key',
-                    Edit: KeyControl,
-                    header: 'Key',
-                    meta: {
-                        columnName: 'key',
-                        keyType: keyType
-                    }
-                } as MRT_ColumnDef<any>,
-                ...(is.primitive(objectType) ? columns : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns, 'value', 'bg-yellow-500', 'text-black')])
-            ] as MRT_ColumnDef<any>[],
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            (...dependencies: IDependency<any, any>[]) =>
+                [
+                    {
+                        accessorKey: 'key',
+                        Edit: KeyControl,
+                        header: 'Key',
+                        meta: {
+                            columnName: 'key',
+                            keyType: keyType
+                        }
+                    } as MRT_ColumnDef<any>,
+                    ...(is.primitive(objectType) ? columns() : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
+                ] as MRT_ColumnDef<any>[],
         [KeyControl, columns, keyType, objectType]
     );
     const convertAppend = useConvertDictionaryItem(objectType, append);
@@ -91,7 +94,7 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
     append: UseFieldArrayReturn['append'];
     // index: number;
     // value: Record<string, any>;
-    columns: MRT_ColumnDef<T>[];
+    columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[];
     isOpen: boolean;
     handleClose: () => void;
     objectType: string;

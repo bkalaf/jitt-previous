@@ -1,7 +1,6 @@
 import { is } from '../common/is';
 import { useGetSchema } from './useGetSchema';
 
-
 export function useGetLabelProperty(objectType: string) {
     const thisSchema = useGetSchema(objectType);
     if (is.primitive(objectType)) {

@@ -8,11 +8,11 @@ import { checkFolder } from '../contexts/checkFolder';
 import { Image } from './Image';
 import { useLocalRealm } from './useLocalRealm';
 import { runTransaction } from '../util/runTransaction';
-import { CheckboxElement } from 'react-hook-form-mui';
+import { CheckboxElement, FormProvider, useForm } from 'react-hook-form-mui';
 
-export function Images(props: { productImage: IProductImage }) {
+export function Images(props: { width: number; productImage: IProductImage }) {
     useWhyDidIUpdate('Images', props);
-    const { productImage } = props;
+    const { productImage, width } = props;
     const [brandFolder, productFolder, skuFolder] = getFolderNames(productImage.sku);
     const { filename, caption, selected } = productImage;
     const { remBgExt, remBgSuffix, products } = useFileSystem();
@@ -24,6 +24,9 @@ export function Images(props: { productImage: IProductImage }) {
     const db = useLocalRealm();
     const [isIgnored, setIsIgnored] = useState(false);
     const [isDoNotRemBG, setDoNotRemBG] = useState(false);
+    const formContext = useForm({
+        defaultValues: {}
+    });
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
             const func = () => {
@@ -49,57 +52,67 @@ export function Images(props: { productImage: IProductImage }) {
     return (
         <>
             <div className='flex w-full'>
-                <Image filepath={original} caption={caption} selected={selected === 'original'} />
-                <Image filepath={removeBG} caption={caption} selected={selected === 'rembg'} />
+                <Image filepath={original} caption={caption} selected={selected === 'original'} width={width} />
+                <Image filepath={removeBG} width={width} caption={caption} selected={selected === 'rembg'} />
             </div>
-            <div className='flex w-full'>
-                <FormControl>
-                    <RadioGroup row value={internal} onChange={handleChange}>
-                        <FormControlLabel control={<Radio />} value='original' label='Original' />
-                        <FormControlLabel control={<Radio />} value='rembg' label='Remove-BG' />
-                        <FormControlLabel control={<Radio />} value='' label='Unselected' />
-                        {/* <FormControlLabel control={<Radio />} value='ignore' label='IGNORE' /> */}
-                    </RadioGroup>
-                    <CheckboxElement
-                        name='do-not-rembg'
-                        checked={isDoNotRemBG}
-                        onChange={(ev: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-                            ev.preventDefault();
-                            ev.stopPropagation();
-                            const func = () => {
-                                const obj = db.objectForPrimaryKey<IProductImage>('productImage', productImage._id);
-                                if (obj == null) throw new Error('no productImage');
-                                if (checked) {
-                                    obj.flags.push('do-not-rembg');
-                                } else {
-                                    obj.flags.remove(obj.flags.indexOf('do-not-rembg'));
-                                }
-                            };
-                            runTransaction(db, func);
-                            setDoNotRemBG(checked);
-                        }}
-                    />
-                    <CheckboxElement
-                        name='ignore'
-                        checked={isIgnored}
-                        onChange={(ev: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
-                            ev.preventDefault();
-                            ev.stopPropagation();
-                            const func = () => {
-                                const obj = db.objectForPrimaryKey<IProductImage>('productImage', productImage._id);
-                                if (obj == null) throw new Error('no productImage');
-                                if (checked) {
-                                    obj.flags.push('ignore');
-                                } else {
-                                    obj.flags.remove(obj.flags.indexOf('ignore'));
-                                }
-                            };
-                            runTransaction(db, func);
-                            setIsIgnored(checked);
-                        }}
-                    />
-                </FormControl>
-            </div>
+            <FormProvider {...formContext}>
+                <form
+                    onSubmit={(ev: React.FormEvent) => {
+                        ev.preventDefault();
+                        ev.stopPropagation();
+                    }}>
+                    <div className='flex w-full'>
+                        <FormControl>
+                            <RadioGroup name='selected' row value={internal} onChange={handleChange}>
+                                <FormControlLabel control={<Radio />} value='original' label='Original' />
+                                <FormControlLabel control={<Radio />} value='rembg' label='Remove-BG' />
+                                <FormControlLabel control={<Radio />} value='' label='Unselected' />
+                                {/* <FormControlLabel control={<Radio />} value='ignore' label='IGNORE' /> */}
+                            </RadioGroup>
+                            <CheckboxElement
+                                name='do-not-rembg'
+                                checked={isDoNotRemBG}
+                                label='Do not Remove BG'
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+                                    ev.preventDefault();
+                                    ev.stopPropagation();
+                                    const func = () => {
+                                        const obj = db.objectForPrimaryKey<IProductImage>('productImage', productImage._id);
+                                        if (obj == null) throw new Error('no productImage');
+                                        if (checked) {
+                                            obj.flags.push('do-not-rembg');
+                                        } else {
+                                            obj.flags.remove(obj.flags.indexOf('do-not-rembg'));
+                                        }
+                                    };
+                                    runTransaction(db, func);
+                                    setDoNotRemBG(checked);
+                                }}
+                            />
+                            <CheckboxElement
+                                name='ignore'
+                                checked={isIgnored}
+                                label='Ignore'
+                                onChange={(ev: React.ChangeEvent<HTMLInputElement>, checked: boolean) => {
+                                    ev.preventDefault();
+                                    ev.stopPropagation();
+                                    const func = () => {
+                                        const obj = db.objectForPrimaryKey<IProductImage>('productImage', productImage._id);
+                                        if (obj == null) throw new Error('no productImage');
+                                        if (checked) {
+                                            obj.flags.push('ignore');
+                                        } else {
+                                            obj.flags.remove(obj.flags.indexOf('ignore'));
+                                        }
+                                    };
+                                    runTransaction(db, func);
+                                    setIsIgnored(checked);
+                                }}
+                            />
+                        </FormControl>
+                    </div>
+                </form>
+            </FormProvider>
         </>
     );
 }

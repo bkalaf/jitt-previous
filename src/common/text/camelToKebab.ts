@@ -1,7 +1,8 @@
 import { splitWhen } from './splitWhen';
 
 export function camelToKebab(str: string) {
-    return splitWhen((x) => /[A-Z]/.test(x))(str)
-        .map((x) => x.toLowerCase())
+    return splitWhen<string>((x) => /[A-Z]/.test(x))(str.split(''))
+        .map((x) => x.join('').toLowerCase())
         .join('-');
 }
+

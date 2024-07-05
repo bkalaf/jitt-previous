@@ -8,7 +8,7 @@ import { useEditControlBase } from '../../../hooks/useEditControlBase';
 
 export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<string>>(props: EditFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('MultiSelectControl', props);
-    const { invalid, multiple, helperText, onChange, validation, readonly, enumInfo, isDisabled, ...rest } = useEditControlBase<T, U, 'enumInfo' | 'multiple', Element>(props, 'enumInfo', 'multiple');
+    const { invalid, multiple, helperText, onChange, validation, readonly, enumInfo, isDisabled, excludeKeys, ...rest } = useEditControlBase<T, U, 'excludeKeys' | 'enumInfo' | 'multiple', Element>(props, 'enumInfo', 'multiple', 'excludeKeys');
     if (enumInfo == null) throw new Error('no enuminfo in MultiSelectControl');
     const filterOptions = useMemo(
         () =>
@@ -17,7 +17,7 @@ export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<str
                 ignoreCase: true,
                 limit: 400,
                 trim: true,
-                matchFrom: 'start'
+                matchFrom: 'any'
             }),
         []
     );
@@ -29,9 +29,10 @@ export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<str
         [onChange]
     );
     const { getOptionLabel, isOptionEqualToValue } = useAutoComplete<{ text: string; key: string }>('text', (l, r) => (l?.key != null && r != null ? (l.key.localeCompare(r) as Compared) : ((l?.key ?? '').localeCompare(r ?? '') as Compared)));
+    const options = useMemo(() => enumInfo.asArray.filter((x) => !(excludeKeys ?? []).includes(x.key)), [enumInfo.asArray, excludeKeys]);
     return (
         <AutocompleteElement
-            options={enumInfo.asArray}
+            options={options}
             multiple={multiple}
             rules={validation}
             showCheckbox

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { getProperty } from '../../../common/object/getProperty';
 import { surroundQuotesIgnore, surroundParensIgnore } from '../../../common/text/surround';
 import { sizes } from '../../../schema/enums/sizes';
@@ -14,7 +15,6 @@ import {
     ofCableType,
     ofClothingCare,
     ofConnector,
-    ofCopyright,
     ofCurrent,
     ofDate,
     ofDictionary,
@@ -746,26 +746,26 @@ export const properties = [
         titleIndex: 25,
         importance: 11
     },
-    {
-        extractor: (p: ISku) => getProperty('product.awards', p),
-        section: 'lists',
-        header: 'Awards',
-        key: 'awards',
-        titleFunc: null,
-        narrativeFunc: ofList(char.newLine),
-        titleIndex: null,
-        importance: 121
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.copyright', p),
-        section: 'attributes',
-        header: 'Copyright',
-        key: 'copyright',
-        titleFunc: null,
-        narrativeFunc: ofIdentity,
-        titleIndex: null,
-        importance: 110
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.awards', p),
+    //     section: 'lists',
+    //     header: 'Awards',
+    //     key: 'awards',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.newLine),
+    //     titleIndex: null,
+    //     importance: 121
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.copyright', p),
+    //     section: 'attributes',
+    //     header: 'Copyright',
+    //     key: 'copyright',
+    //     titleFunc: null,
+    //     narrativeFunc: ofIdentity,
+    //     titleIndex: null,
+    //     importance: 110
+    // },
     {
         extractor: (p: ISku) => getProperty('product.mediaSubtitle', p),
         section: 'none',
@@ -786,16 +786,16 @@ export const properties = [
         titleIndex: 30,
         importance: 1
     },
-    {
-        extractor: (p: ISku) => getProperty('product.authors', p),
-        section: 'attributes',
-        header: 'Authors',
-        key: 'authors',
-        titleFunc: (value: DBList<string>) => (value != null && value.length > 0 ? 'by '.concat(ofList<string>(char.comma)(value) ?? '') : undefined),
-        narrativeFunc: ofList(char.comma),
-        titleIndex: 39,
-        importance: 45
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.authors', p),
+    //     section: 'attributes',
+    //     header: 'Authors',
+    //     key: 'authors',
+    //     titleFunc: (value: DBList<string>) => (value != null && value.length > 0 ? 'by '.concat(ofList<string>(char.comma)(value) ?? '') : undefined),
+    //     narrativeFunc: ofList(char.comma),
+    //     titleIndex: 39,
+    //     importance: 45
+    // },
     {
         extractor: (p: ISku) => getProperty('product.blurb', p),
         section: 'text',
@@ -806,16 +806,16 @@ export const properties = [
         titleIndex: null,
         importance: 146
     },
-    {
-        extractor: (p: ISku) => getProperty('product.bookGenre', p),
-        section: 'attributes',
-        header: 'Genre',
-        key: 'bookGenre',
-        titleFunc: null,
-        narrativeFunc: ofEnum('bookGenres'),
-        titleIndex: null,
-        importance: 105
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.bookGenre', p),
+    //     section: 'attributes',
+    //     header: 'Genre',
+    //     key: 'bookGenre',
+    //     titleFunc: null,
+    //     narrativeFunc: ofEnum('bookGenres'),
+    //     titleIndex: null,
+    //     importance: 105
+    // },
     {
         extractor: (p: ISku) => getProperty('product.bookType', p),
         section: 'attributes',
@@ -836,16 +836,16 @@ export const properties = [
         titleIndex: 33,
         importance: 38
     },
-    {
-        extractor: (p: ISku) => getProperty('product.illustrators', p),
-        section: 'lists',
-        header: 'Illustrators',
-        key: 'illustrators',
-        titleFunc: null,
-        narrativeFunc: ofList(char.comma),
-        titleIndex: null,
-        importance: 136
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.illustrators', p),
+    //     section: 'lists',
+    //     header: 'Illustrators',
+    //     key: 'illustrators',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.comma),
+    //     titleIndex: null,
+    //     importance: 136
+    // },
     {
         extractor: (p: ISku) => getProperty('product.language', p),
         section: 'attributes',
@@ -866,16 +866,16 @@ export const properties = [
         titleIndex: null,
         importance: 133
     },
-    {
-        extractor: (p: ISku) => getProperty('product.publishers', p),
-        section: 'attributes',
-        header: 'Publishers',
-        key: 'publishers',
-        titleFunc: null,
-        narrativeFunc: ofList(char.comma),
-        titleIndex: null,
-        importance: 142
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.publishers', p),
+    //     section: 'attributes',
+    //     header: 'Publishers',
+    //     key: 'publishers',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.comma),
+    //     titleIndex: null,
+    //     importance: 142
+    // },
     {
         extractor: (p: ISku) => getProperty('product.collectionOf', p),
         section: 'lists',
@@ -896,16 +896,16 @@ export const properties = [
         titleIndex: 35,
         importance: 52
     },
-    {
-        extractor: (p: ISku) => getProperty('product.directedBy', p),
-        section: 'attributes',
-        header: 'Directed By',
-        key: 'directedBy',
-        titleFunc: null,
-        narrativeFunc: ofList(char.comma),
-        titleIndex: null,
-        importance: 137
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.directedBy', p),
+    //     section: 'attributes',
+    //     header: 'Directed By',
+    //     key: 'directedBy',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.comma),
+    //     titleIndex: null,
+    //     importance: 137
+    // },
     {
         extractor: (p: ISku) => getProperty('product.videoFormat', p),
         section: 'attributes',
@@ -916,56 +916,56 @@ export const properties = [
         titleIndex: null,
         importance: 70
     },
-    {
-        extractor: (p: ISku) => getProperty('product.videoGenre', p),
-        section: 'attributes',
-        header: 'Genre',
-        key: 'videoGenre',
-        titleFunc: null,
-        narrativeFunc: ofEnum('movieGenres'),
-        titleIndex: null,
-        importance: 83
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.movieRating', p),
-        section: 'attributes',
-        header: 'Rating',
-        key: 'movieRating',
-        titleFunc: ofRating('movieRatings'),
-        narrativeFunc: ofEnum('movieRatings'),
-        titleIndex: 36,
-        importance: 39
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.runtime', p),
-        section: 'attributes',
-        header: 'Runtime',
-        key: 'runtime',
-        titleFunc: null,
-        narrativeFunc: ofMeasure('min'),
-        titleIndex: null,
-        importance: 114
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.starring', p),
-        section: 'attributes',
-        header: 'Starring',
-        key: 'starring',
-        titleFunc: null,
-        narrativeFunc: ofList(char.comma),
-        titleIndex: null,
-        importance: 135
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.tvRating', p),
-        section: 'attributes',
-        header: 'Rating',
-        key: 'tvRating',
-        titleFunc: ofRating('tvRatings'),
-        narrativeFunc: ofEnum('tvRatings'),
-        titleIndex: 37,
-        importance: 40
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.videoGenre', p),
+    //     section: 'attributes',
+    //     header: 'Genre',
+    //     key: 'videoGenre',
+    //     titleFunc: null,
+    //     narrativeFunc: ofEnum('movieGenres'),
+    //     titleIndex: null,
+    //     importance: 83
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.movieRating', p),
+    //     section: 'attributes',
+    //     header: 'Rating',
+    //     key: 'movieRating',
+    //     titleFunc: ofRating('movieRatings'),
+    //     narrativeFunc: ofEnum('movieRatings'),
+    //     titleIndex: 36,
+    //     importance: 39
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.runtime', p),
+    //     section: 'attributes',
+    //     header: 'Runtime',
+    //     key: 'runtime',
+    //     titleFunc: null,
+    //     narrativeFunc: ofMeasure('min'),
+    //     titleIndex: null,
+    //     importance: 114
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.starring', p),
+    //     section: 'attributes',
+    //     header: 'Starring',
+    //     key: 'starring',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.comma),
+    //     titleIndex: null,
+    //     importance: 135
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.tvRating', p),
+    //     section: 'attributes',
+    //     header: 'Rating',
+    //     key: 'tvRating',
+    //     titleFunc: ofRating('tvRatings'),
+    //     narrativeFunc: ofEnum('tvRatings'),
+    //     titleIndex: 37,
+    //     importance: 40
+    // },
     {
         extractor: (p: ISku) => getProperty('product.videoType', p),
         section: 'attributes',
@@ -1006,16 +1006,16 @@ export const properties = [
         titleIndex: null,
         importance: 143
     },
-    {
-        extractor: (p: ISku) => getProperty('product.artist', p),
-        section: 'attributes',
-        header: 'Artist',
-        key: 'artist',
-        titleFunc: null,
-        narrativeFunc: ofIdentity,
-        titleIndex: null,
-        importance: 103
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.artist', p),
+    //     section: 'attributes',
+    //     header: 'Artist',
+    //     key: 'artist',
+    //     titleFunc: null,
+    //     narrativeFunc: ofIdentity,
+    //     titleIndex: null,
+    //     importance: 103
+    // },
     {
         extractor: (p: ISku) => getProperty('product.musicFormat', p),
         section: 'attributes',
@@ -1026,36 +1026,36 @@ export const properties = [
         titleIndex: null,
         importance: 73
     },
-    {
-        extractor: (p: ISku) => getProperty('product.musicGenre', p),
-        section: 'attributes',
-        header: 'Genre',
-        key: 'musicGenre',
-        titleFunc: null,
-        narrativeFunc: ofEnum('musicGenres'),
-        titleIndex: null,
-        importance: 88
-    },
-    {
-        extractor: (p: ISku) => getProperty('product.tracks', p),
-        section: 'lists',
-        header: 'Tracks',
-        key: 'tracks',
-        titleFunc: null,
-        narrativeFunc: ofList(char.newLine, ofTrack),
-        titleIndex: null,
-        importance: 134
-    },
-    {
-        extractor: (p: ISku) => ({ videoFormat: getProperty('product.videoFormat', p), musicFormat: getProperty('product.musicFormat', p), copyright: getProperty('product.copyright', p) }),
-        section: 'none',
-        header: null,
-        key: 'copyright-format',
-        titleFunc: ofCopyright,
-        narrativeFunc: null,
-        titleIndex: 34,
-        importance: 24
-    },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.musicGenre', p),
+    //     section: 'attributes',
+    //     header: 'Genre',
+    //     key: 'musicGenre',
+    //     titleFunc: null,
+    //     narrativeFunc: ofEnum('musicGenres'),
+    //     titleIndex: null,
+    //     importance: 88
+    // },
+    // {
+    //     extractor: (p: ISku) => getProperty('product.tracks', p),
+    //     section: 'lists',
+    //     header: 'Tracks',
+    //     key: 'tracks',
+    //     titleFunc: null,
+    //     narrativeFunc: ofList(char.newLine, ofTrack),
+    //     titleIndex: null,
+    //     importance: 134
+    // },
+    // {
+    //     extractor: (p: ISku) => ({ videoFormat: getProperty('product.videoFormat', p), musicFormat: getProperty('product.musicFormat', p), copyright: getProperty('product.copyright', p) }),
+    //     section: 'none',
+    //     header: null,
+    //     key: 'copyright-format',
+    //     titleFunc: ofCopyright,
+    //     narrativeFunc: null,
+    //     titleIndex: 34,
+    //     importance: 24
+    // },
     {
         extractor: (p: ISku) => getProperty('product.cableType', p),
         section: 'attributes',

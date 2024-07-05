@@ -24,6 +24,7 @@ export class Auction extends EntityBase<IAuction> implements IAuction {
         primaryKey: '_id',
         properties: {
             _id: $.objectId(),
+            name: $.string.opt,
             facility: $.facility(),
             closeDate: $.date(),
             auctionId: $.string.opt,

@@ -1,4 +1,4 @@
-import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
 import { IDraft } from '../../types';
 import { col } from '../defs/col';
 import { $depend } from './$depend';
@@ -6,14 +6,18 @@ import { $depend } from './$depend';
 const h = createMRTColumnHelper<IDraft>();
 const helper = col(h);
 
-export const draftColumns: MRT_ColumnDef<IDraft>[] = [
-    helper.PK(),
-    helper.lookup()('sku', 'SKU', { objectType: 'sku' }),
-    helper.string()('title', 'Title', undefined, { maxLength: 80 }),
-    helper.text()('description', 'Description', undefined, { maxLength: 1000 }),
-    helper.dollar()('price', 'Price', { min: 0 }),
-    helper.bool()('isLocalDelivery', 'Local Delivery'),
-    helper.enum()('payor', 'Payor', { enumKey: 'payorTypes', required: true }),
-    helper.bool()('smartPricing', 'Smart Price On/Off'),
-    helper.dollar($depend.isTrue('smartPricing'))('smartPrice', 'Smart Price', { min: 0 })
-] as MRT_ColumnDef<IDraft>[];
+export const draftColumns: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
+    [
+        helper.PK(),
+        helper.lookup(...dependencies)('sku', 'SKU', { objectType: 'sku' }),
+        helper.int(...dependencies)('imageCount', 'Image Count', { readonly: true }),
+        helper.string(...dependencies)('title', 'Title', undefined, { maxLength: 80 }),
+        helper.int(...dependencies)('titleLength', 'Length', { readonly: true }),
+        helper.text(...dependencies)('description', 'Description', undefined, { maxLength: 1000 }),
+        helper.int(...dependencies)('descriptionLength', 'Length', { readonly: true }),
+        helper.dollar(...dependencies)('price', 'Price', { min: 0 }),
+        helper.bool(...dependencies)('isLocalDelivery', 'Local Delivery'),
+        helper.enum(...dependencies)('payor', 'Payor', { enumKey: 'payorTypes', required: true }),
+        helper.bool(...dependencies)('smartPricing', 'Smart Price On/Off'),
+        helper.dollar($depend.isTrue('smartPricing'), ...dependencies as IDependency<any, any>[])('smartPrice', 'Smart Price', { min: 0 })
+    ] as MRT_ColumnDef<T>[];

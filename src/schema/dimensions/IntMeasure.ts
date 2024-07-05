@@ -6,9 +6,9 @@ export abstract class IntMeasure<TUnit extends string> extends EntityBase<IMeasu
     value: number;
     uom: TUnit;
 
-    static stringify(value?: IMeasure<string>, returnEmptyStringForNull = false) {
+    static stringify(value?: IMeasure<string>, returnUndefined = false) {
         return (): string | undefined => {
-            return value == null ? returnEmptyStringForNull ? '' : undefined : [value.value.toFixed(0), value.uom].join('');
+            return value == null || value.value === 0 ? returnUndefined ? undefined : '' : [value.value.toFixed(0), value.uom].join('');
         };
     }
     static liComponent = IntMeasure.stringify;

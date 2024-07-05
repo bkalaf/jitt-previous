@@ -1,21 +1,20 @@
 import { $ } from '../$';
 import { IMeasure, PowerConsumptionUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import { IntMeasure } from './IntMeasure';
+import { DoubleMeasure } from './DoubleMeasure';
 
-
-export class PowerConsumptionMeasure extends IntMeasure<PowerConsumptionUnitsOfMeasure> {
+export class PowerConsumptionMeasure extends DoubleMeasure<PowerConsumptionUnitsOfMeasure> {
     static schema: Realm.ObjectSchema = {
         name: schemaName($.powerConsumptionMeasure()),
         embedded: true,
         properties: {
             uom: $.string.default('WHr'),
-            value: $.int.default(0)
+            value: $.double.default(0.0)
         }
     };
     static init(): InitValue<IMeasure<PowerConsumptionUnitsOfMeasure>> {
         return {
-            value: 0,
+            value: 0.0,
             uom: 'WHr'
         };
     }

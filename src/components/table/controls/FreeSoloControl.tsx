@@ -8,7 +8,7 @@ import { useCreateOptionsFromUniqueFacetedValues } from '../../../hooks/useCreat
 import { useEditControlBase } from '../../../hooks/useEditControlBase';
 
 export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> | undefined : U | undefined>) {
-    useWhyDidIUpdate('AutocompleteControl', props);
+    useWhyDidIUpdate('FreeSoloControl', props);
     const { invalid, freeSolo, readonly, comparator, validation, helperText, multiple, onChange, isDisabled, ...rest } = useEditControlBase<
         T,
         TMultiple extends true ? ListBack<U> : U | undefined,
@@ -26,7 +26,7 @@ export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultip
                 ignoreCase: true,
                 limit: 400,
                 trim: true,
-                matchFrom: 'start'
+                matchFrom: 'any'
             }),
         []
     );

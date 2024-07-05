@@ -3,9 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { is } from '../common/is';
 import * as fs from 'graceful-fs';
 
-export function Image(props: { filepath: string; caption?: string; selected?: boolean }) {
+// const appendToImage = '?w=164&h=164&fit=crop&auto=format';
+export function Image(props: { width: number; filepath: string; caption?: string; selected?: boolean }) {
     useWhyDidIUpdate('Image', props);
-    const { filepath, caption, selected } = props;
+    const { filepath, caption, selected, width } = props;
+    const suffix = `?w=${width}&h=${width}&fit=crop&auto=format`;
     const [src, setSrc] = useState<string | undefined>(undefined);
     const blob = useMemo(() => (fs.existsSync(filepath) ? new Blob([new Uint8Array(fs.readFileSync(filepath).buffer)]) : undefined), [filepath]);
     useEffect(() => {
@@ -23,5 +25,5 @@ export function Image(props: { filepath: string; caption?: string; selected?: bo
         };
         func();
     }, [blob]);
-    return is.not.nil(filepath) ? <img src={src} alt={caption} className='flex object-scale-down aria-selected:ring-4 aria-selected:ring-red-500' width={250} aria-selected={selected ?? false} /> : null;
+    return is.not.nil(filepath) ? <img src={src} alt={caption} className='block object-contain aria-selected:ring-4 aria-selected:ring-red-500' width={width} height={width} aria-selected={selected ?? false} /> : null;
 }

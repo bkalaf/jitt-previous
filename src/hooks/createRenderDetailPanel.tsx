@@ -2,7 +2,7 @@ import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
 import { useWhyDidIUpdate } from './useWhyDidIUpdate';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Container, Tab } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useCollectionRoute } from './useCollectionRoute';
 import { Panel } from './Panel';
 import { ProductImageTab } from './ProductImageTab';
@@ -172,7 +172,7 @@ export const tabList: Record<
             key: 'cellPhones',
             label: 'Electronics - Visual - Cell Phones',
             detailType: 'electronics/visual/cell-phones',
-            objectType: 'cellPhonesDetails',
+            objectType: 'electronicsVisualCellPhonesDetails',
             Component: ProductDetailsTab
         },
         electronics: {
@@ -196,7 +196,7 @@ export const tabList: Record<
             key: 'kitchenAppliances',
             label: 'Electronics - Kitchen Appliances',
             detailType: 'electronics/kitchen-appliances',
-            objectType: 'kitchenAppliancesDetails',
+            objectType: 'electronicsKitchenAppliancesDetails',
             Component: ProductDetailsTab
         },
         homeGoods: {
@@ -252,7 +252,7 @@ export const tabList: Record<
             key: 'sportingGoodsGolfClubs',
             label: 'Sporting Goods - Golf - Clubs',
             detailType: 'sporting-goods/golf/clubs',
-            objectType: 'sportingGoodsGolfDetails',
+            objectType: 'sportingGoodsGolfClubsDetails',
             Component: ProductDetailsTab
         },
         toys: {
@@ -268,7 +268,7 @@ export const tabList: Record<
             key: 'boardGames',
             label: 'Toys - Board Games',
             detailType: 'toys/board-games',
-            objectType: 'toysBoardGameDetails',
+            objectType: 'toysBoardGamesDetails',
             Component: ProductDetailsTab
         },
         jewelry: {
@@ -300,7 +300,7 @@ export const tabList: Record<
             key: 'computerComponents',
             label: 'Computer Components',
             detailType: 'electronics/computer-components',
-            objectType: 'computerComponentsDetails',
+            objectType: 'electronicsComputerComponentsDetails',
             Component: ProductDetailsTab
         },
         computerComponentsDrives: {
@@ -308,7 +308,7 @@ export const tabList: Record<
             key: 'computerComponentsDrives',
             label: 'Computer Components - Drives',
             detailType: 'electronics/computer-components/drives',
-            objectType: 'computerComponentsDrivesDetails',
+            objectType: 'electronicsComputerComponentsDrivesDetails',
             Component: ProductDetailsTab
         },
         computerComponentsRam: {
@@ -316,7 +316,7 @@ export const tabList: Record<
             key: 'computerComponentRam',
             label: 'Computer Components - RAM',
             detailType: 'electronics/computer-components/ram',
-            objectType: 'computerComponentsRamDetails',
+            objectType: 'electronicsComputerComponentsRamDetails',
             Component: ProductDetailsTab
         },
         computerComponentsBattery: {
@@ -324,7 +324,7 @@ export const tabList: Record<
             key: 'computerComponentsBattery',
             label: 'Computer Components - Battery',
             detailType: 'electronics/computer-components/battery',
-            objectType: 'computerComponentsBatteryDetails',
+            objectType: 'electronicsComputerComponentsBatteryDetails',
             Component: ProductDetailsTab
         }
     }
@@ -333,15 +333,20 @@ export const tabList: Record<
 export function CreateRenderDetailPanel<T extends MRT_RowData>(props: Parameters<Exclude<MRT_TableOptions<T>['renderDetailPanel'], undefined>>[0]) {
     useWhyDidIUpdate('createRenderDetailPanel', props);
     const collection = useCollectionRoute();
-    const tabs = Object.values(tabList[collection as keyof typeof tabList]) as {
-        value: string;
-        key: string;
-        label: string;
-        objectType: string;
-        property?: string;
-        detailType?: string | string[];
-        Component: React.FunctionComponent<{ objectType: string; data: any[]; original: any }>;
-    }[];
+    const tabs = useMemo(
+        () =>
+            Object.values(tabList[collection as keyof typeof tabList]) as {
+                value: string;
+                key: string;
+                label: string;
+                objectType: string;
+
+                property?: string;
+                detailType?: string | string[];
+                Component: React.FunctionComponent<{ isCurrent: boolean; objectType: string; data: any[]; original: any }>;
+            }[],
+        [collection]
+    );
     const [currentValue, setValue] = useState<string>(tabs[0].key);
     const handleChange = useCallback((ev: any, newValue: string) => {
         setValue(newValue);
@@ -356,24 +361,26 @@ export function CreateRenderDetailPanel<T extends MRT_RowData>(props: Parameters
         [props.row.original]
     );
     return (
-        <Container className='w-screen'>
-            <Box className='w-full'>
-                <TabContext value={currentValue}>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <TabList onChange={handleChange} aria-label='Tabs'>
-                            {tabs.map(({ value, label, detailType }) => checkForDetailType(detailType) && <Tab key={value} label={label} value={value} />)}
-                        </TabList>
-                    </Box>
-                    {tabs.map(
-                        ({ value, Component, property, detailType, objectType }) =>
-                            checkForDetailType(detailType) && (
-                                <TabPanel key={value} value={value}>
-                                    <Panel Component={Component} property={property} original={props.row.original} objectType={objectType} />
-                                </TabPanel>
-                            )
-                    )}
-                </TabContext>
-            </Box>
-        </Container>
+        ((props.table.getState().expanded as any) ?? {})[props.row.id] && (
+            <Container className='w-screen'>
+                <Box className='w-full'>
+                    <TabContext value={currentValue}>
+                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <TabList onChange={handleChange} aria-label='Tabs'>
+                                {tabs.map(({ value, label, detailType }) => checkForDetailType(detailType) && <Tab key={value} label={label} value={value} />)}
+                            </TabList>
+                        </Box>
+                        {tabs.map(
+                            ({ value, Component, property, detailType, objectType }) =>
+                                checkForDetailType(detailType) && (
+                                    <TabPanel key={value} value={value}>
+                                        <Panel Component={Component} property={property} original={props.row.original} objectType={objectType} isCurrent={checkForDetailType(detailType)} />
+                                    </TabPanel>
+                                )
+                        )}
+                    </TabContext>
+                </Box>
+            </Container>
+        )
     );
 }

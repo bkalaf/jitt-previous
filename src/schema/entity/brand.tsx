@@ -5,14 +5,9 @@ import { IBrand, IHashTag, IMercariBrand } from '../../types';
 import { distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
 import { runTransaction } from '../../util/runTransaction';
+import { getRange } from './getRange';
+import { toCharCode } from '../../common/text/toCharCode';
 
-export function getRange(low: number, high: number): number[] {
-    if (low === high) return [];
-    return [low, ...getRange(low + 1, high)];
-}
-export function toCharCode(s: string) {
-    return s.charCodeAt(0);
-}
 export function fromCharCode(n: number) {
     return String.fromCharCode(n);
 }
@@ -45,7 +40,7 @@ export class Brand extends EntityBase<IBrand> implements IBrand {
             folder: $.string()
         }
     };
-    static labelProperty = 'name';
+    static labelProperty = 'name' as keyof IBrand;
     static update(item: IBrand): IBrand {
         const func = () => {
             if (item.folder == null || item.folder === '') {

@@ -41,6 +41,14 @@ const primitiveNames = {
 const _primitives = objectMap(primitive)(primitiveNames) as Record<keyof typeof primitiveNames, ReturnType<typeof primitive>>;
 
 const objectNames = {
+    monthYear: 'monthYear',
+    contributor: 'contributor',
+    book: 'book',
+    movie: 'movie',
+    tvSeries: 'tvSeries',
+    episode: 'episode',
+    album: 'album',
+    individual: 'individual',
     address: 'address',
     attachment: 'attachment',
     attribute: 'attribute',
@@ -59,7 +67,6 @@ const objectNames = {
     draft: 'draft',
     award: 'award',
     operatingSystemInfo: 'operatingSystemInfo',
-    monthYear: 'monthYear',
     facility: 'facility',
     hashTag: 'hashTag',
     hashTagUsage: 'hashTagUsage',
@@ -108,7 +115,9 @@ const objectNames = {
     tonyAward: 'tonyAward',
     emmyAward: 'emmyAward',
     pulitzerAward: 'pulitzerAward',
-    hugoAward: 'hugoAward'
+    hugoAward: 'hugoAward',
+    partNumber: 'partNumber',
+    rn: 'rn'
 };
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;

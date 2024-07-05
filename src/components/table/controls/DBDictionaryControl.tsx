@@ -18,11 +18,11 @@ export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFu
             <fieldset name={name} aria-required={required} aria-readonly={readonly}>
                 <legend className='relative w-full'>
                     {label}
-                    <IconBtn icon={faPlusSquare} color='vivid' className='absolute right-0 top-0' tooltip='Insert new item' onClick={toggleOpen} />
+                    <IconBtn icon={faPlusSquare} color='vivid' className='absolute top-0 right-0' tooltip='Insert new item' onClick={toggleOpen} />
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    <DBDictionaryEditSubComponent append={append} columns={cols} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} isOpen={open} objectType={objectType} />
+                    {open && <DBDictionaryEditSubComponent append={append} columns={cols} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} isOpen={open} objectType={objectType} />}
                     <List>
                         {Object.entries(value ?? {}).map(([key, v]) => (
                             <DBDictionaryItemSubComponent key={key} index={key} value={v} remove={remove} objectType={objectType} LIComponent={LiComponent} />

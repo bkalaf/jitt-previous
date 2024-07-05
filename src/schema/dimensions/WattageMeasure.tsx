@@ -1,17 +1,15 @@
 import { $ } from '../$';
 import { IMeasure, WattageUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import { IntMeasure } from './IntMeasure';
+import { DoubleMeasure } from './DoubleMeasure';
 
-
-
-export class WattageMeasure extends IntMeasure<WattageUnitsOfMeasure> {
+export class WattageMeasure extends DoubleMeasure<WattageUnitsOfMeasure> {
     static schema: Realm.ObjectSchema = {
         name: schemaName($.wattageMeasure()),
         embedded: true,
         properties: {
             uom: $.string.default('W'),
-            value: $.int.default(0)
+            value: $.double.default(0)
         }
     };
     static init(): InitValue<IMeasure<WattageUnitsOfMeasure>> {

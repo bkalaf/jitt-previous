@@ -1,15 +1,20 @@
-import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
+import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
 import { IProduct } from '../../../types';
 import { col } from '../../defs/col';
+import { groupCol } from '../../defs/groupCol';
+import { operatingSystemInfoColumns } from '../../columns/operatingSystemInfoColumns';
+import { doubleMeasureColumns } from './measureColumns';
 
 export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
 
-export const cellPhonesDetails: MRT_ColumnDef<IProduct>[] = [
-    helper.measure('screenSize', 'Screen Size', 'in', { min: 0 }),
-    helper.measure('capacity', 'Capacity', 'GB', { min: 0 }),
-    helper.enum('os', 'Operating System', { enumKey: 'operatingSystems' }),
-    helper.string('osVersion', 'OS Version', undefined),
-    helper.enum('cellCarrier', 'Carrier', { enumKey: 'cellCarriers' }),
-    helper.enum('aspectRatio', 'Aspect Ratio', { enumKey: 'aspectRatios' })
-] as MRT_ColumnDef<IProduct>[];
+export const electronicsVisualDetails: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
+    [
+        groupCol(h, 'Screen Size', doubleMeasureColumns(h, 'lengthUnitOfMeasure'), 'screenSize', 'bg-red-500', 'text-white')(...dependencies),
+        helper.enum(...dependencies)('aspectRatio', 'Aspect Ratio', { enumKey: 'aspectRatios' })
+    ] as MRT_ColumnDef<T>[];
+export const electronicsVisualCellPhonesDetails: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>[
+    groupCol(h, 'Operating System', operatingSystemInfoColumns, 'operatingSystem', 'bg-orange-500', 'text-black')(...dependencies),
+    helper.enum(...dependencies)('cellCarrier', 'Carrier', { enumKey: 'cellCarriers' }),
+
+] as MRT_ColumnDef<T>[];

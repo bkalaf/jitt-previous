@@ -1,17 +1,16 @@
 import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { IConnector, Opt } from '../../types';
+import { CaliperSizeUnitsOfMeasure, IConnector, IMeasure, Opt } from '../../types';
 import { ConnectorGenders, DataConnectorTypes, PowerConnectorTypes, VideoConnectorTypes } from '../enums';
 import { surround } from '../../common/text/surround';
-import { truncateAuto } from '../../common/number/truncateAuto';
 import { is } from '../../common/is';
 import { EntityBase } from './EntityBase';
-import { CaliperSizeDimension } from '../dimensions/CaliperSizeMeasure';
+import { ofCaliper } from '../../components/table/controls/titleParts';
 
 export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTypes | VideoConnectorTypes> extends EntityBase<IConnector<TConnector>> implements IConnector<TConnector> {
-    innerWidth?: Opt<CaliperSizeDimension>;
-    outerWidth?: Opt<CaliperSizeDimension>;
+    innerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    outerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
     connectorGender?: Opt<ConnectorGenders>;
     generation: Opt<number>;
     type: Opt<TConnector>;
@@ -20,8 +19,8 @@ export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTyp
         embedded: true,
         properties: {
             connectorGender: $.string.opt,
-            innerWidth: $.caliperSizeDimension(),
-            outerWidth: $.caliperSizeDimension(),
+            innerWidth: $.caliperSizeMeasure(),
+            outerWidth: $.caliperSizeMeasure(),
             type: $.string.opt,
             generation: $.int.opt
         }
@@ -32,15 +31,17 @@ export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTyp
     static init(): InitValue<IConnector<any>> {
         return {};
     }
-    static liComponent = (value?: IConnector<any>) => () =>
+    static stringify: StringifyComponent<IConnector<any>> = (value?: IConnector<any>) => () =>
         value == null ? '' : (
             [
                 value.type,
                 value.connectorGender ? surround('(', ')')(value.connectorGender) : undefined,
-                value.outerWidth ? [truncateAuto(value.outerWidth), 'mm'].join(' ') : undefined,
-                value.innerWidth ? [truncateAuto(value.innerWidth), 'mm'].join(' ') : undefined
+                value.outerWidth ? ofCaliper(value.outerWidth) : undefined,
+                value.innerWidth ? ofCaliper(value.innerWidth) : undefined
             ]
                 .filter(is.not.nil)
                 .join(' ')
         );
+    static liComponent = Connector.stringify;
 }
+    

@@ -15,7 +15,8 @@ export class HashTagUsage extends EntityBase<IHashTagUsage> {
             count: $.int.default(0)
         }
     };
-    static liComponent: ListItemCellComponent<IHashTagUsage> = (item?: IHashTagUsage) => () => (item == null ? '' : `${item?.count.toFixed(0)}`);
+    static stringify = (item?: IHashTagUsage) => () => (item == null ? '' : `${item?.count.toFixed(0)}`);
+    static liComponent: ListItemCellComponent<IHashTagUsage> = HashTagUsage.stringify;
     static update(item: IHashTagUsage): IHashTagUsage {
         return item;
     }

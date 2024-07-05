@@ -30,7 +30,7 @@ export class ClothingCare extends EntityBase<IClothingCare> implements IClothing
             washTemperature: $.string.list
         }
     };
-    static liComponent: ListItemCellComponent<IClothingCare> = (value?: IClothingCare) => () =>
+    static stringify: StringifyComponent<IClothingCare> = (value?: IClothingCare) => () =>
         value == null ? '' : (
             [
                 [value.bleaching, ClothingCareMap.bleaching] as [DBList<string>, Record<string, { text: string }>],
@@ -44,9 +44,10 @@ export class ClothingCare extends EntityBase<IClothingCare> implements IClothing
                 [value.washTemperature, ClothingCareMap.washTemperature] as [DBList<string>, Record<string, { text: string }>]
             ]
                 .filter((x) => x[0] != null && x[0].length > 0)
-                .map((x) => x[0].map((indiv) => x[1][indiv].text).join(', '))
-                .join(', ')
+                .map((x) => x[0].map((indiv) => x[1][indiv].text).join('\n'))
+                .join('\n')
         );
+    static liComponent: ListItemCellComponent<IClothingCare> = ClothingCare.stringify;
     static update(item: IClothingCare): IClothingCare {
         return item;
     }

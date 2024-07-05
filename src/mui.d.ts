@@ -1,6 +1,6 @@
-import $masterEnum from './schema/enums/enum-info.json';
+// import $masterEnum from './schema/enums/enum-info.json';
 
-export type EnumName = keyof typeof $masterEnum;
+// export type EnumName = keyof typeof $masterEnum;
 
 export interface IPalletteColors<T> {
     important: T;
@@ -20,6 +20,7 @@ declare module '@tanstack/table-core' {
     interface ColumnMeta<TData extends RowData, TValue> {
         isCalc?: boolean;
         columnName?: string;
+        excludeKeys?: string[];
         required?: boolean;
         readonly?: boolean;
         maxLength?: number;
@@ -31,7 +32,7 @@ declare module '@tanstack/table-core' {
         type?: React.HTMLInputTypeAttribute;
         step?: number;
         objectType?: string;
-        onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void;
+        onChange?: (formContext: UseFormReturn<any, any, any>, oldValue: any, newValue: any) => void;
         formatter?: (value?: TValue) => string;
         uom?: string;
         // enumType?: EnumName;
@@ -50,7 +51,13 @@ declare module '@tanstack/table-core' {
         dependencies?: IDependency<T, any>[];
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    interface TableMeta<TData extends RowData> {}
+    interface TableMeta<TData extends RowData> {
+        pageSize: number;
+        pageIndex: number;
+        onPageIndexChange: StateSetter<number>;
+        onPageSizeChange: StateSetter<number>;
+        resetSettings: (x?: any) => void;
+    }
 }
 
 declare module '@tanstack/table-core' {

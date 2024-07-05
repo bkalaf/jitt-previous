@@ -1,11 +1,44 @@
 import Realm, { BSON } from 'realm';
-import { AnyConnector, DetailTypes, IAward, IBarcode, IBrand, IClassifier, IClothingCare, ICurrentSetting, ICustomItemField, IHashTag, IIncludedItem, IMadeOfSection, IMinMax, IOperatingSystemInfo, IPiece, IProduct, ITrack, MonthYear, Opt, Year } from '../../types';
+import {
+    AnyConnector,
+    DataTransferRateUnitsOfMeasure,
+    DensityUnitsOfMeasure,
+    DetailTypes,
+    IAlbum,
+    IAward,
+    IBarcode,
+    IBook,
+    IBrand,
+    IClassifier,
+    IClothingCare,
+    ICurrentSetting,
+    ICustomItemField,
+    IHashTag,
+    IIncludedItem,
+    IMadeOfSection,
+    IMeasure,
+    IMinMax,
+    IMovie,
+    IOperatingSystemInfo,
+    IPiece,
+    IProduct,
+    ITVSeries,
+    LengthUnitsOfMeasure,
+    IMonthYear,
+    Opt,
+    VideoRuntimeUnitsOfMeasure,
+    WeightUnitsOfMeasure,
+    Year,
+    IPartNumber,
+    IRn,
+    IContributor
+} from '../../types';
 
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { distinctByOID, distinctByString } from '../../common/array/distinct';
 import { sizeLookup } from '../enums/sizes';
-import {
+import $me, {
     ProductColors,
     Genders,
     ClosureTypes,
@@ -30,16 +63,11 @@ import {
     NeckTypes,
     SleeveTypes,
     SuitTypes,
-    BookGenres,
     BookTypes,
     Languages,
     ESRBRatings,
     ConsoleTypes,
     MusicFormatTypes,
-    MusicGenres,
-    MovieGenres,
-    MovieRatings,
-    TVRatings,
     VideoFormatTypes,
     VideoTypes,
     ApplianceTypes,
@@ -66,174 +94,207 @@ import {
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
 import { EntityBase } from './EntityBase';
-import { DensityDimension } from '../dimensions/DensityMeasure';
-import { WeightDimension } from '../dimensions/WeightMeasure';
-import { AngleDimension } from '../dimensions/AngleMeasure';
-import { CapacityDimension } from '../dimensions/CapacityMeasure';
-import { DataTransferRateDimension } from '../dimensions/DataTransferRateMeasure';
-import { LengthDimension } from '../dimensions/LengthMeasure';
-import { MemorySpeedDimension } from '../dimensions/MemorySpeedMeasure';
-import { PowerConsumptionDimension } from '../dimensions/PowerConsumptionMeasure';
-import { RateOfEnergyDimension } from '../dimensions/RateOfEnergyCapacityMeasure';
-import { RotationalSpeedDimension } from '../dimensions/RotationalSpeedMeasure';
-import { VideoRuntimeDimension } from '../dimensions/VideoRuntime';
+import { standardizeOptions } from '../defs/standardizeOptions';
+import { is } from '../../common/is';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
-    inseamSize?: Opt<LengthDimension>;
-    lengthSize?: Opt<LengthDimension>;
-    waistSize?: Opt<LengthDimension>;
-    height?: Opt<LengthDimension>;
-    width?: Opt<LengthDimension>;
-    length?: Opt<LengthDimension>;
-    weight?: Opt<LengthDimension>;
-    footSize?: Opt<LengthDimension>;
-    heelHeight?: Opt<LengthDimension>;
-    bustSize?: Opt<LengthDimension>;
-    chestSize?: Opt<LengthDimension>;
-    neckSize?: Opt<LengthDimension>;
-    sleeveSize?: Opt<LengthDimension>;
+    get $dims(): { length?: Opt<IMeasure<LengthUnitsOfMeasure>>; width?: Opt<IMeasure<LengthUnitsOfMeasure>>; height?: Opt<IMeasure<LengthUnitsOfMeasure>> } {
+        return {
+            length: this.length,
+            width: this.width,
+            height: this.height
+        }
+    }
+    get $awards(): IAward<AwardNames>[] {
+        return ([this.awards, this.book?.awards, this.movie?.awards, this.tvSeries?.awards, this.album?.awards].filter(is.not.nil) as DBList<IAward<AwardNames>>[]).reduce((pv, cv) => [...pv, ...cv], [] as IAward<AwardNames>[]);
+    }
+    get $contributors(): IContributor[] {
+        return [...(this.book?.contributors ?? []), ...(this.movie?.contributors ?? []), ...(this.tvSeries?.contributors ?? []), ...(this.album?.contributors ?? [])];
+    }
+    get $copyrightFormat(): string | undefined {
+        return this.$copyright || this.$format ? [this.$copyright, this.$format].filter(is.not.nil).join(',') : undefined;
+    }
+    get $titleSubtitle(): string | undefined {
+        return this.$title ? [this.$title, this.$subtitle].filter(is.not.nil).join(': ') : undefined;
+    }
+    studio?: Opt<string>;
+    get $title(): string | undefined {
+        return this.mediaTitle ?? this.book?.title ?? this.movie?.title ?? this.tvSeries?.title ?? this.album?.title;
+    }
+    get $subtitle(): string | undefined {
+        return this.mediaSubtitle ?? this.book?.subtitle ?? this.movie?.subtitle ?? this.tvSeries?.subtitle ?? this.album?.subtitle;
+    }
+    get $copyright(): string | undefined {
+        return this.copyright ?? this.book?.copyright ?? this.movie?.copyright ?? this.album?.copyright;
+    }
+    get $rating(): string | undefined {
+        const esrbRatingLookup = standardizeOptions($me.ESRBRatings).asRecord;
+        const movieRatingLookup = standardizeOptions($me.movieRatings).asRecord;
+        const tvRatingLookup = standardizeOptions($me.tvRatings).asRecord;
+        return (
+            this.ESRBRating ? esrbRatingLookup[this.ESRBRating].text
+            : this.movie?.rating ? movieRatingLookup[this.movie.rating].text
+            : this.tvSeries?.rating ? tvRatingLookup[this.tvSeries.rating].text
+            : undefined
+        );
+    }
+    get $format(): string | undefined {
+        const bookTypeLookup = standardizeOptions($me.bookTypes).asRecord;
+        const videoFormatLookup = standardizeOptions($me.videoFormatTypes).asRecord;
+        const musicFormatLookup = standardizeOptions($me.musicFormatTypes).asRecord;
+        return (
+            this.bookType ? bookTypeLookup[this.bookType].text
+            : this.videoFormat ? videoFormatLookup[this.videoFormat].text
+            : this.musicFormat ? musicFormatLookup[this.musicFormat].text
+            : undefined
+        );
+    }
+    compatibleWith: DBList<IPartNumber>;
+    partNumbers: DBList<IPartNumber>;
+    _id: BSON.ObjectId;
+    ages: Opt<IMinMax<number>>;
+    album?: Opt<IAlbum>;
+    applianceType: Opt<ApplianceTypes>;
+    asins: DBList<string>;
+    aspectRatio: Opt<AspectRatios>;
     awards: DBList<IAward<AwardNames>>;
-    runtime?: Opt<VideoRuntimeDimension>;
-    cordLength?: Opt<LengthDimension>;
-    batteryCapacity?: Opt<PowerConsumptionDimension>;
-    powerTypes?: DBList<PowerTypes> | undefined;
-    manufactureDate?: Opt<MonthYear>;
-    rateOfEnergyCapacity?: Opt<RateOfEnergyDimension>;
-    capacity?: Opt<CapacityDimension<'GB'>>;
-    operatingSystem?: Opt<IOperatingSystemInfo>;
-    screenSize?: Opt<LengthDimension>;
-    driveType?: Opt<string>;
-    driveForm?: Opt<string>;
-    connectivity: DBList<string>;
-    driveInterface?: Opt<string>;
-    writeSpeed?: Opt<DataTransferRateDimension>;
-    readSpeed?: Opt<DataTransferRateDimension>;
-    dataTransferRate?: Opt<DataTransferRateDimension>;
-    rpm?: Opt<RotationalSpeedDimension>;
-    cacheSize?: Opt<CapacityDimension<'MB'>>;
-    memoryType?: Opt<string>;
-    memoryForm?: Opt<string>;
-    memorySpeed?: Opt<MemorySpeedDimension>;
-    clubLength?: Opt<LengthDimension>;
-    lie?: Opt<AngleDimension>;
-    loft?: Opt<AngleDimension>;
-    swingWeight?: Opt<WeightDimension>;
-    compatibleDevices: DBList<CompatibleDevices>;
-    partNumbers: DBList<string>;
-    overrideTitle: boolean;
-    material?: Opt<Materials>;
-    cableType: Opt<CableTypes>;
-    dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
-    flatwareInventory: Opt<Record<FlatwareTypes, number>>;
-    itemType: Opt<string>;
-    connectors: DBList<AnyConnector>;
-    compatibleWith: DBList<string>;
-    sleeveLength: Opt<SleeveLengths>;
-    input: Opt<ICurrentSetting>;
-    output: Opt<ICurrentSetting>;
+    backlineType: Opt<BacklineTypes>;
+    batteryCapacity?: Opt<IMeasure<'WHr'>>;
     batteryCount: Opt<number>;
     batteryType: Opt<BatteryTypes>;
-    testedOn: Opt<Date>;
-    aspectRatio: Opt<AspectRatios>;
-    cellCarrier: Opt<CellCarriers>;
-    massInAir?: Opt<WeightDimension>;
-    massWaterDisplaced?: Opt<WeightDimension>;
-    get density(): Opt<DensityDimension> {
-        if (this.massInAir == null || this.massInAir.value === 0 || this.massWaterDisplaced == null || this.massWaterDisplaced.value === 0) return undefined;
-        return {
-            ...DensityDimension.init(),
-            value: this.massInAir.value / this.massWaterDisplaced.value
-        } as any;
-    }
-    metal: Opt<MetalTypes>;
-    dinnerwareType: Opt<DinnerwareTypes>;
-    pattern: Opt<string>;
-    applianceType: Opt<ApplianceTypes>;
-    clubType: Opt<ClubTypes>;
-    flexType: Opt<FlexTypes>;
-    handOrientation: Opt<HandOrientations>;
-    ironType: Opt<IronTypes>;
-    shaftType: Opt<ShaftTypes>;
-    wedgeType: Opt<WedgeTypes>;
-    ages: Opt<IMinMax<number>>;
-    players: Opt<IMinMax<number>>;
-    pieceCount: Opt<number>;
-    _id: BSON.ObjectId;
-    asins: DBList<string>;
-    brand: Opt<IBrand>;
-    classifier: Opt<IClassifier>;
-    includes: DBList<IIncludedItem>;
-    customAttributes: DBList<ICustomItemField>;
-    features: DBList<string>;
-    flags: DBList<Flags>;
-    hashTags: DBList<IHashTag>;
-    modelNo: Opt<string>;
-    notes: Opt<string>;
-    title: Opt<string>;
-    upcs: DBList<IBarcode>;
-    circa: Opt<Year>;
-    color: DBList<ProductColors>;
-    description: Opt<string>;
-    madeOf: DBList<IMadeOfSection>;
-    gender: Opt<Genders>;
-    cutNo: Opt<string>;
-    styleNo: Opt<string>;
-    text: Opt<string>;
-    rnNo: Opt<number>;
-    clothingCare: Opt<IClothingCare>;
-    closureType: Opt<ClosureTypes>;
-    fitType: Opt<FitTypes>;
-    legStyle: Opt<LegStyles>;
-    lengthType: Opt<GarmentLengths>;
-    lifestyleType: Opt<LifestyleTypes>;
-    pocketType: Opt<PocketTypes>;
-    riseType: Opt<RiseTypes>;
-    size: Opt<number>;
+    blurb: Opt<string>;
+    book?: Opt<IBook>;
+    bookType: Opt<BookTypes>;
     bootType: Opt<BootTypes>;
+    brand: Opt<IBrand>;
+    bustSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    cableType: Opt<CableTypes>;
+    cacheSize?: Opt<IMeasure<'MB'>>;
+    capacity?: Opt<IMeasure<'GB'>>;
+    cellCarrier: Opt<CellCarriers>;
+    chestSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    circa: Opt<Year>;
+    classifier: Opt<IClassifier>;
+    closureType: Opt<ClosureTypes>;
+    clothingCare: Opt<IClothingCare>;
+    clubLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    clubType: Opt<ClubTypes>;
+    collarType: Opt<CollarTypes>;
+    collectionOf: DBList<string>;
+    color: DBList<ProductColors>;
+    compatibleDevices: DBList<CompatibleDevices>;
+    connectivity: DBList<string>;
+    connectors: DBList<AnyConnector>;
+    consoleType: Opt<ConsoleTypes>;
+    cordLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    count: Opt<number>;
+    cuffType: Opt<CuffTypes>;
+    customAttributes: DBList<ICustomItemField>;
+    cutNo: Opt<string>;
+    dataTransferRate?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>;
+    description: Opt<string>;
+    dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
+    dinnerwareType: Opt<DinnerwareTypes>;
+    dressType: Opt<DressTypes>;
+    driveForm?: Opt<string>;
+    driveInterface?: Opt<string>;
+    driveType?: Opt<string>;
+    edition: Opt<number>;
+    ESRBRating: Opt<ESRBRatings>;
+    features: DBList<string>;
+    fitType: Opt<FitTypes>;
+    flags: DBList<Flags>;
+    flatwareInventory: Opt<Record<FlatwareTypes, number>>;
+    flexType: Opt<FlexTypes>;
+    footSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    gender: Opt<Genders>;
+    handOrientation: Opt<HandOrientations>;
+    hashTags: DBList<IHashTag>;
+    heelHeight?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    height?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     heightMapType: Opt<HeightMaps>;
+    includes: DBList<IIncludedItem>;
+    input: Opt<ICurrentSetting>;
+    inseamSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    ironType: Opt<IronTypes>;
+    itemType: Opt<string>;
+    language: Opt<Languages>;
+    legStyle: Opt<LegStyles>;
+    length?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    lengthSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    lengthType: Opt<GarmentLengths>;
+    lie?: Opt<IMeasure<'°'>>;
+    lifestyleType: Opt<LifestyleTypes>;
+    loft?: Opt<IMeasure<'°'>>;
+    madeOf: DBList<IMadeOfSection>;
+    manufactureDate?: Opt<IMonthYear>;
+    massInAir?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    massWaterDisplaced?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    material?: Opt<Materials>;
+    memoryForm?: Opt<string>;
+    memorySpeed?: Opt<IMeasure<'MHz'>>;
+    memoryType?: Opt<string>;
+    metal: Opt<MetalTypes>;
+    modelName: Opt<string>;
+    modelNo: Opt<string>;
+    movie?: Opt<IMovie>;
+    musicFormat: Opt<MusicFormatTypes>;
+    neckSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    neckType: Opt<NeckTypes>;
+    notes: Opt<string>;
+    operatingSystem?: Opt<IOperatingSystemInfo>;
+    output: Opt<ICurrentSetting>;
+    overrideTitle: boolean;
+    pages: Opt<number>;
+    pattern: Opt<string>;
+    pieceCount: Opt<number>;
+    players: Opt<IMinMax<number>>;
+    pocketType: Opt<PocketTypes>;
+    powerTypes?: DBList<PowerTypes> | undefined;
+    rateOfEnergyCapacity?: Opt<IMeasure<'mAh'>>;
+    readSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>;
+    riseType: Opt<RiseTypes>;
+    rnNo: Opt<IRn>;
+    rpm?: Opt<IMeasure<'RPM'>>;
+    runtime?: Opt<IMeasure<VideoRuntimeUnitsOfMeasure>>;
+    screenSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    shaftType: Opt<ShaftTypes>;
     shoeHeelType: Opt<ShoeHeelTypes>;
     shoeWidth: Opt<ShoeWidths>;
+    size: Opt<number>;
+    sleeveLength: Opt<SleeveLengths>;
+    sleeveSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    sleeveType: Opt<SleeveTypes>;
     strapType: Opt<StrapTypes>;
-    toeStyle: Opt<ToeStyles>;
+    styleNo: Opt<string>;
+    suitType: Opt<SuitTypes>;
     swimsuitBottomStyle: Opt<SwimsuitBottomStyles>;
     swimsuitTopStyle: Opt<SwimsuitTopStyles>;
-    backlineType: Opt<BacklineTypes>;
-    collarType: Opt<CollarTypes>;
-    cuffType: Opt<CuffTypes>;
-    dressType: Opt<DressTypes>;
-    neckType: Opt<NeckTypes>;
-    sleeveType: Opt<SleeveTypes>;
-    suitType: Opt<SuitTypes>;
-    copyright: Opt<string>;
-    mediaSubtitle: Opt<string>;
-    mediaTitle: Opt<string>;
-    authors: DBList<string>;
-    blurb: Opt<string>;
-    bookGenre: Opt<BookGenres>;
-    bookType: Opt<BookTypes>;
-    edition: Opt<number>;
-    illustrators: DBList<string>;
-    language: Opt<Languages>;
-    pages: Opt<number>;
-    publishers: DBList<string>;
-    collectionOf: DBList<string>;
-    count: Opt<number>;
-    directedBy: DBList<string>;
+    swingWeight?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    testedOn: Opt<Date>;
+    text: Opt<string>;
+    title: Opt<string>;
+    toeStyle: Opt<ToeStyles>;
+    tvSeries?: Opt<ITVSeries>;
+    upcs: DBList<IBarcode>;
     videoFormat: Opt<VideoFormatTypes>;
-    videoGenre: Opt<MovieGenres>;
-    movieRating: Opt<MovieRatings>;
-    starring: DBList<string>;
-    tvRating: Opt<TVRatings>;
     videoType: Opt<VideoTypes>;
-    ESRBRating: Opt<ESRBRatings>;
-    consoleType: Opt<ConsoleTypes>;
-    studio: Opt<string>;
-    artist: Opt<string>;
-    musicFormat: Opt<MusicFormatTypes>;
-    musicGenre: Opt<MusicGenres>;
-    tracks: DBList<ITrack>;
-    modelName: Opt<string>;
+    waistSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    wedgeType: Opt<WedgeTypes>;
+    weight?: Opt<IMeasure<WeightUnitsOfMeasure>>;
+    width?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    writeSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>;
+    get density(): Opt<IMeasure<DensityUnitsOfMeasure>> {
+        if (this.massInAir == null || this.massInAir.value === 0 || this.massWaterDisplaced == null || this.massWaterDisplaced.value === 0) return undefined;
+        return {
+            uom: 'g/cm³',
+            value: this.massInAir.value / this.massWaterDisplaced.value
+        } as IMeasure<DensityUnitsOfMeasure>;
+    }
+    // get density(): Opt<DensityDimension> {
 
+    // }
+    copyright: Opt<string>;
     static schema: Realm.ObjectSchema = {
         name: schemaName($.product()),
         primaryKey: '_id',
@@ -247,10 +308,10 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             features: $.string.list,
             hashTags: $.hashTag.list,
             flags: $.string.list,
-            weight: $.double.opt,
-            length: $.double.opt,
-            width: $.double.opt,
-            height: $.double.opt,
+            weight: $.weightMeasure(),
+            length: $.lengthMeasure(),
+            width: $.lengthMeasure(),
+            height: $.lengthMeasure(),
             modelNo: $.string.opt,
             notes: $.string.opt,
             title: $.string.opt,
@@ -264,95 +325,76 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             styleNo: $.string.opt,
             cutNo: $.string.opt,
             text: $.string.opt,
-            rnNo: $.int.opt,
+            rnNo: $.rn(),
             clothingCare: $.clothingCare(),
             closureType: $.string.opt,
-            inseamSize: $.double.opt,
+            inseamSize: $.lengthMeasure(),
             fitType: $.string.opt,
             legStyle: $.string.opt,
-            lengthSize: $.double.opt,
+            lengthSize: $.lengthMeasure(),
             lengthType: $.string.opt,
             lifestyleType: $.string.opt,
             pocketType: $.string.opt,
             riseType: $.string.opt,
             size: $.int.opt,
-            waistSize: $.double.opt,
+            waistSize: $.lengthMeasure(),
             bootType: $.string.opt,
-            footSize: $.double.opt,
-            heelHeight: $.double.opt,
+            footSize: $.lengthMeasure(),
+            heelHeight: $.lengthMeasure(),
             heightMapType: $.string.opt,
             shoeHeelType: $.string.opt,
             shoeWidth: $.string.opt,
             strapType: $.string.opt,
             toeStyle: $.string.opt,
-            bustSize: $.double.opt,
+            bustSize: $.lengthMeasure(),
             swimsuitBottomStyle: $.string.opt,
             swimsuitTopStyle: $.string.opt,
             backlineType: $.string.opt,
-            chestSize: $.double.opt,
+            chestSize: $.lengthMeasure(),
             collarType: $.string.opt,
             cuffType: $.string.opt,
             dressType: $.string.opt,
-            neckSize: $.double.opt,
+            neckSize: $.lengthMeasure(),
             neckType: $.string.opt,
-            sleeveSize: $.double.opt,
+            sleeveSize: $.lengthMeasure(),
             sleeveType: $.string.opt,
             suitType: $.string.opt,
             sleeveLength: $.string.opt,
 
-            awards: $.string.list,
-            copyright: $.string.opt,
-            mediaSubtitle: $.string.opt,
-            mediaTitle: $.string.opt,
+            book: $.book(),
+            movie: $.movie(),
+            tvSeries: $.tvSeries(),
+            album: $.album(),
 
-            authors: $.string.list,
             blurb: $.string.opt,
-            bookGenre: $.string.opt,
             bookType: $.string.opt,
             edition: $.int.opt,
-            illustrators: $.string.list,
             language: $.string.opt,
             pages: $.int.opt,
-            publishers: $.string.list,
-
             collectionOf: $.string.list,
             count: $.int.opt,
-            directedBy: $.string.list,
             videoFormat: $.string.opt,
-            movieRating: $.string.opt,
-            videoGenre: $.string.opt,
-            runtime: $.int.opt,
-            starring: $.string.list,
-            tvRating: $.string.opt,
             videoType: $.string.opt,
-
             ESRBRating: $.string.opt,
             consoleType: $.string.opt,
             studio: $.string.opt,
-
-            artist: $.string.opt,
             musicFormat: $.string.opt,
-            musicGenre: $.string.opt,
-            tracks: $.track.list,
-
-            cordLength: $.double.opt,
+            cordLength: $.lengthMeasure(),
             connectors: $.connector.list,
-            compatibleWith: $.string.list,
+            compatibleWith: $.partNumber.list,
             input: $.currentSetting(),
             output: $.currentSetting(),
             batteryCount: $.int.opt,
             batteryType: $.string.opt,
-            batteryCapacity: $.dimension(),
-            powerType: $.string.opt,
+            batteryCapacity: $.powerConsumptionMeasure(),
+            powerTypes: $.string.list,
             testedOn: $.date.opt,
             aspectRatio: $.string.opt,
-            capacity: $.int.opt,
             cellCarrier: $.string.opt,
-            os: $.string.opt,
-            osVersion: $.string.opt,
-            screenSize: $.double.opt,
-            massInAir: $.double.opt,
-            massWaterDisplaced: $.double.opt,
+            operatingSystem: $.operatingSystemInfo(),
+            screenSize: $.lengthMeasure(),
+            massInAir: $.weightMeasure(),
+            massWaterDisplaced: $.weightMeasure(),
             metal: $.string.opt,
             dinnerwareInventory: $.piece.dictionary,
             flatwareInventory: $.int.dictionary,
@@ -362,11 +404,11 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             flexType: $.string.opt,
             handOrientation: $.string.opt,
             ironType: $.string.opt,
-            clubLength: $.double.opt,
-            lie: $.double.opt,
-            loft: $.double.opt,
+            clubLength: $.lengthMeasure(),
+            lie: $.angleMeasure(),
+            loft: $.angleMeasure(),
             shaftType: $.string.opt,
-            swingWeight: $.string.opt,
+            swingWeight: $.weightMeasure(),
             wedgeType: $.string.opt,
             ages: $.minMax(),
             players: $.minMax(),
@@ -375,35 +417,37 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             cableType: $.string.opt,
             modelName: $.string.opt,
             overrideTitle: $.bool.default(false),
-            partNumbers: $.string.list,
+            partNumbers: $.partNumber.list,
             driveType: $.string.opt,
             driveForm: $.string.opt,
             connectivity: $.string.list,
             driveInterface: $.string.opt,
-            driveSize: $.dimension(),
-            writeSpeed: $.double.opt,
-            readSpeed: $.double.opt,
-            dataTransferRate: $.double.opt,
-            rpm: $.int.opt,
+            writeSpeed: $.dataTransferRateMeasure(),
+            readSpeed: $.dataTransferRateMeasure(),
+            dataTransferRate: $.dataTransferRateMeasure(),
+            rpm: $.rotationalSpeedMeasure(),
             memoryType: $.string.opt,
             memoryForm: $.string.opt,
             compatibleDevices: $.string.list,
-            memorySize: $.dimension(),
-            memorySpeed: $.int.opt,
+            memorySpeed: $.memorySpeedMeasure(),
             CASLatency: $.string.opt,
-            cacheSize: $.dimension(),
+            cacheSize: $.capacityMeasure(),
             dataTransferBandwidth: $.string.opt,
             pinCount: $.int.opt,
-            voltage: $.double.opt,
-            manufactureDate: $.date.opt,
-            rateOfEnergyCapacity: $.dimension(),
+            manufactureDate: $.monthYear(),
+            rateOfEnergyCapacity: $.rateOfEnergyMeasure(),
             origin: $.string.opt,
             acAdapter: $.currentSetting(),
             batteryStats: $.currentSetting(),
+            capacity: $.capacityMeasure(),
             type: $.string.list,
-            season: $.int.opt
+            mediaTitle: $.string.opt,
+            mediaSubtitle: $.string.opt,
+            copyright: $.string.opt
         }
     };
+    mediaSubtitle?: Opt<string>;
+    mediaTitle?: Opt<string>;
     type: DBList<DetailTypes>;
     batteryStats?: Opt<ICurrentSetting>;
     acAdapter?: Opt<ICurrentSetting>;
@@ -452,14 +496,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             flags: [],
             upcs: [],
             color: [],
-            awards: [],
-            authors: [],
-            illustrators: [],
-            publishers: [],
             collectionOf: [],
-            directedBy: [],
-            starring: [],
-            tracks: [],
             connectors: [],
             compatibleWith: [],
             type: [],

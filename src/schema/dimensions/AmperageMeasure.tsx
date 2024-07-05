@@ -1,19 +1,19 @@
 import { $ } from '../$';
-import { AmperageUnitsOfMeasure } from '../../types';
+import { AmperageUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import { IntMeasure } from './IntMeasure';
+import { DoubleMeasure } from './DoubleMeasure';
 import Realm from 'realm';
 
-export class AmperageMeasure extends IntMeasure<AmperageUnitsOfMeasure> {
+export class AmperageMeasure extends DoubleMeasure<AmperageUnitsOfMeasure> {
     static schema: Realm.ObjectSchema = {
         name: schemaName($.amperageMeasure()),
         embedded: true,
         properties: {
             uom: $.string.default('A'),
-            value: $.int.default(0)
+            value: $.double.default(0)
         }
     }
-    static init(): InitValue<IntMeasure<AmperageUnitsOfMeasure>> {
+    static init(): InitValue<IMeasure<AmperageUnitsOfMeasure>> {
         return {
             value: 0,
             uom: 'A'

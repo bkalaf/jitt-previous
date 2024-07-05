@@ -3,13 +3,14 @@
 import { Shippers } from '.';
 import { is } from '../../common/is';
 import { sortToKey } from '../../components/table/controls/titleGenerator';
-import { parseNumber } from './parseNumber';
-import ShippingRatesV1 from 'C:\\Users\\bobby\\AppData\\Roaming\\jitt\\shipping-rates.json';
+import { parseNumber } from '../../common/number/parseNumber';
+import ShippingRatesV1 from 'C:\\Users\\bobby\\AppData\\Roaming\\jitt\\shipping-rates-v1.json';
+import { IMeasure, WeightUnitsOfMeasure } from '../../types';
 
 export type ShippingCategory = 'standard' | 'media-mail';
 export type IShippingRate = {
     category: ShippingCategory;
-    weight: number;
+    weight: IMeasure<WeightUnitsOfMeasure>;
     carrier: Shippers;
     id: number;
     price: number;
@@ -18,7 +19,7 @@ export type IShippingRate = {
 export function sortShippingRate(rates: IShippingRate[]) {
     const { standard, 'media-mail': mediaMail } = sortToKey((x: IShippingRate) => x.category)(rates) as Record<ShippingCategory, IShippingRate[]>;
     function inner<TKey extends ShippingCategory>(cat: TKey, incoming: IShippingRate[]) {
-        const byWeight = sortToKey((x: IShippingRate) => x.weight.toFixed(2))(incoming);
+        const byWeight = sortToKey((x: IShippingRate) => x.weight.value.toFixed(2))(incoming);
         return { [cat]: byWeight } as Record<TKey, Record<string, IShippingRate[]>>;
     }
     const result = { ...inner('media-mail', mediaMail), ...inner('standard', standard) };
@@ -105,12 +106,12 @@ export function getShippingById(key?: number) {
     if (key == null) return undefined;
     return shippingRatesMap[key];
 }
-console.log(getShipping(1));
-console.log(getShipping(1.3));
-console.log(getShipping(1.3, true));
-console.log(getShippingById(1721));
-console.log(getShippingById(1668));
-console.log('SHIPPING RATES V1', shippingRatesV1);
+// console.log(getShipping(1));
+// console.log(getShipping(1.3));
+// console.log(getShipping(1.3, true));
+// console.log(getShippingById(1721));
+// console.log(getShippingById(1668));
+// console.log('SHIPPING RATES V1', shippingRatesV1);
 
 export const CURRENT_SHIPPING_VERSION = 1;
 // console.log(JSON.stringify(shippingRatesV1, null, '\t'));

@@ -1,6 +1,6 @@
 import { MRT_Column, MRT_RowData } from 'material-react-table';
 import { useFieldArray, useFormContext } from 'react-hook-form-mui';
-import { useDirectColumns } from './useColumns';
+import { useDirectColumns } from './useDirectColumns';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useEditColumnMeta';
 import { useGetLIComponent } from './useGetLIComponent';

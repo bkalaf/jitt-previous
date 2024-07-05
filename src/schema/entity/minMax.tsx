@@ -18,7 +18,8 @@ export class MinMax extends EntityBase<IMinMax<number>> implements IMinMax<numbe
     static update(item: IMinMax<number>) {
         return item;
     }
-    static liComponent: ListItemCellComponent<IMinMax<number>> = (value?: IMinMax<number>) => () => (value == null ? '' : [value.min, value.max].filter((x) => x != null).join(' to '));
+    static stringify = (value?: IMinMax<number>) => () => (value == null ? '' : [value.min, value.max].filter((x) => x != null).join(' to '));
+    static liComponent = MinMax.stringify;
     static init(): InitValue<IMinMax<number>> {
         return {};
     }

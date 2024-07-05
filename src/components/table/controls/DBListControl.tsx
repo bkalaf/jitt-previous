@@ -18,11 +18,11 @@ export function DBListControl<T extends MRT_RowData, TValue>(props: EditFunction
             <fieldset name={name} aria-required={required} aria-readonly={readonly}>
                 <legend className='relative flex w-full'>
                     {label}
-                    <IconBtn icon={faPlusSquare} color='vivid' className='absolute right-0 top-0' tooltip='Insert new item' onClick={toggleOpen} />
+                    <IconBtn icon={faPlusSquare} color='vivid' className='absolute top-0 right-0' tooltip='Insert new item' onClick={toggleOpen} />
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    <DBListEditSubComponent append={append} columns={cols} handleClose={handleClose} isOpen={isOpen} objectType={objectType} />
+                    {isOpen && <DBListEditSubComponent append={append} columns={cols} handleClose={handleClose} isOpen={isOpen} objectType={objectType} />}
                     <List>
                         {(value ?? []).map((item: TValue, index: number) => {
                             return <DBListItemSubComponent remove={remove} index={index} objectType={objectType} value={item} key={index} LIComponent={LiComponent} />;

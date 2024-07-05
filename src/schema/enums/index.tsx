@@ -1165,3 +1165,5 @@ export type EnumName = keyof typeof $masterEnum;
 // eslint-disable-next-line @typescript-eslint/ban-types
 const $me = { ...$masterEnum, attributePaths: attributePaths } as Record<EnumName, EnumItem<string>[]> & Record<'attributePaths', { text: string; key: string; Component: React.FunctionComponent<{}> }[]>;
 export default $me;
+
+console.log(Object.keys($me).join('\n'))

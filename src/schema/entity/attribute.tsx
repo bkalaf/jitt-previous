@@ -18,7 +18,8 @@ export class Attribute extends EntityBase<IAttribute> implements IAttribute {
             value: $.mixed()
         }
     };
-    static liComponent = (value?: IAttribute) => () => (value == null ? '' : [value.path, value.value].join(' == '));
+    static stringify = (value?: IAttribute) => () => (value == null ? '' : [value.path, value.value].join(' == '));
+    static liComponent = Attribute.stringify;
     static update(item: IAttribute): IAttribute {
         return item;
     }

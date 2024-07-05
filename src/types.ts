@@ -91,6 +91,7 @@ import { AttachmentStages } from './schema/choices/AttachmentStages';
 import { AttachmentType } from './schema/choices/AttachmentType';
 import { ProductImageDisposition } from './schema/entity/ProductImageDisposition';
 import { Flags } from './schema/enums/flags';
+import { IShippingRate } from './schema/enums/shippingRates';
 
 export type AmperageUnitsOfMeasure = 'A' | 'mA';
 export type AngleUnitsOfMeasure = '°';
@@ -148,8 +149,8 @@ export type IFacility = {
 export type AuctionSite = keyof typeof auctionSites;
 
 export type ISquareFootage = {
-    length: IMeasure<DistanceUnitsOfMeasure>;
-    width: IMeasure<DistanceUnitsOfMeasure>;
+    length: Opt<IMeasure<DistanceUnitsOfMeasure>>;
+    width: Opt<IMeasure<DistanceUnitsOfMeasure>>;
 };
 export type IAuction = {
     _id: BSON.ObjectId;
@@ -404,7 +405,6 @@ export type IApparel = IApparelBottom & {
     cutNo?: Opt<string>;
     styleNo?: Opt<string>;
     text?: Opt<string>;
-    rnNo?: Opt<Int>;
     clothingCare?: Opt<IClothingCare>;
 };
 
@@ -443,7 +443,7 @@ export type IAwardHeader<T extends AwardNames> = {
 };
 export type IAward<T extends AwardNames> = {
     year: Opt<Year>;
-    who: Opt<string>;
+    contributor: Opt<IContributor>;
     status: Opt<AwardStatus>;
 } & IAwardHeader<T>;
 
@@ -463,10 +463,84 @@ export type IOperatingSystemInfo = {
     version: Opt<string>;
 };
 export type Month = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
-export type MonthYear = {
+export type IMonthYear = {
     month: Month;
     year: Year;
 };
+
+export type Prefix = 'Dr.' | 'Lady' | 'Lord';
+export type Suffix = 'Esq.' | 'M.D.' | 'Jr.' | 'Sr.';
+
+export type IIndividual = {
+    _id: BSON.ObjectId;
+    firstname: string;
+    lastname: string;
+    middlename: Opt<string>;
+    prefix: Opt<Prefix>;
+    suffix: Opt<Suffix>;
+}
+export type ContributorRoles = 'author' | 'illustrator' | 'publisher' | 'actor' | 'director' | 'producer' | 'studio' | 'performer' | 'songwriter';
+export type IContributor = {
+    group: Opt<string>;
+    individual: Opt<IIndividual>;
+    role: Opt<ContributorRoles>;
+    creditedAs: Opt<string>;
+}
+export type IBook = {
+    _id: BSON.ObjectId;
+    title: string;
+    subtitle: Opt<string>;
+    copyright: Opt<Year>;
+    contributors: DBList<IContributor>;
+    awards: DBList<IAward<'ny-times' | 'hugo' | 'pulitzer'>>;
+    genre: Opt<BookGenres>;
+}
+export type IMovie = {
+    _id: BSON.ObjectId;
+    title: string;
+    subtitle: Opt<string>;
+    copyright: Opt<Year>;
+    runtime?: Opt<IMeasure<VideoRuntimeUnitsOfMeasure>>;
+    contributors: DBList<IContributor>;
+    rating: Opt<MovieRatings>;
+    awards: DBList<IAward<'oscar'>>;
+    genre: Opt<MovieGenres>;
+};  
+
+export type ITVSeriesEpisode = {
+    name: Opt<string>;
+    season: Opt<Int>;
+    index: Opt<Int>;
+    id: Opt<string>;
+    originalAirDate: Opt<Date>;
+}
+export type Network = 'NBC' | 'ABC' | 'HBO';
+export type ITVSeries = {
+    _id: BSON.ObjectId;
+    title: string;
+    subtitle: Opt<string>;
+    rating: Opt<TVRatings>;
+    contributors: DBList<IContributor>;
+    episodes: DBList<ITVSeriesEpisode>;
+    network: Opt<Network>;
+    awards: DBList<IAward<'emmy'>>;
+    genre: Opt<MovieGenres>;
+};
+export type IAlbum = {
+    _id: BSON.ObjectId;
+    title: string;
+    subtitle: Opt<string>;
+    copyright: Opt<Year>;
+    contributors: DBList<IContributor>;
+    awards: DBList<IAward<'grammy'>>;
+    tracks: DBDictionary<ITrack>;
+    genre: Opt<MusicGenres>;
+};
+
+export type IPartNumber = {
+    brand: Opt<IBrand>;
+    partNumber: string;
+}
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -489,6 +563,7 @@ export type IProduct = IApparel & {
     circa?: Opt<Year>;
     color: DBList<ProductColors>;
     description?: Opt<string>;
+    copyright: Opt<Year>;
     // general
     testedOn: Opt<Date>;
     itemType: Opt<string>;
@@ -497,7 +572,7 @@ export type IProduct = IApparel & {
     cutNo: Opt<string>;
     styleNo: Opt<string>;
     text: Opt<string>;
-    rnNo: Opt<Int>;
+    rnNo: Opt<IRn>;
     clothingCare: Opt<IClothingCare>;
     madeOf: DBList<IMadeOfSection>;
     // apparel-bottoms
@@ -537,68 +612,50 @@ export type IProduct = IApparel & {
     sleeveType?: Opt<SleeveTypes>;
     sleeveLength?: Opt<SleeveLengths>;
     suitType?: Opt<SuitTypes>;
-
-    // // media
-    awards: DBList<IAward<AwardNames>>;
-    copyright?: Opt<Year>;
-    mediaSubtitle?: Opt<string>;
     mediaTitle?: Opt<string>;
+    mediaSubtitle?: Opt<string>;
+    // // media
+    book?: Opt<IBook>;
+    movie?: Opt<IMovie>;
+    album?: Opt<IAlbum>;
+    tvSeries?: Opt<ITVSeries>;
     // // media-books
-    authors: DBList<string>;
     blurb?: Opt<string>;
-    bookGenre?: Opt<BookGenres>;
     bookType?: Opt<BookTypes>;
     edition?: Opt<Int>;
-    illustrators: DBList<string>;
     language?: Opt<Languages>;
     pages?: Opt<Int>;
-    publishers: DBList<string>;
     // // media-videos
     collectionOf: DBList<string>;
     count?: Opt<Int>;
-    directedBy: DBList<string>;
     videoFormat?: Opt<VideoFormatTypes>;
-    videoGenre?: Opt<MovieGenres>;
-    movieRating?: Opt<MovieRatings>;
-    runtime?: Opt<IMeasure<VideoRuntimeUnitsOfMeasure>>;
-    starring: DBList<string>;
-    tvRating?: Opt<TVRatings>;
     videoType?: Opt<VideoTypes>;
-    season?: Opt<Int>;
     // // media-video-games
     ESRBRating?: Opt<ESRBRatings>;
     consoleType?: Opt<ConsoleTypes>;
     studio?: Opt<string>;
     // // media-music
-    artist?: Opt<string>;
     musicFormat?: Opt<MusicFormatTypes>;
-    musicGenre?: Opt<MusicGenres>;
-    tracks: DBList<ITrack>;
     // // cables
     cableType?: Opt<CableTypes>;
     cordLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     // // cables-data
     connectors: DBList<AnyConnector>;
     // // cables-power
-    compatibleWith: DBList<string>;
+    compatibleWith: DBList<IPartNumber>;
     input?: Opt<ICurrentSetting>;
     output?: Opt<ICurrentSetting>;
     // // cables-video
     // // electronics
-    batteryCount?: Opt<Int>;
-    batteryType?: Opt<BatteryTypes>;
-    batteryCapacity?: Opt<IMeasure<PowerConsumptionUnitsOfMeasure>>;
-    batteryStats?: Opt<ICurrentSetting>;
-    powerTypes?: DBList<PowerTypes>;
-    manufactureDate?: Opt<MonthYear>;
-    rateOfEnergyCapacity?: Opt<IMeasure<RateOfEnergyCapacityUnitsOfMeasure>>;
-    acAdapter?: Opt<ICurrentSetting>;
-    // // cell-phones
+    powerTypes?: DBList<PowerTypes>; // cables-power
+    manufactureDate?: Opt<IMonthYear>;
+    capacity?: Opt<IMeasure<'GB'>>; // hard-drive, memory, cell-phones
+    // visual
     aspectRatio?: Opt<AspectRatios>;
-    capacity?: Opt<IMeasure<'GB'>>;
+    screenSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    // // cell-phones
     cellCarrier?: Opt<CellCarriers>;
     operatingSystem?: Opt<IOperatingSystemInfo>;
-    screenSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
     // hard drive
     driveType?: Opt<DriveType>;
     driveForm?: Opt<HardDriveFormFactor>;
@@ -617,6 +674,12 @@ export type IProduct = IApparel & {
     pinCount?: Opt<Int>;
     dataTransferBandwidth?: Opt<string>;
     CASLatency?: Opt<CASLatency>;
+    // battery
+    batteryCount?: Opt<Int>;
+    batteryType?: Opt<BatteryTypes>;
+    batteryCapacity?: Opt<IMeasure<PowerConsumptionUnitsOfMeasure>>;
+    batteryStats?: Opt<ICurrentSetting>;
+    rateOfEnergyCapacity?: Opt<IMeasure<RateOfEnergyCapacityUnitsOfMeasure>>;
     // // jewelry
     massInAir?: Opt<IMeasure<WeightUnitsOfMeasure>>;
     massWaterDisplaced?: Opt<IMeasure<WeightUnitsOfMeasure>>;
@@ -645,11 +708,12 @@ export type IProduct = IApparel & {
     material?: Opt<Materials>;
     // // toys
     ages?: Opt<IMinMax<Int>>;
-    players?: Opt<IMinMax<Int>>;
     pieceCount?: Opt<Int>;
+    // board-games
+    players?: Opt<IMinMax<Int>>;
     modelName: Opt<string>;
     overrideTitle: boolean;
-    partNumbers: DBList<string>;
+    partNumbers: DBList<IPartNumber>;
     type: DBList<DetailTypes>;
 
     readonly allHashTags: IHashTag[];
@@ -658,6 +722,20 @@ export type IProduct = IApparel & {
     readonly primaryColorSelector: string | undefined;
     readonly sizeText: string | undefined;
     readonly sizeSelector: string | undefined;
+    readonly $title: string | undefined;
+    readonly $subtitle: string | undefined;
+    readonly $copyright: string | undefined;
+    readonly $rating: string | undefined;
+    readonly $format: string | undefined;
+    readonly $contributors: IContributor[];
+    readonly $awards: IAward<AwardNames>[];
+    readonly $copyrightFormat: string | undefined;
+    readonly $titleSubtitle: string | undefined;
+    readonly $dims: {
+        length?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+        width?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+        height?: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    };
 };
 
 export type IShipping = {
@@ -759,6 +837,27 @@ export type ISku = {
     addBarcode(this: ISku, generator: () => string): ISku;
     // addFromProduct(realm: Realm, product: IProduct): ISku;
     readonly hasDraft: boolean;
+    readonly getShippingRate: Opt<IShippingRate>;
+    readonly $images: string[];
+};
+
+export type RnCompanyType = 'OTHER' | 'CORPORATION';
+export type RnBusinessType = 'IMPORTER' | 'UNKNOWN' | 'WHOLESALER' | 'MANUFACTURING';
+export type RnMaterial = 'WOOL';
+export type RnType = 'WPL' | 'RN';
+export type RnProductLine = "WOMEN'S APPAREL" | 'SHIRTS' | 'LINGERIE' | 'SLEEPWEAR' | 'ADULT COSTUMES';
+export type IRn = {
+    _id: BSON.ObjectId;
+    type: Opt<RnType>;
+    no: number;
+    legalBusinessName: string;
+    companyName: string;
+    companyType: Opt<RnCompanyType>;
+    businessType: DBList<RnBusinessType>;
+    productLine: DBList<RnProductLine>;
+    material: DBList<RnMaterial>;
+    streetAddress: Opt<IAddress>;
+    mailingAddress: Opt<IAddress>;
 };
 
 export type IDraft = {
@@ -771,7 +870,8 @@ export type IDraft = {
     payor: PayorTypes;
     smartPricing: boolean;
     smartPrice: Opt<number>;
-
+    lockTitle: Opt<boolean>;
+    lockDescription: Opt<boolean>;
     readonly getDims: { length: number; width: number; height: number };
     readonly getWeight: { pounds: number; ounces: number };
     readonly getShipping: { carrier: Shippers; service: ShippingSpeeds; price: number; selector: string };
@@ -788,4 +888,7 @@ export type IDraft = {
     readonly getShouldSmartPricing: boolean;
     listingID: Opt<string>;
     readonly isListed: boolean;
+    readonly imageCount: number;
+    readonly titleLength: number;
+    readonly descriptionLength: number;
 };

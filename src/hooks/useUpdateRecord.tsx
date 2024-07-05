@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { UpdateMode } from 'realm';
 import { useCollectionRoute } from './useCollectionRoute';
 import { FieldErrors } from 'react-hook-form';
-import { useUpdater } from './useUpdater';
+import { useUpdateEntity } from './useUpdateEntity';
 import { useFailureNotification } from './useFailureNotification';
 import { useSuccessNotification } from './useSuccessNotification';
 import { useLocalRealm } from './useLocalRealm';
@@ -15,7 +15,7 @@ export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<
     const collection = useCollectionRoute();
     const convert = useConvert('object', collection);
     const db = useLocalRealm();
-    const [, updater] = useUpdater<T>();
+    const updater = useUpdateEntity<T>(collection);
     const successMessage = useSuccessNotification((obj: RealmObj<any>) => `1 new record created. [${obj._id.toHexString()}]`, collection);
     const failureMessage = useFailureNotification((errors: FieldErrors<T>) => {
         console.error(errors);
@@ -37,13 +37,13 @@ export function useUpdateRecord<T extends MRT_RowData>(table: MRT_TableInstance<
     );
     const { mutate } = useMutation({
         mutationFn: (values: T) => {
-            return new Promise<RealmObj<T>>((resolve) => {
+            return new Promise<T>((resolve) => {
                 if (db == null) throw new Error('no db');
                 console.log(`values`, values);
                 const converted = convert(values);
                 const func = () => {
                     const result = db.create<T>(collection, converted, UpdateMode.Modified);
-                    return resolve(updater(result));
+                    return resolve(updater(result as T));
                 };
                 runTransaction(db, func);
             });

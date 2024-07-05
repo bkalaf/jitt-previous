@@ -16,7 +16,8 @@ export class IncludedItem extends EntityBase<IIncludedItem> implements IIncluded
             name: $.string()
         }
     };
-    static liComponent = (value?: IIncludedItem) => () => (value == null ? '' : [value.qty.toFixed(0), value.name].join('x '));
+    static stringify = (value?: IIncludedItem, returnUndefined = false) => () => (value == null ? returnUndefined ? undefined : '' : [value.qty.toFixed(0), value.name].join('x '));
+    static liComponent = IncludedItem.stringify;
     static update(item: IIncludedItem): IIncludedItem {
         return item;
     }

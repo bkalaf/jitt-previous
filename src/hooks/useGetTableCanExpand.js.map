@@ -1,1 +1,0 @@
-{"version":3,"file":"useGetTableCanExpand.js","sourceRoot":"","sources":["useGetTableCanExpand.tsx"],"names":[],"mappings":";;;AAAA,iCAAoC;AAEpC,SAAgB,oBAAoB;IAChC,OAAO,IAAA,mBAAW,EAAC,CAAC,EAAU,EAAE,EAAE;QAC9B,OAAO,EAAE,KAAK,YAAY,IAAI,EAAE,KAAK,KAAK,IAAI,EAAE,KAAK,SAAS,CAAC;QAC/D,4FAA4F;IAChG,CAAC,EAAE,EAAE,CAAC,CAAC;AACX,CAAC;AALD,oDAKC"}

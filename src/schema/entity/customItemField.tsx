@@ -24,7 +24,8 @@ export class CustomItemField extends EntityBase<ICustomItemField> implements ICu
             brandsMap: $.customItemFieldTypes.dictionary
         }
     };
-    static liComponent = (value?: ICustomItemField) => () => (value == null ? '' : [value.id].join(' - '));
+    static stringify: StringifyComponent<ICustomItemField> = (value?: ICustomItemField) => () => (value == null ? '' : [value.id].join(' - '));
+    static liComponent = CustomItemField.stringify;
     static update(item: ICustomItemField) {
         return item;
     }

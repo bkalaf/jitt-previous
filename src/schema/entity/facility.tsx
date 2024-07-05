@@ -31,7 +31,7 @@ export class Facility extends EntityBase<IFacility> {
         }
     };
 
-    static labelProperty: 'name';
+    static labelProperty = 'name';
     static update(item: IFacility) {
         const func = () => {
             item.name = [item.selfStorage?.name, getCityState(item.address), getStreetOnly(item.address)].filter((x) => x != null).join(' - ');

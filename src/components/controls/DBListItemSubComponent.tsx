@@ -5,7 +5,7 @@ import { faCircleDot, faTrashCan } from '@fortawesome/pro-solid-svg-icons';
 import { UseFieldArrayReturn } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export function DBDictionaryItemSubComponent<TValue>(props: { remove: (key: string) => void; index: string; value: TValue; objectType: string; LIComponent: ListItemCellComponent<TValue> }) {
+export function DBDictionaryItemSubComponent<TValue>(props: { remove: (key: string) => void; index: string; value: TValue; objectType: string; LIComponent: (value: TValue) => React.ReactNode }) {
     const { index, value, remove, LIComponent } = props;
     const onDelete = useCallback(
         (ev: React.MouseEvent) => {
@@ -15,7 +15,7 @@ export function DBDictionaryItemSubComponent<TValue>(props: { remove: (key: stri
         },
         [index, remove]
     );
-    const Primary = LIComponent(value);
+    const Primary = () => LIComponent(value);
     return (
         <ListItem key={index} secondaryAction={<IconBtn icon={faTrashCan} color='success' tooltip='Delete item' onClick={onDelete} />}>
             <ListItemIcon>

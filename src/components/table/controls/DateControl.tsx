@@ -18,8 +18,8 @@ export function DateControl<T extends MRT_RowData>(props: EditFunctionParams<T, 
         },
         [$onChange]
     );
-    const disablePast = dateType === 'past';
-    const disableFuture = dateType === 'future';
+    const disableFuture = dateType === 'past';
+    const disablePast = dateType === 'future';
     console.log('DatePickerElement', value, formContext.watch(rest.name));
     return <DatePickerElement disableFuture={disableFuture} disablePast={disablePast} onChange={onChange} formatDensity='dense' readOnly={readonly} aria-readonly={readonly} aria-invalid={invalid} disabled={isDisabled()} {...rest} />;
 }

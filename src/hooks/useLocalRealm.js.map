@@ -1,1 +1,0 @@
-{"version":3,"file":"useLocalRealm.js","sourceRoot":"","sources":["useLocalRealm.tsx"],"names":[],"mappings":";;;AAAA,yCAAsC;AAEtC,SAAgB,aAAa;IACzB,gCAAgC;IAChC,MAAM,EAAE,aAAa,EAAE,GAAG,IAAA,mBAAQ,GAAE,CAAC;IACrC,MAAM,EAAE,GAAG,aAAa,EAAE,CAAC;IAC3B,IAAI,EAAE,IAAI,IAAI;QAAE,MAAM,IAAI,KAAK,CAAC,OAAO,CAAC,CAAC;IACzC,OAAO,EAAE,CAAC;AACd,CAAC;AAND,sCAMC"}

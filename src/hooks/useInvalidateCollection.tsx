@@ -6,14 +6,12 @@ export function useInvalidateCollection(objectType?: string) {
     const collection = useEffectiveCollection(objectType);
     const queryClient = useQueryClient();
     return useCallback(async () => {
-        await queryClient.invalidateQueries(
-            {
-                queryKey: [collection]
-            },
-            {
-                throwOnError: true
-            }
-        );
+        await queryClient.invalidateQueries({
+            queryKey: [collection]
+        });
+        await queryClient.refetchQueries({
+            queryKey: [collection]
+        });
         // await queryClient.refetchQueries({
         //     queryKey: [collection]
         // }, {

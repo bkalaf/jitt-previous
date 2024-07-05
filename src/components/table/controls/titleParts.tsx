@@ -215,12 +215,12 @@ export function ofPrimaryColor(color: DBList<ProductColors>) {
     const primary = color[0];
     return $me.productColors.find((x) => x.key === primary)?.text ?? primary;
 }
-export function ofCopyright({ copyright, musicFormat, videoFormat }: IProduct) {
-    const $musicFormat = ofEnum('musicFormatTypes')(musicFormat);
-    const $videoFormat = ofEnum('videoFormatTypes')(videoFormat);
-    const $format = $musicFormat ?? $videoFormat;
-    return surroundParensIgnore(copyright == null && $format == null ? undefined : [copyright, $format].filter(is.not.nil).join(','));
-}
+// export function ofCopyright({ copyright, musicFormat, videoFormat }: IProduct) {
+//     const $musicFormat = ofEnum('musicFormatTypes')(musicFormat);
+//     const $videoFormat = ofEnum('videoFormatTypes')(videoFormat);
+//     const $format = $musicFormat ?? $videoFormat;
+//     return surroundParensIgnore(copyright == null && $format == null ? undefined : [copyright, $format].filter(is.not.nil).join(','));
+// }
 export function unparent(str?: string) {
     if (str == null) return undefined;
     if (str.startsWith('(')) return str.slice(1, str.endsWith(')') ? str.length - 2 : str.length - 1);

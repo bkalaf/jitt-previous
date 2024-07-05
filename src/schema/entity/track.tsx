@@ -2,11 +2,10 @@ import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
-import { ITrack, Opt } from '../../types';
-import { MusicDurationDimension } from '../dimensions/MusicDurationMeasure';
+import { IMeasure, ITrack, MusicDurationUnitsOfMeasure, Opt } from '../../types';
 
 export class Track extends EntityBase<ITrack> implements ITrack {
-    duration: Opt<MusicDurationDimension>;
+    duration: Opt<IMeasure<MusicDurationUnitsOfMeasure>>;
     feat: DBList<string>;
     index: Opt<number>;
     name: Opt<string>;
@@ -18,14 +17,14 @@ export class Track extends EntityBase<ITrack> implements ITrack {
             feat: $.string.list,
             index: $.int(),
             name: $.string.opt,
-            duration: $.musicDurationDimension()
+            duration: $.musicDurationMeasure()
         }
     };
     static update(item: ITrack): ITrack {
         return item;
     }
-    static liComponent: ListItemCellComponent<ITrack> = (value?: ITrack) => () => (value == null ? '' : [value.index?.toFixed(0), value.name, value.feat ? `feat: ${value.feat.join(', ')}` : undefined].filter((x) => x != null).join('- '));
-
+    static stringify = (value?: ITrack) => () => (value == null ? undefined : [value.index?.toFixed(0), value.name, value.feat ? `feat: ${value.feat.join(', ')}` : undefined].filter((x) => x != null).join('- '));
+    static liComponent = Track.stringify;
     static init(): InitValue<ITrack> {
         return {
             feat: []

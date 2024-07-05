@@ -47,14 +47,6 @@ export function App() {
     const location = useLocation();
     const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
     const maxHeight = `${mh.toFixed(0)}px`;
-    console.log(`location`, location, location.pathname);
-    console.log(
-        `segments`,
-        location.pathname
-            .slice(1)
-            .split('/')
-            .map((value, index, array) => [value, ['', ...array.slice(0, index), value].join('/')])
-    );
     const modifyZoom = useCallback(
         (modifier: number) => {
             return () => {
@@ -87,19 +79,19 @@ export function App() {
     return (
         <>
             <CssBaseline />
-            <Box component='section' className='max-w-screen flex h-screen max-h-screen w-screen flex-grow flex-col justify-around'>
+            <Box component='section' className='flex flex-col justify-around flex-grow w-screen h-screen max-h-screen max-w-screen'>
                 <AppBar color='primary' position='static'>
                     <Toolbar variant='dense' className='flex items-center justify-start gap-x-2' disableGutters>
                         <img src={logo} alt='logo' className='flex h-14' />
                         <IconBtn icon={faHome} iconSize='sm' tooltip='Go to the home page.' />
                         <IconBtn icon={faCircleLeft} iconSize='sm' tooltip='Go to the previous page.' />
-                        <span className='flex w-full justify-start'>
+                        <span className='flex justify-start w-full'>
                             <MainMenu toggleProgress={toggleProgress} setProgressValue={setProgressValue} />
                         </span>
                     </Toolbar>
                 </AppBar>
-                <Box className='flex w-full justify-between bg-slate-500 p-1 text-white'>
-                    <Breadcrumbs separator='>' className='text-SvgMachineWashGentleOrDelicate ml-3 flex' aria-label='breadcrumbs'>
+                <Box className='flex justify-between w-full p-1 text-white bg-slate-500'>
+                    <Breadcrumbs separator='>' className='flex ml-3 text-SvgMachineWashGentleOrDelicate' aria-label='breadcrumbs'>
                         <RRLink to='/'>Home</RRLink>
                         {location.pathname.length > 1 &&
                             location.pathname
@@ -123,7 +115,7 @@ export function App() {
                         <Outlet />
                     </Box>
                 </React.Suspense>
-                <AppBar component='footer' position='static' className='flex w-full bg-black p-1' sx={{ top: 'auto', bottom: 0 }}>
+                <AppBar component='footer' position='static' className='flex w-full p-1 bg-black' sx={{ top: 'auto', bottom: 0 }}>
                     {/* <span className='flex p-0.5 px-1 rounded-lg text-sm bg-blue-500 max-w-fit'>Bottom Bar</span> */}
                     {showProgress && <LinearProgress variant='determinate' value={progressValue} color='error' />}
                 </AppBar>

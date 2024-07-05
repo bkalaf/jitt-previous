@@ -7,8 +7,8 @@ import { standardizeOptions } from './standardizeOptions';
 
 export function colDbMultiEnum<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
     return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
-        return function (name: keyof T & string, $header: string, opts: { options?: Record<string, string | { text: string; key: string }>; required?: boolean; readonly?: false; enumKey: keyof typeof $me }): MRT_ColumnDef<T> {
-            const { enumKey, required, readonly } = { required: false, readonly: false, ...opts };
+        return function (name: keyof T & string, $header: string, opts: { options?: Record<string, string | { text: string; key: string }>; required?: boolean; readonly?: false; enumKey: keyof typeof $me; onChange?: OnChangeFn }): MRT_ColumnDef<T> {
+            const { enumKey, required, readonly, onChange } = { required: false, readonly: false, ...opts };
             return baseCol(
                 helper,
                 name,
@@ -18,7 +18,7 @@ export function colDbMultiEnum<T extends MRT_RowData>(helper: MRT_ColumnHelper<T
                 required,
                 readonly,
                 { objectType: 'string', enumInfo: standardizeOptions($me[enumKey as keyof typeof $me]), multiple: true },
-                undefined,
+                onChange,
                 ...dependencies
             ) as MRT_ColumnDef<T>;
         };

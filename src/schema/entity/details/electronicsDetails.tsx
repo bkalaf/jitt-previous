@@ -1,23 +1,27 @@
-import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
-import { IProduct } from '../../../types';
+import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
+import { DetailTypes, IProduct } from '../../../types';
 import { col } from '../../defs/col';
-import { $enableWhen, whenProperty } from '../../defs/when';
 import { groupCol } from '../../defs/groupCol';
-import { currentSettingColumns } from '../../columns/currentSetting';
-import { colDimension } from './colDimension';
+import { intMeasureColumns } from './measureColumns';
+import { PowerTypes } from '../../enums';
+import { $productInfo } from '../../columns/$depend';
+import { distinctByString } from '../../../common/array/distinct';
+import { monthYearColumns } from '../../columns/monthYearColumns';
 
 export const h = createMRTColumnHelper<IProduct>();
 export const helper = col(h);
 
-export const electronicsDetails: MRT_ColumnDef<IProduct>[] = [
-    helper.enum('powerTypes', 'Power Types', { enumKey: 'powerTypes' }),
-    whenProperty('powerTypes', ['battery', 'both'], helper.enum('batteryType', 'Battery Types', { enumKey: 'batteryTypes' })),
-    whenProperty('powerTypes', ['battery', 'both'], helper.int('batteryCount', 'Battery Count', { min: 0 })),
-    helper.listOfPrimitive('compatibleWith', 'Compatible With', 'string'),
-    helper.date('manufactureDate', 'Manufacture Date', { dateType: 'past' }),
-    // helper.int('rateOfEnergyCapacity.value' as any, 'Rate of Energy Capacity', { min: 0 }),
-    // whenPropertyNotZero('rateOfEnergyCapacity.value', helper.enum('rateOfEnergyCapacity.uom' as any, 'Rate of Energy Capacity UOM', { enumKey: 'rateOfEnergyCapacityUOM' })),
-    ...$enableWhen.property('powerTypes', ['battery', 'both'])(colDimension(h)('rateOfEnergyCapacity', 'Rate of Energy Capacity', 'rateOfEnergyCapacityUOM', 'int')),
-    ...$enableWhen.property('powerTypes', ['ac', 'both'])(groupCol(h, 'AC Adapter', currentSettingColumns, 'acAdapter', 'bg-yellow-500', 'text-black')),
-    ...$enableWhen.property('powerTypes', ['battery', 'both'])(groupCol(h, 'Battery Stats', currentSettingColumns, 'batteryStats', 'bg-yellow-500', 'text-black'))
-] as MRT_ColumnDef<IProduct>[];
+export const electronicsDetails: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
+    [
+        helper.listOfEnum(...dependencies)('powerTypes', 'Power Types', {
+            enumKey: 'powerTypes',
+            onChange: (formContext, oldValue: any, newValue: PowerTypes[]) => {
+                const current = formContext.getValues()['type'] as DetailTypes[];
+                const toSet: DetailTypes[] = [...newValue.includes('ac') ? ['cables/power'] as DetailTypes[] : [], ...newValue.includes('battery') ? ['electronics/computer-components/battery'] as DetailTypes[] : []];
+                const next = distinctByString<DetailTypes>([...current.filter((x) => x !== 'cables/power' && x !== 'electronics/computer-components/battery'), ...toSet]);
+                formContext.setValue('type', next);        
+            }
+        }),
+        groupCol(h, 'Manufacture Date', monthYearColumns, 'manufactureDate', 'bg-red-500', 'text-white')(...dependencies),
+        groupCol(h, 'Capacity', intMeasureColumns(h, 'capacityUnitOfMeasure'), 'capacity', 'bg-teal-500', 'text-white')($productInfo.hasCapacity, ...dependencies)
+    ] as MRT_ColumnDef<T>[];

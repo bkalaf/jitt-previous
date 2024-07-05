@@ -1,5 +1,4 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
-import { NullCell } from './NullCell';
 import { ColumnMeta } from '@tanstack/react-table';
 import { camelToProper } from '../../common/text/camelToProper';
 
@@ -48,15 +47,16 @@ export function baseCol<T extends MRT_RowData, TValue>(
         flags?: ColumnMeta<T, TValue>['flags'];
         keyType?: ColumnMeta<T, TValue>['keyType'];
         id?: string;
+        excludeKeys?: ColumnMeta<T, TValue>['excludeKeys'];
     } = {},
-    onChange?: (setValue: (name: string, value: any) => void, oldValue: any, newValue: any) => void,
+    onChange?: OnChangeFn,
     ...dependencies: IDependency<T, any>[]
 ) {
     const header = $header ?? camelToProper(name);
     return helper.accessor(name as any, {
         header,
         enableEditing: !readonly,
-        Edit: readonly ? NullCell : Edit,
+        Edit: Edit,
         Cell,
         id: id,
         meta: {
@@ -64,7 +64,7 @@ export function baseCol<T extends MRT_RowData, TValue>(
             onChange,
             columnName: name,
             required: required,
-            readonly: readonly,
+            readonly: readonly,            
             multiple: multiple ?? false,
             ...options
         },

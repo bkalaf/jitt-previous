@@ -43,26 +43,28 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
             [formContext, init]
         );
         return (
-            <FormProvider {...formContext}>
-                <form onSubmit={onSubmit} onReset={onReset}>
-                    <DialogTitle>{camelToProper(collection)}</DialogTitle>
-                    <DialogContent>{internalEditComponents}</DialogContent>
-                    <DialogActions>
-                        {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
-                        <Box className='flex w-full justify-end gap-x-2'>
-                            <Button className='inline-flex' type='button' color='tertiary' onClick={onCancel}>
-                                Cancel
-                            </Button>
-                            <Button className='inline-flex' type='reset' color='tertiary'>
-                                Reset
-                            </Button>
-                            <Button className='inline-flex' type='submit' color='tertiary'>
-                                Submit
-                            </Button>
-                        </Box>
-                    </DialogActions>
-                </form>
-            </FormProvider>
+            props.table.getState().creatingRow != null && (
+                <FormProvider {...formContext}>
+                    <form onSubmit={onSubmit} onReset={onReset}>
+                        <DialogTitle>{camelToProper(collection)}</DialogTitle>
+                        <DialogContent>{internalEditComponents}</DialogContent>
+                        <DialogActions>
+                            {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
+                            <Box className='flex justify-end w-full gap-x-2'>
+                                <Button className='inline-flex' type='button' color='tertiary' onClick={onCancel}>
+                                    Cancel
+                                </Button>
+                                <Button className='inline-flex' type='reset' color='tertiary'>
+                                    Reset
+                                </Button>
+                                <Button className='inline-flex' type='submit' color='tertiary'>
+                                    Submit
+                                </Button>
+                            </Box>
+                        </DialogActions>
+                    </form>
+                </FormProvider>
+            )
             // <FormContainer criteriaMode='all' mode='onSubmit' reValidateMode='onChange' defaultValues={init() as DefaultValues<T>} handleSubmit={(ev: React.FormEvent) => {
             //     ev.preventDefault();
             //     ev.stopPropagation();

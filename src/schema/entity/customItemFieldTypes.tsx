@@ -13,7 +13,8 @@ export class CustomItemFieldTypes extends EntityBase<ICustomItemFieldTypes> impl
             types: $.customItemFieldType.list
         }
     };
-    static liComponent: ListItemCellComponent<ICustomItemFieldTypes> = (value?: ICustomItemFieldTypes) => () => (value == null ? '' : value.types.map((x) => x.type).join(', '));
+    static stringify = (value?: ICustomItemFieldTypes) => () => (value == null ? '' : value.types.map((x) => x.type).join(', '));
+    static liComponent = CustomItemFieldTypes.stringify;
     static update(item: ICustomItemFieldTypes) {
         return item;
     }

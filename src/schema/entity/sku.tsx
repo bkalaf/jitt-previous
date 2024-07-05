@@ -4,16 +4,26 @@ import { ItemConditions, ItemDispositions, Shippers } from '../enums';
 import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { generateTitle } from '../../components/table/controls/titleGenerator';
 import { convertFromGrams, convertToPoundsOunces } from '../../components/table/controls/convertFromGrams';
-import { CURRENT_SHIPPING_VERSION, getShipping, getShippingById } from '../enums/shippingRates';
+import { CURRENT_SHIPPING_VERSION, IShippingRate, getShipping, getShippingById } from '../enums/shippingRates';
 import { runTransaction } from '../../util/runTransaction';
 import { Barcode } from './barcode';
 import { distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
 import { getInitFor } from './getInitFor';
+import { is } from '../../common/is';
+import { $fields } from '../generatorFields';
+import { $generateTitle } from '../generators';
 
 export class Sku extends EntityBase<ISku> implements ISku {
+    get $images(): string[] {
+        return this.getProductImages.filter(x => !x.flags.includes('ignore') && x.hasSelection).map(x => x.effective).filter(is.not.nil) as string[];
+    }
+    get getShippingRate(): Opt<IShippingRate> {
+        const { id } = this.getShipping;
+        const rate = getShippingById(id);
+        return rate;
+    }
     hashTags: DBList<IHashTag>;
     get allHashTags(): IHashTag[] {
         return distinctByOID([...(this.product?.allHashTags ?? []), ...(this.hashTags ?? [])]);
@@ -94,7 +104,8 @@ export class Sku extends EntityBase<ISku> implements ISku {
     get getShipWeight(): Opt<number> {
         if (this.product == null) throw new Error('no product');
         const { weight } = this.product;
-        const shipWeight = (weight ?? 0) * (this.packingPercent ?? 1.0);
+        if (weight == null) return undefined;
+        const shipWeight = (weight.value ?? 0) * (this.packingPercent ?? 1.0);
         return shipWeight;
     }
     get getCarrier(): Opt<Shippers> {
@@ -104,7 +115,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
         return getShippingById(this.shipping?.id)?.price;
     }
     get getMaxWeight(): Opt<{ pounds: number; ounces: number }> {
-        return convertToPoundsOunces(getShippingById(this.shipping?.id)?.weight);
+        return convertToPoundsOunces(getShippingById(this.shipping?.id)?.weight.value);
     }
     get getFolder(): string {
         return barcodeFormatter(this.skus[0]);
@@ -118,7 +129,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
     static update(item: ISku): ISku {
         const realm = Sku.localRealm;
         const func = () => {
-            const title = generateTitle(item);
+            const {title} = $generateTitle($fields(item));
             if (item.product == null) throw new Error('no product');
             if (!item.product.overrideTitle) {
                 item.product.title = title;

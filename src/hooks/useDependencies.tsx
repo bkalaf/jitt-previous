@@ -10,9 +10,11 @@ export function useDependencies<T extends MRT_RowData, TKey extends keyof T>(...
         name: (dependencies as IDependency<T, keyof T & string>[]).map((x) => x.property)
     }) as unknown[];
     return useCallback(() => {
+        console.log(`useDependency`, dependencies);
         const funcs = dependencies.map(({ dependency, type }, index) => {
             const negater: typeof opposite = type === 'enable' ? opposite : (identity as typeof opposite);
             const predicate = handleDependency(dependency);
+            console.log(`watchedValue`, watchedValues[index], predicate(watchedValues[index]), negater(predicate(watchedValues[index])));
             return negater(predicate(watchedValues[index]));
         });
         console.log(`isDisabled results`, funcs);

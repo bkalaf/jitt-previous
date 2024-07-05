@@ -1,7 +1,7 @@
 export function truncateAuto(value?: number | string, precision = 4) {
-    function inner(strValue: string) {
+    function inner(strValue: string): string {
         if (strValue.endsWith('.')) return strValue.substring(0, strValue.length - 1);
-        if (strValue.endsWith('0')) return inner(strValue.substring(0, strValue.length - 1));
+        if (strValue.endsWith('0')) return strValue.includes('.') ? inner(strValue.substring(0, strValue.length - 1)) : strValue;
         return strValue;
     }
     if (value == null) return '';

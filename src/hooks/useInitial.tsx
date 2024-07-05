@@ -6,7 +6,7 @@ import { initialValue } from '../initialValue';
 
 // const v: MRT_TableOptions<any>[''];
 
-export function useInitial<T extends MRT_RowData>(objectType: string) {
+export function useInitial<T extends MRT_RowData>(objectType: string): InitFunction<T> {
     const types = useTypes();
     return useMemo(() => {
         if (isPrimitive(objectType)) return initialValue[objectType as keyof typeof initialValue] as InitFunction<any>;

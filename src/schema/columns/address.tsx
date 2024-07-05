@@ -6,7 +6,7 @@ import { $depend } from './$depend';
 const h = createMRTColumnHelper<IAddress>();
 const helper = col(h);
 
-export const addressColumns = <T extends MRT_RowData>(...dependencies: IDependency<IAddress, any>[]) =>
+export const addressColumns: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
     [
         helper.string($depend.notNilOrEmpty('city', true), ...dependencies)('mailing1', 'Street', undefined, { maxLength: 100 }),
         helper.string($depend.notNilOrEmpty('city', true), ...dependencies)('mailing2', 'Street (cont.)', undefined, { maxLength: 100 }),

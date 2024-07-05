@@ -6,9 +6,8 @@ import { createRenderEditRowDialogContent } from '../components/Views/renderProp
 import { ColumnResizeMode, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
 import { useEffectiveCollection } from './useEffectiveCollection';
 import { TableRowProps } from '@mui/material';
-import { createRenderRowActions } from '../components/Views/renderProperties/createRenderRowActions';
+import { createRenderRowActions, fromOID } from '../components/Views/renderProperties/createRenderRowActions';
 import { useGetTableCanExpand } from './useGetTableCanExpand';
-import { usePersistState } from './usePersistState';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     IconDefinition,
@@ -39,6 +38,8 @@ import {
     faThumbTack
 } from '@fortawesome/pro-solid-svg-icons';
 import { CreateRenderDetailPanel } from './createRenderDetailPanel';
+import { useCallback, useMemo } from 'react';
+import { usePersistCollectionOptions } from './usePersistCollectionOptions';
 
 export function createIcon(icon: IconDefinition) {
     return function FAIcon(props: any) {
@@ -47,19 +48,35 @@ export function createIcon(icon: IconDefinition) {
 }
 // const c: MRT_TableOptions<any>['muiDetailPanelProps'];
 
-export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT_ColumnDef<T>[], objectType?: string) {
+export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[], objectType?: string) {
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
     const getTableCanExpand = useGetTableCanExpand();
-    const { resetSettings, onColumnFiltersChange, ...opts } = usePersistState(route as CollectionNames);
-    console.log(`tableState`, route, opts.state);
+    const { state, resetAllOptions, ...options } = usePersistCollectionOptions(route);
+    console.log(`tableState`, route, state, options);
     // const { resetSettings, onColumnFiltersChange, ...opts } = usePersistedState<T>(objectType);
-    // const c: MRT_TableOptions<any>['muiTableBodyRowProps'];
+    // const c: MRT_TableOptions<any>['getRowId'];
+    const $columns = useMemo(() => columns(), [columns])
+    console.info('$columns', $columns);
+    const getRowId = useCallback((obj: T) => {
+        const result = fromOID(obj._id);
+        console.log(`getRowId`, result);
+        return result;
+    }, [])
+    // const meta = useMemo(() => {
+    //     return {
+    //         onPageIndexChange,
+    //         onPageSizeChange,
+    //         pageIndex,
+    //         pageSize,
+    //         resetSettings
+    //     } as TableMeta<T>;
+    // }, [onPageIndexChange, onPageSizeChange, pageIndex, pageSize, resetSettings])
     return useMaterialReactTable<T>({
         autoResetExpanded: false,
         autoResetPageIndex: false,
         columnResizeMode: 'onEnd' as ColumnResizeMode,
-        columns,
+        columns: $columns,
         createDisplayMode: 'modal',
         data,
         displayColumnDefOptions: {
@@ -109,6 +126,7 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
         enableStickyHeader: true,
         getFacetedMinMaxValues: getFacetedMinMaxValues() as any,
         getFacetedRowModel: getFacetedRowModel() as any,
+        getRowId,
         getFacetedUniqueValues: getFacetedUniqueValues() as any,
         getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
         groupedColumnMode: 'remove',
@@ -197,14 +215,14 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: MRT
                 }
             };
         },
-        onColumnFiltersChange: onColumnFiltersChange,
         paginationDisplayMode: 'pages',
         renderCreateRowDialogContent: createRenderCreateRowDialogContent<T>(),
         renderEditRowDialogContent: createRenderEditRowDialogContent(),
         renderRowActions: createRenderRowActions(),
         // renderRowActionMenuItems: createRenderRowActionMenuItems(),
-        renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetSettings),
+        renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetAllOptions),
         renderDetailPanel: route === 'sku' || route === 'product' ? CreateRenderDetailPanel : undefined,
-        ...opts
+        state,
+        ...options
     });
 }

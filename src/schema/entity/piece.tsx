@@ -19,7 +19,8 @@ export class Piece extends EntityBase<IPiece> implements IPiece {
         }
     };
 
-    static liComponent: ListItemCellComponent<IPiece> = (value: IPiece) => () => [value.count.toFixed(0).concat('x'), value.shape].filter(is.not.nil).join(' ');
+    static stringify = (value?: IPiece) => () => value == null ? undefined : [value.count.toFixed(0).concat('x'), value.shape].filter(is.not.nil).join(' ');
+    static liComponent = Piece.stringify;
     static update(item: IPiece) {
         return item;
     }

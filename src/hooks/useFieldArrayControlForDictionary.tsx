@@ -1,6 +1,6 @@
 import { MRT_Column, MRT_RowData } from 'material-react-table';
 import { useFormContext } from 'react-hook-form-mui';
-import { useDirectColumns } from './useColumns';
+import { useDirectColumns } from './useDirectColumns';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useEditColumnMeta';
 import { useGetLIComponent } from './useGetLIComponent';
@@ -43,7 +43,7 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
     if (type != null) console.error(`${type}: ${helperText}}`);
     const value = formContext.watch(name) as DictionaryBack<TValue>;
     if (objectType == null) throw new Error('no objectType');
-    const cols = useDirectColumns(objectType);
+    const cols = useDirectColumns<T>(objectType);
     const LiComponent = useGetLIComponent(objectType);
     console.info(`formContext`, formContext.getValues());
     const enumType =

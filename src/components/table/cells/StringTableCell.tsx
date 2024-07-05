@@ -3,20 +3,14 @@ import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { fromDepth } from '../../../schema/fromDepth';
 import { useMemo } from 'react';
 import { useEffectiveCollection } from '../../../hooks/useEffectiveCollection';
-import { ColumnMeta } from '@tanstack/react-table';
+import { numberToString } from './numberToString';
+import { useEditColumnMeta } from '../../../hooks/useEditColumnMeta';
 
 export function StringTableCell<T extends MRT_RowData, U>(props: CellFunctionParams<T, U>) {
     useWhyDidIUpdate('StringTableCell', props);
-    const {
-        cell,
-        row,
-        column: {
-            columnDef: { meta }
-        }
-    } = props;
+    const { columnName, formatter } = useEditColumnMeta(props, 'columnName', 'formatter');
     const collection = useEffectiveCollection();
-    const { columnName, formatter } = meta as ColumnMeta<any, any>;
-    const $formatter = formatter ?? ((x?: U) => x?.toString() ?? '');
-    const className = useMemo(() => (collection === 'classifier' && columnName === 'shortName' ? fromDepth(row.depth) : ''), [collection, columnName, row.depth]);
-    return <span className={className}>{$formatter(cell.getValue())}</span>;
+    const $value = useMemo(() => (formatter ?? ((x?: U) => (x != null && typeof x === 'number' ? numberToString(x) : x?.toString() ?? '')))(props.cell.getValue()), [formatter, props.cell]);
+    const className = useMemo(() => (collection === 'classifier' && columnName === 'shortName' ? fromDepth(props.row.depth) : ''), [collection, columnName, props.row.depth]);
+    return <span className={className}>{$value as string}</span>;
 }

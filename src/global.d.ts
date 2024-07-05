@@ -1,6 +1,6 @@
 import React from 'react';
 import './image-png.d.ts';
-import './types';
+import { ISku} from './types';
 import Realm, { Types, BSON } from 'realm';
 import {
     MRT_ColumnDef,
@@ -9,15 +9,30 @@ import {
     MRT_ColumnPinningState,
     MRT_ColumnSizingState,
     MRT_DensityState,
+    MRT_TableState,
     MRT_ExpandedState,
     MRT_GroupingState,
     MRT_RowSelectionState,
     MRT_SortingState,
-    MRT_VisibilityState
+    MRT_VisibilityState,
+    MRT_RowData,
+    MRT_TableOptions
 } from 'material-react-table';
 import './mui.d.ts';
+import { UseFormReturn } from 'react-hook-form';
 
 declare global {
+    export type JITTTableState<T extends MRT_RowData> = Partial<Pick<
+        MRT_TableState<T>,
+        'columnFilters' | 'columnOrder' | 'columnSizing' | 'columnVisibility' | 'rowSelection' | 'expanded' | 'grouping' | 'sorting' | 'pagination' | 'showGlobalFilter' | 'globalFilter' | 'columnPinning' | 'showColumnFilters' | 'density' | 'columnFilters'
+    >>;
+    export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
+    export type OnCollectionSettingChange<T extends MRT_RowData, TKey extends keyof MRT_TableState<T>> = StateSetter<MRT_TableState<T>[TKey]>;
+    export type OnTableStateChange<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>> = StateSetter<Exclude<MRT_TableOptions<T>[TKey], undefined>>
+    export type Sections = 'attributes' | 'none' | 'measurements' | 'lists' | 'flags' | 'specifications' | 'shipping' | 'text';
+    export type SkuGetter<T = string> = (sku: ISku) => T | undefined;
+    export type Len1<TArr extends any[]> = ((...args: TArr) => any) extends (...[x, ...args]: [any, ...infer R]) => any ? R['length'] : never;
+    export type Last<TArr extends any[]> = TArr[Len1<TArr>];
     export type IDependencyEqualTo<T extends MRT_RowData, TKey extends keyof T> = {
         equalTo: T[TKey];
     };
@@ -43,8 +58,9 @@ declare global {
         dependency: IDeps<T, TKey>;
         isLocal?: boolean;
     };
+    export type OnChangeFn = (formContext: UseFormReturn<any, any, any>, oldValue: any, newValue: any) => void;
     export interface Window {
-        columns: Record<string, MRT_ColumnDef<any>[]>;
+        columns: Record<string, <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[]>;
     }
     export type PrimitiveRecord<T> = { value: T };
     export type JSPrimitives = string | number | null | Date | ArrayBuffer | boolean | BSON.ObjectId | BSON.UUID;
@@ -93,7 +109,6 @@ declare global {
     export type DBList<T> = Types.List<T>;
     export type DBDictionary<T> = Types.Dictionary<T>;
     export type DBSet<T> = Types.Set<T>;
-    export type OnChangeFn<T> = React.Dispatch<React.SetStateAction<T>>;
     export type RealmObj<T> = T & Realm.Object<T>;
     export type RealmSchema = (Realm.ObjectSchema & { ctor?: Realm.ObjectClass & { update?: <T>(realm: Realm, obj: RealmObj<T>) => RealmObj<T>; labelProperty: string; asString: () => string } })[];
 
@@ -161,8 +176,9 @@ declare global {
     }>;
 
     export type InitFunction<T> = () => InitValue<T>;
+    export type AnyFunction = (...args: any[]) => any;
     export type UpdateFunction<T> = (item: T) => T;
-    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T; init: InitFunction<T>; update: UpdateFunction<T> };
+    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T & string; init: InitFunction<T>; update: UpdateFunction<T> };
     export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { liComponent: ListItemCellComponent<T>; stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T> };
     export type MyClass<T extends Record<string, unknown>> = ReferenceClass<T> | EmbeddedClass<T>;
     export type EditFunctionParams<T extends MRT_RowData, TValue = any> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Edit'], undefined>>[0];

@@ -9,8 +9,8 @@ export type ConvertFunction<T = any, U = any> = (value?: T) => U | undefined;
 export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
     string: (value?: string) =>
         value == null ? undefined
-        : value != null && value.length === 0 ? undefined
-        : value,
+        : value != null && value.trim().length === 0 ? undefined
+        : value.trim(),
     objectId: (value?: string | BSON.ObjectId) =>
         value == null ? undefined
         : value instanceof BSON.ObjectId ? value

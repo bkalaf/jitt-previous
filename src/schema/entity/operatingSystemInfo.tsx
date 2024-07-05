@@ -46,7 +46,8 @@ export class OperatingSystemInfo extends EntityBase<IOperatingSystemInfo> implem
     static update(item: IOperatingSystemInfo): IOperatingSystemInfo {
         return item;
     }
-    static liComponent: ListItemCellComponent<IOperatingSystemInfo> = (value?: IOperatingSystemInfo) => () => (value == null ? '' : [os[value.operatingSystem], value.version].filter(is.not.nil).join(' '));
+    static stringify: StringifyComponent<IOperatingSystemInfo> = (value?: IOperatingSystemInfo) => () => (value == null ? undefined : [os[value.operatingSystem], value.version].filter(is.not.nil).join(' '));
+    static liComponent: ListItemCellComponent<IOperatingSystemInfo> = OperatingSystemInfo.stringify;
     static init(): InitValue<IOperatingSystemInfo> {
         return {
             operatingSystem: 'unknown'

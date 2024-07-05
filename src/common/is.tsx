@@ -52,7 +52,38 @@ export function either<T>(p1: Predicate<any>, p2: Predicate<any>) {
 const checkNullOrUndefined = either<null | undefined>(checkNull, checkUndefined);
 const checkNil = either<null | undefined | ''>(checkNullOrUndefined, checkEmptyString);
 
-const _is = {
+type TypeCheck<T> = (obj?: any) => obj is T;
+type Is = {
+    string: TypeCheck<string>;
+    number: TypeCheck<number>;
+    boolean: TypeCheck<boolean>;
+    symbol: TypeCheck<symbol>;
+    bigint: TypeCheck<bigint>;
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    function: TypeCheck<Function>;
+    null: TypeCheck<null>;
+    undefined: TypeCheck<undefined>;
+    array: TypeCheck<any[]>;
+    promise: TypeCheck<Promise<any>>;
+    primitive: (s: string) => boolean;
+    linkingObjects: TypeCheck<Realm.Types.LinkingObjects<any, any>>;
+    binary: TypeCheck<Realm.BSON.Binary>;
+    uuid: TypeCheck<Realm.BSON.UUID>;
+    objectId: TypeCheck<Realm.BSON.ObjectId>;
+    arrayBuffer: TypeCheck<ArrayBuffer>;
+    date: TypeCheck<Date>;
+    map: TypeCheck<Map<any, any>>;
+    nil: TypeCheck<'' | null | undefined>;
+    nullOrUndef: TypeCheck<null | undefined>;
+    emptyString: TypeCheck<''>;
+    realmObj: TypeCheck<Realm.Object<any>>;
+    dbSet: TypeCheck<Realm.Types.Set<any>>;
+    dbDictionary: TypeCheck<Realm.Types.Dictionary<any>>;
+    dbList: TypeCheck<Realm.Types.List<any>>;
+    object: TypeCheck<Record<string, any>>;
+};
+
+const _is: Is = {
     string: checkString,
     number: checkNumber,
     boolean: checkBoolean,
@@ -85,7 +116,7 @@ function not<T, U>(pred1: Predicate<T>) {
     return (obj?: any): obj is Exclude<T, U> => !pred1(obj);
 }
 
-export const is = {
+export const is: Is & Record<'not', Record<keyof Is, (x?: any) => boolean>> = {
     ..._is,
     not: Object.fromEntries(Object.entries(_is).map(([k, v]) => [k, (o?: any) => not<any, unknown>(v)(o)] as [keyof typeof _is, (x?: any) => boolean])) as Record<keyof typeof _is, (x?: any) => boolean>
 };

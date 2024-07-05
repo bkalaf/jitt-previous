@@ -2,7 +2,7 @@ import { MRT_RowData } from 'material-react-table';
 import { useMemo } from 'react';
 import { ColumnMeta } from '@tanstack/react-table';
 
-export function useEditColumnMeta<T extends MRT_RowData, U, TKey extends keyof ColumnMeta<T, U>>(props: EditFunctionParams<T, U | undefined>, ...keys: TKey[]) {
+export function useEditColumnMeta<T extends MRT_RowData, U, TKey extends keyof ColumnMeta<T, U>>(props: EditFunctionParams<T, U | undefined> | CellFunctionParams<T, any>, ...keys: TKey[]) {
     const {
         column: {
             columnDef: { meta }
@@ -14,7 +14,7 @@ export function useEditColumnMeta<T extends MRT_RowData, U, TKey extends keyof C
     return useMemo(
         () =>
             ({
-                ...Object.fromEntries(keys.map((k) => [k, (meta as any)[k]]))
+                ...Object.fromEntries(keys.map((k) => [k, (meta as ColumnMeta<any, any>)[k]]))
             }) as {
                 [P in TKey]: ColumnMeta<T, U>[P];
             },

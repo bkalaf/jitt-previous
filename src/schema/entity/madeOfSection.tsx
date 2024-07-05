@@ -3,6 +3,8 @@ import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { IMadeOfSection } from '../../types';
 import { EntityBase } from './EntityBase';
+import $me from '../enums';
+import { standardizeOptions } from '../defs/standardizeOptions';
 
 export class MadeOfSection extends EntityBase<IMadeOfSection> implements IMadeOfSection {
     name?: string | undefined;
@@ -15,15 +17,16 @@ export class MadeOfSection extends EntityBase<IMadeOfSection> implements IMadeOf
             section: $.double.dictionary
         }
     };
-    static liComponent = (value?: IMadeOfSection) => () =>
+    static stringify = (value?: IMadeOfSection) => () =>
         value != null ?
             [
                 value.name,
                 Object.entries(value.section)
-                    .map(([k, v]) => [k, (v * 100).toFixed(0).concat('%')].join(': '))
+                    .map(([k, v]) => [standardizeOptions($me.fabricTypes).asRecord[k], (v * 100).toFixed(0).concat('%')].join(': '))
                     .join('\n')
             ].join('\n')
         :   '';
+    static liComponent = MadeOfSection.stringify;
     static update(item: IMadeOfSection): IMadeOfSection {
         return item;
     }

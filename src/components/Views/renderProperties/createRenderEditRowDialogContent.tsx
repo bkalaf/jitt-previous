@@ -10,9 +10,10 @@ import { runTransaction } from '../../../util/runTransaction';
 import { useMutation } from '@tanstack/react-query';
 import { useInvalidateCollection } from '../../../hooks/useInvalidateCollection';
 import { useInitial } from '../../../hooks/useInitial';
-import { UpdateMode } from 'realm';
 import { toJSON } from './toJSON';
 import { camelToProper } from '../../../common/text/camelToProper';
+import { getProperty } from '../../../common/object/getProperty';
+import { BSON } from 'realm';
 
 export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
     return function RenderEditRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
@@ -39,8 +40,18 @@ export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
                 console.log(`onSubmit:data`, data);
                 const converted = convert(data);
                 console.log(`onSubmit.converted`, converted);
+                console.log(`props`, props);
+                const obj = realm.objectForPrimaryKey(collection, new BSON.ObjectId(props.row.id));
+                if (obj == null) throw new Error(`no object for ${collection} ${props.row.id}`);
                 const func = () => {
-                    realm.create(collection, converted, UpdateMode.All);
+                    if (obj == null) throw new Error(`no object for ${collection} ${props.row.id}`);
+                    const dirty = formContext.formState.dirtyFields;
+                    console.log('dirtyFields', JSON.stringify(dirty, null, '\t'));
+                    const keys = Object.keys(dirty) as string[];
+                    for (const key of keys) {
+                        obj[key] = getProperty(key, converted);
+                    }
+                    // realm.create(collection, converted, UpdateMode.Modified);
                 };
                 runTransaction(realm, func);
                 return Promise.resolve();
@@ -66,26 +77,28 @@ export function createRenderEditRowDialogContent<T extends MRT_RowData>() {
             [formContext]
         );
         return (
-            <FormProvider {...formContext}>
-                <form>
-                    <DialogTitle>{camelToProper(collection)}</DialogTitle>
-                    <DialogContent>{internalEditComponents}</DialogContent>
-                    <DialogActions>
-                        {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
-                        <Box className='flex w-full justify-end gap-x-2'>
-                            <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
-                                Cancel
-                            </Button>
-                            <Button className='inline-flex' type='button' color='metal' onClick={onReset}>
-                                Reset
-                            </Button>
-                            <Button className='inline-flex' type='button' onClick={onSubmit} color='metal'>
-                                Submit
-                            </Button>
-                        </Box>
-                    </DialogActions>
-                </form>
-            </FormProvider>
+            props.table.getState().editingRow != null && (
+                <FormProvider {...formContext}>
+                    <form>
+                        <DialogTitle>{camelToProper(collection)}</DialogTitle>
+                        <DialogContent>{internalEditComponents}</DialogContent>
+                        <DialogActions>
+                            {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
+                            <Box className='flex justify-end w-full gap-x-2'>
+                                <Button className='inline-flex' type='button' color='metal' onClick={onCancel}>
+                                    Cancel
+                                </Button>
+                                <Button className='inline-flex' type='button' color='metal' onClick={onReset}>
+                                    Reset
+                                </Button>
+                                <Button className='inline-flex' type='button' onClick={onSubmit} color='metal'>
+                                    Submit
+                                </Button>
+                            </Box>
+                        </DialogActions>
+                    </form>
+                </FormProvider>
+            )
         );
     };
 }

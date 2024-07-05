@@ -66,6 +66,7 @@ type HashTagImport = {
 
 const barcodePrintFile = process.env.BARCODE_PRINT_FILE ?? '';
 const downloads = process.env.DOWNLOADS_FOLDER ?? '';
+
 export function Actions(props: { toggleProgress: () => void; setProgressValue: React.Dispatch<React.SetStateAction<number>> }) {
     console.log(props);
     const [progressValue] = useState<number | undefined>(undefined);
@@ -310,6 +311,11 @@ export function MainMenu(props: { toggleProgress: () => void; setProgressValue: 
                             <MainMenuItem baseUrl='/data/v1/' segment='product' />
                             <MainMenuItem baseUrl='/data/v1/' segment='productImage' />
                             <MainMenuItem baseUrl='/data/v1/' segment='sku' />
+                        </MenuList>
+                    </CategoryMenuItem>
+                    <CategoryMenuItem direction='right' Component={MenuItem} label='Listings'>
+                        <MenuList dense>
+                            <MainMenuItem baseUrl='/data/v1/' segment='draft' />
                         </MenuList>
                     </CategoryMenuItem>
                 </MenuList>

@@ -1,1 +1,0 @@
-{"version":3,"file":"ConfigurationProvider.js","sourceRoot":"","sources":["ConfigurationProvider.tsx"],"names":[],"mappings":";;;;AAAA,4FAAyF;AACzF,mDAAuD;AAEvD,SAAgB,qBAAqB,CAAC,KAA6B;IAC/D,MAAM,EAAE,QAAQ,EAAE,GAAG,KAAK,CAAC;IAC3B,MAAM,KAAK,GAAG,IAAA,+DAA8B,GAAE,CAAC;IAC/C,OAAO,uBAAC,oCAAoB,CAAC,QAAQ,IAAC,KAAK,EAAE,KAAK,YAAG,QAAQ,GAAiC,CAAC;AACnG,CAAC;AAJD,sDAIC"}
