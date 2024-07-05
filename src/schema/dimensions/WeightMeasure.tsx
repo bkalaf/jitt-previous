@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, WeightUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class WeightMeasure extends DoubleMeasure<WeightUnitsOfMeasure> {
@@ -18,5 +20,6 @@ export class WeightMeasure extends DoubleMeasure<WeightUnitsOfMeasure> {
             uom: 'g'
         };
     }
+    static columns: MRT_ColumnDef<WeightMeasure>[] = doubleMeasureColumns<WeightMeasure>(createMRTColumnHelper<WeightMeasure>(), 'amperageUnits')() as MRT_ColumnDef<WeightMeasure>[];
 }
 

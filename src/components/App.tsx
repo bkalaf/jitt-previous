@@ -12,8 +12,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCurrentWebContents } from '@electron/remote';
 import { useConfiguration } from '../hooks/useConfiguration';
 import { useToggler } from '../hooks/useToggler';
-import { useTypes } from '../hooks/useTypes';
 import { camelToProper } from '../common/text/camelToProper';
+import { useTypes } from '../hooks/useTypes';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (

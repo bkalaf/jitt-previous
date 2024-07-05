@@ -1,6 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+///<reference path="./../global.d.ts" />
 import { PropertyTypeName } from 'realm';
 import { objectMap } from '../common/object/objectMap';
 import { appendText } from '../common/text/appendText';
+import { capitalize } from '../common/text/capitalize';
 
 const obj = function (name: string) {
     const output = function () {
@@ -120,10 +123,130 @@ const objectNames = {
     rn: 'rn'
 };
 
+const details = {
+    apparel: 'apparelDetails',
+    apparelTops: 'apparelTopsDetails',
+    apparelBottoms: 'apparelBottomsDetails',
+    apparelBottomsLegged: 'apparelBottomsLeggedDetails',
+    apparelFootwear: 'apparelFootwearDetails',
+    apparelBras: 'apparelBrasDetails',
+    apparelBrasSwimsuit: 'apparelBrasSwimsuitDetails',
+    cables: 'cablesDetails',
+    cablesData: 'cablesDataDetails',
+    cablesPower: 'cablesPowerDetails',
+    cablesVideo: 'cablesVideoDetails',
+    electronics: 'electronicsDetails',
+    electronicsVisual: 'electronicsVisualDetails',
+    electronicsVisualCellPhones: 'electronicsVisualCellPhonesDetails',
+    electronicsComputerComponents: 'electronicsComputerComponentsDetails',
+    electronicsComputerComponentsRAM: 'electronicsComputerComponentsRamDetails',
+    electronicsComputerComponentsBattery: 'electronicsComputerComponentsBatteryDetails',
+    electronicsComputerComponentsDrives: 'electronicsComputerComponentsDrivesDetails',
+    electronicsComputerComponentsNetworking: 'electronicsComputerComponentsNetworkingDetails',
+    electronicsKitchenAppliances: 'electronicsKitchenAppliancesDetails',
+    general: 'generalDetails',
+    homeGoods: 'homeGoodsDetails',
+    homeGoodsDecor: 'homeGoodsDecorDetails',
+    homeGoodsFlatware: 'homeGoodsFlatwareDetails',
+    homeGoodsDinnerware: 'homeGoodsDinnerwareDetails',
+    homeGoodsGlassware: 'homeGoodsGlasswareDetails',
+    jewelry: 'jewelryDetails',
+    media: 'mediaDetails',
+    mediaBooks: 'mediaBooksDetails',
+    mediaMusic: 'mediaMusicDetails',
+    mediaVideoGames: 'mediaVideoGamesDetails',
+    mediaVideos: 'mediaVideosDetails',
+    mediaVideosFilm: 'mediaVideosFilmDetails',
+    mediaVideosTvSeries: 'mediaVideosTvSeriesDetails',
+    sportingGoods: 'sportingGoodsDetails',
+    sportingGoodsGolf: 'sportingGoodsGolfDetails',
+    sportingGoodsGolfClubs: 'sportingGoodsGolfClubsDetails',
+    sportingGoodsTennis: 'sportingGoodsTennisDetails',
+    sportingGoodsTennisRackets: 'sportingGoodsTennisRacketsDetails',
+    sportingGoodsBowling: 'sportingGoodsBowlingDetails',
+    sportingGoodsBowlingBalls: 'sportingGoodsBowlingBallsDetails',
+    toys: 'toysDetails',
+    toysBoardGames: 'toysBoardGamesDetails',
+    toysStuffedAnimals: 'toysStuffedAnimalsDetails'
+};
+
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;
 
 export const $ = {
     ..._objects,
     ..._primitives,
+    details: details,
     mixed: () => 'mixed'
 };
+
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => `${k}: '${v}?',`)
+//         .join('\n')
+// );
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => `${k}: I${capitalize(v)},`)
+//         .join('\n')
+// );
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => `export type I${capitalize(v)} = { value: unknown; }`)
+//         .join('\n')
+// );
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => {
+//             const $interfaceName = `I${capitalize(v)}`;
+//             const $className = capitalize(v);
+//             const $columnsName = k;
+//             const $nameProperty = k;
+//             return `export class ${$className} extends EntityBase<${$interfaceName}> implements ${$interfaceName} {
+//     static columns: MRT_ColumnDef<IProduct>[] = ${$columnsName}();
+//     value: unknown;
+//     static schema: Realm.ObjectSchema = {
+//         name: $.details.${$nameProperty},
+//         embedded: true,
+//         properties: {
+//             value: 'mixed'
+//         }
+//     };
+// }`;
+//         })
+//         .join('\n')
+// );
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => {
+//             const $interfaceName = `I${capitalize(v)}`;
+//             const $className = capitalize(v);
+//             const $columnsName = k;
+//             const $nameProperty = k;
+//             return `${$className} as DetailsClass,`;
+//         })
+//         .join('\n')
+// );
+// console.log(
+//     Object.entries(details)
+//         .map(([k, v]) => {
+//             const $interfaceName = `I${capitalize(v)}`;
+//             const $className = capitalize(v);
+//             const $columnsName = k;
+//             const $nameProperty = k;
+//             const $label = splitWhen(isUpper)(k.split('')).map((x) => capitalize(x.join(''))).join(' ');
+//             const $detailType = splitWhen(isUpper)(k.split('')).map(x => x.join('')).map(x => x.toLowerCase()).join('/');
+//             return [`static label = '${$label}';`, `static type: DetailTypes = '${$detailType}';`, `static objectType = ${$className}.schema.name;`].join('\n');
+//         })
+//         .join('\n')
+// );
+console.log(
+    Object.entries(details)
+        .map(([k, v]) => {
+            const $interfaceName = `I${capitalize(v)}`;
+            const $className = capitalize(v);
+            const $columnsName = k;
+            const $nameProperty = k;
+            return `${v}: ${$className},`;
+        })
+        .join('\n')
+);

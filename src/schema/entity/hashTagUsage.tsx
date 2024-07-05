@@ -3,8 +3,11 @@ import { IHashTagUsage } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import Realm from 'realm';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { hashTagUsageColumns } from '../columns/hashTagUsage';
 
 export class HashTagUsage extends EntityBase<IHashTagUsage> {
+    static columns: MRT_ColumnDef<IHashTagUsage>[] = hashTagUsageColumns();
     from: Date;
     count: number;
     static schema: Realm.ObjectSchema = {

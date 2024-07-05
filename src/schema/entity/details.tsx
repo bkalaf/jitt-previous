@@ -1,0 +1,101 @@
+import { $ } from '../$';
+import { IApparelBottomsDetails, IApparelBottomsLeggedDetails, IApparelBrasDetails, IApparelBrasSwimsuitDetails, IApparelDetails, IApparelFootwearDetails, IApparelTopsDetails, ICablesDataDetails, ICablesDetails, ICablesPowerDetails, ICablesVideoDetails, IDetails, IElectronicsComputerComponentsBatteryDetails, IElectronicsComputerComponentsDetails, IElectronicsComputerComponentsDrivesDetails, IElectronicsComputerComponentsNetworkingDetails, IElectronicsComputerComponentsRamDetails, IElectronicsDetails, IElectronicsKitchenAppliancesDetails, IElectronicsVisualCellPhonesDetails, IElectronicsVisualDetails, IGeneralDetails, IHomeGoodsDecorDetails, IHomeGoodsDetails, IHomeGoodsDinnerwareDetails, IHomeGoodsFlatwareDetails, IHomeGoodsGlasswareDetails, IJewelryDetails, IMediaBooksDetails, IMediaDetails, IMediaMusicDetails, IMediaVideoGamesDetails, IMediaVideosDetails, IMediaVideosFilmDetails, IMediaVideosTvSeriesDetails, ISportingGoodsBowlingBallsDetails, ISportingGoodsBowlingDetails, ISportingGoodsDetails, ISportingGoodsGolfClubsDetails, ISportingGoodsGolfDetails, ISportingGoodsTennisDetails, ISportingGoodsTennisRacketsDetails, IToysBoardGamesDetails, IToysDetails, IToysStuffedAnimalsDetails } from '../../types';
+import { EntityBase } from './EntityBase';
+
+export class Details extends EntityBase<IDetails> implements IDetails {
+    apparel: IApparelDetails;
+    apparelTops: IApparelTopsDetails;
+    apparelBottoms: IApparelBottomsDetails;
+    apparelBottomsLegged: IApparelBottomsLeggedDetails;
+    apparelFootwear: IApparelFootwearDetails;
+    apparelBras: IApparelBrasDetails;
+    apparelBrasSwimsuit: IApparelBrasSwimsuitDetails;
+    cables: ICablesDetails;
+    cablesData: ICablesDataDetails;
+    cablesPower: ICablesPowerDetails;
+    cablesVideo: ICablesVideoDetails;
+    electronics: IElectronicsDetails;
+    electronicsVisual: IElectronicsVisualDetails;
+    electronicsVisualCellPhones: IElectronicsVisualCellPhonesDetails;
+    electronicsComputerComponents: IElectronicsComputerComponentsDetails;
+    electronicsComputerComponentsRAM: IElectronicsComputerComponentsRamDetails;
+    electronicsComputerComponentsBattery: IElectronicsComputerComponentsBatteryDetails;
+    electronicsComputerComponentsDrives: IElectronicsComputerComponentsDrivesDetails;
+    electronicsComputerComponentsNetworking: IElectronicsComputerComponentsNetworkingDetails;
+    electronicsKitchenAppliances: IElectronicsKitchenAppliancesDetails;
+    general: IGeneralDetails;
+    homeGoods: IHomeGoodsDetails;
+    homeGoodsDecor: IHomeGoodsDecorDetails;
+    homeGoodsFlatware: IHomeGoodsFlatwareDetails;
+    homeGoodsDinnerware: IHomeGoodsDinnerwareDetails;
+    homeGoodsGlassware: IHomeGoodsGlasswareDetails;
+    jewelry: IJewelryDetails;
+    media: IMediaDetails;
+    mediaBooks: IMediaBooksDetails;
+    mediaMusic: IMediaMusicDetails;
+    mediaVideoGames: IMediaVideoGamesDetails;
+    mediaVideos: IMediaVideosDetails;
+    mediaVideosFilm: IMediaVideosFilmDetails;
+    mediaVideosTvSeries: IMediaVideosTvSeriesDetails;
+    sportingGoods: ISportingGoodsDetails;
+    sportingGoodsGolf: ISportingGoodsGolfDetails;
+    sportingGoodsGolfClubs: ISportingGoodsGolfClubsDetails;
+    sportingGoodsTennis: ISportingGoodsTennisDetails;
+    sportingGoodsTennisRackets: ISportingGoodsTennisRacketsDetails;
+    sportingGoodsBowling: ISportingGoodsBowlingDetails;
+    sportingGoodsBowlingBalls: ISportingGoodsBowlingBallsDetails;
+    toys: IToysDetails;
+    toysBoardGames: IToysBoardGamesDetails;
+    toysStuffedAnimals: IToysStuffedAnimalsDetails;
+    static schema: Realm.ObjectSchema = {
+        name: 'details',
+        primaryKey: '_id',
+        properties: {
+            _id: $.objectId(),
+            apparel: 'apparelDetails?',
+            apparelTops: 'apparelTopsDetails?',
+            apparelBottoms: 'apparelBottomsDetails?',
+            apparelBottomsLegged: 'apparelBottomsLeggedDetails?',
+            apparelFootwear: 'apparelFootwearDetails?',
+            apparelBras: 'apparelBrasDetails?',
+            apparelBrasSwimsuit: 'apparelBrasSwimsuitDetails?',
+            cables: 'cablesDetails?',
+            cablesData: 'cablesDataDetails?',
+            cablesPower: 'cablesPowerDetails?',
+            cablesVideo: 'cablesVideoDetails?',
+            electronics: 'electronicsDetails?',
+            electronicsVisual: 'electronicsVisualDetails?',
+            electronicsVisualCellPhones: 'electronicsVisualCellPhonesDetails?',
+            electronicsComputerComponents: 'electronicsComputerComponentsDetails?',
+            electronicsComputerComponentsRAM: 'electronicsComputerComponentsRamDetails?',
+            electronicsComputerComponentsBattery: 'electronicsComputerComponentsBatteryDetails?',
+            electronicsComputerComponentsDrives: 'electronicsComputerComponentsDrivesDetails?',
+            electronicsComputerComponentsNetworking: 'electronicsComputerComponentsNetworkingDetails?',
+            electronicsKitchenAppliances: 'electronicsKitchenAppliancesDetails?',
+            general: 'generalDetails?',
+            homeGoods: 'homeGoodsDetails?',
+            homeGoodsDecor: 'homeGoodsDecorDetails?',
+            homeGoodsFlatware: 'homeGoodsFlatwareDetails?',
+            homeGoodsDinnerware: 'homeGoodsDinnerwareDetails?',
+            homeGoodsGlassware: 'homeGoodsGlasswareDetails?',
+            jewelry: 'jewelryDetails?',
+            media: 'mediaDetails?',
+            mediaBooks: 'mediaBooksDetails?',
+            mediaMusic: 'mediaMusicDetails?',
+            mediaVideoGames: 'mediaVideoGamesDetails?',
+            mediaVideos: 'mediaVideosDetails?',
+            mediaVideosFilm: 'mediaVideosFilmDetails?',
+            mediaVideosTvSeries: 'mediaVideosTvSeriesDetails?',
+            sportingGoods: 'sportingGoodsDetails?',
+            sportingGoodsGolf: 'sportingGoodsGolfDetails?',
+            sportingGoodsGolfClubs: 'sportingGoodsGolfClubsDetails?',
+            sportingGoodsTennis: 'sportingGoodsTennisDetails?',
+            sportingGoodsTennisRackets: 'sportingGoodsTennisRacketsDetails?',
+            sportingGoodsBowling: 'sportingGoodsBowlingDetails?',
+            sportingGoodsBowlingBalls: 'sportingGoodsBowlingBallsDetails?',
+            toys: 'toysDetails?',
+            toysBoardGames: 'toysBoardGamesDetails?',
+            toysStuffedAnimals: 'toysStuffedAnimalsDetails?'
+        }
+    };
+}

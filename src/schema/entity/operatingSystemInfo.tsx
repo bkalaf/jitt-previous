@@ -1,9 +1,11 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { is } from '../../common/is';
-import { IOperatingSystemInfo, OperatingSystemNames, Opt } from '../../types';
+import { IOperatingSystemInfo, OperatingSystemNames } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
+import { operatingSystemInfoColumns } from '../columns/operatingSystemInfoColumns';
 
 const os = {
     unknown: 'unknown',
@@ -32,6 +34,7 @@ const os = {
 // );
 
 export class OperatingSystemInfo extends EntityBase<IOperatingSystemInfo> implements IOperatingSystemInfo {
+    static columns: MRT_ColumnDef<IOperatingSystemInfo>[] = operatingSystemInfoColumns();
     operatingSystem: OperatingSystemNames;
     version: Opt<string>;
 

@@ -1,12 +1,15 @@
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { IApparelSize, ICustomItemField, IHashTag, IMercariCategory, IMercariTaxonomy, Opt } from '../../types';
+import { IApparelSize, ICustomItemField, IHashTag, IMercariCategory, IMercariTaxonomy } from '../../types';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
 import { getInitFor } from './getInitFor';
+import { MRT_ColumnDef } from 'material-react-table';
+import { mercariTaxonomyColumns } from '../columns/mercariTaxonomy';
 
 export class MercariTaxonomy extends EntityBase<IMercariTaxonomy> implements IMercariTaxonomy {
+    static columns: MRT_ColumnDef<IMercariTaxonomy>[] = mercariTaxonomyColumns();
     sizes: DBList<IApparelSize>;
     customItemField: Opt<ICustomItemField>;
     _id: BSON.ObjectId;

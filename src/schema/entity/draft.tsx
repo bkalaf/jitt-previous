@@ -1,5 +1,5 @@
 import Realm, { BSON } from 'realm';
-import { IDraft, ISku, Opt } from '../../types';
+import { IDraft, ISku } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import $me, { PayorTypes, Shippers, ShippingSpeeds } from '../enums';
@@ -10,8 +10,11 @@ import { EntityBase } from './EntityBase';
 import { $generateDescription } from '../generators';
 import { $fields } from '../generatorFields';
 import * as fs from 'graceful-fs';
+import { MRT_ColumnDef } from 'material-react-table';
+import { draftColumns } from '../columns/draft';
 
 export class Draft extends EntityBase<IDraft> implements IDraft {
+    static columns: MRT_ColumnDef<IDraft>[] = draftColumns();   
     get titleLength(): number {
         return this.title?.length ?? 0;
     }

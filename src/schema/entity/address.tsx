@@ -6,6 +6,8 @@ import { is } from '../../common/is';
 import { getCityState } from '../../util/getCityState';
 import { Countries, Provinces } from '../enums';
 import { EntityBase } from './EntityBase';
+import { addressColumns } from '../columns/address';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export class Address extends EntityBase<IAddress> {
     static init(): InitValue<IAddress> {
@@ -41,4 +43,5 @@ export class Address extends EntityBase<IAddress> {
     static update(item: IAddress): IAddress {
         return item;
     }
+    static columns = addressColumns() as MRT_ColumnDef<IAddress>[];
 }

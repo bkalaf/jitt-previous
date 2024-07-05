@@ -1,5 +1,5 @@
 import Realm, { BSON } from 'realm';
-import { IAuction, IBarcode, IHashTag, IProduct, IProductImage, IShipping, ISku, Opt } from '../../types';
+import { IAuction, IBarcode, IHashTag, IProduct, IProductImage, IShipping, ISku } from '../../types';
 import { ItemConditions, ItemDispositions, Shippers } from '../enums';
 import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { $ } from '../$';
@@ -14,8 +14,11 @@ import { getInitFor } from './getInitFor';
 import { is } from '../../common/is';
 import { $fields } from '../generatorFields';
 import { $generateTitle } from '../generators';
+import { MRT_ColumnDef } from 'material-react-table';
+import { sku } from '../columns/sku';
 
 export class Sku extends EntityBase<ISku> implements ISku {
+    static columns: MRT_ColumnDef<ISku>[] = sku();
     get $images(): string[] {
         return this.getProductImages.filter(x => !x.flags.includes('ignore') && x.hasSelection).map(x => x.effective).filter(is.not.nil) as string[];
     }

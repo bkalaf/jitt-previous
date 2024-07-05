@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { DensityUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class DensityMeasure extends DoubleMeasure<DensityUnitsOfMeasure> {
@@ -18,4 +20,5 @@ export class DensityMeasure extends DoubleMeasure<DensityUnitsOfMeasure> {
             uom: 'g/cm³'
         };
     }
+    static columns: MRT_ColumnDef<DensityMeasure>[] = doubleMeasureColumns<DensityMeasure>(createMRTColumnHelper<DensityMeasure>(), 'amperageUnits')() as MRT_ColumnDef<DensityMeasure>[];
 }

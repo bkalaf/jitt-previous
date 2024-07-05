@@ -4,8 +4,11 @@ import { schemaName } from '../../util/schemaName';
 import Realm from 'realm';
 import { generateCaption } from '../../util/generateCaption';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { facing } from '../columns/facing';
 
 export class Facing extends EntityBase<IFacing> implements IFacing {
+    static columns: MRT_ColumnDef<IFacing>[] = facing();
     x?: FaceX | undefined;
     y?: FaceY | undefined;
     z?: FaceZ | undefined;

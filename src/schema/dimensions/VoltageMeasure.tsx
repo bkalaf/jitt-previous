@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, VoltageUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class VoltageMeasure extends DoubleMeasure<VoltageUnitsOfMeasure> {
@@ -18,4 +20,5 @@ export class VoltageMeasure extends DoubleMeasure<VoltageUnitsOfMeasure> {
             uom: 'V'
         };
     }
+    static columns: MRT_ColumnDef<VoltageMeasure>[] = doubleMeasureColumns<VoltageMeasure>(createMRTColumnHelper<VoltageMeasure>(), 'amperageUnits')() as MRT_ColumnDef<VoltageMeasure>[];
 }

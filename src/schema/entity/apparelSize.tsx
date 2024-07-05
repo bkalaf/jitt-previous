@@ -3,6 +3,8 @@ import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
 import { $ } from '../$';
+import { apparelSizeColumns } from '../columns/apparelSizeColumns';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export class ApparelSize extends EntityBase<IApparelSize> implements IApparelSize {
     get selector(): string {
@@ -32,4 +34,5 @@ export class ApparelSize extends EntityBase<IApparelSize> implements IApparelSiz
             text: ''
         };
     }
+    static columns: MRT_ColumnDef<IApparelSize>[] = apparelSizeColumns();
 }

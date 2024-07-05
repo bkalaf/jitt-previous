@@ -1,4 +1,4 @@
-import { IFacing, IProductImage, ISku, Opt, ProductImageFlags } from '../../types';
+import { IFacing, IProductImage, ISku, ProductImageFlags } from '../../types';
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
@@ -6,6 +6,7 @@ import { ProductImageDisposition } from './ProductImageDisposition';
 import { getFolderNames, getRemBgName } from '../../util/getFolderNames';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
 
 const FILESYSTEM_PRODUCTS = process.env.FILESYSTEM_PRODUCTS ?? '';
 const FILESYSTEM_ROOT = process.env.FILESYSTEM_ROOT ?? '';
@@ -13,6 +14,7 @@ const REMOVE_BG_EXT = process.env.REMOVE_BG_EXT ?? '';
 const REMOVE_BG_SUFFIX = process.env.REMOVE_BG_SUFFIX ?? '';
 
 export class ProductImage extends EntityBase<IProductImage> implements IProductImage {
+    static columns: MRT_ColumnDef<IProductImage>[] = [];
     static init(): InitValue<IProductImage> {
         return {
             _id: new BSON.ObjectId(),

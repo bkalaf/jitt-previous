@@ -5,21 +5,12 @@ import { IBrand, IHashTag, IMercariBrand } from '../../types';
 import { distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
 import { runTransaction } from '../../util/runTransaction';
-import { getRange } from './getRange';
-import { toCharCode } from '../../common/text/toCharCode';
+import { createFolderName } from './createFolderName';
+import { MRT_ColumnDef } from 'material-react-table';
+import { brandColumns } from '../columns/brand';
 
-export function fromCharCode(n: number) {
-    return String.fromCharCode(n);
-}
-export function createFolderName(name: string) {
-    const chars = [...getRange(toCharCode('a'), toCharCode('z')), ...getRange(toCharCode('A'), toCharCode('Z')), ...getRange(toCharCode('0'), toCharCode('9')), toCharCode('_'), toCharCode('-')];
-    return name
-        .split('')
-        .filter((x) => chars.includes(toCharCode(x)))
-        .join('')
-        .toLowerCase();
-}
 export class Brand extends EntityBase<IBrand> implements IBrand {
+    static columns: MRT_ColumnDef<IBrand>[] = brandColumns();
     folder: string;
     _id: BSON.ObjectId;
     name: string;

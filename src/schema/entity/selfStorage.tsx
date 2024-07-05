@@ -3,8 +3,11 @@ import { schemaName } from '../../util/schemaName';
 import { ISelfStorage } from '../../types';
 import Realm, { BSON } from 'realm';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { selfStorageColumns } from '../columns/selfStorage';
 
 export class SelfStorage extends EntityBase<ISelfStorage> {
+    static columns: MRT_ColumnDef<ISelfStorage>[] = selfStorageColumns();
     _id: BSON.ObjectId;
     name: string;
     website?: string | undefined;

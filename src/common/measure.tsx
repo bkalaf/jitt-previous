@@ -1,22 +1,4 @@
-import {
-    WeightUnitsOfMeasure,
-    LengthUnitsOfMeasure,
-    CaliperSizeUnitsOfMeasure,
-    AngleUnitsOfMeasure,
-    RotationalSpeedUnitsOfMeasure,
-    VoltageUnitsOfMeasure,
-    WattageUnitsOfMeasure,
-    AmperageUnitsOfMeasure,
-    RateOfEnergyCapacityUnitsOfMeasure,
-    PowerConsumptionUnitsOfMeasure,
-    MemorySpeedUnitsOfMeasure,
-    DataTransferRateUnitsOfMeasure,
-    CapacityUnitsOfMeasure,
-    MusicDurationUnitsOfMeasure,
-    IMeasure,
-    Opt
-} from '../types';
-import { parentheses } from './composeR';
+import { parentheses } from './parentheses';
 import { composeR } from './composeR.1';
 import { fst } from './fst';
 import { identity } from './identity';

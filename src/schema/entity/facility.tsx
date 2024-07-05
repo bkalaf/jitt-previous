@@ -7,8 +7,11 @@ import { getCityState } from '../../util/getCityState';
 import { getStreetOnly } from '../../util/getStreetOnly';
 import { getInitFor } from './getInitFor';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { facilityColumns } from '../columns/facility';
 
 export class Facility extends EntityBase<IFacility> {
+    static columns: MRT_ColumnDef<IFacility>[] = facilityColumns();
     _id: BSON.ObjectId;
     selfStorage?: ISelfStorage | undefined;
     address?: IAddress | undefined;

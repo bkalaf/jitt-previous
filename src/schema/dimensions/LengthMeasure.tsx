@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, LengthUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class LengthMeasure extends DoubleMeasure<LengthUnitsOfMeasure> {
@@ -18,5 +20,6 @@ export class LengthMeasure extends DoubleMeasure<LengthUnitsOfMeasure> {
             uom: '″'
         };
     }
+    static columns: MRT_ColumnDef<LengthMeasure>[] = doubleMeasureColumns<LengthMeasure>(createMRTColumnHelper<LengthMeasure>(), 'amperageUnits')() as MRT_ColumnDef<LengthMeasure>[];
 }
 

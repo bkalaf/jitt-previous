@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, WattageUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class WattageMeasure extends DoubleMeasure<WattageUnitsOfMeasure> {
@@ -18,4 +20,5 @@ export class WattageMeasure extends DoubleMeasure<WattageUnitsOfMeasure> {
             uom: 'W'
         };
     }
+    static columns: MRT_ColumnDef<WattageMeasure>[] = doubleMeasureColumns<WattageMeasure>(createMRTColumnHelper<WattageMeasure>(), 'amperageUnits')() as MRT_ColumnDef<WattageMeasure>[];
 }

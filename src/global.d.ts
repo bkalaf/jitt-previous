@@ -1,6 +1,6 @@
 import React from 'react';
 import './image-png.d.ts';
-import { ISku} from './types';
+import { DetailTypes, IProduct, ISku } from './types';
 import Realm, { Types, BSON } from 'realm';
 import {
     MRT_ColumnDef,
@@ -22,13 +22,63 @@ import './mui.d.ts';
 import { UseFormReturn } from 'react-hook-form';
 
 declare global {
-    export type JITTTableState<T extends MRT_RowData> = Partial<Pick<
-        MRT_TableState<T>,
-        'columnFilters' | 'columnOrder' | 'columnSizing' | 'columnVisibility' | 'rowSelection' | 'expanded' | 'grouping' | 'sorting' | 'pagination' | 'showGlobalFilter' | 'globalFilter' | 'columnPinning' | 'showColumnFilters' | 'density' | 'columnFilters'
-    >>;
+    export type Opt<T> = T | undefined;
+    export type AmperageUnitsOfMeasure = 'A' | 'mA';
+    export type AngleUnitsOfMeasure = '°';
+    export type CaliperSizeUnitsOfMeasure = 'mm' | '″';
+    export type CapacityUnitsOfMeasure = 'GB' | 'TB' | 'MB';
+    export type DataTransferRateUnitsOfMeasure = 'MB/s' | 'MBit/s';
+    export type DensityUnitsOfMeasure = 'g/cm³' | 'lb/floz';
+    export type DistanceUnitsOfMeasure = 'ft' | 'm';
+    export type LengthUnitsOfMeasure = 'cm' | '″';
+    export type MemorySpeedUnitsOfMeasure = 'MHz';
+    export type MusicDurationUnitsOfMeasure = 's' | 'm';
+    export type PowerConsumptionUnitsOfMeasure = 'WHr';
+    export type RateOfEnergyCapacityUnitsOfMeasure = 'mAh';
+    export type RotationalSpeedUnitsOfMeasure = 'RPM';
+    export type VideoRuntimeUnitsOfMeasure = 'm' | 'h';
+    export type VoltageUnitsOfMeasure = 'V' | 'mV';
+    export type WattageUnitsOfMeasure = 'W';
+    export type WeightUnitsOfMeasure = 'lb' | 'oz' | 'g';
+    export type IMeasure<TUnit extends string> = {
+        value: number;
+        uom: TUnit;
+    };
+    export type TabPanelProps = {
+        value: string;
+        key: string;
+        label: string;
+        objectType: string;
+        property?: string;
+        detailType?: string | string[];
+        Component: React.FunctionComponent<{ isCurrent: boolean; objectType: string; data: any[]; original: any }>;
+    };
+    export type JITTTableState<T extends MRT_RowData> = Partial<
+        Pick<
+            MRT_TableState<T>,
+            | 'columnFilters'
+            | 'columnOrder'
+            | 'columnSizing'
+            | 'columnVisibility'
+            | 'rowSelection'
+            | 'expanded'
+            | 'grouping'
+            | 'sorting'
+            | 'pagination'
+            | 'showGlobalFilter'
+            | 'globalFilter'
+            | 'columnPinning'
+            | 'showColumnFilters'
+            | 'density'
+            | 'columnFilters'
+        >
+    >;
+    export type OptionsParameters<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>, TExclude extends MRT_TableOptions<T>[TKey]> = 
+        Parameters<Exclude<MRT_TableOptions<T>[TKey], TExclude | undefined>>[0];
+    // Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyRowProps'], TableRowProps | undefined>>[0];
     export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
     export type OnCollectionSettingChange<T extends MRT_RowData, TKey extends keyof MRT_TableState<T>> = StateSetter<MRT_TableState<T>[TKey]>;
-    export type OnTableStateChange<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>> = StateSetter<Exclude<MRT_TableOptions<T>[TKey], undefined>>
+    export type OnTableStateChange<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>> = StateSetter<Exclude<MRT_TableOptions<T>[TKey], undefined>>;
     export type Sections = 'attributes' | 'none' | 'measurements' | 'lists' | 'flags' | 'specifications' | 'shipping' | 'text';
     export type SkuGetter<T = string> = (sku: ISku) => T | undefined;
     export type Len1<TArr extends any[]> = ((...args: TArr) => any) extends (...[x, ...args]: [any, ...infer R]) => any ? R['length'] : never;
@@ -59,9 +109,9 @@ declare global {
         isLocal?: boolean;
     };
     export type OnChangeFn = (formContext: UseFormReturn<any, any, any>, oldValue: any, newValue: any) => void;
-    export interface Window {
-        columns: Record<string, <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[]>;
-    }
+    // export interface Window {
+    //     columns: Record<string, <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[]>;
+    // }
     export type PrimitiveRecord<T> = { value: T };
     export type JSPrimitives = string | number | null | Date | ArrayBuffer | boolean | BSON.ObjectId | BSON.UUID;
     export type IRowCell<T> = React.FunctionComponent<{ data: T; className?: string }>;
@@ -174,12 +224,18 @@ declare global {
         : Exclude<T[P], undefined> extends Record<string, unknown> ? InitValue<T[P]>
         : T[P];
     }>;
-
+    export type JITTColumns<T> = ((...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[]) | MRT_ColumnDef<T>[];
     export type InitFunction<T> = () => InitValue<T>;
     export type AnyFunction = (...args: any[]) => any;
     export type UpdateFunction<T> = (item: T) => T;
-    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T & string; init: InitFunction<T>; update: UpdateFunction<T> };
-    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { liComponent: ListItemCellComponent<T>; stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T> };
+    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T & string; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[] };
+    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[] };
+    export type DetailsClass = Realm.ObjectClass<any> & {
+        columns: MRT_ColumnDef<IProduct>[];
+        label: string;
+        type: DetailTypes;
+        objectType: string;
+    };
     export type MyClass<T extends Record<string, unknown>> = ReferenceClass<T> | EmbeddedClass<T>;
     export type EditFunctionParams<T extends MRT_RowData, TValue = any> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Edit'], undefined>>[0];
     export type EditFunctionComponent<T extends MRT_RowData, TValue = any> = React.FunctionComponent<EditFunctionParams<T, TValue>>;

@@ -1,11 +1,14 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { is } from '../../common/is';
 import { ofAmperage, ofVoltage, ofWattage } from '../../components/table/controls/titleParts';
-import { AmperageUnitsOfMeasure, ICurrentSetting, IMeasure, Opt, VoltageUnitsOfMeasure } from '../../types';
+import {  ICurrentSetting } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
+import { currentSettingColumns } from '../columns/currentSetting';
 
 export class CurrentSetting extends EntityBase<ICurrentSetting> implements ICurrentSetting {
+    static columns: MRT_ColumnDef<ICurrentSetting>[] = currentSettingColumns();
     amperage?: Opt<IMeasure<AmperageUnitsOfMeasure>>;
     voltage?: Opt<IMeasure<VoltageUnitsOfMeasure>>;
     wattage?: Opt<IMeasure<'W'>>;

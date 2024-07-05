@@ -5,8 +5,8 @@ import { useCallback } from 'react';
 import { useInitial } from '../../../hooks/useInitial';
 import { Grid } from '../../../hooks/Grid';
 import { EditControls } from '../../controls/EditControls';
-import { useColumns } from '../../../hooks/useColumns';
 import { useRealmCreate } from '../../../hooks/useRealmCreate';
+import { useDirectStaticColumns } from '../../../hooks/useDirectStaticColumns';
 
 
 export function CreateModal<T extends MRT_RowData>(props: { objectType: string; finalCallback: (result: T) => void; toggleOpen: () => void; open: boolean; }) {
@@ -41,7 +41,7 @@ export function CreateModal<T extends MRT_RowData>(props: { objectType: string; 
         },
         [formContext, handleSubmit]
     );
-    const columns = useColumns(objectType);
+    const columns = useDirectStaticColumns(objectType);
     return (
         <FormProvider {...formContext}>
             <form

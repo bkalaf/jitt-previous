@@ -1,8 +1,6 @@
 import Realm, { BSON } from 'realm';
 import {
     AnyConnector,
-    DataTransferRateUnitsOfMeasure,
-    DensityUnitsOfMeasure,
     DetailTypes,
     IAlbum,
     IAward,
@@ -16,18 +14,13 @@ import {
     IHashTag,
     IIncludedItem,
     IMadeOfSection,
-    IMeasure,
     IMinMax,
     IMovie,
     IOperatingSystemInfo,
     IPiece,
     IProduct,
     ITVSeries,
-    LengthUnitsOfMeasure,
     IMonthYear,
-    Opt,
-    VideoRuntimeUnitsOfMeasure,
-    WeightUnitsOfMeasure,
     Year,
     IPartNumber,
     IRn,
@@ -96,14 +89,17 @@ import { Flags } from './../enums/flags';
 import { EntityBase } from './EntityBase';
 import { standardizeOptions } from '../defs/standardizeOptions';
 import { is } from '../../common/is';
+import { MRT_ColumnDef } from 'material-react-table';
+import { productColumns } from './productColumns';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
+    static columns: MRT_ColumnDef<IProduct>[] = productColumns();
     get $dims(): { length?: Opt<IMeasure<LengthUnitsOfMeasure>>; width?: Opt<IMeasure<LengthUnitsOfMeasure>>; height?: Opt<IMeasure<LengthUnitsOfMeasure>> } {
         return {
             length: this.length,
             width: this.width,
             height: this.height
-        }
+        };
     }
     get $awards(): IAward<AwardNames>[] {
         return ([this.awards, this.book?.awards, this.movie?.awards, this.tvSeries?.awards, this.album?.awards].filter(is.not.nil) as DBList<IAward<AwardNames>>[]).reduce((pv, cv) => [...pv, ...cv], [] as IAward<AwardNames>[]);

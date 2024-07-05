@@ -1,12 +1,15 @@
 import Realm from 'realm';
-import { IPiece, Opt } from '../../types';
+import { IPiece } from '../../types';
 import { ShapeTypes } from '../enums';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { is } from '../../common/is';
 import { EntityBase } from './EntityBase';
+import { pieceColumns } from '../columns/piece';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export class Piece extends EntityBase<IPiece> implements IPiece {
+    static columns: MRT_ColumnDef<IPiece>[] = pieceColumns();
     shape: Opt<ShapeTypes>;
     count: number;
 

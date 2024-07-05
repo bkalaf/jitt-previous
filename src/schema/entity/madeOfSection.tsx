@@ -5,8 +5,11 @@ import { IMadeOfSection } from '../../types';
 import { EntityBase } from './EntityBase';
 import $me from '../enums';
 import { standardizeOptions } from '../defs/standardizeOptions';
+import { MRT_ColumnDef } from 'material-react-table';
+import { madeOfSectionColumns } from '../columns/madeOfSection';
 
 export class MadeOfSection extends EntityBase<IMadeOfSection> implements IMadeOfSection {
+    static columns: MRT_ColumnDef<IMadeOfSection>[] = madeOfSectionColumns();
     name?: string | undefined;
     section: Partial<Record<'acrylic' | 'cashmere' | 'cotton' | 'denim' | 'lace' | 'leather' | 'linen' | 'modal' | 'nylon' | 'organicCotton' | 'polyester' | 'rayon' | 'satin' | 'silk' | 'spandex' | 'suede' | 'velvet' | 'viscose' | 'wool', number>>;
     static schema: Realm.ObjectSchema = {

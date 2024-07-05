@@ -1,10 +1,13 @@
 import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { IMinMax, Opt } from '../../types';
+import { IMinMax } from '../../types';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { minMaxColumns } from '../columns/minMax';
 
 export class MinMax extends EntityBase<IMinMax<number>> implements IMinMax<number> {
+    static columns: MRT_ColumnDef<IMinMax<number>>[] = minMaxColumns();
     min: Opt<number>;
     max: Opt<number>;
     static schema: Realm.ObjectSchema = {

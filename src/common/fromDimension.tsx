@@ -1,7 +1,7 @@
-import { IMeasure, ISku, LengthUnitsOfMeasure } from '../types';
+import { ISku } from '../types';
 import { is } from './is';
 import { lengthInchesToCentimeters } from './measure';
-import { parentheses } from './composeR';
+import { parentheses } from './parentheses';
 import { identity } from './identity';
 
 // export const capacityGB = fromMeasure<

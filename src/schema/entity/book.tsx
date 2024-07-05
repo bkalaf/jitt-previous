@@ -4,8 +4,11 @@ import { IAward, IBook, IContributor, Opt } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { BookGenres } from '../enums';
+import { MRT_ColumnDef } from 'material-react-table';
+import { bookColumns } from '../columns/bookColumns';
 
 export class Book extends EntityBase<IBook> implements IBook {
+    static columns: MRT_ColumnDef<IBook>[] = bookColumns();
     _id: BSON.ObjectId;
     title: string;
     subtitle: Opt<string>;

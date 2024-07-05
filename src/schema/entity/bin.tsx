@@ -6,8 +6,11 @@ import { Barcode } from './barcode';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
 import { getInitFor } from './getInitFor';
+import { MRT_ColumnDef } from 'material-react-table';
+import { binColumns } from '../columns/bin';
 
 export class Bin extends EntityBase<IBin> implements IBin {
+    static columns: MRT_ColumnDef<IBin>[] = binColumns();
     static barcodeGenerator: () => string;
     static update(bin: Bin): Bin {
         const func = () => {

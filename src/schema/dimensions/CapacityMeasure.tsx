@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { CapacityUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { intMeasureColumns } from '../entity/details/measureColumns';
 import { IntMeasure } from './IntMeasure';
 
 export class CapacityMeasure extends IntMeasure<CapacityUnitsOfMeasure> {
@@ -18,4 +20,5 @@ export class CapacityMeasure extends IntMeasure<CapacityUnitsOfMeasure> {
             uom: 'GB'
         };
     }
+    static columns: MRT_ColumnDef<CapacityMeasure>[] = intMeasureColumns<CapacityMeasure>(createMRTColumnHelper<CapacityMeasure>(), 'amperageUnits')() as MRT_ColumnDef<CapacityMeasure>[];
 }

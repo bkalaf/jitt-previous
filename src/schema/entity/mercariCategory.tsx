@@ -4,8 +4,11 @@ import { $ } from '../$';
 import { IHashTag, IMercariCategory } from '../../types';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { mercariCategoryColumns } from '../columns/mercariCategory';
 
 export class MercariCategory extends EntityBase<IMercariCategory> implements IMercariCategory {
+    static columns: MRT_ColumnDef<IMercariCategory>[] = mercariCategoryColumns();
     name: string;
     selector: string;
     hashTags: DBList<IHashTag>;
@@ -37,4 +40,5 @@ export class MercariCategory extends EntityBase<IMercariCategory> implements IMe
             hashTags: []
         };
     }
+    static stringify = (value?: IMercariCategory, retUndef = false) => () => value == null ? retUndef ? undefined : '' : value.name;
 }

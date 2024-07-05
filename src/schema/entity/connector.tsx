@@ -1,14 +1,17 @@
 import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { CaliperSizeUnitsOfMeasure, IConnector, IMeasure, Opt } from '../../types';
+import {  IConnector } from '../../types';
 import { ConnectorGenders, DataConnectorTypes, PowerConnectorTypes, VideoConnectorTypes } from '../enums';
 import { surround } from '../../common/text/surround';
 import { is } from '../../common/is';
 import { EntityBase } from './EntityBase';
 import { ofCaliper } from '../../components/table/controls/titleParts';
+import { MRT_ColumnDef } from 'material-react-table';
+import { connectorColumns } from '../columns/connector';
 
 export class Connector<TConnector extends PowerConnectorTypes | DataConnectorTypes | VideoConnectorTypes> extends EntityBase<IConnector<TConnector>> implements IConnector<TConnector> {
+    static columns: MRT_ColumnDef<IConnector<any>>[] = connectorColumns();
     innerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
     outerWidth?: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
     connectorGender?: Opt<ConnectorGenders>;

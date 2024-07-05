@@ -2,9 +2,12 @@ import Realm from 'realm';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
-import { IMeasure, ITrack, MusicDurationUnitsOfMeasure, Opt } from '../../types';
+import { ITrack } from '../../types';
+import { MRT_ColumnDef } from 'material-react-table';
+import { trackColumns } from '../columns/track';
 
 export class Track extends EntityBase<ITrack> implements ITrack {
+    static columns: MRT_ColumnDef<ITrack>[] = trackColumns();
     duration: Opt<IMeasure<MusicDurationUnitsOfMeasure>>;
     feat: DBList<string>;
     index: Opt<number>;

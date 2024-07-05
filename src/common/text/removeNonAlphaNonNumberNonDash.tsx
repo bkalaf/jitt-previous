@@ -1,4 +1,4 @@
-import { fromCharCode } from '../../schema/entity/brand';
+import { fromCharCode } from '../../schema/entity/fromCharCode';
 import { getRange } from '../../schema/entity/getRange';
 import { toCharCode } from './toCharCode';
 

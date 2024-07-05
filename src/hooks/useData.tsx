@@ -1,11 +1,11 @@
-import { MRT_ColumnDef, MRT_RowData, useMaterialReactTable } from 'material-react-table';
+import { MRT_RowData, MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { createRenderCreateRowDialogContent } from '../components/Views/renderProperties/createRenderCreateRowDialogContent';
 import { createRenderTopToolbarCustomActions } from '../components/Views/renderProperties/createRenderTopToolbarCustomActions';
 import { useInitial } from './useInitial';
 import { createRenderEditRowDialogContent } from '../components/Views/renderProperties/createRenderEditRowDialogContent';
 import { ColumnResizeMode, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
 import { useEffectiveCollection } from './useEffectiveCollection';
-import { TableRowProps } from '@mui/material';
+import { TableContainerProps, TableRowProps } from '@mui/material';
 import { createRenderRowActions, fromOID } from '../components/Views/renderProperties/createRenderRowActions';
 import { useGetTableCanExpand } from './useGetTableCanExpand';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,6 +40,8 @@ import {
 import { CreateRenderDetailPanel } from './createRenderDetailPanel';
 import { useCallback, useMemo } from 'react';
 import { usePersistCollectionOptions } from './usePersistCollectionOptions';
+import { resolveColumns } from '../components/controls/resolveColumns';
+import { OptionsParameters } from '../global';
 
 export function createIcon(icon: IconDefinition) {
     return function FAIcon(props: any) {
@@ -48,7 +50,7 @@ export function createIcon(icon: IconDefinition) {
 }
 // const c: MRT_TableOptions<any>['muiDetailPanelProps'];
 
-export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[], objectType?: string) {
+export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: JITTColumns<T>, objectType?: string) {
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
     const getTableCanExpand = useGetTableCanExpand();
@@ -56,13 +58,13 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (..
     console.log(`tableState`, route, state, options);
     // const { resetSettings, onColumnFiltersChange, ...opts } = usePersistedState<T>(objectType);
     // const c: MRT_TableOptions<any>['getRowId'];
-    const $columns = useMemo(() => columns(), [columns])
+    const $columns = useMemo(() => resolveColumns(columns), [columns]);
     console.info('$columns', $columns);
     const getRowId = useCallback((obj: T) => {
         const result = fromOID(obj._id);
         console.log(`getRowId`, result);
         return result;
-    }, [])
+    }, []);
     // const meta = useMemo(() => {
     //     return {
     //         onPageIndexChange,
@@ -128,7 +130,7 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (..
         getFacetedRowModel: getFacetedRowModel() as any,
         getRowId,
         getFacetedUniqueValues: getFacetedUniqueValues() as any,
-        getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
+        // getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
         groupedColumnMode: 'remove',
         icons: {
             ArrowDownwardIcon: createIcon(faArrowDown),
@@ -189,21 +191,23 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (..
         muiDetailPanelProps: {
             className: 'w-screen'
         },
-        muiTableBodyRowProps: (props) =>
-            ({
-                className:
-                    'group data-[row-depth="0"]:bg-transparent data-[row-depth="1"]:bg-blue-100 data-[row-depth="2"]:bg-blue-200 data-[row-depth="3"]:bg-blue-300 data-[row-depth="4"]:bg-blue-400 data-[row-depth="5"]:bg-blue-500 data-[row-depth="6"]:bg-blue-600 data-[row-depth="4"]:text-white data-[row-depth="5"]:text-white data-[row-depth="6"]:text-white',
-                'data-row-depth': props.row.depth
-            }) as TableRowProps,
+        muiTableBodyRowProps: useCallback(
+            (props: Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyRowProps'], TableRowProps | undefined>>[0]) =>
+                ({
+                    className:
+                        'group data-[row-depth="0"]:bg-transparent data-[row-depth="1"]:bg-blue-100 data-[row-depth="2"]:bg-blue-200 data-[row-depth="3"]:bg-blue-300 data-[row-depth="4"]:bg-blue-400 data-[row-depth="5"]:bg-blue-500 data-[row-depth="6"]:bg-blue-600 data-[row-depth="4"]:text-white data-[row-depth="5"]:text-white data-[row-depth="6"]:text-white',
+                    'data-row-depth': props.row.depth
+                }) as TableRowProps,
+            []
+        ),
         muiTableHeadCellProps: {
             // classes: {
             //     head: 'relative'
             //     // head: 'flex justify-center'
             // },
             className: 'grouped-header:bg-blue-700 grouped-header:text-white single-header:bg-transparent single-header:text-black grouped-header:shadow-inner grouped-header:shadow-black'
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        muiTableContainerProps: (theme) => {
+        },         
+        muiTableContainerProps: useMemo(() => {
             const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
             const maxHeight = `${mh.toFixed(0)}px`;
             return {
@@ -213,8 +217,8 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (..
                     overflowX: 'scroll',
                     overflowY: 'scroll'
                 }
-            };
-        },
+            } as TableContainerProps;
+        }, []),
         paginationDisplayMode: 'pages',
         renderCreateRowDialogContent: createRenderCreateRowDialogContent<T>(),
         renderEditRowDialogContent: createRenderEditRowDialogContent(),
@@ -223,6 +227,12 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: (..
         renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetAllOptions),
         renderDetailPanel: route === 'sku' || route === 'product' ? CreateRenderDetailPanel : undefined,
         state,
-        ...options
+        onColumnOrderChange: options.onColumnOrderChange,
+        onColumnSizingChange: options.onColumnSizingChange,
+        onSortingChange: options.onSortingChange,
+        onGroupingChange: options.onGroupingChange,
+        onExpandedChange: options.onExpandedChange,
+        onColumnFiltersChange: options.onColumnFiltersChange,
+        onGlobalFilterChange: options.onGlobalFilterChange
     });
 }

@@ -2517,6 +2517,11 @@
             "aliases": []
         },
         {
+            "key": "electronics/computer-components/networking",
+            "text": "electronics/computer-components/networking",
+            "aliases": []
+        },
+        {
             "key": "electronics/kitchen-appliances",
             "text": "electronics/kitchen-appliances",
             "aliases": []
@@ -2649,6 +2654,11 @@
         {
             "key": "toys/board-games",
             "text": "toys/board-games",
+            "aliases": []
+        },
+        {
+            "key": "toys/stuffed-animals",
+            "text": "toys/stuffed-animals",
             "aliases": []
         }
     ],

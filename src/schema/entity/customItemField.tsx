@@ -1,12 +1,15 @@
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { ICustomItemField, ICustomItemFieldTypes, IMercariTaxonomy, Opt } from '../../types';
+import { ICustomItemField, ICustomItemFieldTypes, IMercariTaxonomy } from '../../types';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { customItemFieldColumns } from '../columns/customItemField';
 
 // ex: CustomItemFieldId-Platform
 
 export class CustomItemField extends EntityBase<ICustomItemField> implements ICustomItemField {
+    static columns: MRT_ColumnDef<ICustomItemField>[] = customItemFieldColumns();
     linkedType: Opt<string>;
     brandsMap: DBDictionary<ICustomItemFieldTypes>;
     get getTaxonomy(): Realm.Types.LinkingObjects<IMercariTaxonomy, 'customItemField'> {

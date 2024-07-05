@@ -3,6 +3,8 @@ import { IAttribute } from '../../types';
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
+import { attributeColumns } from '../columns/attribute';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export class Attribute extends EntityBase<IAttribute> implements IAttribute {
     path: string;
@@ -29,4 +31,5 @@ export class Attribute extends EntityBase<IAttribute> implements IAttribute {
             unset: false
         };
     }
+    static columns: MRT_ColumnDef<IAttribute>[] = attributeColumns();
 }

@@ -43,7 +43,9 @@ export const detailsTypes = {
     'jewelry/precious-metal': 'jewelry/precious-metal',
     'jewelry/costume': 'jewelry/costume',
     toys: 'toys',
-    'toys/board-games': 'toys/board-games'
+    'toys/board-games': 'toys/board-games',
+    'toys/stuffed-animals': 'toys/stuffed-animals'
+
 };
 
 // console.log(JSON.stringify(Object.fromEntries(Object.keys(detailsTypes).map((x) => [x, x] as [string, string])), null, '\t'));

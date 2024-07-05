@@ -1,13 +1,16 @@
 import { $ } from '../$';
-import { ContributorRoles, IContributor, IIndividual, Opt } from '../../types';
+import { ContributorRoles, IContributor, IIndividual } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
 import { Individual } from './individual';
 import { surroundParensIgnore } from '../../common/text/surround';
 import { is } from '../../common/is';
+import { MRT_ColumnDef } from 'material-react-table';
+import { contributorColumns } from '../columns/contributorColumns';
 
 export class Contributor extends EntityBase<IContributor> implements IContributor {
+    static columns: MRT_ColumnDef<IContributor>[] = contributorColumns();
     group: Opt<string>;
     individual: Opt<IIndividual>;
     role: Opt<ContributorRoles>;

@@ -1,4 +1,4 @@
-import { IClassifier, IProduct, Opt } from '../../types';
+import { IClassifier, IProduct } from '../../types';
 import { flagOptions } from '../enums/flags';
 import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
 import { col } from '../defs/col';
@@ -16,12 +16,12 @@ export const productColumns: <T extends MRT_RowData>(...dependencies: IDependenc
         helper.lookup(...dependencies)('classifier', 'Classifier', {
             objectType: 'classifier',
             onChange: (formContext: UseFormReturn<any, any, any>, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {
-                if (oldValue) {
+                if (oldValue != null) {
                     oldValue.allAttributes.forEach(({ path, value }) => {
                         formContext.setValue(path, typeof value === 'boolean' ? !value : undefined);
                     });
                 }
-                if (newValue) {
+                if (newValue != null) {
                     newValue.allAttributes.forEach(({ path, unset, value }) => {
                         if (unset) {
                             formContext.setValue(path, undefined);

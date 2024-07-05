@@ -5,6 +5,8 @@ import { AuctionSite, IAuction, IFacility } from '../../types';
 import dayjs from 'dayjs';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { auctionColumns } from '../columns/auction';
 
 export class Auction extends EntityBase<IAuction> implements IAuction {
     _id: BSON.ObjectId;
@@ -59,4 +61,5 @@ export class Auction extends EntityBase<IAuction> implements IAuction {
             taxExempt: false
         };
     }
+    static columns: MRT_ColumnDef<IAuction>[] = auctionColumns();   
 }

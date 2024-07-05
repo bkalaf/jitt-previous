@@ -1,6 +1,7 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
-import { AngleUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 import UNICODE from './unicode';
 
@@ -19,4 +20,5 @@ export class AngleMeasure extends DoubleMeasure<AngleUnitsOfMeasure> {
             uom: UNICODE.DEGREE as AngleUnitsOfMeasure
         };
     }
+    static columns: MRT_ColumnDef<AngleMeasure>[] = doubleMeasureColumns<AngleMeasure>(createMRTColumnHelper<AngleMeasure>(), 'amperageUnits')() as MRT_ColumnDef<AngleMeasure>[];
 }

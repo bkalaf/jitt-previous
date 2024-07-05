@@ -1,5 +1,5 @@
 import { $ } from '../$';
-import { AwardStatus, IAward, IContributor, Opt } from '../../types';
+import { AwardStatus, IAward, IContributor } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import $me, { AwardNames, EmmyAwardCategories, GrammyAwardCategories, HugoAwardCategories, NYTimesAwardCategories, OscarAwardCategories, PulitzerPrizeAwardCategories, TonyAwardCategories } from '../enums';
 import { EntityBase } from './EntityBase';
@@ -7,8 +7,11 @@ import Realm from 'realm';
 import { getChoiceText } from './getChoiceText';
 import { is } from '../../common/is';
 import { surroundParensIgnore } from '../../common/text/surround';
+import { MRT_ColumnDef } from 'material-react-table';
+import { awardColumns } from '../columns/awardColumns';
 
 export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<TAwardName>> implements IAward<TAwardName> {
+    static columns: MRT_ColumnDef<IAward<AwardNames>>[] = awardColumns();
     contributor: Opt<IContributor>;
     name: TAwardName;
     category: Opt<

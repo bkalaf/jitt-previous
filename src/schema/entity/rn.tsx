@@ -1,12 +1,15 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { is } from '../../common/is';
-import { IAddress, IRn, Opt, RnBusinessType, RnCompanyType, RnMaterial, RnProductLine, RnType } from '../../types';
+import { IAddress, IRn, RnBusinessType, RnCompanyType, RnMaterial, RnProductLine, RnType } from '../../types';
 import { getCityState } from '../../util/getCityState';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';
+import { rnColumns } from '../columns/rn';
 
 export class Rn extends EntityBase<IRn> implements IRn {
+    static columns: MRT_ColumnDef<IRn>[] = rnColumns();
     type: Opt<RnType>;
     _id: BSON.ObjectId;
     no: number;

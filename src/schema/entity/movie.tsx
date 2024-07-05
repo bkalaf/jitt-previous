@@ -1,12 +1,15 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
-import { IAward, IContributor, IMeasure, IMovie, Opt, VideoRuntimeUnitsOfMeasure } from '../../types';
+import { IAward, IContributor, IMovie } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { movieColumns } from '../columns/movieColumns';
 import { VideoRuntimeMeasure } from '../dimensions/VideoRuntime';
 import { MovieRatings, MovieGenres } from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';
 
 export class Movie extends EntityBase<IMovie> implements IMovie {
+    static columns: MRT_ColumnDef<IMovie>[] = movieColumns();
     _id: BSON.ObjectId;
     title: string;
     subtitle: Opt<string>;

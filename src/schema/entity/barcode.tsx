@@ -8,6 +8,8 @@ import { calculateUPCCheckDigit } from '../../util/calculateUPCCheckDigit';
 import { is } from '../../common/is';
 import { BarcodeTypes } from '../enums';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { barcodeColumns } from '../columns/barcode';
 
 export class Barcode extends EntityBase<IBarcode> implements IBarcode {
     beenPrinted: boolean;
@@ -102,4 +104,5 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
             beenPrinted: false
         };
     }
+    static columns: MRT_ColumnDef<IBarcode>[] = barcodeColumns();
 }

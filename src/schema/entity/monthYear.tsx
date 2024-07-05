@@ -1,10 +1,13 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { IMonthYear, Month } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
+import { monthYearColumns } from '../columns/monthYearColumns';
 
 export class MonthYear extends EntityBase<IMonthYear> implements IMonthYear {
+    static columns: MRT_ColumnDef<IMonthYear>[] = monthYearColumns();
     month: Month;
     year: string;
     static schema: Realm.ObjectSchema = {

@@ -6,6 +6,7 @@ import { AttachmentStages } from '../choices/AttachmentStages';
 import { AttachmentDisposition } from '../choices/AttachmentDisposition';
 import { AttachmentType } from '../choices/AttachmentType';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
 
 // type ROP = GetNonReadOnlyProperties<IAttachment>;
 // type NFP = NonFunctionProperties<IAttachment>;
@@ -87,4 +88,5 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
     static update(item: IAttachment) {
         return item;
     }
+    static columns: MRT_ColumnDef<IAttachment>[] = [];
 }

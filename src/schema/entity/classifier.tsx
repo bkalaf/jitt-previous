@@ -5,8 +5,11 @@ import { DetailTypes, IAttribute, IClassifier, IHashTag, IMercariTaxonomy } from
 import { runTransaction } from '../../util/runTransaction';
 import { distinctBy, distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { classifierColumns } from '../columns/classifier';
 
 export class Classifier extends EntityBase<IClassifier> implements IClassifier {
+    static columns: MRT_ColumnDef<IClassifier>[] = classifierColumns();
     // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
     _id: BSON.ObjectId;
     taxonomy?: IMercariTaxonomy | undefined;

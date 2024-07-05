@@ -17,7 +17,6 @@ import { colFlags } from './colFlags';
 import { colClothingCare } from './colClothingCare';
 import { dbDictCol } from './dbDictCol';
 import { colDBListObject } from './colDBListObject';
-import { colDBFreeSolo } from './colDBFreeSolo';
 import { colDbMultiEnum } from './colDbMultiEnum';
 import { colFreeSolo } from './colFreeSolo';
 import { colDouble } from './colDouble';
@@ -64,7 +63,7 @@ export const col = <T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) => {
         intMeasure: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colIntMeasure(helper)(...(dependencies as any)),
         listOfEmbed: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDBList(helper)(...(dependencies as any)),
         listOfEnum: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDbMultiEnum(helper)(...(dependencies as any)),
-        listOfFreeSolo: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDBFreeSolo(helper)(...(dependencies as any)),
+        // listOfFreeSolo: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDBFreeSolo(helper)(...(dependencies as any)),
         listOfObject: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDBListObject(helper)(...(dependencies as any)),
         listOfPrimitive: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colDBList(helper)(...(dependencies as any)),
         lookup: <U extends MRT_RowData, UKey extends keyof U>(...dependencies: IDependency<U, UKey>[]) => colLookup(helper)(...(dependencies as any)),

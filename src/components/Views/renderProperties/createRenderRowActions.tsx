@@ -21,12 +21,15 @@ export function createRenderRowActions<T extends MRT_RowData>() {
         useWhyDidIUpdate('RenderRowActions', props);
         const { table, row } = props;
         const invalidator = useInvalidateCollection();
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const onEditClick = useCallback((ev: MouseButtonEvent) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            table.setEditingRow(props.row);
-        }, [props.row, table]);
+
+        const onEditClick = useCallback(
+            (ev: MouseButtonEvent) => {
+                ev.preventDefault();
+                ev.stopPropagation();
+                table.setEditingRow(props.row);
+            },
+            [props.row, table]
+        );
         //  row.original.toJSON()
         const db = useLocalRealm();
         const collection = useEffectiveCollection();

@@ -93,33 +93,11 @@ import { ProductImageDisposition } from './schema/entity/ProductImageDisposition
 import { Flags } from './schema/enums/flags';
 import { IShippingRate } from './schema/enums/shippingRates';
 
-export type AmperageUnitsOfMeasure = 'A' | 'mA';
-export type AngleUnitsOfMeasure = '°';
-export type CaliperSizeUnitsOfMeasure = 'mm' | '″';
-export type CapacityUnitsOfMeasure = 'GB' | 'TB' | 'MB';
-export type DataTransferRateUnitsOfMeasure = 'MB/s' | 'MBit/s';
-export type DensityUnitsOfMeasure = 'g/cm³' | 'lb/floz';
-export type DistanceUnitsOfMeasure = 'ft' | 'm';
-export type LengthUnitsOfMeasure = 'cm' | '″';
-export type MemorySpeedUnitsOfMeasure = 'MHz';
-export type MusicDurationUnitsOfMeasure = 's' | 'm';
-export type PowerConsumptionUnitsOfMeasure = 'WHr';
-export type RateOfEnergyCapacityUnitsOfMeasure = 'mAh';
-export type RotationalSpeedUnitsOfMeasure = 'RPM';
-export type VideoRuntimeUnitsOfMeasure = 'm' | 'h';
-export type VoltageUnitsOfMeasure = 'V' | 'mV';
-export type WattageUnitsOfMeasure = 'W';
-export type WeightUnitsOfMeasure = 'lb' | 'oz' | 'g';
-
 export type OperatingSystemNames = 'unknown' | 'android' | 'ios' | 'blackberry' | 'linux' | 'nucleus' | 'symbian' | 'macOS' | 'fire' | 'windows';
 export type Int = number;
 export type Double = number;
-export type Opt<T> = T | undefined;
 
-export type IMeasure<TUnit extends string> = {
-    value: number;
-    uom: TUnit;
-};
+
 export type ISelfStorage = {
     _id: BSON.ObjectId;
     name: string;
@@ -250,6 +228,7 @@ export type DetailTypes =
     | 'electronics/computer-components/drives'
     | 'electronics/computer-components/ram'
     | 'electronics/computer-components/battery'
+    | 'electronics/computer-components/networking'
     | 'electronics/kitchen-appliances'
     | 'home-goods'
     | 'home-goods/decor'
@@ -276,7 +255,8 @@ export type DetailTypes =
     | 'jewelry/precious-metal'
     | 'jewelry/costume'
     | 'toys'
-    | 'toys/board-games';
+    | 'toys/board-games'
+    | 'toys/stuffed-animals';
 
 export type IClassifier = {
     _id: BSON.ObjectId;
@@ -415,7 +395,6 @@ export type IPiece = {
 
 export type AnyConnector = IConnector<DataConnectorTypes> | IConnector<VideoConnectorTypes> | IConnector<PowerConnectorTypes>;
 
-
 /**
  * @deprecated
  */
@@ -478,14 +457,14 @@ export type IIndividual = {
     middlename: Opt<string>;
     prefix: Opt<Prefix>;
     suffix: Opt<Suffix>;
-}
+};
 export type ContributorRoles = 'author' | 'illustrator' | 'publisher' | 'actor' | 'director' | 'producer' | 'studio' | 'performer' | 'songwriter';
 export type IContributor = {
     group: Opt<string>;
     individual: Opt<IIndividual>;
     role: Opt<ContributorRoles>;
     creditedAs: Opt<string>;
-}
+};
 export type IBook = {
     _id: BSON.ObjectId;
     title: string;
@@ -494,7 +473,7 @@ export type IBook = {
     contributors: DBList<IContributor>;
     awards: DBList<IAward<'ny-times' | 'hugo' | 'pulitzer'>>;
     genre: Opt<BookGenres>;
-}
+};
 export type IMovie = {
     _id: BSON.ObjectId;
     title: string;
@@ -505,7 +484,7 @@ export type IMovie = {
     rating: Opt<MovieRatings>;
     awards: DBList<IAward<'oscar'>>;
     genre: Opt<MovieGenres>;
-};  
+};
 
 export type ITVSeriesEpisode = {
     name: Opt<string>;
@@ -513,7 +492,7 @@ export type ITVSeriesEpisode = {
     index: Opt<Int>;
     id: Opt<string>;
     originalAirDate: Opt<Date>;
-}
+};
 export type Network = 'NBC' | 'ABC' | 'HBO';
 export type ITVSeries = {
     _id: BSON.ObjectId;
@@ -540,7 +519,7 @@ export type IAlbum = {
 export type IPartNumber = {
     brand: Opt<IBrand>;
     partNumber: string;
-}
+};
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -891,4 +870,109 @@ export type IDraft = {
     readonly imageCount: number;
     readonly titleLength: number;
     readonly descriptionLength: number;
+};
+
+export type IApparelDetails = {
+    value: unknown;
+};
+export type IApparelTopsDetails = {
+    value: unknown;
+};
+export type IApparelBottomsDetails = {
+    value: unknown;
+};
+export type IApparelBottomsLeggedDetails = {
+    value: unknown;
+};
+export type IApparelFootwearDetails = {
+    value: unknown;
+};
+export type IApparelBrasDetails = {
+    value: unknown;
+};
+export type IApparelBrasSwimsuitDetails = {
+    value: unknown;
+};
+export type ICablesDetails = { value: unknown };
+export type ICablesDataDetails = { value: unknown };
+export type ICablesPowerDetails = { value: unknown };
+export type ICablesVideoDetails = { value: unknown };
+export type IElectronicsDetails = { value: unknown };
+export type IElectronicsVisualDetails = { value: unknown };
+export type IElectronicsVisualCellPhonesDetails = { value: unknown };
+export type IElectronicsComputerComponentsDetails = { value: unknown };
+export type IElectronicsComputerComponentsRamDetails = { value: unknown };
+export type IElectronicsComputerComponentsBatteryDetails = { value: unknown };
+export type IElectronicsComputerComponentsDrivesDetails = { value: unknown };
+export type IElectronicsComputerComponentsNetworkingDetails = { value: unknown };
+export type IElectronicsKitchenAppliancesDetails = { value: unknown };
+export type IGeneralDetails = { value: unknown };
+export type IHomeGoodsDetails = { value: unknown };
+export type IHomeGoodsDecorDetails = { value: unknown };
+export type IHomeGoodsFlatwareDetails = { value: unknown };
+export type IHomeGoodsDinnerwareDetails = { value: unknown };
+export type IHomeGoodsGlasswareDetails = { value: unknown };
+export type IJewelryDetails = { value: unknown };
+export type IMediaDetails = { value: unknown };
+export type IMediaBooksDetails = { value: unknown };
+export type IMediaMusicDetails = { value: unknown };
+export type IMediaVideoGamesDetails = { value: unknown };
+export type IMediaVideosDetails = { value: unknown };
+export type IMediaVideosFilmDetails = { value: unknown };
+export type IMediaVideosTvSeriesDetails = { value: unknown };
+export type ISportingGoodsDetails = { value: unknown };
+export type ISportingGoodsGolfDetails = { value: unknown };
+export type ISportingGoodsGolfClubsDetails = { value: unknown };
+export type ISportingGoodsTennisDetails = { value: unknown };
+export type ISportingGoodsTennisRacketsDetails = { value: unknown };
+export type ISportingGoodsBowlingDetails = { value: unknown };
+export type ISportingGoodsBowlingBallsDetails = { value: unknown };
+export type IToysDetails = { value: unknown };
+export type IToysBoardGamesDetails = { value: unknown };
+export type IToysStuffedAnimalsDetails = { value: unknown };
+export type IDetails = {
+    apparel: IApparelDetails;
+    apparelTops: IApparelTopsDetails;
+    apparelBottoms: IApparelBottomsDetails;
+    apparelBottomsLegged: IApparelBottomsLeggedDetails;
+    apparelFootwear: IApparelFootwearDetails;
+    apparelBras: IApparelBrasDetails;
+    apparelBrasSwimsuit: IApparelBrasSwimsuitDetails;
+    cables: ICablesDetails;
+    cablesData: ICablesDataDetails;
+    cablesPower: ICablesPowerDetails;
+    cablesVideo: ICablesVideoDetails;
+    electronics: IElectronicsDetails;
+    electronicsVisual: IElectronicsVisualDetails;
+    electronicsVisualCellPhones: IElectronicsVisualCellPhonesDetails;
+    electronicsComputerComponents: IElectronicsComputerComponentsDetails;
+    electronicsComputerComponentsRAM: IElectronicsComputerComponentsRamDetails;
+    electronicsComputerComponentsBattery: IElectronicsComputerComponentsBatteryDetails;
+    electronicsComputerComponentsDrives: IElectronicsComputerComponentsDrivesDetails;
+    electronicsComputerComponentsNetworking: IElectronicsComputerComponentsNetworkingDetails;
+    electronicsKitchenAppliances: IElectronicsKitchenAppliancesDetails;
+    general: IGeneralDetails;
+    homeGoods: IHomeGoodsDetails;
+    homeGoodsDecor: IHomeGoodsDecorDetails;
+    homeGoodsFlatware: IHomeGoodsFlatwareDetails;
+    homeGoodsDinnerware: IHomeGoodsDinnerwareDetails;
+    homeGoodsGlassware: IHomeGoodsGlasswareDetails;
+    jewelry: IJewelryDetails;
+    media: IMediaDetails;
+    mediaBooks: IMediaBooksDetails;
+    mediaMusic: IMediaMusicDetails;
+    mediaVideoGames: IMediaVideoGamesDetails;
+    mediaVideos: IMediaVideosDetails;
+    mediaVideosFilm: IMediaVideosFilmDetails;
+    mediaVideosTvSeries: IMediaVideosTvSeriesDetails;
+    sportingGoods: ISportingGoodsDetails;
+    sportingGoodsGolf: ISportingGoodsGolfDetails;
+    sportingGoodsGolfClubs: ISportingGoodsGolfClubsDetails;
+    sportingGoodsTennis: ISportingGoodsTennisDetails;
+    sportingGoodsTennisRackets: ISportingGoodsTennisRacketsDetails;
+    sportingGoodsBowling: ISportingGoodsBowlingDetails;
+    sportingGoodsBowlingBalls: ISportingGoodsBowlingBallsDetails;
+    toys: IToysDetails;
+    toysBoardGames: IToysBoardGamesDetails;
+    toysStuffedAnimals: IToysStuffedAnimalsDetails;
 };

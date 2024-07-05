@@ -1,8 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
 import { standardizeOptions } from '../schema/defs/standardizeOptions';
 import $me from '../schema/enums';
-import { truncateAuto } from './number/truncateAuto';
-import { surroundAngleBracketIgnore, surroundAposthopheIgnore, surroundAsteriskIgnore, surroundParensIgnore, surroundQuotesIgnore, surroundSquareBracesIgnore } from './text/surround';
+import { surroundAposthopheIgnore, surroundAsteriskIgnore, surroundQuotesIgnore, surroundSquareBracesIgnore } from './text/surround';
 import { allFlags } from '../schema/enums/flags';
 import { ofList } from './ofList';
 import { pipeR } from './pipeR';
@@ -45,18 +44,17 @@ import { Individual } from '../schema/entity/individual';
 import { prepend, prependIgnore } from './prepend';
 import { is } from './is';
 import { composeR } from './composeR.1';
+import { parentheses } from './parentheses';
+import { EnumKey } from './EnumKey';
 
-export type EnumKey = keyof typeof $me;
 export const fromTitleSubtitle = (getterSubtitle: (sku: ISku) => string | undefined) => (getterTitle: (sku: ISku) => string | undefined) => (sku: ISku) => {
     const { title, subtitle } = { title: getterTitle(sku), subtitle: getterSubtitle(sku) };
     return joinWith(' - ')(title)(subtitle);
 };
 
-export const parentheses = surroundParensIgnore;
 export const squareBrackets = surroundSquareBracesIgnore;
 export const doubleQuote = surroundQuotesIgnore;
 export const singleQuote = surroundAposthopheIgnore;
-export const angleBracket = surroundAngleBracketIgnore;
 
 export const combine = function <T>(getter: SkuGetter<T>, func: (x?: T) => string | undefined) {
     return composeR(getter, func);
@@ -66,23 +64,13 @@ export const fromEnumExtra =
     <T extends string>(opts: { enumKey: EnumKey; extraKey: T }) =>
     (getter: SkuGetter) =>
         combine(getter, ofEnum(opts.enumKey, opts.extraKey));
-export const lookupToSquareBrackets = (enumKey: EnumKey, getter: SkuGetter) => pipeR(getter, fromEnum(enumKey), squareBrackets);
 
-// composeR(fromEnum(enumKey, getter), squareBrackets);
-
-export function fmap<T, U>(f: (x: T) => U) {
-    return (dbList?: DBList<T>) => (dbList ?? []).map(f);
-}
-export function reduce<T>(f: (x: T, y: T) => T, initial: T) {
-    return (dbList?: DBList<T> | T[]) => (dbList ?? []).reduce(f, initial);
-}
 export function ofSepList(sep: string) {
     return (x: string, y: string) => [x, y].join(sep);
 }
-// const commaSepList = ofSepList(', ');
 const newLineSepList = ofSepList('\n');
 
-const finalList = (x: string) => x.length > 0 ? x : undefined;
+const finalList = (x: string) => (x.length > 0 ? x : undefined);
 export function ofStringList(getter: SkuGetter<DBList<string>>) {
     return ofList((x: string) => x, getter, newLineSepList, '', finalList);
 }
@@ -122,12 +110,12 @@ export function discCount(getter: SkuGetter<number>) {
     };
 }
 
-export function qty(getter: SkuGetter<number | undefined>) {
-    return composeR(
-        composeR(getter, (x) => truncateAuto(x, 0)),
-        appendIgnore(' pcs')
-    );
-}
+// export function qty(getter: SkuGetter<number | undefined>) {
+//     return composeR(
+//         composeR(getter, (x) => truncateAuto(x, 0)),
+//         appendIgnore(' pcs')
+//     );
+// }
 
 // export const ofMeasure = function <TUnit extends string>(getter: SkuGetter<IMeasure<TUnit>>) {};
 
@@ -184,7 +172,12 @@ const by = (header: string) => (params: { role: ContributorRoles; sep: string })
 const $for = (enumKey: EnumKey) => (getter: SkuGetter<any>) => composeR(fromEnum(enumKey)(getter), prependIgnore('for '));
 const echo = (getter: SkuGetter<any>) => (sku: ISku) => getter(sku);
 const fromInt = (getter: SkuGetter<number>) => (sku: ISku) => getter(sku)?.toFixed(0);
-const fromIntOverOne = (getter: SkuGetter<number>) => (sku: ISku) => getter(sku) != null ? getter(sku)! > 1 ? getter(sku)?.toFixed(0) : undefined : undefined;
+const fromIntOverOne = (getter: SkuGetter<number>) => (sku: ISku) =>
+    getter(sku) != null ?
+        getter(sku)! > 1 ?
+            getter(sku)?.toFixed(0)
+        :   undefined
+    :   undefined;
 
 const appendText = (text: string) => (getter: SkuGetter<number>) => composeR(fromInt(getter), appendIgnore(text));
 
@@ -243,12 +236,14 @@ export const $from: any = {
         ofBullet: toHeaderParams(konst(ofBulletStringList))
     },
     mappedLookup: {
-        prependPlus: toHeaderParams(fromMappedLookup(prependIgnore('+ ')))  
+        prependPlus: toHeaderParams(fromMappedLookup(prependIgnore('+ ')))
     },
-    lookup:
-        (header: string) =>
-        <T extends MRT_RowData>(myClass: MyClass<T>) =>
-            toHeaderParams($curry<MyClass<T>, SkuGetter<any>, (sku: ISku) => string | undefined>(fromLookup))(header)(myClass),
+    lookup: (header: string) =>
+        toHeaderParams(
+            <T extends MRT_RowData>(myClass: ReferenceClass<T>) =>
+                (getter: SkuGetter<any>) =>
+                    fromLookup<T>(myClass, getter)
+        )(header),
     // lookup: fromLookup,
     measure: {
         amperageUnitOfMeasure: amperageAmps,

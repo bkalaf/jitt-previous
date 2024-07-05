@@ -28,20 +28,18 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     const { append, handleClose, isOpen, columns, objectType, KeyControl, keyType } = props;
     const dictionaryColumns = useMemo(
         () =>
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            (...dependencies: IDependency<any, any>[]) =>
-                [
-                    {
-                        accessorKey: 'key',
-                        Edit: KeyControl,
-                        header: 'Key',
-                        meta: {
-                            columnName: 'key',
-                            keyType: keyType
-                        }
-                    } as MRT_ColumnDef<any>,
-                    ...(is.primitive(objectType) ? columns() : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
-                ] as MRT_ColumnDef<any>[],
+            [
+                {
+                    accessorKey: 'key',
+                    Edit: KeyControl,
+                    header: 'Key',
+                    meta: {
+                        columnName: 'key',
+                        keyType: keyType
+                    }
+                } as MRT_ColumnDef<any>,
+                ...(is.primitive(objectType) ? columns() : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
+            ] as MRT_ColumnDef<any>[],
         [KeyControl, columns, keyType, objectType]
     );
     const convertAppend = useConvertDictionaryItem(objectType, append);

@@ -1,11 +1,14 @@
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { ICustomItemFieldType, IHashTag, IMercariBrand, Opt } from '../../types';
+import { ICustomItemFieldType, IHashTag, IMercariBrand } from '../../types';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';
+import { MRT_ColumnDef } from 'material-react-table';
+import { mercariBrandColumns } from '../columns/mercariBrand';
 
 export class MercariBrand extends EntityBase<IMercariBrand> {
+    static columns: MRT_ColumnDef<IMercariBrand>[] = mercariBrandColumns();
     customItemFields: DBList<ICustomItemFieldType>;
     timestamp: Opt<Date>;
     _id: BSON.ObjectId;

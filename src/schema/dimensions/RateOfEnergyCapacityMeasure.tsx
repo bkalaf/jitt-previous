@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, RateOfEnergyCapacityUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { intMeasureColumns } from '../entity/details/measureColumns';
 import { IntMeasure } from './IntMeasure';
 
 
@@ -19,4 +21,5 @@ export class RateOfEnergyCapacityMeasure extends IntMeasure<RateOfEnergyCapacity
             uom: 'mAh'
         };
     }
+    static columns: MRT_ColumnDef<RateOfEnergyCapacityMeasure>[] = intMeasureColumns<RateOfEnergyCapacityMeasure>(createMRTColumnHelper<RateOfEnergyCapacityMeasure>(), 'amperageUnits')() as MRT_ColumnDef<RateOfEnergyCapacityMeasure>[];
 }

@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { CaliperSizeUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class CaliperSizeMeasure extends DoubleMeasure<CaliperSizeUnitsOfMeasure> {
@@ -18,4 +20,5 @@ export class CaliperSizeMeasure extends DoubleMeasure<CaliperSizeUnitsOfMeasure>
             uom: '″'
         };
     }
+    static columns: MRT_ColumnDef<CaliperSizeMeasure>[] = doubleMeasureColumns<CaliperSizeMeasure>(createMRTColumnHelper<CaliperSizeMeasure>(), 'amperageUnits')() as MRT_ColumnDef<CaliperSizeMeasure>[];
 }

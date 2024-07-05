@@ -4,6 +4,8 @@ import { $ } from '../$';
 import { EntityBase } from './EntityBase';
 import { IClothingCare } from '../../types';
 import { ClothingCareMap } from '../laundryCare';
+import { MRT_ColumnDef } from 'material-react-table';
+import { clothingCareColumns } from '../columns/clothingCare';
 
 export class ClothingCare extends EntityBase<IClothingCare> implements IClothingCare {
     bleaching: DBList<'doNotBleach' | 'nonChlorineBleach' | 'bleachingAllowed' | 'bleachWithChlorine'>;
@@ -64,4 +66,5 @@ export class ClothingCare extends EntityBase<IClothingCare> implements IClothing
             tumbleDry: []
         };
     }
+    static columns: MRT_ColumnDef<IClothingCare>[] = clothingCareColumns();
 }

@@ -1,5 +1,3 @@
-import { Opt } from '../../../types';
-
 export function convertFromGrams(grams: Opt<number>) {
     if (grams == null) return undefined;
     const totalPounds = grams / 453.59;

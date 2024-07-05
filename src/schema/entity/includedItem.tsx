@@ -3,8 +3,11 @@ import { schemaName } from '../../util/schemaName';
 import { IIncludedItem } from '../../types';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
+import { MRT_ColumnDef } from 'material-react-table';
+import { includedItemColumns } from '../columns/includedItem';
 
 export class IncludedItem extends EntityBase<IIncludedItem> implements IIncludedItem {
+    static columns: MRT_ColumnDef<IIncludedItem>[] = includedItemColumns();
     qty: number;
     name: string;
 

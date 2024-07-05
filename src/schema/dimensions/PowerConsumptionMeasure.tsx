@@ -1,6 +1,8 @@
+import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
 import { IMeasure, PowerConsumptionUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
+import { doubleMeasureColumns } from '../entity/details/measureColumns';
 import { DoubleMeasure } from './DoubleMeasure';
 
 export class PowerConsumptionMeasure extends DoubleMeasure<PowerConsumptionUnitsOfMeasure> {
@@ -18,5 +20,6 @@ export class PowerConsumptionMeasure extends DoubleMeasure<PowerConsumptionUnits
             uom: 'WHr'
         };
     }
+    static columns: MRT_ColumnDef<PowerConsumptionMeasure>[] = doubleMeasureColumns<PowerConsumptionMeasure>(createMRTColumnHelper<PowerConsumptionMeasure>(), 'amperageUnits')() as MRT_ColumnDef<PowerConsumptionMeasure>[];
 }
 

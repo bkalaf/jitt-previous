@@ -2,10 +2,9 @@
 ///<reference path="./../../global.d.ts" />
 import { Shippers } from '.';
 import { is } from '../../common/is';
-import { sortToKey } from '../../components/table/controls/titleGenerator';
 import { parseNumber } from '../../common/number/parseNumber';
 import ShippingRatesV1 from 'C:\\Users\\bobby\\AppData\\Roaming\\jitt\\shipping-rates-v1.json';
-import { IMeasure, WeightUnitsOfMeasure } from '../../types';
+import { sortToKey } from '../../components/table/controls/sortToKey';
 
 export type ShippingCategory = 'standard' | 'media-mail';
 export type IShippingRate = {

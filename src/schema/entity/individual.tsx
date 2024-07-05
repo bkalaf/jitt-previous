@@ -1,13 +1,16 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
 import { is } from '../../common/is';
-import { IIndividual, Opt, Prefix, Suffix } from '../../types';
+import { IIndividual, Prefix, Suffix } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { standardizeOptions } from '../defs/standardizeOptions';
 import $me from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';
+import { individualColumns } from '../columns/individualColumns';
 
 export class Individual extends EntityBase<IIndividual> implements IIndividual {
+    static columns: MRT_ColumnDef<IIndividual>[] = individualColumns();
     _id: BSON.ObjectId;
     firstname: string;
     lastname: string;
@@ -38,6 +41,7 @@ export class Individual extends EntityBase<IIndividual> implements IIndividual {
         return [$prefix?.text, item.firstname, item.middlename, item.lastname, $suffix].filter(is.not.nil).join(' ');
     }
     static liComponent = Individual.stringify;
+    static labelProperty = 'fullname';
     static update(item: IIndividual): IIndividual {
         return item;
     }
@@ -47,5 +51,8 @@ export class Individual extends EntityBase<IIndividual> implements IIndividual {
             firstname: '',
             lastname: ''
         }
+    }
+    get fullname() {
+        return Individual.stringify(this)();
     }
 }

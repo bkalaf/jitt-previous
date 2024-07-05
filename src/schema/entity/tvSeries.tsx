@@ -1,11 +1,14 @@
+import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../$';
-import { IAward, IContributor, ITVSeries, ITVSeriesEpisode, Network, Opt } from '../../types';
+import { IAward, IContributor, ITVSeries, ITVSeriesEpisode, Network } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { TVRatings, MovieGenres } from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';
+import { tvSeriesColumns } from '../columns/tvSeriesColumns';
 
 export class TvSeries extends EntityBase<ITVSeries> implements ITVSeries {
+    static columns: MRT_ColumnDef<ITVSeries>[] = tvSeriesColumns();
     _id: BSON.ObjectId;
     title: string;
     subtitle: Opt<string>;

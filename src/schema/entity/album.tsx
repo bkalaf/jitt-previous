@@ -1,9 +1,11 @@
 import Realm, { BSON } from 'realm';
 import { EntityBase } from './EntityBase';
-import { IAlbum, IAward, IContributor, ITrack, Opt } from '../../types';
+import { IAlbum, IAward, IContributor, ITrack } from '../../types';
 import { MusicGenres } from '../enums';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
+import { albumColumns } from '../columns/albumColumns';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export class Album extends EntityBase<IAlbum> implements IAlbum {
     _id: BSON.ObjectId;
@@ -48,4 +50,5 @@ export class Album extends EntityBase<IAlbum> implements IAlbum {
             tracks: {}
         };
     }
+    static columns = albumColumns() as MRT_ColumnDef<IAlbum>[];
 }

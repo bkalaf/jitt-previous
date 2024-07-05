@@ -1,12 +1,15 @@
 import { $ } from '../$';
-import { DistanceUnitsOfMeasure, IMeasure, ISquareFootage } from '../../types';
+import { ISquareFootage } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import Realm from 'realm';
 import { EntityBase } from './EntityBase';
 import { DistanceMeasure } from '../dimensions/DistanceMeasure';
 import { is } from '../../common/is';
+import { MRT_ColumnDef } from 'material-react-table';
+import { squareFootageColumns } from '../columns/squareFootage';
 
 export class SquareFootage extends EntityBase<ISquareFootage> implements ISquareFootage {
+    static columns: MRT_ColumnDef<ISquareFootage>[] = squareFootageColumns();
     length: IMeasure<DistanceUnitsOfMeasure>;
     width: IMeasure<DistanceUnitsOfMeasure>;
 
