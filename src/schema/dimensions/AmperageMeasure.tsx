@@ -1,6 +1,5 @@
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
-import { AmperageUnitsOfMeasure, IMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { DoubleMeasure } from './DoubleMeasure';
 import Realm from 'realm';

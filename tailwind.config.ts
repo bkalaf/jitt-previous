@@ -12,6 +12,7 @@ export default {
     },
     theme: {
         data: {
+            'overflow': 'is-overflowing="true"',
             'row-even': 'row="even"',
             'row-odd': 'row="odd"',
             active: 'active="true"',

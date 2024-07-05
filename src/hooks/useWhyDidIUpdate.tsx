@@ -1,4 +1,4 @@
-import { process } from '@electron/remote';
+// import { process } from '@electron/remote';
 import { useEffect, useRef } from 'react';
 
 export function useWhyDidIUpdate(name: string, props: Record<string, any>) {
@@ -22,13 +22,13 @@ export function useWhyDidIUpdate(name: string, props: Record<string, any>) {
                 }
             });
             if (Object.keys(changesObj).length > 0) {
-                try {
-                    process.stdout.write(name.concat('\n'));
-                    process.stdout.write(JSON.stringify(changesObj, null, '\t').concat('\n'));
-                    // console.log('[why-did-you-update]', name, changesObj)
-                } catch (error) {
-                    console.error(error);
-                }
+                // try {
+                //     process.stdout.write(name.concat('\n'));
+                //     process.stdout.write(JSON.stringify(changesObj, null, '\t').concat('\n'));
+                //     // console.log('[why-did-you-update]', name, changesObj)
+                // } catch (error) {
+                //     console.error(error);
+                // }
             }
         }
         previousProps.current = props;

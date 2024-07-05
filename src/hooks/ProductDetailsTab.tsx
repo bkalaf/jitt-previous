@@ -6,12 +6,12 @@ import { runTransaction } from '../util/runTransaction';
 import { useConvert } from './useConvert';
 import { Realm } from 'realm';
 import { Grid, Item } from './Grid';
-import { useDirectColumns } from './useDirectColumns';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { Product } from '../schema/entity/product';
 import { EditControls } from '../components/controls/EditControls';
 import { toJSON } from '../components/Views/renderProperties/toJSON';
+import { useDirectStaticColumns } from './useDirectStaticColumns';
 
 export function convertProduct(product: IProduct & Realm.Object<IProduct>) {
     const { testedOn, ...rest } = toJSON(product);
@@ -24,7 +24,8 @@ export function convertProduct(product: IProduct & Realm.Object<IProduct>) {
 
 export function ProductDetailsTab(props: { isCurrent: boolean; original: IProduct; objectType: string }) {
     const { original, objectType } = props;
-    const columns = useDirectColumns(objectType);
+    const columns = useDirectStaticColumns(objectType);
+    // const columns = useDirectColumns(objectType);
     const defaultValues = useMemo(() => convertProduct(original as any), [original]);
     const formContext = useForm({
         defaultValues: Product.init() as DefaultValues<IProduct>,

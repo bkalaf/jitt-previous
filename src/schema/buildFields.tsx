@@ -1,7 +1,8 @@
-import { doubleQuote, singleQuote } from '../common/composeR';
 import fields from './fields.json';
 import { isUpper } from '../common/text/isUpper';
 import * as fs from 'graceful-fs';
+import { doubleQuote } from '../common/doubleQuote';
+import { singleQuote } from '../common/singleQuote';
 
 const code = fields.map(({ func, header, importance, index, titleFunc, key, params, path, section }) => {
     return `{

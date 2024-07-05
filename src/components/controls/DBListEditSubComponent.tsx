@@ -10,12 +10,13 @@ import { useConvertDictionaryItem } from '../../hooks/useConvertDictionaryItem';
 import { useConvertListItem } from '../../hooks/useConvertListItem';
 import { EditControls } from './EditControls';
 import { useLogger } from '../../hooks/useLogger';
+import { resolveColumns } from './resolveColumns';
 
 export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(props: {
     append: (data: { key: string; value: TValue }) => void;
     // index: number;
     // value: Record<string, any>;
-    columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[];
+    columns: JITTColumns<T>;
     isOpen: boolean;
     handleClose: () => void;
     objectType: string;
@@ -38,7 +39,7 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
                         keyType: keyType
                     }
                 } as MRT_ColumnDef<any>,
-                ...(is.primitive(objectType) ? columns() : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
+                ...(is.primitive(objectType) ? resolveColumns(columns) : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
             ] as MRT_ColumnDef<any>[],
         [KeyControl, columns, keyType, objectType]
     );
@@ -92,7 +93,7 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
     append: UseFieldArrayReturn['append'];
     // index: number;
     // value: Record<string, any>;
-    columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<T>[];
+    columns: JITTColumns<T>;
     isOpen: boolean;
     handleClose: () => void;
     objectType: string;
@@ -125,7 +126,7 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
                 <Dialog open={isOpen} onClose={handleClose}>
                     <DialogTitle>Insert New List Item</DialogTitle>
                     <DialogContent>
-                        <EditControls columns={columns} />
+                        <EditControls columns={resolveColumns(columns)} />
                     </DialogContent>
                     <DialogActions>
                         <Button type='button' variant='contained' className='inline-flex' color='metal' onClick={handleClose}>

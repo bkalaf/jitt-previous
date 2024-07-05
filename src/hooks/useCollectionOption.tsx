@@ -1,5 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
 import { useCallback, useMemo } from 'react';
+import { deepEqual } from './deepEqual';
+import { $storage } from './storage';
 
 
 export function useCollectionOption<T extends MRT_RowData, TKey extends keyof JITTTableState<T>>(
@@ -14,10 +16,13 @@ export function useCollectionOption<T extends MRT_RowData, TKey extends keyof JI
             setState((old) => {
                 const thisValue = key in old ? old[key] : undefined;
                 const nextValue = (typeof updater === 'function' ? (updater as (old: JITTTableState<T>[TKey]) => JITTTableState<T>[TKey])(thisValue) : updater) ?? defaultValue;
-                if (nextValue === thisValue) {
+                if (deepEqual(nextValue, thisValue)) {
+                    console.log(`setState-equality`, nextValue, thisValue);
                     return old;
                 }
-                return { ...old, [key]: nextValue };
+                const newState = { ...old, [key]: nextValue };
+                // $storage.setItem(key, newState);
+                return newState;
             });
         },
         [defaultValue, key, setState]

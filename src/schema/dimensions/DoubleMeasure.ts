@@ -1,5 +1,4 @@
 import { truncateAuto } from '../../common/number/truncateAuto';
-import { IMeasure } from '../../types';
 import { EntityBase } from '../entity/EntityBase';
 
 export abstract class DoubleMeasure<TUnit extends string> extends EntityBase<IMeasure<TUnit>> implements IMeasure<TUnit> {

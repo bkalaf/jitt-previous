@@ -1,4 +1,3 @@
-import { IMeasure } from '../../types';
 import { EntityBase } from '../entity/EntityBase';
 
 

@@ -3,7 +3,6 @@ import { is } from '../../../common/is';
 import { surroundParensIgnore, surroundQuotesIgnore, surroundSquareBracesIgnore } from '../../../common/text/surround';
 import $me, { BarcodeTypes, CableTypes, HandOrientations, ProductColors } from '../../../schema/enums';
 import { Flags, allFlags } from '../../../schema/enums/flags';
-import { CaliperSizeUnitsOfMeasure, DistanceUnitsOfMeasure, IBarcode, IClothingCare, ICurrentSetting, IIncludedItem, IMadeOfSection, IMeasure, IMinMax, IPiece, IProduct, ISku, ITrack, LengthUnitsOfMeasure, MusicDurationUnitsOfMeasure, Opt, CapacityUnitsOfMeasure, AmperageUnitsOfMeasure, VoltageUnitsOfMeasure, WattageUnitsOfMeasure, PowerConsumptionUnitsOfMeasure, RateOfEnergyCapacityUnitsOfMeasure, DataTransferRateUnitsOfMeasure, MemorySpeedUnitsOfMeasure, RotationalSpeedUnitsOfMeasure, VideoRuntimeUnitsOfMeasure } from '../../../types';
 import { barcodeFormatter } from '../../../util/barcodeFormatter';
 import { truncateAuto } from '../../../common/number/truncateAuto';
 import { converted } from '../../../schema/defs/colDBList';
@@ -22,6 +21,7 @@ import { WattageMeasure } from '../../../schema/dimensions/WattageMeasure';
 import { AmperageMeasure } from '../../../schema/dimensions/AmperageMeasure';
 import { CapacityMeasure } from '../../../schema/dimensions/CapacityMeasure';
 import { WeightMeasure } from '../../../schema/dimensions/WeightMeasure';
+import { IProduct, IBarcode, IIncludedItem, ITrack, IPiece, ICurrentSetting, IClothingCare, IMinMax, IMadeOfSection, ISku } from '../../../types';
 
 export const char = {
     newLine: '\n',

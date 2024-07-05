@@ -1,6 +1,5 @@
 import { standardizeOptions } from '../schema/defs/standardizeOptions';
 import $me from '../schema/enums';
-import { Opt } from '../types';
 import { EnumKey } from './EnumKey';
 
 export function ofEnum<T extends string, TValue>(enumKey: EnumKey, propToRetrieve: 'text' | 'key' | 'selector' | T = 'text') {

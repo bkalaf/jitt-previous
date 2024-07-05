@@ -17,6 +17,9 @@ export function CollectionView<T extends MRT_RowData>() {
     const table = useData($data, columns);
     const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
     const maxHeight = `${mh.toFixed(0)}px`;
+    table.getState().hoveredColumn;
+    const hoveredRowIndex = table.getState().hoveredRow?.index;
+
     // useEffect(() => {
     //     if (route === 'sku') {
     //         ((data ?? []) as any as RealmObj<ISku>[]).map(item => {

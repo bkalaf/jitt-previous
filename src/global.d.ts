@@ -63,6 +63,7 @@ declare global {
             | 'rowSelection'
             | 'expanded'
             | 'grouping'
+            | 'isLoading'
             | 'sorting'
             | 'pagination'
             | 'showGlobalFilter'

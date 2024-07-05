@@ -1,6 +1,5 @@
 import { MRT_Column, MRT_RowData } from 'material-react-table';
 import { useFormContext } from 'react-hook-form-mui';
-import { useDirectColumns } from './useDirectColumns';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useEditColumnMeta';
 import { useGetLIComponent } from './useGetLIComponent';
@@ -8,6 +7,7 @@ import { useCallback } from 'react';
 import { StringControl } from '../components/table/controls/StringControl';
 import { SelectControl } from '../components/table/controls/SelectControl';
 import { useDependencies } from './useDependencies';
+import { useDirectStaticColumns } from './useDirectStaticColumns';
 
 export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>>(column: MRT_Column<T, TValue>, ...keys: TKeys[]) {
     const {
@@ -43,7 +43,7 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
     if (type != null) console.error(`${type}: ${helperText}}`);
     const value = formContext.watch(name) as DictionaryBack<TValue>;
     if (objectType == null) throw new Error('no objectType');
-    const cols = useDirectColumns<T>(objectType);
+    const cols = useDirectStaticColumns(objectType);
     const LiComponent = useGetLIComponent(objectType);
     console.info(`formContext`, formContext.getValues());
     const enumType =

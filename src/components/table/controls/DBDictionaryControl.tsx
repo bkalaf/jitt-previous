@@ -7,6 +7,7 @@ import { DBDictionaryEditSubComponent } from '../../controls/DBListEditSubCompon
 import { useToggler } from '../../../hooks/useToggler';
 import { DBDictionaryItemSubComponent } from '../../controls/DBListItemSubComponent';
 import { useFieldArrayControlForDictionary } from '../../../hooks/useFieldArrayControlForDictionary';
+import { resolveColumns } from '../../controls/resolveColumns';
 
 export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFunctionParams<T, DictionaryBack<TValue>>) {
     useWhyDidIUpdate('DBDictionaryControl', props);
@@ -22,7 +23,7 @@ export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFu
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    {open && <DBDictionaryEditSubComponent append={append} columns={cols} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} isOpen={open} objectType={objectType} />}
+                    {open && <DBDictionaryEditSubComponent append={append} columns={resolveColumns(cols)} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} isOpen={open} objectType={objectType} />}
                     <List>
                         {Object.entries(value ?? {}).map(([key, v]) => (
                             <DBDictionaryItemSubComponent key={key} index={key} value={v} remove={remove} objectType={objectType} LIComponent={LiComponent} />

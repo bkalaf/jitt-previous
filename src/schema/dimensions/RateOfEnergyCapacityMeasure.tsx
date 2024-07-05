@@ -1,6 +1,5 @@
 import { MRT_ColumnDef, createMRTColumnHelper } from 'material-react-table';
 import { $ } from '../$';
-import { IMeasure, RateOfEnergyCapacityUnitsOfMeasure } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { intMeasureColumns } from '../entity/details/measureColumns';
 import { IntMeasure } from './IntMeasure';

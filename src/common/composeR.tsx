@@ -1,7 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
 import { standardizeOptions } from '../schema/defs/standardizeOptions';
 import $me from '../schema/enums';
-import { surroundAposthopheIgnore, surroundAsteriskIgnore, surroundQuotesIgnore, surroundSquareBracesIgnore } from './text/surround';
+import { surroundAsteriskIgnore, surroundSquareBracesIgnore } from './text/surround';
 import { allFlags } from '../schema/enums/flags';
 import { ofList } from './ofList';
 import { pipeR } from './pipeR';
@@ -53,9 +53,6 @@ export const fromTitleSubtitle = (getterSubtitle: (sku: ISku) => string | undefi
 };
 
 export const squareBrackets = surroundSquareBracesIgnore;
-export const doubleQuote = surroundQuotesIgnore;
-export const singleQuote = surroundAposthopheIgnore;
-
 export const combine = function <T>(getter: SkuGetter<T>, func: (x?: T) => string | undefined) {
     return composeR(getter, func);
 };

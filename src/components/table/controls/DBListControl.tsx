@@ -7,6 +7,7 @@ import { DBListEditSubComponent } from '../../controls/DBListEditSubComponent';
 import { useToggler } from '../../../hooks/useToggler';
 import { DBListItemSubComponent } from '../../controls/DBListItemSubComponent';
 import { useFieldArrayControl } from '../../../hooks/useFieldArrayControl';
+import { resolveColumns } from '../../controls/resolveColumns';
 
 export function DBListControl<T extends MRT_RowData, TValue>(props: EditFunctionParams<T, ListBack<TValue>>) {
     useWhyDidIUpdate('DBListControl', props);
@@ -22,7 +23,7 @@ export function DBListControl<T extends MRT_RowData, TValue>(props: EditFunction
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    {isOpen && <DBListEditSubComponent append={append} columns={cols} handleClose={handleClose} isOpen={isOpen} objectType={objectType} />}
+                    {isOpen && <DBListEditSubComponent append={append} columns={resolveColumns(cols)} handleClose={handleClose} isOpen={isOpen} objectType={objectType} />}
                     <List>
                         {(value ?? []).map((item: TValue, index: number) => {
                             return <DBListItemSubComponent remove={remove} index={index} objectType={objectType} value={item} key={index} LIComponent={LiComponent} />;

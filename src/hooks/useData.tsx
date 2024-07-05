@@ -4,8 +4,9 @@ import { createRenderTopToolbarCustomActions } from '../components/Views/renderP
 import { useInitial } from './useInitial';
 import { createRenderEditRowDialogContent } from '../components/Views/renderProperties/createRenderEditRowDialogContent';
 import { ColumnResizeMode, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
+import { ColumnMeta } from '@tanstack/table-core';
 import { useEffectiveCollection } from './useEffectiveCollection';
-import { TableContainerProps, TableRowProps } from '@mui/material';
+import { TableCellProps, TableContainerProps, TableRowProps } from '@mui/material';
 import { createRenderRowActions, fromOID } from '../components/Views/renderProperties/createRenderRowActions';
 import { useGetTableCanExpand } from './useGetTableCanExpand';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -41,7 +42,6 @@ import { CreateRenderDetailPanel } from './createRenderDetailPanel';
 import { useCallback, useMemo } from 'react';
 import { usePersistCollectionOptions } from './usePersistCollectionOptions';
 import { resolveColumns } from '../components/controls/resolveColumns';
-import { OptionsParameters } from '../global';
 
 export function createIcon(icon: IconDefinition) {
     return function FAIcon(props: any) {
@@ -178,8 +178,25 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: JIT
         //         height: iconButtonDim
         //     }
         // },
-        muiTableBodyCellProps: {
-            className: 'whitespace-pre font-medium group-data-[row-depth="4"]:text-white group-data-[row-depth="5"]:text-white group-data-[row-depth="6"]:text-white aria-readonly:bg-black aria-readonly:text-white'
+        muiTableBodyCellProps: (props: Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyCellProps'], TableCellProps | undefined>>[0]) => {
+            const selector = `tr[data-index="${props.row.index}"] > td[data-column-name="${(props.column.columnDef?.meta as ColumnMeta<any, any>)?.columnName}"]`;
+            console.log(`tableBodyCellSelector`, selector);
+            const func = () => {
+                const el = document.querySelector(selector);
+                console.log(`el`, el);
+                const clientWidth = el?.clientWidth ?? 0;
+                const scrollWidth = el?.scrollWidth ?? 0;
+                const isOverflowing = clientWidth < scrollWidth;
+                console.log(`el-widths`, clientWidth, scrollWidth, isOverflowing);
+                if (el != null && (el as HTMLElement).dataset != null) {
+                    (el as HTMLElement).dataset.isOverflowing = isOverflowing.toString();
+                }
+            };
+            setTimeout(func, 2000);
+            return {
+                'data-column-name': (props.column.columnDef?.meta as ColumnMeta<any, any>)?.columnName,
+                className: 'whitespace-pre font-medium group-data-[row-depth="4"]:text-white group-data-[row-depth="5"]:text-white group-data-[row-depth="6"]:text-white aria-readonly:bg-black aria-readonly:text-white group'
+            };
         },
 
         //  (props) => ({
@@ -200,13 +217,14 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: JIT
                 }) as TableRowProps,
             []
         ),
-        muiTableHeadCellProps: {
+        muiTableHeadCellProps: (props: Parameters<Exclude<MRT_TableOptions<T>['muiTableHeadCellProps'], TableCellProps | undefined>>[0]) => ({
             // classes: {
             //     head: 'relative'
             //     // head: 'flex justify-center'
             // },
+            'data-column-name': (props.column.columnDef?.meta as ColumnMeta<any, any>)?.columnName,
             className: 'grouped-header:bg-blue-700 grouped-header:text-white single-header:bg-transparent single-header:text-black grouped-header:shadow-inner grouped-header:shadow-black'
-        },         
+        }),
         muiTableContainerProps: useMemo(() => {
             const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
             const maxHeight = `${mh.toFixed(0)}px`;
@@ -227,12 +245,20 @@ export function useData<T extends MRT_RowData>(data: RealmObj<T>[], columns: JIT
         renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetAllOptions),
         renderDetailPanel: route === 'sku' || route === 'product' ? CreateRenderDetailPanel : undefined,
         state,
+        initialState: options.initialState,
+        onColumnFiltersChange: options.onColumnFiltersChange,
         onColumnOrderChange: options.onColumnOrderChange,
         onColumnSizingChange: options.onColumnSizingChange,
-        onSortingChange: options.onSortingChange,
-        onGroupingChange: options.onGroupingChange,
+        onColumnPinningChange: options.onColumnPinningChange,
+        onColumnVisibilityChange: options.onColumnVisibilityChange,
+        onDensityChange: options.onDensityChange,
         onExpandedChange: options.onExpandedChange,
-        onColumnFiltersChange: options.onColumnFiltersChange,
-        onGlobalFilterChange: options.onGlobalFilterChange
+        onGlobalFilterChange: options.onGlobalFilterChange,
+        onGroupingChange: options.onGroupingChange,
+        onPaginationChange: options.onPaginationChange,
+        onShowColumnFiltersChange: options.onShowColumnFiltersChange,
+        onShowGlobalFilterChange: options.onShowGlobalFilterChange,
+        onSortingChange: options.onSortingChange,
+        onRowSelectionChange: options.onRowSelectionChange
     });
 }

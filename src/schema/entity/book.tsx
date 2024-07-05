@@ -1,6 +1,6 @@
 import Realm, { BSON } from 'realm';
 import { EntityBase } from './EntityBase';
-import { IAward, IBook, IContributor, Opt } from '../../types';
+import { IAward, IBook, IContributor } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import { BookGenres } from '../enums';
