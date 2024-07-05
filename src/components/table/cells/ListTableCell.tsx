@@ -21,7 +21,7 @@ export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunction
                     <>
                         <div className='flex flex-col w-full h-full text-white list-disc list-inside bg-slate-500'>
                             {value.map((el, ix) => {
-                                const Row = RowCell(el);
+                                const Row = () => RowCell(el);
                                 return (
                                     <div key={ix} className='flex w-full justify-start whitespace-pre text-base before:content-["◘_"]'>
                                         <div className='flex w-full text-left indent-1'>

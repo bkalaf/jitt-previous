@@ -7,5 +7,5 @@ import { useMemo } from 'react';
 export function FloatingPointTableCell<T extends MRT_RowData>(props: EditFunctionParams<T, number | undefined>) {
     useWhyDidIUpdate('FloatingPointTableCell', props);
     const { formatter } = useEditColumnMeta(props, 'formatter');
-    return useMemo(() => formatter ?? ((v?: number) => truncateAuto(v))(props.cell.getValue()), [formatter, props.cell]);
+    return useMemo(() => (formatter ?? ((v?: number) => truncateAuto(v)))(props.cell.getValue()), [formatter, props.cell]);
 }

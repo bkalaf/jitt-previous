@@ -25,7 +25,7 @@ export function DBDictionaryItemSubComponent<TValue>(props: { remove: (key: stri
         </ListItem>
     );
 }
-export function DBListItemSubComponent<TValue>(props: { remove: UseFieldArrayReturn['remove']; index: number; value: TValue; objectType: string; LIComponent: ListItemCellComponent<TValue> }) {
+export function DBListItemSubComponent<TValue>(props: { remove: UseFieldArrayReturn['remove']; index: number; value: TValue; objectType: string; LIComponent: (value: TValue) => React.ReactNode }) {
     const { index, value, remove, LIComponent } = props;
     const onDelete = useCallback(
         (ev: React.MouseEvent) => {
@@ -35,7 +35,7 @@ export function DBListItemSubComponent<TValue>(props: { remove: UseFieldArrayRet
         },
         [index, remove]
     );
-    const Primary = LIComponent(value);
+    const Primary = () => LIComponent(value);
     return (
         <ListItem key={index} secondaryAction={<IconBtn icon={faTrashCan} color='success' tooltip='Delete item' onClick={onDelete} />}>
             <ListItemIcon>

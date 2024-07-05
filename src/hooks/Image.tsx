@@ -7,7 +7,6 @@ import * as fs from 'graceful-fs';
 export function Image(props: { width: number; filepath: string; caption?: string; selected?: boolean }) {
     useWhyDidIUpdate('Image', props);
     const { filepath, caption, selected, width } = props;
-    const suffix = `?w=${width}&h=${width}&fit=crop&auto=format`;
     const [src, setSrc] = useState<string | undefined>(undefined);
     const blob = useMemo(() => (fs.existsSync(filepath) ? new Blob([new Uint8Array(fs.readFileSync(filepath).buffer)]) : undefined), [filepath]);
     useEffect(() => {

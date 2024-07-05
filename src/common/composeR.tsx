@@ -225,7 +225,6 @@ export const $from: any = {
     by: by,
     for: toHeaderParams($for),
     date: toHeaderParams(konst(fromDate)),
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     dimension: fromDimension,
     dollar: toHeaderParams(konst(fromDollar)),
     edition: {

@@ -2,7 +2,7 @@ import { createMRTColumnHelper, MRT_ColumnDef, MRT_RowData } from 'material-reac
 import { IConnector } from '../../types';
 import { col } from '../defs/col';
 import { DataConnectorTypes, PowerConnectorTypes, VideoConnectorTypes } from '../enums';
-import { $depend, $productInfo } from './$depend';
+import { $productInfo } from './$depend';
 import { groupCol } from '../defs/groupCol';
 import { doubleMeasureColumns } from '../entity/details/measureColumns';
 
