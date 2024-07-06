@@ -1160,6 +1160,10 @@ export default {
             addVariant('max-depth', '&[data-depth="1"]');
             addVariant('single-header', '&[colspan="1"]');
             addVariant('grouped-header', '&[colspan]:not([colspan="1"])');
+            addVariant('overflow', '&[data-is-overflowing="true"]');
+            addVariant('group-overflow', ':merge(.group) &[data-is-overflowing="true"]');
+            addVariant('pinned', '&[data-pinned="true"]');
+            addVariant('not-pinned', '&:not([data-pinned="true"])');
         })
     ]
 };

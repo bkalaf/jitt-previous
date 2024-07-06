@@ -241,11 +241,8 @@ export const $ = {
 // );
 console.log(
     Object.entries(details)
-        .map(([k, v]) => {
-            const $interfaceName = `I${capitalize(v)}`;
+        .map(([, v]) => {
             const $className = capitalize(v);
-            const $columnsName = k;
-            const $nameProperty = k;
             return `${v}: ${$className},`;
         })
         .join('\n')

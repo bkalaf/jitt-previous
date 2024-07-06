@@ -67,8 +67,7 @@ type HashTagImport = {
 const barcodePrintFile = process.env.BARCODE_PRINT_FILE ?? '';
 const downloads = process.env.DOWNLOADS_FOLDER ?? '';
 
-export function Actions(props: { toggleProgress: () => void; setProgressValue: React.Dispatch<React.SetStateAction<number>> }) {
-    console.log(props);
+export function Actions() {
     const [progressValue] = useState<number | undefined>(undefined);
     const hashtags = getAppConfigPathed('hashTags.json');
     const brands = getAppConfigPathed('brands.json');
@@ -279,7 +278,7 @@ export function Actions(props: { toggleProgress: () => void; setProgressValue: R
         </RootCategoryMenuItem>
     );
 }
-export function MainMenu(props: { toggleProgress: () => void; setProgressValue: React.Dispatch<React.SetStateAction<number>> }) {
+export function MainMenu() {
     return (
         <List component='nav' className='grid grid-cols-4'>
             <RootCategoryMenuItem header='Data' direction='down'>
@@ -321,7 +320,7 @@ export function MainMenu(props: { toggleProgress: () => void; setProgressValue: 
                 </MenuList>
             </RootCategoryMenuItem>
             <MainMenu2 />
-            <Actions {...props} />
+            <Actions />
         </List>
     );
 }

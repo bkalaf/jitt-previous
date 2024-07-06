@@ -74,8 +74,7 @@ declare global {
             | 'columnFilters'
         >
     >;
-    export type OptionsParameters<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>, TExclude extends MRT_TableOptions<T>[TKey]> = 
-        Parameters<Exclude<MRT_TableOptions<T>[TKey], TExclude | undefined>>[0];
+    export type OptionsParameters<T extends MRT_RowData, TKey extends keyof MRT_TableOptions<T>, TExclude extends MRT_TableOptions<T>[TKey]> = Parameters<Exclude<MRT_TableOptions<T>[TKey], TExclude | undefined>>[0];
     // Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyRowProps'], TableRowProps | undefined>>[0];
     export type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
     export type OnCollectionSettingChange<T extends MRT_RowData, TKey extends keyof MRT_TableState<T>> = StateSetter<MRT_TableState<T>[TKey]>;
@@ -312,6 +311,26 @@ declare global {
     export type FolderCreated = {
         type: 'create';
         origin: string;
+    };
+    export type UseViewSettingsReturn<T extends MRT_RowData> = {
+        state: JITTTableState<T>;
+        initialState: JITTTableState<T>;
+        resetCollectionState: ({ collection }: { collection: keyof CollectionOptionsConfig<T> }) => () => void;
+        setCollectionOption: <TKey extends keyof JITTTableState<T>>(params: { collection: keyof CollectionOptionsConfig<T>; option: TKey; value?: JITTTableState<T>[TKey] }) => void;
+        onColumnFiltersChange: StateSetter<Exclude<JITTTableState<T>['columnFilters'], undefined>>;
+        onColumnOrderChange: StateSetter<Exclude<JITTTableState<T>['columnOrder']>>;
+        onColumnPinningChange: StateSetter<Exclude<JITTTableState<T>['columnPinning']>>;
+        onColumnSizingChange: StateSetter<Exclude<JITTTableState<T>['columnSizing']>>;
+        onColumnVisibilityChange: StateSetter<Exclude<JITTTableState<T>['columnVisibility']>>;
+        onDensityChange: StateSetter<Exclude<JITTTableState<T>['density']>>;
+        onExpandedChange: StateSetter<Exclude<JITTTableState<T>['expanded']>>;
+        onGlobalFilterChange: StateSetter<Exclude<JITTTableState<T>['globalFilter']>>;
+        onGroupingChange: StateSetter<Exclude<JITTTableState<T>['grouping']>>;
+        onPaginationChange: StateSetter<Exclude<JITTTableState<T>['pagination']>>;
+        onRowSelectionChange: StateSetter<Exclude<JITTTableState<T>['rowSelection']>>;
+        onShowColumnFiltersChange: StateSetter<Exclude<JITTTableState<T>['showColumnFilters']>>;
+        onShowGlobalFilterChange: StateSetter<Exclude<JITTTableState<T>['showGlobalFilter']>>;
+        onSortingChange: StateSetter<Exclude<JITTTableState<T>['sorting']>>;
     };
 }
 

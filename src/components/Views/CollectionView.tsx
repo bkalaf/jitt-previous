@@ -1,25 +1,32 @@
 import { MaterialReactTable, MRT_RowData } from 'material-react-table';
 import { Box } from '@mui/material';
-import { useCollectionQuery } from '../../hooks/useCollectionQuery';
 import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { useEffectiveCollection } from '../../hooks/useEffectiveCollection';
 import { useData } from '../../hooks/useData';
-import { useStaticColumns } from '../../hooks/useStaticColumns';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
+import { $storage } from '../../hooks/storage';
+import * as fs from 'graceful-fs';
 
 // const c: MRT_TableOptions<any>['getRowCanExpand'];
 export function CollectionView<T extends MRT_RowData>() {
     useWhyDidIUpdate('CollectionView', {});
-    const columns = useStaticColumns<T>();
     const route = useEffectiveCollection();
-    const data = useCollectionQuery<T>(route);
-    const $data = useMemo(() => [...data ?? []], [data]);
-    const table = useData($data, columns);
+    // const [isLoading, isFetching, data] = useCollectionQuery<T>(route);
+    // const $data = useMemo(() => [...data ?? []], [data]);
+    const table = useData<T>();
     const mh = (window.visualViewport?.height ?? 0) - 66.95 - 35.99 - 35.99;
     const maxHeight = `${mh.toFixed(0)}px`;
-    table.getState().hoveredColumn;
-    const hoveredRowIndex = table.getState().hoveredRow?.index;
 
+    useEffect(() => {
+        return () => {
+            console.log('COLLECTIONVIEW dispose', route);
+            $storage.getItem(route).then(data => {
+                const current = JSON.parse(fs.readFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json').toString());
+                fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json', JSON.stringify({ ...current, [route]: data }, null, '\t'));
+            });
+            alert('written settings file');
+        }
+    }, [route])
     // useEffect(() => {
     //     if (route === 'sku') {
     //         ((data ?? []) as any as RealmObj<ISku>[]).map(item => {

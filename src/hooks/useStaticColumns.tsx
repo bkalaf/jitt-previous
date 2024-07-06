@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
-import { MRT_ColumnDef, MRT_RowData } from 'material-react-table';
+import { MRT_RowData } from 'material-react-table';
 import { useEffectiveCollection } from './useEffectiveCollection';
 import { useCollectionSchema } from './useCollectionSchema';
-
-
+import { resolveColumns } from '../components/controls/resolveColumns';
 
 export function useStaticColumns<T extends MRT_RowData>(objectType?: string) {
     const effective = useEffectiveCollection(objectType);
     const schema = useCollectionSchema(effective);
-    return useMemo(() => schema.ctor.columns as MRT_ColumnDef<T>[], [schema.ctor.columns]);
+    return useMemo(() => resolveColumns<T>(schema.ctor.columns as JITTColumns<T>), [schema.ctor.columns]);
 }

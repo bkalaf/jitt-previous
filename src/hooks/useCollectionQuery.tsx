@@ -16,14 +16,14 @@ function handleFilter<T extends MRT_RowData>(collection: string, db?: Realm, fil
     console.info(`result`, result);
     return Promise.resolve(result);
 }
-export function useCollectionQuery<T extends MRT_RowData>(collection: string) {
+export function useCollectionQuery<T extends MRT_RowData>(collection: string): [boolean, boolean, (Realm.Object<T> & T)[]] {
     const db = useLocalRealm();
     const [filterString, filterArgs] = useMemo(() => (collection === 'classifier' ? ['parent == $0', [null] as any[]] : []), [collection]);
-    const { data } = useQuery({
+    const { data, isLoading, isFetching } = useQuery({
         queryKey: [collection],
         queryFn: () => {
             return handleFilter<T>(collection, db, filterString, filterArgs);
         }
     });
-    return data;
+    return [isLoading, isFetching, data ?? []];
 }

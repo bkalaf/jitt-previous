@@ -21,6 +21,7 @@ const REALM_USER = process.env.REALM_USER ?? '';
 const REMOVE_BG_EXT = process.env.REMOVE_BG_EXT ?? '';
 const REMOVE_BG_SUFFIX = process.env.REMOVE_BG_SUFFIX ?? '';
 const VIDEOS_FOLDER = process.env.VIDEOS_FOLDER ?? '';
+const COLLECTION_OPTIONS_CONFIG_FILE = process.env.COLLECTION_OPTIONS_CONFIG_FILE ?? '';
 
 export function useProvideEnvContext(): IEnvContext {
     return useMemo(
@@ -44,7 +45,8 @@ export function useProvideEnvContext(): IEnvContext {
             REALM_USER,
             REMOVE_BG_EXT,
             REMOVE_BG_SUFFIX,
-            VIDEOS_FOLDER
+            VIDEOS_FOLDER,
+            COLLECTION_OPTIONS_CONFIG_FILE
         }),
         []
     );

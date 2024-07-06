@@ -1,8 +1,6 @@
 import { MRT_RowData } from 'material-react-table';
 import { useCallback, useMemo } from 'react';
 import { deepEqual } from './deepEqual';
-import { $storage } from './storage';
-
 
 export function useCollectionOption<T extends MRT_RowData, TKey extends keyof JITTTableState<T>>(
     state: JITTTableState<T>,

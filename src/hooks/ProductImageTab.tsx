@@ -24,7 +24,7 @@ import { getBaseName } from './getBaseName';
 import { ProductImageDisposition } from '../schema/entity/ProductImageDisposition';
 import { checkPath } from '../contexts/checkFolder';
 import { Grid, Item } from './Grid';
-import { useEventListener } from '../components/App';
+import { useEventListener } from '../components/useEventListener';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {
     useWhyDidIUpdate('ProductImageTab', props);
@@ -81,18 +81,6 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             y: 'none',
             z: 'none',
             pov: [] as string[]
-            // isUpper: false,
-            // isLower: false,
-            // isRight: false,
-            // isLeft: false,
-            // isFront: false,
-            // isBack: false,
-            // isLogo: false,
-            // isTag: false,
-            // isDefect: false,
-            // isInner: false,
-            // isInfo: false,
-            // isBarcode: false
         }
     });
     const onSubmit = formContext.handleSubmit((data) => {

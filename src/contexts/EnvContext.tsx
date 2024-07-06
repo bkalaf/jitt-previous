@@ -21,6 +21,7 @@ export type IEnvContext = {
     REMOVE_BG_EXT: string;
     REMOVE_BG_SUFFIX: string;
     VIDEOS_FOLDER: string;
+    COLLECTION_OPTIONS_CONFIG_FILE: string;
 };
 
 export const EnvContext = createContext<undefined | IEnvContext>(undefined);

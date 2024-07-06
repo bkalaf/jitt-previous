@@ -12,6 +12,7 @@ import { ConfigurationProvider } from '../contexts/ConfigurationProvider';
 import { FileSystemContextProvider } from './../contexts/FileSystemContextProvider';
 import { EnvProvider } from './../contexts/EnvProvider';
 import { BarcodeGeneratorProvider } from '../contexts/BarcodeGeneratorProvider';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export function AppProviders({ children }: { children: Children }) {
     return (
@@ -28,6 +29,7 @@ export function AppProviders({ children }: { children: Children }) {
                                                 <BarcodeGeneratorProvider>{children}</BarcodeGeneratorProvider>
                                             </ConfigurationProvider>
                                         </ForagerProvider>
+                                        <ReactQueryDevtools initialIsOpen />
                                     </QueryClientProvider>
                                 </RealmProvider>
                             </FileSystemContextProvider>
