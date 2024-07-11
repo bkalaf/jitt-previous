@@ -7,8 +7,8 @@ export function useGetLabelProperty(objectType: string) {
         return undefined;
     }
     if (thisSchema == null) throw new Error(`no schema for ${objectType}`);
-    if (thisSchema.ctor != null && 'labelProperty' in thisSchema.ctor) {
-        return thisSchema.ctor.labelProperty as string;
+    if (thisSchema != null && 'labelProperty' in thisSchema) {
+        return thisSchema.labelProperty as string;
     }
     throw new Error(`no labelProperty for : ${objectType}`);
 }

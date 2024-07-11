@@ -3,10 +3,10 @@ import './../schema';
 import logo from './../assets/logos/resized-logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleLeft, faHome, faTable } from '@fortawesome/pro-solid-svg-icons';
-import { Outlet } from 'react-router';
+import { Outlet, matchPath, useNavigate } from 'react-router';
 import { MainMenu } from './MainMenu';
 import { IconBtn } from './IconBtn';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCurrentWebContents } from '@electron/remote';
 import { useConfiguration } from '../hooks/useConfiguration';
 import { useEventListener } from './useEventListener';
@@ -57,17 +57,34 @@ export function App() {
         },
         [decrementZoom, incrementZoom]
     );
+    const [currentURL, setCurrentURL] = useState<string>('');
+    const onNavigate = useCallback((ev: any) => {
+        const e = ev as { destination: { url: string } };
+        console.info('navigate.url', e.destination.url);
+        const url = new URL(e.destination.url);
+        console.info('url', url);
+        const matcher = matchPath('/data/v1/:collection', url.hash.slice(1));
+        console.info('matcher', matcher);
+        if (matcher == null) {
+            return setCurrentURL(url.hash);
+        }
+        setCurrentURL(url.hash.slice(1));
+    }, [])
+    const navigate = useNavigate();
+    const goHome = useCallback(() => navigate('/'), [navigate]);
+    const goPrevious = useCallback(() => navigate(-1), [navigate])
     useEventListener<DocumentEventMap, 'wheel', WheelEvent>(document, 'wheel', onWheel);
+    useEventListener<any, 'navigate', Event>((window as any).navigation, 'navigate' as any, onNavigate);
     return (
         <>
             <CssBaseline />
-            <Box component='section' className='flex flex-col justify-around flex-grow w-screen h-screen max-h-screen max-w-screen'>
+            <Box component='section' className='max-w-screen flex h-screen max-h-screen w-screen flex-grow flex-col justify-around'>
                 <AppBar color='primary' position='static'>
                     <Toolbar variant='dense' className='flex items-center justify-start gap-x-2' disableGutters>
                         <img src={logo} alt='logo' className='flex h-14' />
-                        <IconBtn icon={faHome} iconSize='sm' tooltip='Go to the home page.' />
-                        <IconBtn icon={faCircleLeft} iconSize='sm' tooltip='Go to the previous page.' />
-                        <span className='flex justify-start w-full'>
+                        <IconBtn onClick={goHome} icon={faHome} iconSize='sm' tooltip='Go to the home page.' />
+                        <IconBtn onClick={goPrevious} icon={faCircleLeft} iconSize='sm' tooltip='Go to the previous page.' />
+                        <span className='flex w-full justify-start'>
                             <MainMenu />
                         </span>
                     </Toolbar>
@@ -86,8 +103,8 @@ export function App() {
                         <Outlet />
                     </Box>
                 </React.Suspense>
-                <AppBar component='footer' position='static' className='flex w-full p-1 bg-black' sx={{ top: 'auto', bottom: 0 }}>
-                    {/* <span className='flex p-0.5 px-1 rounded-lg text-sm bg-blue-500 max-w-fit'>Bottom Bar</span> */}
+                <AppBar component='footer' position='static' className='flex w-full bg-black p-1' sx={{ top: 'auto', bottom: 0 }}>
+                    <span className='flex max-w-fit rounded-lg bg-blue-500 p-0.5 px-1 text-sm'>{currentURL}</span>
                 </AppBar>
             </Box>
         </>

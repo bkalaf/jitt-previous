@@ -1,6 +1,4 @@
-import { ProductImageTab } from './ProductImageTab';
-import { ProductDetailsTab } from './ProductDetailsTab';
-import { detailsTypes } from '../schema/enums/detailsTypes';
+import { renderProductImagePanel } from './ProductImageTab';
 import { ApparelBottomsDetails } from '../schema/entity/detailEntity/ApparelBottomsDetails';
 import { ApparelBottomsLeggedDetails } from '../schema/entity/detailEntity/ApparelBottomsLeggedDetails';
 import { ApparelBrasDetails } from '../schema/entity/detailEntity/ApparelBrasDetails';
@@ -45,6 +43,9 @@ import { SportingGoodsTennisRacketsDetails } from '../schema/entity/detailEntity
 import { ToysBoardGamesDetails } from '../schema/entity/detailEntity/ToysBoardGamesDetails';
 import { ToysDetails } from '../schema/entity/detailEntity/ToysDetails';
 import { ToysStuffedAnimalsDetails } from '../schema/entity/detailEntity/ToysStuffedAnimalsDetails';
+import { IProductImage, ISku } from '../types';
+import { createUpdateTabPanel } from './createUpdateTabPanel';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export const detailsTabList: Record<string, DetailsClass> = {
     apparelDetails: ApparelDetails,
@@ -65,7 +66,6 @@ export const detailsTabList: Record<string, DetailsClass> = {
     electronicsComputerComponentsRamDetails: ElectronicsComputerComponentsRamDetails,
     electronicsComputerComponentsBatteryDetails: ElectronicsComputerComponentsBatteryDetails,
     electronicsComputerComponentsDrivesDetails: ElectronicsComputerComponentsDrivesDetails,
-    electronicsComputerComponentsNetworkingDetails: ElectronicsComputerComponentsNetworkingDetails,
     electronicsKitchenAppliancesDetails: ElectronicsKitchenAppliancesDetails,
     generalDetails: GeneralDetails,
     homeGoodsDetails: HomeGoodsDetails,
@@ -92,41 +92,103 @@ export const detailsTabList: Record<string, DetailsClass> = {
     toysBoardGamesDetails: ToysBoardGamesDetails,
     toysStuffedAnimalsDetails: ToysStuffedAnimalsDetails
 };
-export const tabList: Record<
-    string, Record<string, { value: string; key: string; label: string; detailType: keyof typeof detailsTypes; Component: any; objectType: string; } | { value: string; key: string; label: string; Component: any; property?: string; }>
-> = {
-    sku: {
-        getProductImages: {
-            value: 'getProductImages',
-            key: 'getProductImages',
-            label: 'Images',
-            property: 'getProductImages',
-            Component: ProductImageTab
-        },
-        getAttachments: {
-            value: 'getAttachments',
-            key: 'getAttachments',
-            property: 'getAttachments',
-            label: 'Attachments',
-            Component: ProductImageTab
-        }
-    },
-    product: Object.fromEntries(
-        Object.entries(detailsTabList).map(
-            ([key, detailsClass]: [string, DetailsClass]) => [
-                key,
-                {
-                    value: detailsClass.objectType,
-                    objectType: detailsClass.objectType,
-                    key: key,
-                    label: detailsClass.label,
-                    property: detailsClass.type,
-                    detailType: detailsClass.type,
-                    Component: ProductDetailsTab
-                } as TabPanelProps
-            ] as [string, TabPanelProps]
-        )
-    )
+
+// const zinc = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-zinc-500', text: 'text-white', children: children.length > 1 ? children : undefined });
+// const pink = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-pink-500', text: 'text-white', children: children.length > 1 ? children : undefined });
+// const sky = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-sky-500', text: 'text-white', children: children.length > 1 ? children : undefined });
+// const amber = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-amber-500', text: 'text-black', children: children.length > 1 ? children : undefined });
+// const indigo = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-indigo-500', text: 'text-white', children: children.length > 1 ? children : undefined });
+// const red = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-red-500', text: 'text-white', children: children.length > 1 ? children : undefined });
+
+// const toNode =
+//     (func: (Ctor: DetailsClass, ...children: Node[]) => Node) =>
+//     (Ctor: DetailsClass) =>
+//     (...children: Node[]) =>
+//         func(Ctor, ...children);
+
+// const TopLevel = [
+//     toNode(zinc)(GeneralDetails)(),
+//     toNode(pink)(ApparelDetails)(toNode(pink)(ApparelTopsDetails)(), toNode(pink)(ApparelBottomsDetails)(toNode(pink)(ApparelBottomsLeggedDetails)()), toNode(pink)(ApparelFootwearDetails)(), toNode(pink)(ApparelBrasDetails)()),
+
+//     toNode(sky)(MediaDetails)(
+//         toNode(sky)(MediaBooksDetails)(),
+//         toNode(sky)(MediaMusicDetails)(),
+//         toNode(sky)(MediaVideoGamesDetails)(),
+//         toNode(sky)(MediaVideosDetails)(toNode(sky)(MediaVideosFilmDetails)(), toNode(sky)(MediaVideosTvSeriesDetails)())
+//     ),
+
+//     toNode(amber)(ElectronicsDetails)(
+//         toNode(amber)(ElectronicsComputerComponentsDetails)(toNode(amber)(ElectronicsComputerComponentsDrivesDetails)(), toNode(amber)(ElectronicsComputerComponentsBatteryDetails)(), toNode(amber)(ElectronicsComputerComponentsRamDetails)()),
+//         toNode(amber)(ElectronicsVisualDetails)(toNode(amber)(ElectronicsVisualCellPhonesDetails)()),
+//         toNode(amber)(ElectronicsKitchenAppliancesDetails)()
+//     ),
+
+//     toNode(indigo)(HomeGoodsDetails)(toNode(indigo)(HomeGoodsDinnerwareDetails)(), toNode(indigo)(HomeGoodsFlatwareDetails)(), toNode(indigo)(HomeGoodsDecorDetails)()),
+
+//     toNode(red)(SportingGoodsDetails)(
+//         toNode(red)(SportingGoodsGolfDetails)(toNode(red)(SportingGoodsGolfClubsDetails)()),
+//         toNode(red)(SportingGoodsTennisDetails)(toNode(red)(SportingGoodsTennisRacketsDetails)()),
+//         toNode(red)(SportingGoodsBowlingDetails)(toNode(red)(SportingGoodsBowlingBallsDetails)())
+//     )
+// ];
+
+type DetailsTabs = {
+    label: string;
+    type: string;
+    Component: React.FunctionComponent<RenderDetailTabPanelProps>;
 };
 
-console.log(JSON.stringify(tabList['product'], null, '\t'));
+function fromDetailsClass(Ctor: DetailsClass) {
+    const { columns, label, type } = Ctor;
+    return { label, type, Component: createUpdateTabPanel(columns as MRT_ColumnDef<any>[]) } as DetailsTabs;
+}
+export const tabList: Record<string, DetailsTabs[]> = {
+    sku: [{ label: 'Images', type: 'images', Component: renderProductImagePanel<any>((sku?: ISku) => Array.from(sku?.getProductImages ?? []) as IProductImage[]) }],
+    product: [
+        fromDetailsClass(ApparelDetails),
+        fromDetailsClass(ApparelFootwearDetails),
+        fromDetailsClass(ApparelBrasDetails),
+        fromDetailsClass(ApparelTopsDetails),
+        fromDetailsClass(ApparelBottomsDetails),
+        fromDetailsClass(ApparelBottomsLeggedDetails),
+        fromDetailsClass(CablesDetails),
+        fromDetailsClass(CablesDataDetails),
+        fromDetailsClass(CablesPowerDetails),
+        fromDetailsClass(CablesVideoDetails),
+        fromDetailsClass(ElectronicsDetails),
+        fromDetailsClass(ElectronicsVisualDetails),
+        fromDetailsClass(ElectronicsVisualCellPhonesDetails),
+        fromDetailsClass(ElectronicsKitchenAppliancesDetails),
+        fromDetailsClass(ElectronicsComputerComponentsDetails),
+        fromDetailsClass(ElectronicsComputerComponentsDrivesDetails),
+        fromDetailsClass(ElectronicsComputerComponentsBatteryDetails),
+        fromDetailsClass(ElectronicsComputerComponentsRamDetails),
+        fromDetailsClass(ElectronicsComputerComponentsNetworkingDetails),
+        fromDetailsClass(GeneralDetails),
+        fromDetailsClass(HomeGoodsDetails),
+        fromDetailsClass(HomeGoodsDecorDetails),
+        fromDetailsClass(HomeGoodsFlatwareDetails),
+        fromDetailsClass(HomeGoodsDinnerwareDetails),
+        fromDetailsClass(HomeGoodsGlasswareDetails),
+        fromDetailsClass(JewelryDetails),
+        fromDetailsClass(MediaDetails),
+        fromDetailsClass(MediaBooksDetails),
+        fromDetailsClass(MediaMusicDetails),
+        fromDetailsClass(MediaVideoGamesDetails),
+        fromDetailsClass(MediaVideosDetails),
+        fromDetailsClass(MediaVideosFilmDetails),
+        fromDetailsClass(MediaVideosTvSeriesDetails),
+        fromDetailsClass(SportingGoodsDetails),
+        fromDetailsClass(SportingGoodsGolfDetails),
+        fromDetailsClass(SportingGoodsGolfClubsDetails),
+        fromDetailsClass(SportingGoodsTennisDetails),
+        fromDetailsClass(SportingGoodsTennisRacketsDetails),
+        fromDetailsClass(SportingGoodsBowlingDetails),
+        fromDetailsClass(SportingGoodsBowlingBallsDetails),
+        fromDetailsClass(ToysDetails),
+        fromDetailsClass(ToysBoardGamesDetails),
+        fromDetailsClass(ToysStuffedAnimalsDetails)
+    ]
+};
+
+console.log(`detailsTabList`, JSON.stringify(tabList['product'], null, '\t'));

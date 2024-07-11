@@ -19,5 +19,8 @@ export const draftColumns: <T extends MRT_RowData>(...dependencies: IDependency<
         helper.bool(...dependencies)('isLocalDelivery', 'Local Delivery'),
         helper.enum(...dependencies)('payor', 'Payor', { enumKey: 'payorTypes', required: true }),
         helper.bool(...dependencies)('smartPricing', 'Smart Price On/Off'),
-        helper.dollar($depend.isTrue('smartPricing'), ...dependencies as IDependency<any, any>[])('smartPrice', 'Smart Price', { min: 0 })
+        helper.dollar($depend.isTrue('smartPricing'), ...dependencies as IDependency<any, any>[])('smartPrice', 'Smart Price', { min: 0 }),
+        helper.listOfEmbed(...dependencies)('scrapes', 'Scrapes', 'scrape'),
+        helper.string(...dependencies)('listingID', 'Listing ID', undefined, {}),
+        helper.bool(...dependencies)('isListed', 'Is Listed')
     ] as MRT_ColumnDef<T>[];

@@ -5,6 +5,8 @@ import { IRealmContext } from '../contexts/RealmContext';
 import Realm from 'realm';
 import { useAsyncResource } from 'use-async-resource';
 import { EntityBase } from '../schema/entity/EntityBase';
+import { primitives } from './primtivies';
+import { MRT_ColumnDef } from 'material-react-table';
 
 export function useProvideRealmPromiseContext(): IRealmContext {
     const { REALM_APP_ID, REALM_PASSWORD, REALM_USER } = useEnv();
@@ -29,6 +31,19 @@ export function useProvideRealmPromiseContext(): IRealmContext {
                     isInit.current = true;
                 }
             }
+            if (window.schema == null) {
+                window.schema = {}; 
+                window.schema.string = { name: 'string', columns: primitives.string as MRT_ColumnDef<any>[] } as any;
+                window.schema.int = { name: 'int', columns: primitives.int as MRT_ColumnDef<any>[] } as any;
+                window.schema.double = { name: 'double', columns: primitives.double as MRT_ColumnDef<any>[] } as any;
+                window.schema.bool = { name: 'bool', columns: primitives.string as MRT_ColumnDef<any>[] } as any;
+                window.schema.date = { name: 'date', columns: primitives.date as MRT_ColumnDef<any>[] } as any;
+            }
+            result?.schema.forEach(item => {
+                if (item.ctor) {
+                    window.schema[item.name] = item.ctor as any;
+                }
+            });
             return result;
         } catch (error) {
             // enqueueSnackbar({ preventDuplicate: true, autoHideDuration: 6000, message: error.message, variant: 'error' });

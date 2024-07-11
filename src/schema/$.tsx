@@ -120,7 +120,10 @@ const objectNames = {
     pulitzerAward: 'pulitzerAward',
     hugoAward: 'hugoAward',
     partNumber: 'partNumber',
-    rn: 'rn'
+    rn: 'rn',
+    scrape: 'scrape',
+    scrapeKVP:'scrapeKVP',
+    scrapeStoreInfo: 'scrapeStoreInfo'
 };
 
 const details = {

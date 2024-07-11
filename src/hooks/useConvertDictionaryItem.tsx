@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from 'react';
 import { cnvrtPrimitives, convert as $convert, isPrimitive } from '../schema/conversion/cnvrt';
-import { useTypes } from './useTypes';
 
 export function useConvertDictionaryItem<TValue>(objectType: string, append: (data: { key: string; value: TValue }) => void) {
-    const types = useTypes();
+    const types = useMemo(() => Object.values(window.schema).map((x) => x.schema), []);
+
     const convert = useCallback((objectType: string) => $convert(types as any, objectType), [types]);
     const prim = isPrimitive(objectType);
     const convertValue = useMemo(() => (prim ? cnvrtPrimitives()[objectType as keyof typeof cnvrtPrimitives] : convert(objectType)), [convert, objectType, prim]);

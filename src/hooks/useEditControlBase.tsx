@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form-mui';
 import { createRules } from '../components/controls/createRules';
 import { ColumnMeta } from '@tanstack/react-table';
 import { useEditColumnMeta } from './useEditColumnMeta';
-import { useDependencies } from './useDependencies';
 import { useInvalidateCollection } from './useInvalidateCollection';
 
 export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>, TElement extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | Element>(
@@ -22,9 +21,8 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
         required,
         readonly,
         onChange: $$change,
-        dependencies,
         ...rest
-    } = useEditColumnMeta<T, TValue, 'dependencies' | 'columnName' | 'min' | 'minLength' | 'max' | 'maxLength' | 'required' | 'pattern' | 'validate' | 'readonly' | 'onChange' | TKeys>(
+    } = useEditColumnMeta<T, TValue, 'columnName' | 'min' | 'minLength' | 'max' | 'maxLength' | 'required' | 'pattern' | 'validate' | 'readonly' | 'onChange' | TKeys>(
         props,
         'columnName',
         'min',
@@ -32,10 +30,9 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
         'max',
         'maxLength',
         'onChange',
-        'dependencies',
         ...keys
     );
-    const $dependencies = useMemo(() => dependencies, [dependencies]);
+    // const $dependencies = useMemo(() => dependencies, [dependencies]);
     const validation = useMemo(() => createRules({ required, min, max, minLength, maxLength, pattern, validate }), [max, maxLength, min, minLength, pattern, required, validate]);
     const { accessorKey, id, header: label } = props.column.columnDef;
     const name = columnName ?? accessorKey ?? id ?? 'n/a';
@@ -52,12 +49,12 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
             if ($$change) {
                 $$change(formContext, getValues()[name], newValue);
             }
-            // setValue(name, newValue ?? (ev?.target as HTMLInputElement | undefined)?.value);
+            formContext.setValue(name, newValue ?? (ev?.target as HTMLInputElement | undefined)?.value);
             invalidator()
         },
         [$$change, formContext, getValues, invalidator, name]
     );
-    const isDisabled = useDependencies(...($dependencies ?? []));
+    // const isDisabled = useDependencies(...($dependencies ?? []));
     return {
         name,
         readonly,
@@ -68,7 +65,7 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
         invalid,
         control,
         helperText,
-        isDisabled,
+        isDisabled: useCallback(() => false, []),
         ...rest
     };
 }

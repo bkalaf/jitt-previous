@@ -6,7 +6,6 @@ import { useGetLIComponent } from './useGetLIComponent';
 import { useCallback } from 'react';
 import { StringControl } from '../components/table/controls/StringControl';
 import { SelectControl } from '../components/table/controls/SelectControl';
-import { useDependencies } from './useDependencies';
 import { useDirectStaticColumns } from './useDirectStaticColumns';
 
 export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue, TKeys extends keyof ColumnMeta<T, TValue>>(column: MRT_Column<T, TValue>, ...keys: TKeys[]) {
@@ -16,9 +15,8 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
         readonly,
         objectType,
         keyType,
-        dependencies,
         ...rest
-    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'dependencies', 'columnName', ...keys);
+    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'columnName', ...keys);
     const label = column.columnDef.header;
     const formContext = useFormContext();
     if (name == null) throw new Error('no name');
@@ -59,7 +57,6 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
     //     keyType === 'string' ? [StringControl]
     //     : keyType != null ? [SelectControl, keyType]
     //     : [(props: EditFunctionParams<T>) => null];
-    const isDisabled = useDependencies(...(dependencies ?? []));
     return {
         KeyControl,
         keyType,
@@ -76,7 +73,7 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
         LiComponent,
         required,
         readonly,
-        isDisabled,
+        isDisabled: useCallback(() => false, []),
         ...rest
     };
 }

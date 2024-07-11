@@ -1,19 +1,22 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useEnv } from './useEnv';
-import { deepEqual } from './deepEqual';
+import { deepEqual } from '../common/deepEqual';
 import * as fs from 'graceful-fs';
 import { MRT_RowData } from 'material-react-table';
 import { useSetOption } from './useSetOption';
 import { getTableSettingDefault } from './getTableSettingDefault';
 import { CollectionOptionsConfig, setNestedValueForKey } from './CollectionOptionsConfig';
+import { useLogger } from './useLogger';
 
 export function useViewSettings<T extends MRT_RowData>(route: string): UseViewSettingsReturn<T> {
     const { COLLECTION_OPTIONS_CONFIG_FILE } = useEnv();
     const initialState = useMemo(() => ({ pagination: { pageSize: 20, pageIndex: 0 } }), []);
     const [collectionConfig, internalSetState] = useState<CollectionOptionsConfig<T>>(fs.existsSync(COLLECTION_OPTIONS_CONFIG_FILE) ? JSON.parse(fs.readFileSync(COLLECTION_OPTIONS_CONFIG_FILE).toString()) : {});
 
+    const logger = useLogger();
     const setState = useCallback(
         (updater: CollectionOptionsConfig<T> | ((x: CollectionOptionsConfig<T>) => CollectionOptionsConfig<T>)) => {
+            logger('useViewSetting.setState()', updater?.toString());
             internalSetState((oldConfig) => {
                 const newConfig = typeof updater === 'function' ? updater(oldConfig) : updater;
                 if (deepEqual(newConfig, oldConfig)) {
@@ -24,22 +27,25 @@ export function useViewSettings<T extends MRT_RowData>(route: string): UseViewSe
                 return newConfig;
             });
         },
-        [COLLECTION_OPTIONS_CONFIG_FILE]
+        [COLLECTION_OPTIONS_CONFIG_FILE, logger]
     );
     const setCollectionState = useCallback(
         ({ value, collection }: { value: JITTTableState<T>; collection: keyof CollectionOptionsConfig<T> }) => {
+            logger('useViewSetting.setCollectionState()')
             return setState((oldConfig) => ({ ...oldConfig, [collection]: { ...initialState, ...value } }));
         },
-        [initialState, setState]
+        [initialState, logger, setState]
     );
     const resetCollectionState = useCallback(
         ({ collection }: { collection: keyof CollectionOptionsConfig<T> }) => {
+            logger('useViewSetting.resetCollectionState()');
             return () => setCollectionState({ collection, value: initialState });
         },
-        [initialState, setCollectionState]
+        [initialState, logger, setCollectionState]
     );
     const setCollectionOption = useCallback(
         <TKey extends keyof JITTTableState<T>>({ collection, option, value: settingValue }: { collection: keyof CollectionOptionsConfig<T>; option: TKey; value?: JITTTableState<T>[TKey] }) => {
+            logger('useViewSetting.setCollectionOption()')
             const current: JITTTableState<T> = collection in collectionConfig ? collectionConfig[collection] : initialState;
             const opt = option in current ? current[option] : undefined;
             if (deepEqual(opt, settingValue ?? getTableSettingDefault(option))) {
@@ -54,7 +60,7 @@ export function useViewSettings<T extends MRT_RowData>(route: string): UseViewSe
             console.info('CONFIG-CHANGE', nextConfig, collectionConfig);
             setState(nextConfig);
         },
-        [collectionConfig, initialState, setState]
+        [collectionConfig, initialState, logger, setState]
     );
     const state = useMemo(() => (route in collectionConfig ? collectionConfig[route] : initialState), [route, initialState, collectionConfig]);
 

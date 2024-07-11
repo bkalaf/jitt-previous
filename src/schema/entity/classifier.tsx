@@ -9,6 +9,9 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { classifierColumns } from '../columns/classifier';
 
 export class Classifier extends EntityBase<IClassifier> implements IClassifier {
+    static matchKeys: (string | keyof IClassifier)[] = [
+        'shortName', 'name', '_id'
+    ]
     static columns: MRT_ColumnDef<IClassifier>[] = classifierColumns();
     // subRows: Realm.Types.LinkingObjects<IClassifier, 'parent'>;
     _id: BSON.ObjectId;

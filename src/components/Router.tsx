@@ -3,6 +3,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import { App } from './App';
 import { CollectionView } from './Views/CollectionView';
 import React from 'react';
+import { Dashboard } from './Dashboard';
 
 export function on(source: { addEventListener: (typeof document)['addEventListener']; removeEventListener: (typeof document)['removeEventListener'] }, event: string, listener: (event: any) => void) {
     source.addEventListener(event, listener);
@@ -94,7 +95,12 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                         { index: true, element: <Navigate to='v1' />, errorElement: <ErrorBoundary /> }
                     ]
                 },
-                { index: true, element: <div>APP ROOT</div>, errorElement: <ErrorBoundary /> }
+                {
+                    index: true,
+                    element: <Dashboard />,
+                    errorElement: <ErrorBoundary />
+                }
             ]
         }
     ]);
+

@@ -105,7 +105,7 @@ declare module '@mui/material/Button' {
         metal: true;
         important: true;
         callout: true;
-        hightlight: true;
+        highlight: true;
         neon: true;
         caution: true;
         ash: true;
@@ -122,4 +122,35 @@ declare module '@mui/material/SpeedDial' {
 }
 declare module '@mui/material/AppBar' {
     interface AppBarPropsColorOverrides extends IPalletteColors<true> {}
+}
+declare module '@mui/material/Tab' {
+    interface TabPropsColorOverrides extends IPalletteColors<true> {}
+}
+declare module '@mui/material/CircularProgress' {
+    interface CircularProgressPropsColorOverrides extends IPalletteColors<true> {
+        metal: true;
+        important: true;
+        callout: true;
+        highlight: true;
+        neon: true;
+        caution: true;
+        ash: true;
+        vivid: true;
+        dimmed: true;
+        tertiary: true;
+    }
+}
+declare module '@mui/material/Tabs' {
+    interface TabsPropsIndicatorColorOverrides extends IPalletteColors<true> {
+        metal: true;
+        important: true;
+        callout: true;
+        highlight: true;
+        neon: true;
+        caution: true;
+        ash: true;
+        vivid: true;
+        dimmed: true;
+        tertiary: true;
+    }
 }

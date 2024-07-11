@@ -520,6 +520,26 @@ export type IPartNumber = {
     brand: Opt<IBrand>;
     partNumber: string;
 };
+
+export type IScrapeKVP = {
+    key: Opt<string>;
+    value: Opt<string>;
+}
+
+export type IScrapeStoreInfo = {
+    store: Opt<string>;
+    description: Opt<string>;
+    price: Opt<number>;
+    lastUpdated: Opt<Date>;
+}
+
+export type IScrape = {
+    descriptions: DBList<string>;
+    productInfos: DBList<IScrapeKVP>;
+    barcodes: DBList<string>;
+    storeInfos: DBList<IScrapeStoreInfo>;
+}
+
 export type IProduct = IApparel & {
     _id: BSON.ObjectId;
     asins: DBList<string>;
@@ -695,6 +715,8 @@ export type IProduct = IApparel & {
     partNumbers: DBList<IPartNumber>;
     type: DBList<DetailTypes>;
 
+    // added 7/11
+    suggestedRetailPrice: Opt<Double>;
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];
     readonly primaryColor: ProductColors | undefined;
@@ -792,6 +814,12 @@ export type IAttachment = {
     createTinyURLForLink: (this: IAttachment, link: string) => string;
     deleteTinyURLForLink: (this: IAttachment, link: string) => void;
 };
+
+export type IScan = {
+    scanDate: Date;
+    bin: Opt<IBin>;
+};
+
 export type ISku = {
     _id: BSON.ObjectId;
     auction?: Opt<IAuction>;
@@ -818,6 +846,7 @@ export type ISku = {
     readonly hasDraft: boolean;
     readonly getShippingRate: Opt<IShippingRate>;
     readonly $images: string[];
+    scans: DBList<IScan>;
 };
 
 export type RnCompanyType = 'OTHER' | 'CORPORATION';
@@ -851,6 +880,8 @@ export type IDraft = {
     smartPrice: Opt<number>;
     lockTitle: Opt<boolean>;
     lockDescription: Opt<boolean>;
+    scrapes: DBList<IScrape>;
+    hasBeenSearched: Opt<boolean>;
     readonly getDims: { length: number; width: number; height: number };
     readonly getWeight: { pounds: number; ounces: number };
     readonly getShipping: { carrier: Shippers; service: ShippingSpeeds; price: number; selector: string };
@@ -976,3 +1007,4 @@ export type IDetails = {
     toysBoardGames: IToysBoardGamesDetails;
     toysStuffedAnimals: IToysStuffedAnimalsDetails;
 };
+

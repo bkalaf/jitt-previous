@@ -112,6 +112,7 @@ declare global {
     // export interface Window {
     //     columns: Record<string, <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[]>;
     // }
+
     export type PrimitiveRecord<T> = { value: T };
     export type JSPrimitives = string | number | null | Date | ArrayBuffer | boolean | BSON.ObjectId | BSON.UUID;
     export type IRowCell<T> = React.FunctionComponent<{ data: T; className?: string }>;
@@ -228,15 +229,21 @@ declare global {
     export type InitFunction<T> = () => InitValue<T>;
     export type AnyFunction = (...args: any[]) => any;
     export type UpdateFunction<T> = (item: T) => T;
-    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T & string; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[] };
-    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[] };
+    export type ReferenceClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { labelProperty: keyof T & string; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[]; matchKeys?: (string & keyof T)[] };
+    export type EmbeddedClass<T extends Record<string, unknown>> = Realm.ObjectClass<any> & { stringify: StringifyComponent<T>; init: InitFunction<T>; update: UpdateFunction<T>; columns: MRT_ColumnDef<T>[]; matchKeys?: (string & keyof T)[] };
     export type DetailsClass = Realm.ObjectClass<any> & {
         columns: MRT_ColumnDef<IProduct>[];
         label: string;
         type: DetailTypes;
-        objectType: string;
+        // objectType: string;
     };
+    export type DetailsNode = { Ctor: DetailsClass; bg: string; text: string; children?: DetailsNode[] };
+    export type RenderDetailTabPanelProps<T extends MRT_RowData = any> = Parameters<Exclude<MRT_TableOptions<T>['renderDetailPanel'], undefined>>[0];
     export type MyClass<T extends Record<string, unknown>> = ReferenceClass<T> | EmbeddedClass<T>;
+
+    export interface Window {
+        schema: Record<string, MyClass<any> | DetailsClass>;
+    }
     export type EditFunctionParams<T extends MRT_RowData, TValue = any> = Parameters<Exclude<MRT_ColumnDef<T, TValue>['Edit'], undefined>>[0];
     export type EditFunctionComponent<T extends MRT_RowData, TValue = any> = React.FunctionComponent<EditFunctionParams<T, TValue>>;
     export type EditPrimitiveFunctionComponent<U extends JSPrimitives> = React.FunctionComponent<Parameters<Exclude<MRT_ColumnDef<PrimitiveRecord<U>, any>['Edit'], undefined>>[0]>;

@@ -25,6 +25,7 @@ import { ProductImageDisposition } from '../schema/entity/ProductImageDispositio
 import { checkPath } from '../contexts/checkFolder';
 import { Grid, Item } from './Grid';
 import { useEventListener } from '../components/useEventListener';
+import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {
     useWhyDidIUpdate('ProductImageTab', props);
@@ -143,8 +144,8 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
         setWidth(Math.floor(window.innerWidth / 8));
     });
     return (
-        <div className='flex flex-col w-screen'>
-            <div className='flex justify-start w-full'>
+        <div className='flex w-screen flex-col'>
+            <div className='flex w-full justify-start'>
                 <Button component='label' role={undefined} variant='contained' tabIndex={-1} disabled={queue.length > 0} startIcon={<FontAwesomeIcon icon={faUpload} size='lg' />}>
                     Upload file
                     <VisuallyHiddenInput type='file' onChange={onChange} />
@@ -155,10 +156,10 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
                     <FormProvider {...formContext}>
                         <DialogContent>
                             <div className='flex flex-col'>
-                                <div className='flex object-scale-down w-full h-2/3'>
+                                <div className='flex h-2/3 w-full object-scale-down'>
                                     <Image filepath={nextInQueue?.path ?? ''} selected={false} caption='' width={width * 3} />
                                 </div>
-                                <div className='w-full h-full'>
+                                <div className='h-full w-full'>
                                     <TextFieldElement name='caption' type='text' label='Caption' control={formContext.control} />
                                     <CheckboxElement name='doNotRemBG' label='Do Not Remove BG' control={formContext.control} />
                                     <CheckboxElement name='ignore' label='Ignore' control={formContext.control} />
@@ -223,11 +224,18 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             )}
             <Grid columns={4} gap={2} className='w-full'>
                 {data.map((image, ix) => (
-                    <Item key={ix} className='flex flex-col w-full'>
+                    <Item key={ix} className='flex w-full flex-col'>
                         <Images productImage={image} width={width} />
                     </Item>
                 ))}
             </Grid>
         </div>
     );
+}
+
+export function renderProductImagePanel<T extends MRT_RowData>(imageGetter: (value?: T) => IProductImage[]) {
+    return function ProductImagePanel(props: RenderDetailTabPanelProps<any>) {
+        const images = useMemo(() => imageGetter(props.row.original as any) as IProductImage[], [props.row.original]);
+        return <ProductImageTab data={images} original={props.row.original} />
+    };
 }

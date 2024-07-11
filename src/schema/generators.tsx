@@ -1,6 +1,7 @@
 import { is } from '../common/is';
 import { prependIgnore } from '../common/prepend';
 import { capitalize } from '../common/text/capitalize';
+import fs from 'graceful-fs';
 
 export const MAX_INDEX = 78;
 export const MAX_IMPORTANCE = 196;
@@ -32,6 +33,10 @@ export type DescriptionPart = {
     narrative: string;
 };
 export function $generateTitle(parts: Part[], maxImportance = MAX_IMPORTANCE): { title: string; boundTitle: string } {
+    function inner(s: string): string {
+        const result = s.replaceAll('  ', ' ');
+        return result.includes('  ') ? inner(result) : result;
+    }
     const filtered = (parts.filter((x) => x.importance != null && x.index != null && x.title != null) as TitlePart[])
         .filter((x) => x.importance <= maxImportance)
         .sort((a, b) =>
@@ -39,10 +44,13 @@ export function $generateTitle(parts: Part[], maxImportance = MAX_IMPORTANCE): {
             : a.index > b.index ? 1
             : 0
         );
-    const title = filtered
-        .map((x) => x.title)
-        .map(capitalize)
-        .join(' ');
+    const title = inner(
+        filtered
+            .map((x) => x.title.split(' ').map(capitalize).join(' '))
+            .map(capitalize)
+            .join(' ')
+    );
+    fs.appendFileSync('C:/Users/bobby/OneDrive/Desktop/title-narrative-output.txt', title.concat('\n'));
     const { title: boundTitle } = title.length > TITLE_MAX_LENGTH ? $generateTitle(parts, maxImportance - 1) : { title: title };
     return {
         title,
@@ -51,7 +59,7 @@ export function $generateTitle(parts: Part[], maxImportance = MAX_IMPORTANCE): {
 }
 export function $generateDescription(parts: Part[], maxImportance = MAX_IMPORTANCE): { description: string; boundDescription: string; title: string; boundTitle: string } {
     function inner(s: string): string {
-        const result = s.replaceAll('  ', ' ')
+        const result = s.replaceAll('  ', ' ');
         return result.includes('  ') ? inner(result) : result;
     }
     const { title, boundTitle } = $generateTitle(parts);

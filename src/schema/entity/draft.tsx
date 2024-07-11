@@ -1,5 +1,5 @@
 import Realm, { BSON } from 'realm';
-import { IDraft, ISku } from '../../types';
+import { IDraft, IScrape, ISku } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
 import $me, { PayorTypes, Shippers, ShippingSpeeds } from '../enums';
@@ -13,8 +13,12 @@ import * as fs from 'graceful-fs';
 import { MRT_ColumnDef } from 'material-react-table';
 import { draftColumns } from '../columns/draft';
 
+const PRODUCT_SEARCH_OID_LIST = process.env.PRODUCT_SEARCH_OID_LIST ?? '';
+
 export class Draft extends EntityBase<IDraft> implements IDraft {
-    static columns: MRT_ColumnDef<IDraft>[] = draftColumns();   
+    hasBeenSearched: Opt<boolean>;
+    scrapes: DBList<IScrape>;
+    static columns: MRT_ColumnDef<IDraft>[] = draftColumns();
     get titleLength(): number {
         return this.title?.length ?? 0;
     }
@@ -28,7 +32,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
     lockDescription: Opt<boolean>;
     listingID: Opt<string>;
     get isListed(): boolean {
-        return this.listingID == null;
+        return this.listingID != null;
     }
     get getIsNoBrand(): boolean {
         return this.sku.product?.brand?.mercariBrand == null;
@@ -126,7 +130,9 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             smartPrice: $.float.opt,
             listingID: $.string.opt,
             lockTitle: $.bool.opt,
-            lockDescription: $.bool.opt
+            lockDescription: $.bool.opt,
+            scrapes: $.scrape.list,
+            hasBeenSearched: $.bool.default(false)
         }
     };
     static labelProperty = 'title';
@@ -145,8 +151,13 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             item.isLocalDelivery = item.getShouldLocalDelivery;
             item.smartPricing = item.getShouldSmartPricing;
             item.smartPrice = item.getShouldSmartPricing ? item.price * 0.8 : undefined;
+            if (!(item.hasBeenSearched ?? false)) {
+                fs.appendFileSync(PRODUCT_SEARCH_OID_LIST, item._id.toHexString().concat('\n'));
+                item.hasBeenSearched = true;
+            }
         };
         runTransaction(realm, func);
+
         return item;
     }
     static createDraft(realm: Realm, sku: ISku, price: number = 10) {
@@ -178,7 +189,8 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             isLocalDelivery: false,
             payor: 'buyer' as PayorTypes,
             smartPricing: false,
-            smartPrice: undefined
+            smartPrice: undefined,
+            scrapes: []
         };
     }
 
@@ -204,7 +216,7 @@ export class Draft extends EntityBase<IDraft> implements IDraft {
             smartPrice: this.smartPrice,
             isLocalDelivery: this.isLocalDelivery,
             ...this.getDims
-        }
+        };
         const current = JSON.parse(fs.readFileSync('C:/Users/bobby/OneDrive/Desktop/drafts-todo.json').toString()) as any[];
         fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/drafts-todo.json', JSON.stringify([...current, out], null, '\t'));
     }

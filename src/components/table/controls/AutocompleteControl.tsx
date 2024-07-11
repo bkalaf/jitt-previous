@@ -31,7 +31,7 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
         [formContext, rest.name]
     );
     if (objectType == null) throw new Error('no objectType for lookup');
-    const labelProperty = useGetLabelProperty(objectType);
+    const labelProperty = useGetLabelProperty(objectType)
     if (labelProperty == null) throw new Error(`no labelProperty for ${objectType} for lookup`);
 
     const db = useLocalRealm();
@@ -39,7 +39,7 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
         queryKey: [objectType, labelProperty],
         queryFn: () => {
             if (db == null) throw new Error('no db');
-            return Promise.resolve(db.objects<U>(objectType).sorted(labelProperty));
+            return Promise.resolve(db.objects<U>(objectType));
         }
     });
     const { isOptionEqualToValue } = useAutoComplete<{ _id: BSON.ObjectId }>(

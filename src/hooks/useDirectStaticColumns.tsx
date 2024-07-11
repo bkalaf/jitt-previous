@@ -6,5 +6,5 @@ import { useCollectionSchema } from './useCollectionSchema';
 
 export function useDirectStaticColumns<T extends MRT_RowData>(objectType?: string) {
     const schema = useCollectionSchema(objectType);
-    return useMemo(() => schema.ctor.columns as MRT_ColumnDef<T>[], [schema.ctor.columns]);
+    return useMemo(() => schema.columns as MRT_ColumnDef<T>[], [schema.columns]);
 }

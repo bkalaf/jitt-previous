@@ -1,5 +1,5 @@
 import Realm, { BSON } from 'realm';
-import { IAuction, IBarcode, IHashTag, IProduct, IProductImage, IShipping, ISku } from '../../types';
+import { IAuction, IBarcode, IDraft, IHashTag, IProduct, IProductImage, IScan, IShipping, ISku } from '../../types';
 import { ItemConditions, ItemDispositions, Shippers } from '../enums';
 import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { $ } from '../$';
@@ -18,6 +18,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { sku } from '../columns/sku';
 
 export class Sku extends EntityBase<ISku> implements ISku {
+    scans: DBList<IScan>;
     static columns: MRT_ColumnDef<ISku>[] = sku();
     get $images(): string[] {
         return this.getProductImages.filter(x => !x.flags.includes('ignore') && x.hasSelection).map(x => x.effective).filter(is.not.nil) as string[];
@@ -44,7 +45,8 @@ export class Sku extends EntityBase<ISku> implements ISku {
             disposition: 'not-listed',
             condition: 'like-new',
             packingPercent: 1.3,
-            quantity: 1
+            quantity: 1,
+            scans: []
         };
     }
     static addFromProduct(product: IProduct): ISku {
@@ -92,7 +94,8 @@ export class Sku extends EntityBase<ISku> implements ISku {
             quantity: $.int.opt,
             skus: $.barcode.list,
             shipping: $.shipping(),
-            hashTags: $.hashTag.list
+            hashTags: $.hashTag.list,
+            scans: $.scan.list
         }
     };
     get getIsMediaMail(): boolean {
@@ -132,6 +135,15 @@ export class Sku extends EntityBase<ISku> implements ISku {
     static update(item: ISku): ISku {
         const realm = Sku.localRealm;
         const func = () => {
+            const drafts = (item as any as Realm.Object<ISku>).linkingObjects<IDraft>('draft', 'sku');
+            if (drafts.length > 0) {
+                const draft = drafts[0];
+                if (draft.isListed && (item.disposition === 'not-listed' || item.disposition === 'ready-to-list')) {
+                    item.disposition = 'listed';
+                } else {
+                    item.disposition = 'ready-to-list';
+                }
+            }
             const {title} = $generateTitle($fields(item));
             if (item.product == null) throw new Error('no product');
             if (!item.product.overrideTitle) {

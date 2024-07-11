@@ -7,15 +7,15 @@ import { useCallback } from 'react';
 import { useInitial } from '../../../hooks/useInitial';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { camelToProper } from '../../../common/text/camelToProper';
+import { BSON } from 'realm';
 
-export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
+export function createRenderCreateRowDialogContent<T extends MRT_RowData & { _id: BSON.ObjectId }>() {
     return function RenderCreateRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
         const { table, internalEditComponents } = props;
         console.info(`internalEditComponents`, internalEditComponents);
         const collection = useCollectionRoute();
         const init = useInitial<T>(collection);
-        const { handleSubmit } = useUpdateRecord<T>(table);
         const onCancel = useCallback(() => {
             table.setCreatingRow(null);
         }, [table]);
@@ -24,6 +24,8 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
             defaultValues: init() as DefaultValues<T>,
             delayError: 5000
         });
+        const { handleSubmit } = useUpdateRecord<T>(formContext, new BSON.ObjectId().toHexString(), table);
+
         const onSubmit = useCallback(
             (ev: React.FormEvent) => {
                 ev.preventDefault();
@@ -49,7 +51,6 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData>() {
                         <DialogTitle>{camelToProper(collection)}</DialogTitle>
                         <DialogContent>{internalEditComponents}</DialogContent>
                         <DialogActions>
-                            {/* <MRT_EditActionButtons row={row} variant='text' table={table} /> */}
                             <Box className='flex justify-end w-full gap-x-2'>
                                 <Button className='inline-flex' type='button' color='tertiary' onClick={onCancel}>
                                     Cancel

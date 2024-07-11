@@ -1164,6 +1164,7 @@ export default {
             addVariant('group-overflow', ':merge(.group) &[data-is-overflowing="true"]');
             addVariant('pinned', '&[data-pinned="true"]');
             addVariant('not-pinned', '&:not([data-pinned="true"])');
+            addVariant('overlimit', '&[data-value="overlimit"]')
         })
     ]
 };

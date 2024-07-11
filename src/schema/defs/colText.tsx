@@ -1,7 +1,7 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { baseCol } from './baseCol';
 import { ColumnMeta } from '@tanstack/table-core';
-import { StringTableCell } from '../../components/table/cells/StringTableCell';
+import { StringTableCell, TextTableCell } from '../../components/table/cells/StringTableCell';
 import { TextAreaControl } from '../../components/table/controls/TextAreaControl';
 
 export function colText<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>) {
@@ -14,7 +14,7 @@ export function colText<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>) {
         ): MRT_ColumnDef<T, U | undefined> {
             const { required, readonly, ...rest } = { readonly: false, required: false, ...(opts ?? {}) };
             const $formatter = formatter ?? ((x?: U) => (x ?? '') as string);
-            return baseCol<T, U | undefined>(helper, name, StringTableCell, TextAreaControl, $header, required, readonly, { ...rest, formatter: $formatter }, undefined, ...dependencies);
+            return baseCol<T, U | undefined>(helper, name, TextTableCell, TextAreaControl, $header, required, readonly, { ...rest, formatter: $formatter }, undefined, ...dependencies);
         };
     };
 }

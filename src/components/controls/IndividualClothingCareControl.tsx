@@ -2,8 +2,8 @@ import { FormControl, FormGroup, IconButton, Tooltip } from '@mui/material';
 import React, { useCallback, useMemo } from 'react';
 import { ClothingCareMap } from '../../schema/laundryCare';
 import { useFormContext } from 'react-hook-form-mui';
-import { useDependencies } from '../../hooks/useDependencies';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function IndividualClothingCareControl(section: keyof typeof ClothingCareMap, name: string, ...dependencies: IDependency<any, any>[]) {
     return function ClothingCareControl() {
         // const section = name.split('.').reverse()[0] as keyof typeof ClothingCareMap;
@@ -31,7 +31,7 @@ export function IndividualClothingCareControl(section: keyof typeof ClothingCare
             },
             [formContext, isSelected, list]
         );
-        const isDisabled = useDependencies(...dependencies);
+        const isDisabled = useCallback(() => false, [])
         return (
             !isDisabled() && (
                 <FormControl>

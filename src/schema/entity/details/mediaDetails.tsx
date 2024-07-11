@@ -7,7 +7,8 @@ export const helper = col(h);
 
 export const mediaDetails: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) =>
     [        
-        helper.text(...dependencies)('blurb', 'Blurb', undefined, { maxLength: 1000 })
+        helper.text(...dependencies)('blurb', 'Blurb', undefined, { maxLength: 1000 }),
+        helper.dollar(...dependencies)('suggestedRetailPrice', 'Suggested Retail Price', { min: 0 })
     ] as MRT_ColumnDef<T>[];
 
 

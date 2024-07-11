@@ -55,8 +55,10 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
             draftCreatedMsg(_id);
         }, [db, draftCreatedMsg, table]);
         const exportDraft = useCallback(() => {
-            const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as Draft)[0];
-            selected.output();
+            const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as Draft);
+            for (const element of selected) {
+                element.output();
+            }
         },[table])
         console.log('getSelectedRowModel', table.getSelectedRowModel());
         return (
@@ -101,7 +103,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                     </Button>
                 )}
                 {route === 'draft' && (
-                    <Button color='secondary' variant='contained' onClick={exportDraft} disabled={notOnlyOneSelected} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
+                    <Button color='secondary' variant='contained' onClick={exportDraft} disabled={noneSelected} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
                         Export Draft
                     </Button>
                 )}

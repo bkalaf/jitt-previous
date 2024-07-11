@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { deepEqual } from './deepEqual';
+import { deepEqual } from '../common/deepEqual';
 import { MRT_RowData } from 'material-react-table';
 import { CollectionOptionsConfig, setNestedValueForKey } from './CollectionOptionsConfig';
 

@@ -24,7 +24,6 @@ export function CollectionView<T extends MRT_RowData>() {
                 const current = JSON.parse(fs.readFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json').toString());
                 fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json', JSON.stringify({ ...current, [route]: data }, null, '\t'));
             });
-            alert('written settings file');
         }
     }, [route])
     // useEffect(() => {

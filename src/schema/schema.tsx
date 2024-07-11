@@ -106,6 +106,10 @@ import { ToysBoardGamesDetails } from './entity/detailEntity/ToysBoardGamesDetai
 import { ToysDetails } from './entity/detailEntity/ToysDetails';
 import { ToysStuffedAnimalsDetails } from './entity/detailEntity/ToysStuffedAnimalsDetails';
 import { Details } from './entity/details';
+import { Scrape } from './entity/scrape';
+import { ScrapeKVP } from './entity/scrapeKVP';
+import { ScrapeStoreInfo } from './entity/scrapeStoreInfo';
+import { Scan } from './entity/scan';
 
 export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[] = [
     Address as EmbeddedClass<any>,
@@ -160,6 +164,10 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     RateOfEnergyCapacityMeasure as EmbeddedClass<any>,
     Rn as ReferenceClass<any>,
     RotationalSpeedMeasure as EmbeddedClass<any>,
+    Scan as EmbeddedClass<any>,    
+    ScrapeStoreInfo as EmbeddedClass<any>,
+    ScrapeKVP as EmbeddedClass<any>,
+    Scrape as EmbeddedClass<any>,
     SelfStorage as ReferenceClass<any>,
     Shipping as EmbeddedClass<any>,
     Sku as ReferenceClass<any>,

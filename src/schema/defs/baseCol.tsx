@@ -27,6 +27,9 @@ export function baseCol<T extends MRT_RowData, TValue>(
     {
         id,
         multiple,
+        filterFn,
+        filterVariant,
+        filterSelectOptions,
         ...options
     }: {
         max?: number | Date;
@@ -48,6 +51,9 @@ export function baseCol<T extends MRT_RowData, TValue>(
         keyType?: ColumnMeta<T, TValue>['keyType'];
         id?: string;
         excludeKeys?: ColumnMeta<T, TValue>['excludeKeys'];
+        filterFn?: MRT_ColumnDef<T>['filterFn'];
+        filterVariant?: MRT_ColumnDef<T>['filterVariant'];
+        filterSelectOptions?: MRT_ColumnDef<T>['filterSelectOptions'];
     } = {},
     onChange?: OnChangeFn,
     ...dependencies: IDependency<T, any>[]
@@ -58,13 +64,16 @@ export function baseCol<T extends MRT_RowData, TValue>(
         enableEditing: !readonly,
         Edit: Edit,
         Cell,
+        filterFn,
+        filterVariant,
+        filterSelectOptions,
         id: id,
         meta: {
             dependencies,
             onChange,
             columnName: name,
             required: required,
-            readonly: readonly,            
+            readonly: readonly,
             multiple: multiple ?? false,
             ...options
         },

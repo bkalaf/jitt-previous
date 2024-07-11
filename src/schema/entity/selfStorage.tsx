@@ -7,6 +7,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { selfStorageColumns } from '../columns/selfStorage';
 
 export class SelfStorage extends EntityBase<ISelfStorage> {
+    static matchKeys: (keyof ISelfStorage & string)[] = ['name']
     static columns: MRT_ColumnDef<ISelfStorage>[] = selfStorageColumns();
     _id: BSON.ObjectId;
     name: string;

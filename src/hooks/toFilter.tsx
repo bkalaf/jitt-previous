@@ -4,10 +4,14 @@ import { BSON } from 'realm';
 import dayjs from 'dayjs';
 import { asString } from './asString';
 
-
 export function toFilter(queryParams: URLSearchParams, columnFilters?: MRT_ColumnFiltersState): [URLSearchParams, string | undefined, unknown[]] {
     const params = new URLSearchParams();
-    if (columnFilters == null || columnFilters.length === 0) return [queryParams, undefined, []];
+    if (columnFilters == null || columnFilters.length === 0) {
+        if (queryParams.has('filter')) {
+            queryParams.delete('filter');
+        }
+        return [queryParams, undefined, []];
+    }
     const args: Map<string, Set<unknown>> = new Map();
     for (const { id, value } of columnFilters) {
         if (args.has(id)) {
@@ -36,7 +40,12 @@ export function toFilter(queryParams: URLSearchParams, columnFilters?: MRT_Colum
             break;
         } else {
             const v = Array.from(values.values())[0];
-            const type = typeof v;
+            const type =
+                typeof v === 'string' ?
+                    v === 'true' || v === 'false' ?
+                        'boolean'
+                    :   typeof v
+                :   typeof v;
             switch (type) {
                 case 'undefined':
                     filtered.push(`${name} == nil`);
@@ -52,7 +61,7 @@ export function toFilter(queryParams: URLSearchParams, columnFilters?: MRT_Colum
                     break;
                 case 'boolean':
                     filtered.push(`${name} == $${count}`);
-                    filteredArgs.push(v as boolean);
+                    filteredArgs.push(typeof v === 'boolean' ? (v as boolean) : v === 'true');
                     count++;
                     params.append(name, (v as boolean) ? 'true' : 'false');
                     break;

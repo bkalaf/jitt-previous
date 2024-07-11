@@ -1,7 +1,7 @@
 import { $className } from '../util/$className';
 
-export function Grid(props: { className?: string; children?: Children; columns: number; gap: number }) {
-    const { columns, children, gap, ...rest } = props;
+export function Grid(props: { className?: string; children?: Children; columns: number; gap: number; start?: number }) {
+    const { columns, children, gap, start, ...rest } = props;
     const spread = $className(
         rest,
         {
@@ -21,7 +21,12 @@ export function Grid(props: { className?: string; children?: Children; columns: 
             'gap-2': gap === 2,
             'gap-3': gap === 3,
             'gap-4': gap === 4,
-            'gap-5': gap === 5
+            'gap-5': gap === 5,
+            'col-start-1': start === 1,
+            'col-start-2': start === 2,
+            'col-start-3': start === 3,
+            'col-start-4': start === 4,
+            'col-start-5': start === 5
         },
         ''
     );

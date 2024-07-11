@@ -1,9 +1,10 @@
 import { useCallback, useMemo } from 'react';
 import { convert as $convert, isPrimitive } from '../schema/conversion/cnvrt';
-import { useTypes } from './useTypes';
+import { is } from '../common/is';
 
 export function useConvert(type: string, objectType: string) {
-    const types = useTypes();
+    // const types = useTypes();
+    const types = useMemo(() => Object.values(window.schema).map(x => x.schema).filter(is.not.nil), []);
     const convert = useMemo(() => $convert(types as any, objectType), [objectType, types]);
     return useCallback(
         (values: any) => {

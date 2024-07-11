@@ -19,8 +19,8 @@ export function classifyBarcode(value: string): [boolean, string] {
     if (length === 13 && (value.startsWith('978') || value.startsWith('979'))) {
         return [calcEAN === checkdigit, 'isbn-13'] as [boolean, string];
     }
-    if (length === 12 && value.startsWith('4')) {
-        return [calcEAN === checkdigit, value.startsWith('499999') ? 'locator' : 'sku'];
+    if (length === 12 && value.startsWith('04')) {
+        return [calcEAN === checkdigit, value.startsWith('0499999') || value.startsWith('0499800') ? 'locator' : value.startsWith('0410000') || value.startsWith('0410001') ?'sku' : 'unknown'];
     }
     if (length === 13) {
         return [calcEAN === checkdigit, 'ean'];

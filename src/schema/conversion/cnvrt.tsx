@@ -3,10 +3,11 @@ import Realm, { BSON, PropertySchema } from 'realm';
 import { getProperty } from '../../common/object/getProperty';
 import { objectMap } from '../../common/object/objectMap';
 
-export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int', 'double', 'float', 'decimal128', 'bool', 'date', 'data'].includes(type);
+export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int', 'double', 'float', 'decimal128', 'bool', 'date', 'data', 'mixed'].includes(type);
 export const isDataStructure = (type: string) => ['list', 'dictionary', 'set'].includes(type);
 export type ConvertFunction<T = any, U = any> = (value?: T) => U | undefined;
 export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
+    mixed: (value?: string) => value == null ? undefined : value,
     string: (value?: string) =>
         value == null ? undefined
         : value != null && value.trim().length === 0 ? undefined
@@ -50,12 +51,24 @@ export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
     data: (value?: ArrayBuffer) => value
 });
 // 'toDate' in value ? value.toDate()
+
+export function normalizePropertySchema(type: any) {
+    const isOptional = type.includes('?');
+    const isList = type.includes('[]');
+    const isDictionary = type.includes('{}');
+    const isSet = type.includes('<>');
+    const baseType = type.replaceAll('?', '').replaceAll('[]', '').replaceAll('{}', '').replaceAll('<>', '');
+    const isObject = !isPrimitive(baseType);
+    const objectType = isList || isDictionary || isSet || isObject ? baseType : undefined;
+    const $type = isList ? 'list' : isDictionary ? 'dictionary' :  isSet ? 'set' : isObject ? 'object' : baseType;
+    return { type: $type, optional: isOptional, objectType }; 
+}
 export const cnvrt = (types: RealmSchema, objectType?: string) => ({
     ...(cnvrtPrimitives() as Record<'objectId', (value?: any) => any>),
     object: (value?: any, override = false): any => {
         console.log(`convert object`, objectType, types, value);
         if (objectType == null) throw new Error(`no objectType`);
-        const schema = types.find((x) => x.name === objectType);
+        const schema = types.find((x) => (x as any)?.name === objectType);
         if (schema == null) throw new Error(`schema not found for : ${objectType}`);
         const { embedded } = { embedded: false, ...schema };
         return (
@@ -64,8 +77,7 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
             : Object.fromEntries(
                     Object.entries(schema.properties).map(([name, propSchema]) => {
                         console.log(`...${name}`);
-                        if (typeof propSchema === 'string') throw new Error('string type');
-                        return [name, ofType(types, propSchema)(getProperty(name, value))];
+                        return [name, ofType(types, typeof propSchema === 'string' ? normalizePropertySchema(propSchema) : propSchema)(getProperty(name, value))];
                     })
                 )
         );

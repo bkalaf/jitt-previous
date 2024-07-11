@@ -1420,8 +1420,8 @@ const fields = [
         key: 'product.powerTypes',
         params: 'powerTypes',
         getter: (sku: ISku) => sku?.product?.powerTypes,
-        func: $from.list.ofEnum,
-        titleFunc: $from.list.ofEnum,
+        func: null,
+        titleFunc: null,
         section: 'attributes'
     },
     {

@@ -1,4 +1,4 @@
-import { is } from '../common/is';
+import { is } from './is';
 import { BSON } from 'realm';
 
 export function deepEqual<T>(obj1?: T, obj2?: T): boolean {
@@ -68,10 +68,11 @@ export function deepEqual<T>(obj1?: T, obj2?: T): boolean {
         case 'Realm.Set':
             return type2 === 'array' || type2 === 'Realm.Set' || type2 === 'Realm.List' ? (obj1 as []).length === (obj2 as []).length && (obj1 as []).every((item) => (obj2 as []).some((item2) => deepEqual(item, item2))) : false;
         case 'Realm.Object':
-            return (
-                (obj1 as Realm.Object).objectSchema().name === (obj2 as Realm.Object).objectSchema().name &&
-                Object.keys((obj1 as Realm.Object).objectSchema().properties).every((key) => deepEqual((obj1 as Realm.Object)[key as keyof Realm.Object], (obj2 as Realm.Object)[key as keyof Realm.Object]))
-            );
+            return obj1 != null && obj2 != null && typeof obj1 === 'object' && '_id' in obj1 && typeof obj2 === 'object' && '_id' in obj2 ?
+                    (obj1._id as BSON.ObjectId).toHexString() === (obj2._id as BSON.ObjectId).toHexString()
+                :   deepEqual((obj1 as Realm.Object).toJSON(), (obj2 as Realm.Object).toJSON());
+        // (obj1 as Realm.Object) === (obj2 as Realm.Object).objectSchema().name &&
+        // Object.keys((obj1 as Realm.Object).objectSchema().properties).every((key) => deepEqual((obj1 as Realm.Object)[key as keyof Realm.Object], (obj2 as Realm.Object)[key as keyof Realm.Object]))
         case 'Realm.LinkingObjects':
             return false;
         case 'data':

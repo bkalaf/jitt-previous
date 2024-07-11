@@ -93,6 +93,22 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { productColumns } from './productColumns';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
+    suggestedRetailPrice: Opt<number>;    
+    static matchKeys: (keyof IProduct & string)[] = [
+        'brand.name' as any,
+        'classifier.name' as any,
+        '_id',
+        'title',
+        'modelNo',
+        'upcs',
+        'modelName',
+        'brand.mercariBrand.name' as any,
+        '$title',
+        '$subtitle',
+        'studio',
+        'notes',
+        'description'
+    ]
     static columns: MRT_ColumnDef<IProduct>[] = productColumns();
     get $dims(): { length?: Opt<IMeasure<LengthUnitsOfMeasure>>; width?: Opt<IMeasure<LengthUnitsOfMeasure>>; height?: Opt<IMeasure<LengthUnitsOfMeasure>> } {
         return {
@@ -439,7 +455,8 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             type: $.string.list,
             mediaTitle: $.string.opt,
             mediaSubtitle: $.string.opt,
-            copyright: $.string.opt
+            copyright: $.string.opt,
+            suggestedRetailPrice: $.double.opt
         }
     };
     mediaSubtitle?: Opt<string>;

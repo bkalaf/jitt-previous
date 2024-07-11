@@ -22,15 +22,15 @@ export function convertProduct(product: IProduct & Realm.Object<IProduct>) {
     };
 }
 
-export function ProductDetailsTab(props: { isCurrent: boolean; original: IProduct; objectType: string }) {
+export function OldProductDetailsTab(props: { isCurrent: boolean; original: IProduct; objectType: string }) {
     const { original, objectType } = props;
     const columns = useDirectStaticColumns(objectType);
-    // const columns = useDirectColumns(objectType);
     const defaultValues = useMemo(() => convertProduct(original as any), [original]);
     const formContext = useForm({
         defaultValues: Product.init() as DefaultValues<IProduct>,
         values: defaultValues
     });
+    
     const convert = useConvert('object', 'product');
     const db = useLocalRealm();
     return (

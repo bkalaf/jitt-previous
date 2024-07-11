@@ -10,7 +10,7 @@ export function useGetLIComponent<T = unknown>(objectType: string): (value?: any
     return useMemo(
         () =>
             is.primitive(objectType) ? (value: any) => (liComponents[objectType as keyof typeof liComponents] as ListItemCellComponent<T>)(value)({})
-            : thisSchema != null ? (value: any) => getLookupFunction(thisSchema?.ctor as any)(value)
+            : thisSchema != null ? (value: any) => getLookupFunction(thisSchema as any)(value)
             : konst(''),
         [objectType, thisSchema]
     );

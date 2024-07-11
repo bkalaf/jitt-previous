@@ -1,11 +1,11 @@
 import { MRT_RowData } from 'material-react-table';
-import { AutocompleteElement } from 'react-hook-form-mui';
+import { AutocompleteElement, useFormContext } from 'react-hook-form-mui';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useAutoComplete } from '../../../hooks/useAutoComplete';
-import { useMemo } from 'react';
-import { createFilterOptions } from '@mui/material';
+import { useCallback, useMemo } from 'react';
 import { useCreateOptionsFromUniqueFacetedValues } from '../../../hooks/useCreateOptionsFromUniqueFacetedValues';
 import { useEditControlBase } from '../../../hooks/useEditControlBase';
+import { matchSorter } from 'match-sorter';
 
 export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> | undefined : U | undefined>) {
     useWhyDidIUpdate('FreeSoloControl', props);
@@ -17,18 +17,27 @@ export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultip
     >(props, 'objectType', 'multiple', 'freeSolo', 'comparator');
 
     const options = useCreateOptionsFromUniqueFacetedValues<T, U | undefined>(props.column as any, multiple);
-
+    const formContext = useFormContext();
     const { getOptionLabel, isOptionEqualToValue } = useAutoComplete<string>(undefined, (comparator as any) ?? ((x: string, y: string) => x.localeCompare(y)));
     const filterOptions = useMemo(
         () =>
-            createFilterOptions<AutoOption>({
-                ignoreAccents: true,
-                ignoreCase: true,
-                limit: 400,
-                trim: true,
-                matchFrom: 'any'
-            }),
+            (options: any[], { inputValue }: { inputValue: string }) =>
+                matchSorter(options, inputValue),
+        // createFilterOptions<AutoOption>({
+        //     ignoreAccents: true,
+        //     ignoreCase: true,
+        //     limit: 400,
+        //     trim: true,
+        //     matchFrom: 'any'
+        // }),
         []
+    );
+    const $onChange = useCallback(
+        (ev: React.ChangeEvent<HTMLSelectElement>, newValue: any) => {
+            onChange(ev, newValue);
+            formContext.setValue(rest.name, newValue);
+        },
+        [formContext, onChange, rest.name]
     );
     return (
         <AutocompleteElement
@@ -39,7 +48,7 @@ export function FreeSoloControl<T extends MRT_RowData, U extends string, TMultip
                 freeSolo,
                 isOptionEqualToValue,
                 getOptionLabel,
-                onChange: onChange as any,
+                onChange: $onChange as any,
                 filterOptions: filterOptions,
                 selectOnFocus: true,
                 clearOnBlur: true,

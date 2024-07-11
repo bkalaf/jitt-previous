@@ -36,16 +36,19 @@ import {
     faSort,
     faThumbTack
 } from '@fortawesome/pro-solid-svg-icons';
-import { CreateRenderDetailPanel } from './createRenderDetailPanel';
 import { useCallback, useMemo } from 'react';
 import { RenderCaption } from './RenderCaption';
-import { useVirtualizedQuery } from './useVirtualizedQuery';
+import { useDataQuery } from './useVirtualizedQuery';
 import { useStaticColumns } from './useStaticColumns';
 import { createIcon } from './createIcon';
+import { createRenderVerticalTabs } from './createRenderVerticalTabs';
+import { BSON } from 'realm';
 
 export function useData<T extends MRT_RowData>(objectType?: string 
 // , isLoading = false, isFetching = false
 ) {
+    // const [globalFilter, setGlobalFilter] = useState<unknown>(undefined);
+    // const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>([]);
     const route = useEffectiveCollection(objectType);
     const init = useInitial<T>(route);
     const getTableCanExpand = useGetTableCanExpand();
@@ -56,25 +59,25 @@ export function useData<T extends MRT_RowData>(objectType?: string
         return result;
     }, []);
     const {
-        columnVirtualizerInstanceRef,
-        columnVirtualizerOptions,
+        // columnVirtualizerInstanceRef,
+        // columnVirtualizerOptions,
         data,
         defaultDisplayColumn,
         enableBottomToolbar,
         enableColumnPinning,
         enableColumnResizing,
-        enableColumnVirtualization,
-        enablePagination,
+        // enableColumnVirtualization,
         enableRowNumbers,
         enableRowVirtualization,
-        initialState,
+        // initialState,
         muiTableContainerProps,
         muiToolbarAlertBannerProps,
         renderBottomToolbarCustomActions,
         resetCollectionState,
-        rowVirtualizerInstanceRef,
-        rowVirtualizerOptions,
+        // rowVirtualizerInstanceRef,
+        // rowVirtualizerOptions,
         state,
+        initialState,
         onColumnFiltersChange,
         onColumnOrderChange,
         onColumnPinningChange,
@@ -84,21 +87,22 @@ export function useData<T extends MRT_RowData>(objectType?: string
         onExpandedChange,
         onGlobalFilterChange,
         onGroupingChange,
+        onPaginationChange,
         onRowSelectionChange,
         onShowColumnFiltersChange,
         onShowGlobalFilterChange,
         onSortingChange,
-    } = useVirtualizedQuery<T>()
+    } = useDataQuery<T>()
 
-    // const t: MRT_TableOptions<any>['']
+    // const t: MRT_TableOptions<any>['getRowCanExpand']
 
     return useMaterialReactTable<T>({
         autoResetExpanded: false,
         autoResetPageIndex: false,
         columnResizeMode: 'onEnd' as ColumnResizeMode,
         columns,
-        columnVirtualizerInstanceRef,
-        columnVirtualizerOptions,
+        // columnVirtualizerInstanceRef,
+        // columnVirtualizerOptions,
         createDisplayMode: 'modal',
         data,
         defaultDisplayColumn,
@@ -138,13 +142,13 @@ export function useData<T extends MRT_RowData>(objectType?: string
         enableColumnOrdering: true,
         enableColumnPinning: enableColumnPinning ?? true,
         enableColumnResizing: enableColumnResizing ?? true,
-        enableColumnVirtualization,
+        // enableColumnVirtualization,
         enableEditing: true,
         enableExpandAll: getTableCanExpand(route),
         enableExpanding: getTableCanExpand(route),
         enableFacetedValues: true,
         enableGrouping: true,
-        enablePagination: enablePagination ?? false,
+        enablePagination: true,
         enableRowNumbers: enableRowNumbers,
         enableRowSelection: true,
         enableRowVirtualization,
@@ -155,6 +159,7 @@ export function useData<T extends MRT_RowData>(objectType?: string
         getFacetedMinMaxValues: getFacetedMinMaxValues() as any,
         getFacetedRowModel: getFacetedRowModel() as any,
         getFacetedUniqueValues: getFacetedUniqueValues() as any,
+        getRowCanExpand: () => getTableCanExpand(route),
         getRowId,
         getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
         groupedColumnMode: 'remove' as MRT_TableOptions<T>['groupedColumnMode'],
@@ -259,20 +264,21 @@ export function useData<T extends MRT_RowData>(objectType?: string
         onExpandedChange: onExpandedChange,
         onGlobalFilterChange: onGlobalFilterChange,
         onGroupingChange: onGroupingChange,
+        onPaginationChange: onPaginationChange,
         onShowColumnFiltersChange: onShowColumnFiltersChange,
         onShowGlobalFilterChange: onShowGlobalFilterChange,
         onSortingChange: onSortingChange,
         onRowSelectionChange: onRowSelectionChange,
-        // paginationDisplayMode: 'pages',
+        paginationDisplayMode: 'pages',
         renderBottomToolbarCustomActions,
         renderCaption: RenderCaption,
-        renderCreateRowDialogContent: createRenderCreateRowDialogContent<T>(),
+        renderCreateRowDialogContent: createRenderCreateRowDialogContent<T & {_id: BSON.ObjectId}>() as any,
         renderEditRowDialogContent: createRenderEditRowDialogContent(),
         renderRowActions: createRenderRowActions(),
-        renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetCollectionState({ collection: route })),
-        renderDetailPanel: route === 'sku' || route === 'product' ? CreateRenderDetailPanel : undefined,
-        rowVirtualizerInstanceRef,
-        rowVirtualizerOptions,
+        renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetCollectionState),
+        renderDetailPanel: route === 'sku' || route === 'product' ? createRenderVerticalTabs(route) : undefined,
+        // rowVirtualizerInstanceRef,
+        // rowVirtualizerOptions,
         state
     });
 }

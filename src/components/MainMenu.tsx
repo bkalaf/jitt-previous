@@ -16,6 +16,7 @@ import { surroundQuotesIgnore, surroundQuotesNoIgnore } from '../common/text/sur
 import { BSON } from 'realm';
 import * as cp from 'child_process';
 import { ignore } from '../common/ignore';
+import { useInvalidateCollection } from '../hooks/useInvalidateCollection';
 // const mainMenuOptions = {
 //     auctions: {
 //         selfStorage: $.selfStorage(),
@@ -236,6 +237,15 @@ export function Actions() {
                 .map((x) => x.kind === 'bin').length === 0,
         [db]
     );
+    const invalidateBarcode = useInvalidateCollection('barcode');
+    const removeOrphanedBarcodes = useCallback(() => {
+        const func = () => {
+            const bcs = db.objects<IBarcode>('barcode').filter((x) => x.linkingObjectsCount() === 0);
+            db.delete(bcs);
+            invalidateBarcode();
+        };
+        runTransaction(db, func);
+    }, [db, invalidateBarcode]);
     const exportBinBarcodes = useCallback(() => {
         const bcs = db
             .objects<IBarcode>('barcode')
@@ -272,6 +282,8 @@ export function Actions() {
                         <Divider />
                         <BaseMenuItem label='Print SKU Labels' onClick={exportSkuBarcodes} disabled={hasSkuToExport()} />
                         <BaseMenuItem label='Print Bin Labels' onClick={exportBinBarcodes} disabled={hasBinToExport()} />
+                        <Divider />
+                        <BaseMenuItem label='Remove orphaned barcodes' onClick={removeOrphanedBarcodes} />
                     </MenuList>
                 </CategoryMenuItem>
             </MenuList>

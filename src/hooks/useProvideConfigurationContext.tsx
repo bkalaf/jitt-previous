@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import * as fs from 'graceful-fs';
 import { app } from '@electron/remote';
-import { deepEqual } from './deepEqual';
+import { deepEqual } from '../common/deepEqual';
 import { IConfigurationContext } from '../contexts/Configuration';
 import { is } from '../common/is';
 import { defaultState } from './defaultState';
