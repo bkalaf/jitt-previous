@@ -13,14 +13,14 @@ import { CheckboxElement, FormProvider, useForm } from 'react-hook-form-mui';
 export function Images(props: { width: number; productImage: IProductImage }) {
     useWhyDidIUpdate('Images', props);
     const { productImage, width } = props;
-    const [brandFolder, productFolder, skuFolder] = getFolderNames(productImage.sku);
+    const [brandFolder, skuFolder] = getFolderNames(productImage.sku);
     const { filename, caption, selected } = productImage;
     const { remBgExt, remBgSuffix, products } = useFileSystem();
     const remBgFn = filename.split('.')[0].concat(remBgSuffix).concat('.').concat(remBgExt);
-    const basePath = [products, brandFolder, productFolder, skuFolder].join('\\');
+    const basePath = [products, brandFolder, skuFolder].join('/');
     checkFolder(basePath);
-    const original = [basePath, filename].join('\\');
-    const removeBG = [basePath, remBgFn].join('\\');
+    const original = [basePath, filename].join('/');
+    const removeBG = [basePath, remBgFn].join('/');
     const db = useLocalRealm();
     const [isIgnored, setIsIgnored] = useState(false);
     const [isDoNotRemBG, setDoNotRemBG] = useState(false);

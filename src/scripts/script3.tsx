@@ -20,22 +20,22 @@ collection
         }
     })
     .toArray()
-    .then((docs) => {
-        console.log(JSON.stringify(docs, null, '\t'));
-        // for (const iterator of docs) {
-        //     client
-        //         .db('jitt')
-        //         .collection('brand')
-        //         .updateOne(
-        //             { _id: iterator._id },
-        //             {
-        //                 $set: { folder: createFolderName(iterator.name) }
-        //             }
-        //         );
-        // }
-        console.log(`total records: ${docs.length}`);
-    })
-    .then(() => console.log('DONE!'));
+    // .then((docs) => {
+    //     // console.log(JSON.stringify(docs, null, '\t'));
+    //     // for (const iterator of docs) {
+    //     //     client
+    //     //         .db('jitt')
+    //     //         .collection('brand')
+    //     //         .updateOne(
+    //     //             { _id: iterator._id },
+    //     //             {
+    //     //                 $set: { folder: createFolderName(iterator.name) }
+    //     //             }
+    //     //         );
+    //     // }
+    //     // console.log(`total records: ${docs.length}`);
+    // })
+    // .then(() => ignore());
 
 // collection
 //     .find({})
@@ -53,4 +53,4 @@ collection
 //                 );
 //         }
 //     })
-//     .then(() => console.log('DONE!'));
+//     .then(() => ignore());

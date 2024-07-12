@@ -17,4 +17,4 @@ export const productColors = {
     ...Object.fromEntries(Object.entries(aliasColors).map(([k, v]) => [k, { ...colorsMap[v], key: k }]))
 };
 
-console.log(productColors);
+// console.log(productColors);

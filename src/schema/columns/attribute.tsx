@@ -32,7 +32,7 @@ export const attributeColumns: <T extends MRT_RowData>(...dependencies: IDepende
                 const formContext = useFormContext();
                 const pathValue = formContext.watch('path');
                 const attribute = attributePaths.find((x) => x.key === pathValue);
-                console.info(`pathValue`, pathValue, 'attribute', attribute);
+                // console.info(`pathValue`, pathValue, 'attribute', attribute);
                 if (attribute == null) return null;
                 const { Component } = attribute;
                 return <Component />;

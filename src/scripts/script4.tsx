@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { MongoClient } from 'mongodb';
 import { IDraft } from '../types';
 import * as fs from 'graceful-fs';
+import { ignore } from '../common/ignore';
 
 const MONGODB_ADMIN_PASSWORD = process.env.MONGODB_ADMIN_PASSWORD ?? '';
 const MONGODB_DATABASE_NAME = process.env.MONGODB_DATABASE_NAME ?? '';
@@ -128,7 +129,7 @@ const data = draftCollection
 
 data.then((datas) => {
     fs.writeFileSync('productInfo.json', JSON.stringify(datas, null, '\t'));
-}).finally(() => console.log('DONE!'));
+}).finally(() => ignore());
 
 // function testAndSet(doc: WithId<Document>, setMap: Record<string, any>) {
 //     return function (name: string, func: (x?: any) => any = identity) {

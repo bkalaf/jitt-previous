@@ -89,6 +89,7 @@ export default [{
     rules: {
         "@typescript-eslint/no-explicit-any": "off",
         "react/jsx-uses-react": "error",
-        'import/namespace': 'off'
+        'import/namespace': 'off',
+        'no-console': 'warn'
     },
 }];

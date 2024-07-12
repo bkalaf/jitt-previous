@@ -13,12 +13,12 @@ export function Image(props: { width: number; filepath: string; caption?: string
         const func = () => {
             if (blob == null) return;
             const local = URL.createObjectURL(blob);
-            console.log(`local: ${local}`);
+            // console.log(`local: ${local}`);
             setSrc(local);
             return () => {
                 if (local != null) {
                     URL.revokeObjectURL(local);
-                    console.log(`revoke: ${local}`);
+                    // console.log(`revoke: ${local}`);
                 }
             };
         };

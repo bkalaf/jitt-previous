@@ -1996,7 +1996,8 @@ const fields = [
         func: $from.list.ofString,
         titleFunc: $from.list.ofString,
         section: 'lists'
-    }
+    },
+    { key: 'product.suggestedRetailPrice', getter: (sku: ISku) => sku?.product?.suggestedRetailPrice, importance: 197, header: 'SRP', params: null, section: 'attributes', func: $from.dollar, titleFunc: null, index: null }
 ] as {
     header: string | null;
     importance: number | null;
@@ -2019,33 +2020,32 @@ const fields = [
     section: string | null;
 }[];
 
-export const $fields = (sku: ISku) => fields.map(x => {
-    function inner(f?: NarrativeFunc<any> | null) {
-        if (f == null) return { header: null, value: undefined };
-        const result = f(x.header ?? '')(x.params)(x.getter)(sku);
-        console.log(`result for x`, x, result);
-        return {
-            header: result.header ?? null,
-            value: result.value ?? null
+export const $fields = (sku: ISku) =>
+    fields.map((x) => {
+        function inner(f?: NarrativeFunc<any> | null) {
+            if (f == null) return { header: null, value: undefined };
+            const result = f(x.header ?? '')(x.params)(x.getter)(sku);
+            // console.log(`result for x`, x, result);
+            return {
+                header: result.header ?? null,
+                value: result.value ?? null
+            };
         }
-    }
-    const { header: narrativeHeader, value: narrativeValue } =
-        inner(x.func as any);
-    const { header: titleHeader, value: titleValue } =
-        inner(x.titleFunc as any);
-    return {
-        importance: x.importance,
-        index: x.index,
-        section: x.section,
-        header: narrativeHeader ?? titleHeader,
-        title: titleValue,
-        narrative: narrativeValue
-    } as {
-        importance: number | null,
-        index: number | null,
-        section: Sections,
-        header: string | undefined,
-        title: string | undefined,
-        narrative: string | undefined
-    }
-})
+        const { header: narrativeHeader, value: narrativeValue } = inner(x.func as any);
+        const { header: titleHeader, value: titleValue } = inner(x.titleFunc as any);
+        return {
+            importance: x.importance,
+            index: x.index,
+            section: x.section,
+            header: narrativeHeader ?? titleHeader,
+            title: titleValue,
+            narrative: narrativeValue
+        } as {
+            importance: number | null;
+            index: number | null;
+            section: Sections;
+            header: string | undefined;
+            title: string | undefined;
+            narrative: string | undefined;
+        };
+    });

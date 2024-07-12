@@ -18,7 +18,7 @@ export class Bin extends EntityBase<IBin> implements IBin {
                 throw new Error('barcode generator null on Bin');
             }
             if (bin.barcode == null) {
-                console.info('adding barcode to bin');
+                // console.info('adding barcode to bin');
                 bin.addBarcode(Bin.barcodeGenerator);
             }
         };

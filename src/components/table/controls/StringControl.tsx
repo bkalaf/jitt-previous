@@ -1,9 +1,7 @@
 import { MRT_RowData } from 'material-react-table';
-import { TextFieldElement, useFormContext } from 'react-hook-form-mui';
+import { TextFieldElement } from 'react-hook-form-mui';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
-import { is } from '../../../common/is';
 import { useEditControlBase } from '../../../hooks/useEditControlBase';
-import { useCallback } from 'react';
 
 export function StringControl<T extends MRT_RowData, U>(props: EditFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('StringControl', props);

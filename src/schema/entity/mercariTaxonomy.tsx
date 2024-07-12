@@ -41,7 +41,7 @@ export class MercariTaxonomy extends EntityBase<IMercariTaxonomy> implements IMe
     static update(item: IMercariTaxonomy): IMercariTaxonomy {
         const func = () => {
             const fullname = [item?.category?.name, item?.subCategory?.name, item?.subSubCategory?.name].filter((x) => x != null).join('::');
-            console.info(`update-taxonomy`, item, fullname);
+            // console.info(`update-taxonomy`, item, fullname);
             if (item.fullname !== fullname) {
                 item.fullname = fullname;
             }

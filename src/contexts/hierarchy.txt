@@ -1,0 +1,70 @@
+Here's a product hierarchy with the categories you requested:
+
+Top Level
+
+Apparel
+Tops
+Shirts
+Blouses
+Sweaters
+Jackets
+Bottoms
+Jeans
+Pants
+Shorts
+Skirts
+Intimates
+Bras
+Underwear
+Sleepwear
+Footwear
+Shoes
+Sandals
+Boots
+Slippers
+Full Body
+Dresses
+Jumpsuits
+Rompers
+Accessories
+Hats
+Scarves
+Belts
+Jewelry (can be moved to a separate top level if desired)
+Toys
+(Subcategories can be based on age, interest, etc. Examples: Action Figures, Dolls, Building Sets, Games)
+Electronics
+Chords & Cables (can be a subcategory under Electronics)
+Power Cables
+Audio Cables
+Video Cables
+Data Cables
+(Other Electronics Subcategories: Phones, TVs, Computers, Cameras, Appliances, etc.)
+Home Goods
+Furniture
+Kitchenware
+Bedding
+Bath
+Décor
+Cleaning Supplies
+Jewelry (Can be a top level category or a subcategory under Apparel)
+Bags
+Handbags
+Backpacks
+Luggage
+Wallets & Cases
+Totes & Shopper Bags
+Sporting Goods
+Equipment (by sport)
+Apparel (by sport)
+Footwear (by sport)
+Media
+Books
+Movies
+Music
+Video Games
+Notes:
+
+This is a general hierarchy and can be customized further based on your specific needs.
+Some categories can be interlinked. For example, Sports Bags can be under both Bags and Sporting Goods.
+The "Chords & Cables" subcategory can be debated. It can be placed under Electronics for technical reasons or under Accessories for its functional use with various electronic devices.

@@ -40,8 +40,8 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
     const invalidator = useInvalidateCollection();
     const { control, getFieldState, getValues } = formContext;
     const { invalid, error } = getFieldState(name);
-    const { type, message: helperText } = error ?? {};
-    if (type != null) console.error(`${type}: ${helperText}}`);
+    const { message: helperText } = error ?? {};
+    // if (type != null) console.error(`${type}: ${helperText}}`);
     const onChange = useCallback(
         (ev?: React.ChangeEvent<TElement>, newValue?: any) => {
             ev?.preventDefault();

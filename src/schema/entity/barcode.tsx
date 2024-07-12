@@ -58,9 +58,9 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
         }
     };
     static update(obj: Barcode): Barcode {
-        console.info('Barcode.update');
+        // console.info('Barcode.update');
         const func = () => {
-            console.info('Barcode.update - running');
+            // console.info('Barcode.update - running');
             obj.value = obj.value.padStart(13, '0');
             const [isValidated, type] = classifyBarcode(obj.value);
             obj.isValidated = isValidated;

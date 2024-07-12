@@ -8,12 +8,12 @@ function handleFilter<T extends MRT_RowData>(collection: string, db?: Realm, fil
     if (filterString == null || filterString.length === 0) {
         if (db == null) throw new Error('no db');
         const result = Array.from(db.objects<T>(collection));
-        console.info(`result`, result);
+        // console.info(`result`, result);
         return Promise.resolve(result);
     }
     if (db == null) throw new Error('no db');
     const result = Array.from(db.objects<T>(collection).filtered(filterString, ...(filterArgs ?? [])));
-    console.info(`result`, result);
+    // console.info(`result`, result);
     return Promise.resolve(result);
 }
 export function useCollectionQuery<T extends MRT_RowData>(collection: string): [boolean, boolean, (Realm.Object<T> & T)[]] {

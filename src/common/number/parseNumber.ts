@@ -42,10 +42,10 @@ const infos = {
     ...halves
 }
 
-console.log(JSON.stringify(infos, null, '\t'));
+// console.log(JSON.stringify(infos, null, '\t'));
 
 export function lookupFraction(decimal: string) {
-    console.log('lookupFraction', lookupFraction);
+    // console.log('lookupFraction', lookupFraction);
     const $decimal = parseFloat(decimal);
     const $infos = Object.entries(infos).map(([k, v]) => ({
         key: parseFloat(k),
@@ -54,12 +54,6 @@ export function lookupFraction(decimal: string) {
     const $max = Math.max(...$infos.filter(x => x.key <= $decimal).map(x => x.key));
     return $infos.find(x => x.key === $max)?.fraction;
 }
-
-console.log(lookupFraction('0.5'))
-console.log(lookupFraction('0.3333'));
-console.log(lookupFraction('0.75'));
-console.log(lookupFraction('0.9'));
-console.log(lookupFraction('0.111'));
 
 // const fractionLookup = {
 

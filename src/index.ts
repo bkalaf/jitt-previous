@@ -61,8 +61,8 @@ const createWindow = (): BrowserWindow => {
 
 app.whenReady()
     .then(async () => {
-        const result = await session.defaultSession.loadExtension(getDevToolsPath(REACT_DEV_TOOLS_ID), { allowFileAccess: true });
-        console.log(result);
+        await session.defaultSession.loadExtension(getDevToolsPath(REACT_DEV_TOOLS_ID), { allowFileAccess: true });
+        // console.log(result);
     })
     .then(async () => {
         const window = createWindow();
@@ -92,10 +92,10 @@ app.on('activate', () => {
 });
 
 process.on('uncaughtException', (error, origin) => {
-    console.error(error.name);
-    console.error(error.message);
-    console.error(error.stack);
-    console.error(origin.toString());
+    // console.error(error.name);
+    // console.error(error.message);
+    // console.error(error.stack);
+    // console.error(origin.toString());
 
     process.stdout.write(error.name + '\n');
     process.stdout.write(error.message + '\n');
@@ -104,9 +104,9 @@ process.on('uncaughtException', (error, origin) => {
 });
 process.setUncaughtExceptionCaptureCallback((error) => {
     fs.appendFileSync('error.json', JSON.stringify(error, null, '\t'));
-    console.error(error.name);
-    console.error(error.message);
-    console.error(error.stack);
+    // console.error(error.name);
+    // console.error(error.message);
+    // console.error(error.stack);
 
     process.stdout.write(error.name + '\n');
     process.stdout.write(error.message + '\n');

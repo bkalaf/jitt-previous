@@ -1166,4 +1166,4 @@ export type EnumName = keyof typeof $masterEnum;
 const $me = { ...$masterEnum, attributePaths: attributePaths } as Record<EnumName, EnumItem<string>[]> & Record<'attributePaths', { text: string; key: string; Component: React.FunctionComponent<{}> }[]>;
 export default $me;
 
-console.log(Object.keys($me).join('\n'))
+// console.log(Object.keys($me).join('\n'))

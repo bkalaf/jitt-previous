@@ -37,13 +37,13 @@ export function useFieldArrayControlForDictionary<T extends MRT_RowData, TValue,
         [formContext, name]
     );
     const { error } = formContext.getFieldState(name);
-    const { type, message: helperText } = error ?? {};
-    if (type != null) console.error(`${type}: ${helperText}}`);
+    const { message: helperText } = error ?? {};
+    // if (type != null) console.error(`${type}: ${helperText}}`);
     const value = formContext.watch(name) as DictionaryBack<TValue>;
     if (objectType == null) throw new Error('no objectType');
     const cols = useDirectStaticColumns(objectType);
     const LiComponent = useGetLIComponent(objectType);
-    console.info(`formContext`, formContext.getValues());
+    // console.info(`formContext`, formContext.getValues());
     const enumType =
         keyType === 'string' ? undefined
         : keyType != null ? keyType

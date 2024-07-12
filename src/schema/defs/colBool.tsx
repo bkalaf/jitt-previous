@@ -22,7 +22,7 @@ export function colBool<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
                     ],
                     filterVariant: 'checkbox',
                     filterFn: function isTrue(row, id, filterValue) {
-                        console.info('filterFn', row.getValue(id), filterValue);
+                        // console.info('filterFn', row.getValue(id), filterValue);
                         process.stdout.write(`getValue: ${row.getValue(id)} filterValue: ${filterValue}\n`);
                         return (row.getValue<boolean>(id)?.toString() ?? 'false') === filterValue;
                     }

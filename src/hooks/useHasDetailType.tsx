@@ -6,9 +6,9 @@ export function useCheckPredicate(name: string, predicate: (x?: any) => boolean)
     const { watch } = useFormContext();
     const current = watch(name);
     const result = useMemo(() => {
-        console.info(`useCheckProperty`, name, current, predicate(current));
+        // console.info(`useCheckProperty`, name, current, predicate(current));
         return predicate(current);
-    }, [current, name, predicate]);
+    }, [current, predicate]);
     useDebugValue(`${name}:whenPredicate(${current?.toString() ?? ''}) == ${result?.toString()}`);
     return result;
 }
@@ -17,13 +17,13 @@ export function useCheckProperty(name: string, value: any) {
     const current = watch(name);
 
     const result = useMemo(() => {
-        console.info(`useCheckProperty`, name, value, current);
+        // console.info(`useCheckProperty`, name, value, current);
         return (
             current == null ? true
             : Array.isArray(value) ? value.includes(current)
             : value === current
         );
-    }, [current, name, value]);
+    }, [current, value]);
     useDebugValue(`${name}:whenPredicate(${current?.toString() ?? ''}) == ${result?.toString()}`);
     return result;
 }

@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import { useViewSettings } from './useViewSettings';
 import { useQuery } from '@tanstack/react-query';
 import { useLocalRealm } from './useLocalRealm';
-import { useMatch } from 'react-router';
 
 export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>, 'columns'> & { resetCollectionState: () => void } {
     const route = useEffectiveCollection();
@@ -14,12 +13,12 @@ export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>,
     const realm = useLocalRealm();
     // const ctor = useCollectionSchema(route) as MyClass<any>;
     // const navigate = useNavigate();
-    const $match = useMatch('/data/v1/:collection');
+    // const $match = useMatch('/data/v1/:collection');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, dataUpdatedAt, error, errorUpdatedAt, isLoading, isError } = useQuery<T[]>({
         queryKey: [route, columnFilters, globalFilter, sorting],
         queryFn: () => {
-            console.log('MATCH', $match);
+            // console.log('MATCH', $match);
             // const qp1 = new URLSearchParams();
             // const [qp2, sorted] = toSorted(qp1, sorting);
             // const [qp3, match] = toGlobalFilter<T>(qp2, globalFilter, ctor);
@@ -28,7 +27,7 @@ export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>,
             // const pathTo = ['/data/v1', prependIgnore('/')($match?.params.collection), prependIgnore('?')(searchString) ?? ''].join('');
             // navigate(pathTo);
             const result = realm.objects<T>(route) as any as Realm.Results<T>;
-            console.log(`result`, result, result.length);
+            // console.log(`result`, result, result.length);
             return Promise.resolve(Array.from(result));
         }
     });

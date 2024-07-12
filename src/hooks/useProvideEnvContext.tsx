@@ -23,8 +23,6 @@ const REMOVE_BG_SUFFIX = process.env.REMOVE_BG_SUFFIX ?? '';
 const VIDEOS_FOLDER = process.env.VIDEOS_FOLDER ?? '';
 const COLLECTION_OPTIONS_CONFIG_FILE = process.env.COLLECTION_OPTIONS_CONFIG_FILE ?? '';
 const MONGODB_ADMIN_PASSWORD = process.env.MONGODB_ADMIN_PASSWORD ?? '';
-const MONGODB_DATABASE_NAME = process.env.MONGODB_DATABASE_NAME ?? '';
-const PRODUCT_SEARCH_OID_LIST = process.env.PRODUCT_SEARCH_OID_LIST ?? '';
 
 export function useProvideEnvContext(): IEnvContext {
     return useMemo(

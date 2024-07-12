@@ -1,4 +1,3 @@
-import { surroundQuotesIgnore } from '../../common/text/surround';
 
 const roles = {
     book: {
@@ -91,5 +90,5 @@ Object.entries(roles)
 
 
 // console.log(JSON.stringify(result, null, '\t'))
-console.log(JSON.stringify(Array.from(gatherer.values()), null, '\t'))
-console.log(`export type ContributorRoles = ${Array.from(gatherer.keys()).map(surroundQuotesIgnore).join(' | ')}`);
+// console.log(JSON.stringify(Array.from(gatherer.values()), null, '\t'))
+// console.log(`export type ContributorRoles = ${Array.from(gatherer.keys()).map(surroundQuotesIgnore).join(' | ')}`);

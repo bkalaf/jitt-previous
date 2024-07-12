@@ -1,7 +1,7 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { baseCol } from './baseCol';
 import { ColumnMeta } from '@tanstack/table-core';
-import { StringTableCell, TextTableCell } from '../../components/table/cells/StringTableCell';
+import { TextTableCell } from '../../components/table/cells/StringTableCell';
 import { TextAreaControl } from '../../components/table/controls/TextAreaControl';
 
 export function colText<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>) {

@@ -60,11 +60,11 @@ export function App() {
     const [currentURL, setCurrentURL] = useState<string>('');
     const onNavigate = useCallback((ev: any) => {
         const e = ev as { destination: { url: string } };
-        console.info('navigate.url', e.destination.url);
+        // console.info('navigate.url', e.destination.url);
         const url = new URL(e.destination.url);
-        console.info('url', url);
+        // console.info('url', url);
         const matcher = matchPath('/data/v1/:collection', url.hash.slice(1));
-        console.info('matcher', matcher);
+        // console.info('matcher', matcher);
         if (matcher == null) {
             return setCurrentURL(url.hash);
         }
@@ -82,8 +82,8 @@ export function App() {
                 <AppBar color='primary' position='static'>
                     <Toolbar variant='dense' className='flex items-center justify-start gap-x-2' disableGutters>
                         <img src={logo} alt='logo' className='flex h-14' />
-                        <IconBtn onClick={goHome} icon={faHome} iconSize='sm' tooltip='Go to the home page.' />
-                        <IconBtn onClick={goPrevious} icon={faCircleLeft} iconSize='sm' tooltip='Go to the previous page.' />
+                        <IconBtn onClick={goHome} icon={faHome} iconSize='1x' tooltip='Go to the home page.' />
+                        <IconBtn onClick={goPrevious} icon={faCircleLeft} iconSize='lg' tooltip='Go to the previous page.' />
                         <span className='flex w-full justify-start'>
                             <MainMenu />
                         </span>

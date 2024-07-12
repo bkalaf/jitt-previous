@@ -47,7 +47,7 @@ export class ProductImage extends EntityBase<IProductImage> implements IProductI
     }
     get effective(): Opt<string> {
         const folders = getFolderNames(this.sku);
-        return this.hasSelection ? [FILESYSTEM_ROOT, FILESYSTEM_PRODUCTS, ...folders, this.selected === 'original' ? this.filename : getRemBgName(this.filename, REMOVE_BG_SUFFIX, REMOVE_BG_EXT)].join('\\') : undefined;
+        return this.hasSelection ? [FILESYSTEM_ROOT, FILESYSTEM_PRODUCTS, ...folders, this.selected === 'original' ? this.filename : getRemBgName(this.filename, REMOVE_BG_SUFFIX, REMOVE_BG_EXT)].join('/') : undefined;
     }
     static labelProperty = 'filename';
     static schema: Realm.ObjectSchema = {

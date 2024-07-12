@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useLocalRealm } from './useLocalRealm';
 import Realm from 'realm';
 import { primitives } from './primtivies';

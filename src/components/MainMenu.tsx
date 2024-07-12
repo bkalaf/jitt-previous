@@ -176,12 +176,12 @@ export function Actions() {
                     inserted++;
                 } else {
                     const obj = objs[0];
-                    console.info(`obj`, obj);
-                    const maxCount = obj.maxCount;
-                    const mostRecent = obj.mostRecent;
-                    const $maxCount = obj.usage.find((x) => x.count === maxCount);
-                    const $mostRecent = obj.usage.find((x) => x.from === mostRecent && $maxCount?.from !== x.from);
-                    console.log(maxCount, mostRecent, $maxCount, $mostRecent);
+                    // console.info(`obj`, obj);
+                    // const maxCount = obj.maxCount;
+                    // const mostRecent = obj.mostRecent;
+                    // const $maxCount = obj.usage.find((x) => x.count === maxCount);
+                    // const $mostRecent = obj.usage.find((x) => x.from === mostRecent && $maxCount?.from !== x.from);
+                    // console.log(maxCount, mostRecent, $maxCount, $mostRecent);
                     // obj.usage.map((x, ix) => [ix, x] as [number, IHashTagUsage]).filter(x => x[1] !== $mostRecent && x[1] !== $maxCount).map(x => x[0]).reverse().forEach(x => obj.usage.remove(x));
                     obj.usage.push({ count, from: new Date(from) });
                     modified++;

@@ -1,0 +1,251 @@
+Create a product hierarchy that has: office-supplies, pet-supplies, apparel, toys, cords & cables, electronics, homegoods, jewelry, bags, sporting-goods, tools, collectibles, media at the top level.
+
+Bermuda shorts, board shorts, khaki shorts, denim shorts, gym shorts
+trading cards, coins & print money, bibliophilic, philately (stamps), comics
+
+APPAREL          - tops, bottoms, undergarments, footwear, full-body, accessories
+	TOPS            - jackets, pull-overs, button-ups, sweaters
+        JACKETS         - fleece, leather, jean jacket, trenchcoat, hoodie, windbreaker, 
+                          poncho, rainwear, varsity, peacoat, wool
+        PULL-OVERS      - halter top, turtleneck, t-shirt, camisole, tank-top, 
+                          tube-top                          
+        BUTTON-UPS      - blouse, button-down, polo, henley, rugby, hawaiian shirt, 
+                          fitted-shirt, dress-shirt
+        SWEATERS        - sweater, sweater vest, sweatshirt, vest
+	BOTTOMS         - shorts, skirts, legged 
+        SHORTS          - bermuda, board, khaki, denim, gym, trunks, bike, cargo, corduroy
+        SKIRTS          - a-line, maxi, mini, pencil, full, wrap, assymetrical
+        LEGGED          - pants, jeans, pant-like
+            PANTS           - dress, casual, khakis, pleated, flat
+            PANT-LIKE       - cropped, capri, leather, carpenter, sweatpants 
+            JEANS           - skinny, slim, slim-boot-cut, boot-cut, relaxed,
+                              baggy, straight, flared
+	UNDERGARMENTS   - underwear, bras, jocks, briefs, boxers, socks, sleepwear 
+        SLEEPWEAR       - robe, negligee, sleep-shirt, pajamas
+	FOOTWEAR        - lace-ups, slip-ons, boots, work shoes
+        LACE-UPS        - sneakers, loafers, oxfords
+        SLIP-ONS        - clogs, mules, slippers, flip-flops
+        STRAPPED        - sandals, heels, flats
+        BOOTS           - hiking, cowboy, outdoors 
+        WORK SHOES      - safety shoes, band shoes
+	FULL-BODY       - dresses, suits, athletic-suits, onesies
+        DRESSES         - above-knee, knee-length, mini, maxi, romper, high-low
+        SUITS           - tuxedo, 1-button, 2-button, 3-button, double-breasted, pantsuit
+        ONESIES         - tracksuits, bodysuit, snowsuits
+	ACCESSORIES     - bags, jewelry, headwear, wallet, belt, necktie 
+        JEWELRY         - earring, ring, bracelet, necklace, anklet, piercing           
+                          guage-jewelry, cufflink, watch
+        HEADWEAR        - ballcap, headband, hardhat, hat, fedora, bandana, sunglasses, scarves
+        BAGS            - shoulder-carry bag, hand-bags, luggage
+            SHOULDER-CARRY  - gym-bag, shoulder-bag, backpack
+            HAND-BAGS       - purse, handbag, tote-bag, make-up bag
+BEAUTY          - hair care, dental care, pain management, weight management, nail care
+CABLES & CORDS	- power, data, video, audio
+    POWER           - ac adapter, extension cord
+    DATA            - usb, lightning
+COLLECTIBLES    - trading cards, bibliophile, philately(stamps), coins & print money, comics
+ELECTRONICS	    - computer-components, visual, appliances, audio, video, smart-home 
+    APPLIANCES         - large appliances, small appliances, kitchen appliances 
+        KITCHEN             - blender, air-fryer, microwave, mixer, toaster, food-processor
+                              soda-maker, waffle-iron, indoor-grill, electric kettle, 
+                              coffee maker, toaster oven
+        LARGE               - 
+        SMALL               - vacuum, carpet cleaner, air purifier
+    AUDIO              - radio, cd-player, mp3-player, turntable, speaker, subwoofer
+    COMPUTER-COMPONENTS- drives, ram, networking, cpu, rechargable-batteries 
+    SMART-HOME         - doorbell-camera, wireless camera, assistant, smart-lighting
+    VIDEO              - televisions, dvd-players, dvrs, streaming-devices, photography
+    VISUAL             - cell-phones, tablets, computers
+        CELL-PHONES         - smart-phones, cases, accessories
+        COMPUTERS           - desktops, laptops, monitors, peripherals, input/output
+            PERIPHERALS         - printers, scanners, all-in-one, copier
+HOME-GOODS	    - decor, kitchenware, linens, storage & organizationc, clothing-care 
+    BATH & BATHING     - floor mats, toilet brushes, counter containers, shower curtain, scale
+    CLOTHING-CARE      - irons, ironing boards 
+    DECOR              - wall decor, table decor, holiday decor
+    KITCHENWARE        - dinnerware, flatware, glassware, cookware
+        COOKWARE            - bakeware, cooking utensils, pots & pans, mixing bowls, chefs 
+                              knives, cutting boards
+        DINNERWARE          - dinner plate, salad plate, bread & butter plate, cereal bowl 
+        FLATWARE            - knives, forks, spoons
+        GLASSWARE           - tumblers, wine glasses, champagne flutes, beer stein
+    LINENS             - towels, bedding, window-treatments, kitchen
+        TOWELS              - kitchen towels, bath towels, beach towels, hand towels 
+        BEDDING             - sheets set, comforter, duvet, pillows, bed runner
+    STORAGE & ORGANIZE - storage totes, storage cubes, rubbermaid/tupperware, bankers boxes
+                         jewelry boxes & organizers, food storage container, carrying caddy
+MEDIA		    -
+OFFICE-SUPPLIES -
+PET-SUPPLIES 	- cats, dogs, birds, fish, reptiles, feeding 
+    FEEDING         - pet feeder, pet water fountain
+    DOGS            - crates, leashes, collars, dog toys, harnesses, food bowls
+    CATS            - crates, collars, litter box, litter maintenance, food bowls
+    FISH            - aquarium & supplies
+SPORTING-GOODS  -
+TOOLS   	    -
+TOYS & GAMES    -
+
+underneath apparel should be tops, bottoms, undergarments, footwear, full-body, and accessories. 
+underneath tops should be jackets, pullovers, button-ups, sweaters. 
+underneath bottoms should be legged, shorts, and skirts.
+	legged - pants, khakis, jeans,  
+underneath full body should be dresses, suits, onesie 
+underneath footwear should be lace-ups, slip-ons socks, and boots
+there should be sneakers, loafers, oxfords under lace-ups. 
+underneath slip-ons there should be heeled, flats, sandals. 
+underneath undergarments there should be bras, underwear, sleepwear.
+bras
+	sport-bras, swimwear
+
+sleepwear 
+	negligee, robes, sleepshirt, pajamas
+underneath the accessories should be eyewear, headwear, belts
+
+underneath media there should be books, music, magazines, video games and videos. 
+underneath videos there should be film, TV series. 
+
+underneath electronics there should be visual, computer components, kitchen appliances, audio. 
+underneath visual should be cell phones, tablets, computers, photography 
+underneath computers should be laptops , desktops, monitors, and printers. 
+underneath cables should be data, video, and power.
+power-cords
+	extension-cords, ac-adapters 
+
+ add picture frames to decor,, and projectors to visual, add DVD players to visual, change batteries to rechargeable batteries, 
+
+and builder toys to toys with a child of Legos, add slippers to slip-ons, move swimwear under bras, add fitting shirt to button ups, and half zips pullovers, and add educational toys to toys
+
+underneath toys should be toys, games, jigsaw puzzles, and plushes.
+underneath toys should be action figures.
+underneath games shoul be board games, card games, family games, outdoor games, drinking games.
+underneath sporting goods should be categories for golf, bowling, tennis, baseball, basketball, soccer and outdoors. 
+underneath golf there should be clubs and underneath tennis there should be rackets and underneath bowling there should be balls.
+home goods - decor, kitchenware, linens, furniture, storage & organization, clothing-care
+	clothing-care - irons, ironing boards
+	kitchenware - dinnerware, glassware, flatware, serveware
+	linens - bath-towels, kitchen-towels, bedding, pillows
+	decor - wall art, table decor, holiday decor
+		wall art - picture frames
+		table decor - clocks, ceramic dishes
+tools - hand tools, power tools, automotive tools, fasteners
+apparel -
+	accessories - 
+		bags - 
+personal care -
+	hair care 
+	fragrances
+	dental care	
+
+pull-overs 
+	tee-shirts
+button-ups 
+	polos, dress shirts, oxford shirts, blouses, henleys, Hawaiian shirts
+sweaters
+	sweaters, sweatshirts
+jackets
+	windbreakers, trench coats, leather coats, denim coats, hoodies, sport-coats
+	sport-coats 
+		 1-button, 2-button, 3-button, 4-button, double-breasted
+shorts 
+	
+legged 
+	cargo pants, khaki pants, dress pants, carpenter pants, sweatpants
+boots
+	hiking boots, work boots, cowboy boots
+work shoes
+sneakers
+	athletic, fashion, skate
+flip flops to sandals
+skirts
+	mini, maxi, knee-length
+dresses
+	prom, wedding, evening gown, A-frame, full-length, cocktail dress
+suits 
+	tuxedo, 1-button, 2-button, 3-button, 4-button, double-breasted
+
+headwear
+	fedora, cowboy hat, ballcap, beanie
+eyewear
+	sunglasses, glasses
+
+
+
+ and hiking boots, and work boots to boots and work shoes to footwear. 
+
+cell-phones
+	accessories
+audio
+	cd-player, mp3-player, radio, head-phones
+computer-components
+	ram, drives, cpu, networking, rechargable-batteries 
+smart-home
+	, streaming device
+office-supplies
+	paper, pens, ink & toner
+ink & toner 
+	ink cartridge
+holiday decor 
+	xmas, easter, new  years, thanksgiving, Halloween, 4th of July, st.patricks, cinqo de mayo
+automotive tools
+	tire tools, engine tools, detailing tools
+pet-supplies
+	dog, cat, bird, reptile, fish
+collectibles 
+	
+kitchen-appliances
+	toasters, microwave, blender, air fryer, electric kettle, indoor grills, waffle maker, coffee maker, soda maker
+storage & organization
+
+toaster
+	2-slice toaster, toaster oven
+storage & organization
+	storage totes, jewelry boxes, compartment boxes, bankers boxes, food storage, carrying caddy
+jeans 
+	boot-cut, slim-boot-cut, relaxed, baggy, straight, flared, skinny
+accessories 
+	wallets, belts, neckties
+drives
+	internal drive, external drive, cdrw, dvdrw, USB/Thumb drives
+cleaning supplies
+	laundry baskets, trash cans, broom & mops
+
+ and computer accessories to computer components. add webcam to computer accessories. 
+
+ sleepwear should also be underneath intimates along with negliges. underneath the accessories should be eyewear and headwear. underneath media there should be books, music, magazines, video games and videos. underneath videos there should be film and TV series. add office supplies to top level and pet supplies to top level. underneath electronics there should be visual, computer components, kitchen appliances, audio, and smart phone. underneath visual should be cell phones and tablets and computers. underneath computers should be laptops , desktops, monitors, and printers. underneath cables should be data, and video, and power. underneath toys should be games, and stuffed animals. animals. underneath games should be board games, card games, and jigsaw puzzles. underneath sporting goods should be categories for golf, bowling, tennis, baseball, basketball, soccer and outdoors. underneath golf there should be clubs and underneath tennis. there should be rackets and underneath bowling. there should be balls. underneath home goods should be decor, dinnerware, glassware, flatware, and linens. underneath linens. there should be towels, and bedding. underneath decor there should be wall art, table decor, and holiday decor. add tools to the top level. underneath tools there should be hand tools, power tools, automotive tools, and fasteners. underneath jewelry there should be precious metal, and costume. underneath bags there should be backpacks, handbags, tote bags, and luggage. add personal care to the top level. add hair care, and fragrances to beauty along with dental care. add jeans and pants to legged and add. add t-shirts and polos and sweaters and sweatshirts to pullovers. add windbreakers, and trench coats, and leather coats, and blazers to jackets. add dress shirts, Oxford shirts, and blouses to button-ups. add Bermuda shorts, board shorts, khaki shorts, denim shorts, athletic shorts, to shorts.  add cargo pants, khaki pants, dress pants, carpenter pants, and sweatpants to pants. add robes, sleep shirts to sleepwear. move negliges to sleepwear. add undergarments to intimates. and hiking boots, and work boots to boots and work shoes to footwear. add athletic sneakers, and fashion sneakers to sneakers. add flip flops to sandals. add mini, Maxi, knee length, wedding dress, cocktail dress, prom, dress to dresses. add one button, two button, three button, tuxedo, four button to suits. add one button, two button, three button, and sport coat to blazers. add Fedora, cowboy hat, and ball cap to headwear. add sunglasses to eyewear. add cell phone accessories to cell phones. add CD player, MP3 player, and radio to audio. add ram , drives, CPU, networking, batteries to computer components. change smart phone to Smart home. add doorbell camera, wireless camera, assistant, streaming device to Smart home. add paper, office, electronics, ink & toner to office supplies. add roadside assistance to automotive tools. add cat supplies, dog supplies, fish supplies, bird supplies to pet supplies. add Christmas, Valentine's Day, Halloween
+
+fan-shop
+	mlb, nba, ncaa, nfl, nhl, 
+
+cleaning-supplies
+	laundry baskets, trash cans, mops & brooms
+pull-overs
+	camisole, tank top, tube top
+
+cookware
+	pots & pans, bakeware, chefs knives, mixing bowls, cutting boards, cooking utensils
+audio
+	speakers, subwoofer
+
+appliances
+	small kitchen, clothing-care, floor-care
+floor-care
+	vacuums
+dog
+	dog leash, dog harness, dog collar
+
+bedding
+	comforter, sheet set
+bath 
+	shower curtains, bath mats, countertop containers, scale
+hand-tools
+	bolt cutters
+outdoors
+	camping
+
+
+
+Sent by you:
+add sports bras to bras. move computer accessories directly under electronics. remove personal care. and then change beauty to personal care. add bandanas to headwear. at a top level of furniture with accent tables as a child.
+add swimming trunks to shorts. 
+move hoodies jackets. add action figures to toys. move computer accessories under electronics. add small appliance to electronics and then move kitchen appliances underneath small appliances.
+

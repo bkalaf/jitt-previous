@@ -23,14 +23,14 @@ export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extend
         control: formContext.control
     });
     const { error } = formContext.getFieldState(name);
-    const { type, message: helperText } = error ?? {};
-    if (type != null) console.error(`${type}: ${helperText}}`);
+    const { message: helperText } = error ?? {};
+    // if (type != null) console.error(`${type}: ${helperText}}`);
     const value = formContext.watch(name) as TValue[];
     if (objectType == null) throw new Error('no objectType');
     // const cols = useDirectColumns(objectType);
     const cols = useDirectStaticColumns(objectType);
     const LiComponent = useGetLIComponent(objectType);
-    console.info(`formContext`, formContext.getValues());
+    // console.info(`formContext`, formContext.getValues());
     return {
         keyType,
         cols,

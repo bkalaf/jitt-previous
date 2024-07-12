@@ -20,7 +20,7 @@ export function useViewSettings<T extends MRT_RowData>(route: string): UseViewSe
             internalSetState((oldConfig) => {
                 const newConfig = typeof updater === 'function' ? updater(oldConfig) : updater;
                 if (deepEqual(newConfig, oldConfig)) {
-                    console.info('internalSetState-is-equal', newConfig, oldConfig);
+                    // console.info('internalSetState-is-equal', newConfig, oldConfig);
                     return oldConfig;
                 }
                 fs.writeFileSync(COLLECTION_OPTIONS_CONFIG_FILE, JSON.stringify(newConfig, null, '\t'));
@@ -49,15 +49,15 @@ export function useViewSettings<T extends MRT_RowData>(route: string): UseViewSe
             const current: JITTTableState<T> = collection in collectionConfig ? collectionConfig[collection] : initialState;
             const opt = option in current ? current[option] : undefined;
             if (deepEqual(opt, settingValue ?? getTableSettingDefault(option))) {
-                console.info('setCollectionOption-EQUAL', opt, settingValue ?? getTableSettingDefault(option));
+                // console.info('setCollectionOption-EQUAL', opt, settingValue ?? getTableSettingDefault(option));
                 return;
             }
             const nextConfig = setNestedValueForKey(collectionConfig, collection, option, settingValue ?? getTableSettingDefault(option));
             if (deepEqual(nextConfig, collectionConfig)) {
-                console.info('setCollectionOption-EQUAL', nextConfig, collectionConfig);
+                // console.info('setCollectionOption-EQUAL', nextConfig, collectionConfig);
                 return;
             }
-            console.info('CONFIG-CHANGE', nextConfig, collectionConfig);
+            // console.info('CONFIG-CHANGE', nextConfig, collectionConfig);
             setState(nextConfig);
         },
         [collectionConfig, initialState, logger, setState]

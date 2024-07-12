@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function useDependencies(...args: any[]) {
     // const watchedValues = useWatch({
     //     name: (dependencies as IDependency<T, keyof T & string>[]).map((x) => x.property)

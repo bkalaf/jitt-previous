@@ -19,13 +19,13 @@ export function CollectionView<T extends MRT_RowData>() {
 
     useEffect(() => {
         return () => {
-            console.log('COLLECTIONVIEW dispose', route);
-            $storage.getItem(route).then(data => {
+            // console.log('COLLECTIONVIEW dispose', route);
+            $storage.getItem(route).then((data) => {
                 const current = JSON.parse(fs.readFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json').toString());
                 fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/jitt-settings.json', JSON.stringify({ ...current, [route]: data }, null, '\t'));
             });
-        }
-    }, [route])
+        };
+    }, [route]);
     // useEffect(() => {
     //     if (route === 'sku') {
     //         ((data ?? []) as any as RealmObj<ISku>[]).map(item => {
@@ -34,7 +34,7 @@ export function CollectionView<T extends MRT_RowData>() {
     //     }
     // }, [data, route]);
     return (
-        <Box component='section' sx={{ maxHeight: maxHeight }} className='overflow-scroll table-auto border-seperate'>
+        <Box component='section' sx={{ maxHeight: maxHeight }} className='border-seperate table-auto overflow-scroll'>
             <MaterialReactTable table={table} />
         </Box>
     );

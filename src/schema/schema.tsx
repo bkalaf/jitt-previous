@@ -110,12 +110,14 @@ import { Scrape } from './entity/scrape';
 import { ScrapeKVP } from './entity/scrapeKVP';
 import { ScrapeStoreInfo } from './entity/scrapeStoreInfo';
 import { Scan } from './entity/scan';
+import { ApiResult } from './entity/apiResult';
 
 export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[] = [
     Address as EmbeddedClass<any>,
     Album as ReferenceClass<any>,
     AmperageMeasure as EmbeddedClass<any>,
     AngleMeasure as EmbeddedClass<any>,
+    ApiResult as ReferenceClass<any>,
     ApparelSize as EmbeddedClass<any>,
     Attachment as ReferenceClass<any>,
     Attribute as EmbeddedClass<any>,

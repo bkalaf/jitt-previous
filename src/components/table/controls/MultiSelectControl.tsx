@@ -24,7 +24,7 @@ export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<str
     );
     const $onChange = useCallback(
         (ev: React.SyntheticEvent<Element>, newValue: { text: string; key: string }) => {
-            console.log('onchange newvalue', newValue);
+            // console.log('onchange newvalue', newValue);
             onChange(undefined, Array.isArray(newValue) ? newValue.map((x) => x.key) : newValue.key);
             formContext.setValue(rest.name, Array.isArray(newValue) ? newValue.map((x) => x.key) : newValue.key);
         },

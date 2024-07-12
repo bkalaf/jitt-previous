@@ -3,7 +3,7 @@ import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 export function ErrorBoundary() {
     const error = useRouteError();
     const navigate = useNavigate();
-    console.info('error', error);
+    // console.info('error', error);
     if (isRouteErrorResponse(error)) {
         return (
             <div>

@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useLocalRealm } from '../../../hooks/useLocalRealm';
 import { BSON } from 'realm';
-import { useAutoComplete } from '../../../hooks/useAutoComplete';
 import { useCallback, useMemo } from 'react';
 import { createFilterOptions } from '@mui/material';
 import { useEditControlBase } from '../../../hooks/useEditControlBase';
@@ -13,6 +12,7 @@ import { IconBtn } from '../../IconBtn';
 import { faSquarePlus } from '@fortawesome/pro-solid-svg-icons';
 import { CreateModal } from '../../Views/renderProperties/CreateModal';
 import { useToggler } from '../../../hooks/useToggler';
+import { deepEqual } from '../../../common/deepEqual';
 
 export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }, TMultiple extends boolean = false>(props: EditFunctionParams<T, TMultiple extends true ? ListBack<U> : U | undefined>) {
     useWhyDidIUpdate('AutocompleteControl', props);
@@ -36,20 +36,25 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
 
     const db = useLocalRealm();
     const { data, isLoading } = useQuery({
-        queryKey: [objectType, labelProperty],
+        queryKey: [objectType],
         queryFn: () => {
             if (db == null) throw new Error('no db');
-            return Promise.resolve(db.objects<U>(objectType));
+            return Promise.resolve(Array.from(db.objects<U>(objectType)));
         }
     });
-    const { isOptionEqualToValue } = useAutoComplete<{ _id: BSON.ObjectId }>(
-        labelProperty as any,
-        ((x: { _id: BSON.ObjectId }, y: { _id: BSON.ObjectId }) => {
-            const idA = typeof x._id === 'string' ? x : x._id.toHexString();
-            const idB = typeof y._id === 'string' ? y : y._id.toHexString();
-            return idA === idB;
-        }) as any
-    );
+    const isOptionEqualToValue = useCallback((option: any, value: any) => {
+        // console.info(`isOptionEqual`, `option`, option, `value`, value);
+        const result = deepEqual(option, value);
+        return result;
+    }, []);
+    // const { isOptionEqualToValue } = useAutoComplete<{ _id: BSON.ObjectId }>(
+    //     labelProperty as any,
+    //     ((x: { _id: BSON.ObjectId }, y: { _id: BSON.ObjectId }) => {
+    //         const idA = typeof x._id === 'string' ? x : x._id.toHexString();
+    //         const idB = typeof y._id === 'string' ? y : y._id.toHexString();
+    //         return idA === idB;
+    //     }) as any
+    // );
     // const filterOptions = useCallback((options: any[], { inputValue }: { inputValue: string }) => {
     //     return matchSorter(options, inputValue, { keys: [labelProperty]});
     // }, [])
@@ -67,6 +72,7 @@ export function AutocompleteControl<T extends MRT_RowData, U extends MRT_RowData
     );
     const $onChange = useCallback(
         (ev: any, newValue: any) => {
+            // console.log(`$onChange(AutocompleteElement)`, ev, newValue);
             onChange(ev, newValue);
             formContext.setValue(rest.name, newValue);
         },

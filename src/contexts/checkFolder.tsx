@@ -3,7 +3,7 @@ import * as path from 'path';
 
 export function checkPath(fullpath: string, isFile = false) {
     const parts = fullpath.split('\\').slice(0, isFile ? fullpath.split('\\').length - 1 : fullpath.split('\\').length);
-    console.log('checkPath', parts);
+    // console.log('checkPath', parts);
     if (fs.existsSync(parts.join('\\'))) return;
     checkPath(parts.slice(0, parts.length - 1).join('\\'), false);
     fs.mkdirSync(parts.join('\\'));
@@ -26,16 +26,16 @@ export async function checkFolder(folder: string) {
 export function verifyFolder(folder: string) {
     function inner(volume: string, ...parts: string[]) {
         const current = [volume, ...parts].join('\\');
-        console.log(`current`, current);
+        // console.log(`current`, current);
         if (fs.existsSync(current)) return;
         inner(volume, ...parts.slice(0, parts.length - 1));
-        console.log(`making [${current}]`);
+        // console.log(`making [${current}]`);
         fs.mkdirSync(current);
     }
     const dir = path.dirname(folder);
-    console.log(`dir`, dir);
+    // console.log(`dir`, dir);
     const [volume, ...segments] = dir.split('\\');
-    console.log(`volume/segments`, volume, segments);
+    // console.log(`volume/segments`, volume, segments);
     inner(volume, ...segments);
 }
 

@@ -5,7 +5,7 @@ import { camelToProper } from '../common/text/camelToProper';
 
 export function mapEmbed<T extends MRT_RowData, TKey extends keyof T>(columns: (...dependencies: IDependency<any, any>[]) => MRT_ColumnDef<any>[], accessorKey: string, ...dependencies: IDependency<T, TKey>[]): MRT_ColumnDef<any>[] {
     const interim = columns(...dependencies);
-    console.info(`mapEmbed, interim`, interim);
+    // console.info(`mapEmbed, interim`, interim);
     return interim
         .map((def) =>
             def.columnDefType === 'data' ?

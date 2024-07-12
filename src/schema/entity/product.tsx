@@ -140,6 +140,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
         return this.copyright ?? this.book?.copyright ?? this.movie?.copyright ?? this.album?.copyright;
     }
     get $rating(): string | undefined {
+        // eslint-disable-next-line import/no-named-as-default-member
         const esrbRatingLookup = standardizeOptions($me.ESRBRatings).asRecord;
         const movieRatingLookup = standardizeOptions($me.movieRatings).asRecord;
         const tvRatingLookup = standardizeOptions($me.tvRatings).asRecord;

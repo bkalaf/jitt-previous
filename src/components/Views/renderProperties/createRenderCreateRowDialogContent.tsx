@@ -13,7 +13,7 @@ export function createRenderCreateRowDialogContent<T extends MRT_RowData & { _id
     return function RenderCreateRowDialogContent(props: Parameters<Exclude<MRT_TableOptions<T>['renderCreateRowDialogContent'], undefined>>[0]) {
         useWhyDidIUpdate('RenderEditRowDialogContent', props);
         const { table, internalEditComponents } = props;
-        console.info(`internalEditComponents`, internalEditComponents);
+        // console.info(`internalEditComponents`, internalEditComponents);
         const collection = useCollectionRoute();
         const init = useInitial<T>(collection);
         const onCancel = useCallback(() => {

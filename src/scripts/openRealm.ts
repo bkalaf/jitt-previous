@@ -6,9 +6,9 @@ export const email = process.env.REALM_USER ?? '';
 export const password = process.env.REALM_PASSWORD ?? '';
 
 export function openRealm() {
-    console.log(appID);
-    console.log(email);
-    console.log(password);
+    // console.log(appID);
+    // console.log(email);
+    // console.log(password);
     const app = new Realm.App(appID);
     return app
         .logIn(
@@ -18,7 +18,7 @@ export function openRealm() {
             })
         )
         .then((user) => {
-            console.log(user);
+            // console.log(user);
             return Realm.open({
                 schema: schema,
                 sync: {

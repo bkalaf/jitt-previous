@@ -51,7 +51,7 @@ export function Dashboard() {
     const binBarcodesToPrint = useCallback(() => db.objects<IBarcode>('barcode').filter((x) => x.kind === 'bin' && x.beenPrinted === false).length, [db]);
     const orphanBarcodes = useCallback(() => {
         const result = db.objects<IBarcode>('barcode').filter((x) => x.linkingObjectsCount() === 0);
-        console.log(`orphaned barcodes`, result.map(x => [x.type, x.kind, x.value]));
+        // console.log(`orphaned barcodes`, result.map(x => [x.type, x.kind, x.value]));
         return result.length;
     }, [db])
     return (

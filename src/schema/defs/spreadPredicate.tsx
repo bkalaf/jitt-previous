@@ -3,7 +3,7 @@ import { useCheckPredicate } from '../../hooks/useHasDetailType';
 
 export function spreadPredicate<T extends MRT_RowData, U>(name: string, predicate: (x?: any) => boolean, isNegative = false, ...cols: MRT_ColumnDef<T, U>[]): MRT_ColumnDef<T, U>[] {
     return cols.map((col) => {
-        console.log(col.columnDefType);
+        // console.log(col.columnDefType);
         return (
             col.columnDefType === 'data' ?
                 {

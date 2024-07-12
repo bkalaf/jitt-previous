@@ -9,7 +9,7 @@ export function ListTableCell<T extends MRT_RowData, TValue>(props: CellFunction
     useWhyDidIUpdate('ListTableCell', props);
     const { objectType } = useEditColumnMeta(props, 'objectType')
     if (objectType == null) {
-        console.error('no objectType for list', props.column.columnDef);
+        // console.error('no objectType for list', props.column.columnDef);
         throw new Error('no objectType for list');
     }
     const RowCell = useGetLIComponent<TValue>(objectType);

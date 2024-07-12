@@ -14,6 +14,8 @@ import { useToaster } from '../../../hooks/useToaster';
 import { BSON } from 'realm';
 import { useUpdateEntity } from '../../../hooks/useUpdateEntity';
 import { useAnySelected } from './useAnySelected';
+import { CreateProductFromUPCBtn } from './CreateProductFromUPCBtn';
+import { RunApiSearchBtn } from './RunAPISearchBtn';
 
 export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init: () => T, resetSettings: () => void) {
     return function RenderTopToolbarCustomActions({ table }: Parameters<Exclude<MRT_TableOptions<T>['renderTopToolbarCustomActions'], undefined>>[0]) {
@@ -59,8 +61,8 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
             for (const element of selected) {
                 element.output();
             }
-        },[table])
-        console.log('getSelectedRowModel', table.getSelectedRowModel());
+        }, [table]);
+        // console.log('getSelectedRowModel', table.getSelectedRowModel());
         return (
             <Box className='flex gap-x-1'>
                 <Button color='secondary' variant='contained' onClick={resetSettings}>
@@ -107,6 +109,8 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                         Export Draft
                     </Button>
                 )}
+                <CreateProductFromUPCBtn />
+                <RunApiSearchBtn />
             </Box>
         );
     };

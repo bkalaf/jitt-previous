@@ -4,7 +4,7 @@ import { distinctBy } from '../common/array/distinct';
 
 export function useCreateOptionsFromUniqueFacetedValues<T extends MRT_RowData, U extends string | undefined>(column: MRT_Column<T, U>, multiple = false) {
     return useMemo(() => {
-        console.log(`column.getFacetedUniqueValues`, column.getFacetedUniqueValues());
+        // console.log(`column.getFacetedUniqueValues`, column.getFacetedUniqueValues());
         const keys = Array.from((column.getFacetedUniqueValues() as Map<U, number>).keys());
         const reduced =
             multiple ?

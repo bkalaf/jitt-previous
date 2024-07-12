@@ -13,7 +13,7 @@ export function useConvertDictionaryItem<TValue>(objectType: string, append: (da
                 key: cnvrtPrimitives()['string'](key),
                 value: convertValue(value)
             };
-            console.info(`interim`, interim);
+            // console.info(`interim`, interim);
             return append(interim);
         },
         [append, convertValue]

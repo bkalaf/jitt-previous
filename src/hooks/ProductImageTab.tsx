@@ -25,7 +25,7 @@ import { ProductImageDisposition } from '../schema/entity/ProductImageDispositio
 import { checkPath } from '../contexts/checkFolder';
 import { Grid, Item } from './Grid';
 import { useEventListener } from '../components/useEventListener';
-import { MRT_RowData, MRT_TableOptions } from 'material-react-table';
+import { MRT_RowData } from 'material-react-table';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {
     useWhyDidIUpdate('ProductImageTab', props);
@@ -51,7 +51,7 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
         }
     }, [open, queue.length, toggleOpen]);
     const onChange = useCallback((ev: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(ev.target.files);
+        // console.log(ev.target.files);
         if (ev.target.files == null) return;
         setQueue(Array.from(ev.target.files));
         // for (const file of ev.target.files) {
@@ -89,10 +89,10 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
         const filename = nextInQueue?.path ?? '';
         const takenOn = fs.statSync(filename).ctime;
         const folders = getFolderNames(original);
-        const baseDestination = [products, ...folders].join('\\');
+        const baseDestination = [products, ...folders].join('/');
         const remBgName = getRemBgName(filename, remBgSuffix, remBgExt);
-        const remBgSource = [downloads, remBgName].join('\\');
-        const remBgDestination = [baseDestination, remBgName].join('\\');
+        const remBgSource = [downloads, remBgName].join('/');
+        const remBgDestination = [baseDestination, remBgName].join('/');
         const hasRemBG = fs.existsSync(remBgSource);
         const facing = {
             pov: pov as FacePOV[],

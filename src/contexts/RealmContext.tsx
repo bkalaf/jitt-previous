@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 import Realm from 'realm';
-import { DataOrModifiedFn } from 'use-async-resource';
 
 export type IRealmContext = {
     app: Realm.App;
@@ -10,7 +9,7 @@ export type IRealmContext = {
     // convert: (objectType: string) => (value: any) => any;
     // getTableCanExpand: (objectType: string) => boolean;
     // getObjectSchemaByTypeInfo: (type: string, objectType: string) => undefined  | Realm.ObjectSchema;
-    realmResource: DataOrModifiedFn<Realm | undefined>;
+    realmResource: () => Realm;
 };
 
 export const RealmContext = createContext<undefined | IRealmContext>(undefined);

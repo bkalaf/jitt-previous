@@ -45,9 +45,9 @@ export function OldProductDetailsTab(props: { isCurrent: boolean; original: IPro
                             color='metal'
                             disabled={!formContext.formState.isDirty}
                             onClick={formContext.handleSubmit((data) => {
-                                console.info('data', data);
+                                // console.info('data', data);
                                 const converted = convert(data);
-                                console.info('converted', converted);
+                                // console.info('converted', converted);
                                 const func = () => {
                                     db.create('product', converted, Realm.UpdateMode.Modified);
                                 };

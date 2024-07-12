@@ -12,63 +12,40 @@ import { runTransaction } from '../util/runTransaction';
 import { getProperty } from '../common/object/getProperty';
 import { useEffectiveCollection } from './useEffectiveCollection';
 import { IProduct } from '../types';
-import { deepEqual } from '../common/deepEqual';
-import * as fs from 'graceful-fs';
 import { calculateISBN10CheckDigit } from '../util/calculateISBN10CheckDigit';
 import { Barcode } from '../schema/entity/barcode';
 import { calculateUPCCheckDigit } from '../util/calculateUPCCheckDigit';
 import { removeLeadingZeros } from '../util/removeLeadingZero';
+import { compareProduct } from './compareProduct';
+import { classifyBarcode } from '../util/classifyBarcode';
+import { BarcodeTypes } from '../schema/enums';
 
-const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
+export const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
 
-function compareProduct(oldProduct: undefined | IProduct, newProduct: IProduct) {
-    const func = (p?: IProduct) => {
-        if (p == null) return {};
-        const title = p.mediaTitle ?? p.book?.title ?? p.album?.title ?? p.movie?.title ?? p.tvSeries?.title;
-        const subtitle = p.mediaSubtitle ?? p.book?.subtitle ?? p.album?.subtitle ?? p.movie?.subtitle ?? p.tvSeries?.subtitle;
-        const fulltitle = title ? [title, subtitle].filter((x) => x != null && x.length > 0).join(': ') : undefined;
-        return {
-            id: p._id.toHexString(),
-            modelNo: p.modelNo,
-            modelName: p.modelName,
-            styleNo: p.styleNo,
-            brandName: p.brand?.name || p.description ? [p.brand?.name, p.description].filter((x) => x != null && x.length > 0).join(' ') : undefined,
-            title: fulltitle,
-            partNumbers: p.partNumbers?.map((x) => x.partNumber),
-            upcs: p.upcs?.map((x) => x.value)
-        };
-    };
-    const oldP = func(oldProduct);
-    const newP = func(newProduct);
-    const args: string[] = [];
-    function innerSingle(key: keyof ReturnType<typeof func>) {
-        if (!deepEqual(oldP[key], newP[key])) {
-            if (newP[key] != null) args.push(newP[key] as string);
-        }
-    }
-    function innerArray(key: keyof ReturnType<typeof func>) {
-        if (!deepEqual(oldP[key], newP[key])) {
-            const oldArr = oldP[key] as string[];
-            const newArr = newP[key] as string[];
-            if (newArr.length > 0) {
-                const additions = newArr.filter((x) => !oldArr.includes(x));
-                additions.forEach((x) => args.push(x));
-            }
-        }
-    }
-    innerSingle('modelName');
-    innerSingle('modelNo');
-    innerSingle('styleNo');
-    innerSingle('brandName');
-    innerSingle('title');
-    innerArray('upcs');
-    innerArray('partNumbers');
-
-    const current = fs.existsSync(PRODUCT_SEARCH_QUEUE) ? (JSON.parse(fs.readFileSync(PRODUCT_SEARCH_QUEUE).toString()) as any[]) : [];
-    const next = [...current, ...args.map((arg) => ({ id: oldP.id, value: arg }))];
-    fs.writeFileSync(PRODUCT_SEARCH_QUEUE, JSON.stringify(next, null, '\t'));
+export function calculateISBN13FromISBN10(value: string) {
+    const [isValid, type] = classifyBarcode(value) as [boolean, BarcodeTypes];
+    if (!isValid) throw new Error('INVALID ISBN-10 passed to calculateISBN13FromISBN10');
+    if (type !== 'isbn-10') throw new Error(`calculateISBN13FromISBN10 can only accept isbn-10 barcodes: passed ${type}`);
+    const digits = removeLeadingZeros(value).padStart(10, '0').slice(0, 9);
+    const full = ['978', digits].join('');
+    const checkdigit = calculateUPCCheckDigit(full);
+    return [full, checkdigit].join('')
 }
-function checkBarcodes(dirtyFields: string[], product: IProduct): IProduct {
+
+export function calculateISBN10FromISBN13(value: string) {
+    const [isValid, type] = classifyBarcode(value) as [boolean, BarcodeTypes];
+    if (!isValid) throw new Error('INVALID ISBN-13 passed to calculateISBN10FromISBN13');
+    if (type !== 'isbn-13') throw new Error(`calculateISBN10FromISBN13 can only accept isbn-13 barcodes: passed ${type}`);
+    if (value.startsWith('978')) {
+        const digits = value.slice(3, value.length - 1);
+        const checkdigit = calculateISBN10CheckDigit(digits);
+        const bc = [digits, checkdigit].join('');
+        return bc;
+    }
+    return undefined;
+}
+
+export function checkBarcodes(dirtyFields: string[], product: IProduct): IProduct {
     if (dirtyFields.includes('upcs')) {
         const { upcs } = product;
         const isbn10 = upcs.filter((x) => x.type === 'isbn-10');
@@ -92,7 +69,7 @@ function checkBarcodes(dirtyFields: string[], product: IProduct): IProduct {
     }
     return product;
 }
-export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(formContext: UseFormReturn<T, any>, id: string, table: MRT_TableInstance<T>, objectType?: string) {
+export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(formContext: UseFormReturn<T, any>, id: string, table: MRT_TableInstance<T>, isEditing = false, objectType?: string) {
     const collection = useEffectiveCollection(objectType);
     const convert = useConvert('object', collection);
     const db = useLocalRealm();
@@ -100,8 +77,8 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
     const updater = useUpdateEntity<T>(collection);
     const successMessage = useSuccessNotification((obj: RealmObj<any>) => `1 new record created. [${obj._id.toHexString()}]`, collection);
     const failureMessage = useFailureNotification((errors: FieldErrors<T>) => {
-        console.error(errors);
-        console.error(errors.root);
+        // console.error(errors);
+        // console.error(errors.root);
         return [errors.root?.message].join('\n');
     });
     const onSuccess = useCallback(
@@ -120,13 +97,14 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
     );
     const { mutate } = useMutation({
         mutationFn: (values: T) => {
-            const isEditing = table.getState().editingRow != null;
+            const $isEditing = table.getState().editingRow != null;
             return new Promise<T>((resolve) => {
                 if (db == null) throw new Error('no db');
-                console.log(`values`, values);
+                // console.log(`values`, values);
                 let converted = convert(values);
+                // console.log(`converted`, converted);
                 const func = () => {
-                    if (isEditing) {
+                    if (isEditing || $isEditing) {
                         const obj = db.objectForPrimaryKey<T>(collection, new BSON.ObjectId(id) as any);
                         if (obj == null) throw new Error('could not find record');
                         if (collection === 'product') {
@@ -135,7 +113,7 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
                         if (collection === 'product') {
                             compareProduct(obj as any as IProduct, converted);
                         }
-                        
+                        // console.log(`dirtyFields`, Object.keys(dirtyFields));
                         Object.keys(dirtyFields).map((field) => {
                             (obj as any)[field] = getProperty(field, converted);
                         });

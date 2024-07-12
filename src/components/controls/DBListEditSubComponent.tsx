@@ -44,7 +44,7 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
         [KeyControl, columns, keyType, objectType]
     );
     const convertAppend = useConvertDictionaryItem(objectType, append);
-    console.log(`init`, objectType);
+    // console.log(`init`, objectType);
     const init = useInitial<T>(objectType);
     const defaultValues = useMemo(() => init(), [init]);
     const formContext = useForm({
@@ -76,7 +76,7 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
                             variant='contained'
                             color='metal'
                             onClick={formContext.handleSubmit((data) => {
-                                console.info(`handleSubmit(data) = `, data);
+                                // console.info(`handleSubmit(data) = `, data);
                                 convertAppend(data as any);
                                 handleClose();
                             })}>
@@ -138,9 +138,9 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
                             variant='contained'
                             color='metal'
                             onClick={formContext.handleSubmit((data) => {
-                                console.info(`handleSubmit(data) = `, data);
+                                // console.info(`handleSubmit(data) = `, data);
                                 const converted = convertValue(data as any);
-                                console.info(`convertedValue`, converted);
+                                // console.info(`convertedValue`, converted);
                                 append(converted);
                                 handleClose();
                             })}>

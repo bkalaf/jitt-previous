@@ -155,7 +155,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
                 throw new Error('barcode generator null on Sku');
             }
             if (item.skus == null || item.skus.length === 0) {
-                console.info('adding sku to Sku');
+                // console.info('adding sku to Sku');
                 item.addBarcode(Sku.barcodeGenerator);
             }
         };

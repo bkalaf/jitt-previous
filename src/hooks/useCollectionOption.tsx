@@ -15,7 +15,7 @@ export function useCollectionOption<T extends MRT_RowData, TKey extends keyof JI
                 const thisValue = key in old ? old[key] : undefined;
                 const nextValue = (typeof updater === 'function' ? (updater as (old: JITTTableState<T>[TKey]) => JITTTableState<T>[TKey])(thisValue) : updater) ?? defaultValue;
                 if (deepEqual(nextValue, thisValue)) {
-                    console.log(`setState-equality`, nextValue, thisValue);
+                    // console.log(`setState-equality`, nextValue, thisValue);
                     return old;
                 }
                 const newState = { ...old, [key]: nextValue };

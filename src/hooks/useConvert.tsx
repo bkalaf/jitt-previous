@@ -8,7 +8,7 @@ export function useConvert(type: string, objectType: string) {
     const convert = useMemo(() => $convert(types as any, objectType), [objectType, types]);
     return useCallback(
         (values: any) => {
-            console.info(`attempting convert: ${type} ${objectType}`);
+            // console.info(`attempting convert: ${type} ${objectType}`);
             if (type === 'list' || type === 'set') {
                 if (objectType == null) throw new Error(`no objectType: ${type}`);
                 if (isPrimitive(objectType)) {

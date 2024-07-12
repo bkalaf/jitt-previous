@@ -38,7 +38,7 @@ export function createRenderRowActions<T extends MRT_RowData>() {
             mutationFn: (value: string) => {
                 const func = () => {
                     const obj = db.objectForPrimaryKey(collection, new BSON.ObjectId(value));
-                    console.info(`runTransaction-deleteFunc`, obj, collection, value);
+                    // console.info(`runTransaction-deleteFunc`, obj, collection, value);
                     db.delete(obj);
                 };
                 runTransaction(db, func);

@@ -739,6 +739,16 @@ export type IProduct = IApparel & {
     };
 };
 
+export type IApiResult = {
+    _id: BSON.ObjectId;
+    source: string;
+    params: Opt<string>;
+    timestamp: Opt<Date>;
+    result: Opt<string>;
+    obsolete: boolean;
+    attributes: DBDictionary<string>;
+}
+
 export type IShipping = {
     id: Int;
     version: Int;

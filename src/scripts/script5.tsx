@@ -60,7 +60,7 @@ async function run() {
         }
     })
     const result = baseClassifiers.filter(x => x.parent == null).map(nodeMap(baseClassifiers));
-    console.log(JSON.stringify(result, null, '\t'));
+    // console.log(JSON.stringify(result, null, '\t'));
     fs.writeFileSync('C:/Users/bobby/OneDrive/Desktop/taxonomy.json', JSON.stringify(result, null, '\t'));
 }
 

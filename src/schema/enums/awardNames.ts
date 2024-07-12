@@ -1,4 +1,3 @@
-import { surroundQuotesIgnore } from '../../common/text/surround';
 
 export const awardNames = {
     oscar: 'Academy Award (Oscar)',
@@ -11,17 +10,17 @@ export const awardNames = {
     unknown: null
 };
 
-console.log(`export type AwardNames = ${Object.keys(awardNames).map(surroundQuotesIgnore).join(' | ')}`);
-console.log(
-    JSON.stringify(
-        Object.entries(awardNames).map(([k, v]) => ({
-            key: k,
-            text: v
-        })),
-        null,
-        '\t'
-    )
-);
+// console.log(`export type AwardNames = ${Object.keys(awardNames).map(surroundQuotesIgnore).join(' | ')}`);
+// console.log(
+//     JSON.stringify(
+//         Object.entries(awardNames).map(([k, v]) => ({
+//             key: k,
+//             text: v
+//         })),
+//         null,
+//         '\t'
+//     )
+// );
 
 export const awardCategories = {
     'ny-times': {

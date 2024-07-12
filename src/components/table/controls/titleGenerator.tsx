@@ -18,14 +18,14 @@ export function generateTitle(sku: ISku, maxLength = false, importance = 0) {
             try {
                 return item.titleFunc(item.extractor(sku));
             } catch (error) {
-                console.info(`Error on ${item.importance}`);
-                console.error(error);
-                console.error(item);
+                // console.info(`Error on ${item.importance}`);
+                // console.error(error);
+                // console.error(item);
             }
         })
         .filter(is.not.nil) as string[];
     const result = order.join(' ').split(' ').map(capitalize).join(' ').split('-').map(capitalize).join('-');
-    console.info(`generateTitle`, result, result.length);
+    // console.info(`generateTitle`, result, result.length);
     process.stdout.write(`TITLE: `.concat(result.concat('\n')));
     if (maxLength) {
         if (result.length > 80) {
@@ -50,8 +50,8 @@ export function generateNarrative(sku: ISku, maxLength = false, importance = 0) 
             try {
                 return [item.section, item.header, item.narrativeFunc(item.extractor(sku))] as [Section, string, string];
             } catch (error) {
-                console.error(error);
-                console.error(item);
+                // console.error(error);
+                // console.error(item);
             }
         })
         .filter((item) => is.not.nil(item) && is.not.nil(item![2])) as [Section, string, string][];
@@ -63,7 +63,7 @@ export function generateNarrative(sku: ISku, maxLength = false, importance = 0) 
             (x) => x.slice(1) as [string, string]
         )(order) as Record<Section, [string, string][]>)
     };
-    console.info(`generateTitle`, result);
+    // console.info(`generateTitle`, result);
     const { attributes, flags, measurements, specificiations, text, title, lists } = result;
     const sections = [
         title,
@@ -74,7 +74,7 @@ export function generateNarrative(sku: ISku, maxLength = false, importance = 0) 
         flags != null && flags.length > 0 ? flags.map((x) => char.bullet.concat(x[1])).join(char.newLine) : undefined,
         text != null && text.length > 0 ? char.newLine.concat(text.map((x) => x[1]).join(char.newLine)) : undefined
     ];
-    console.info(`sections`, sections);
+    // console.info(`sections`, sections);
     const output = (sections.filter(is.not.nil) as string[]).map((x) => x.concat(char.newLine)).join(char.newLine);
     process.stdout.write(output.concat('\n'));
     if (maxLength) {

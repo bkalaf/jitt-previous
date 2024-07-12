@@ -11,7 +11,7 @@ import { setProperty } from '../common/object/setProperty';
 export function useProvideConfigurationContext(): IConfigurationContext {
     const appDataPath = useMemo(() => app.getPath('appData'), []);
     const configPath = [appDataPath, 'jitt', 'config.json'].join('\\');
-    console.log(`configPath`, configPath);
+    // console.log(`configPath`, configPath);
     const fileOps = useMemo(
         () => ({
             read: () => {
@@ -37,7 +37,7 @@ export function useProvideConfigurationContext(): IConfigurationContext {
             const current = getProperty(name, old) as TValue;
             const upcoming = is.function(value) ? value(current) : value;
             const next = setProperty(name, old, upcoming);
-            console.log(`setConfiguration`, current, upcoming, next, old);
+            // console.log(`setConfiguration`, current, upcoming, next, old);
             if (deepEqual(next, old)) {
                 return old;
             }

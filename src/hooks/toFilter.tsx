@@ -115,7 +115,7 @@ export function toFilter(queryParams: URLSearchParams, columnFilters?: MRT_Colum
                         params.append([name, '_id'].join('.'), (v._id as BSON.ObjectId).toHexString());
                         break;
                     }
-                    console.error(`UNKONWN TYPE: ${type}`);
+                    // console.error(`UNKONWN TYPE: ${type}`);
                     throw new Error(`UNKONWN TYPE: ${type}`);
                 case 'function':
                     throw new Error('UNKNOWN TYPE: FUNCTION');

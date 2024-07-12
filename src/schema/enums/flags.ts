@@ -26,10 +26,10 @@ export const mediaVideoFlagsOptions: MediaFlags[] = ['isDirectorsEdition', 'isCo
 
 export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaVideoFlags)).map((x) => [x[0], { text: x[1], key: x[0] }]));
 
-console.log(allFlags);
+// console.log(allFlags);
 
 export type Flags = keyof typeof flags | keyof typeof mediaVideoFlags;
 
-console.log(Object.entries({ ...mediaVideoFlags, ...flags }).map(x => x.join(',').concat('\n')).join('\n'));
+// console.log(Object.entries({ ...mediaVideoFlags, ...flags }).map(x => x.join(',').concat('\n')).join('\n'));
 
-console.log(allFlags['isUnrated'].text)
+// console.log(allFlags['isUnrated'].text)

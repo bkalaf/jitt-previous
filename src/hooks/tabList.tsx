@@ -191,4 +191,4 @@ export const tabList: Record<string, DetailsTabs[]> = {
     ]
 };
 
-console.log(`detailsTabList`, JSON.stringify(tabList['product'], null, '\t'));
+// console.log(`detailsTabList`, JSON.stringify(tabList['product'], null, '\t'));

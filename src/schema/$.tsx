@@ -3,7 +3,6 @@
 import { PropertyTypeName } from 'realm';
 import { objectMap } from '../common/object/objectMap';
 import { appendText } from '../common/text/appendText';
-import { capitalize } from '../common/text/capitalize';
 
 const obj = function (name: string) {
     const output = function () {
@@ -51,6 +50,7 @@ const objectNames = {
     tvSeries: 'tvSeries',
     episode: 'episode',
     album: 'album',
+    apiResult: 'apiResult',
     individual: 'individual',
     address: 'address',
     attachment: 'attachment',
@@ -242,11 +242,11 @@ export const $ = {
 //         })
 //         .join('\n')
 // );
-console.log(
-    Object.entries(details)
-        .map(([, v]) => {
-            const $className = capitalize(v);
-            return `${v}: ${$className},`;
-        })
-        .join('\n')
-);
+// console.log(
+//     Object.entries(details)
+//         .map(([, v]) => {
+//             const $className = capitalize(v);
+//             return `${v}: ${$className},`;
+//         })
+//         .join('\n')
+// );

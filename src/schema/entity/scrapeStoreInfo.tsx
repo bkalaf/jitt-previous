@@ -45,7 +45,7 @@ export class ScrapeStoreInfo extends EntityBase<IScrapeStoreInfo> implements ISc
                 price: parseFloat(price.replaceAll('$', '').trim())
             };
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             throw new Error(error);
         }
     }
