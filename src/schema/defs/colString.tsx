@@ -16,7 +16,7 @@ export function colString<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>)
             const $formatter = formatter ?? ((x?: U) => (x ?? '') as string);
             // const { maxSize, grow } = opts?.maxLength != null ? { maxSize: calculateSize(opts?.maxLength), grow: false } : { maxSize: calculateSize(250), grow: true };
             // const { minSize } = opts?.minLength != null ? { minSize: calculateSize(opts?.minLength) } : { minSize: calculateSize(5) }
-            return baseCol<T, U | undefined>(helper, name, StringTableCell, StringControl, $header, required, readonly, { ...rest, formatter: $formatter }, undefined, ...dependencies);
+            return baseCol<T, U | undefined>(helper, name, StringTableCell, StringControl, $header, required, readonly, { ...rest, formatter: $formatter, filterFn: 'contains' }, undefined, ...dependencies);
             // return helper.accessor(name as any, {
             //     ...calculateSizes(header, { maxLength, minLength, ...(opts ?? {}) }),
             //     Cell,

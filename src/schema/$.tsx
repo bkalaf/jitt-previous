@@ -103,6 +103,7 @@ const objectNames = {
     densityMeasure: 'densityMeasure',
     distanceMeasure: 'distanceMeasure',
     lengthMeasure: 'lengthMeasure',
+    resolutionMeasure: 'resolutionMeasure',
     memorySpeedMeasure: 'memorySpeedMeasure',
     musicDurationMeasure: 'musicDurationMeasure',
     powerConsumptionMeasure: 'powerConsumptionMeasure',
@@ -123,11 +124,13 @@ const objectNames = {
     rn: 'rn',
     scrape: 'scrape',
     scrapeKVP:'scrapeKVP',
-    scrapeStoreInfo: 'scrapeStoreInfo'
+    scrapeStoreInfo: 'scrapeStoreInfo',
+    adminTask: 'adminTask'
 };
 
 const details = {
     apparel: 'apparelDetails',
+    apparelAccessories: 'apparelAccessoriesDetails',
     apparelTops: 'apparelTopsDetails',
     apparelBottoms: 'apparelBottomsDetails',
     apparelBottomsLegged: 'apparelBottomsLeggedDetails',
@@ -140,6 +143,7 @@ const details = {
     cablesVideo: 'cablesVideoDetails',
     electronics: 'electronicsDetails',
     electronicsVisual: 'electronicsVisualDetails',
+    electronicsVisualCamera: 'electronicsVisualCameraDetails',
     electronicsVisualCellPhones: 'electronicsVisualCellPhonesDetails',
     electronicsComputerComponents: 'electronicsComputerComponentsDetails',
     electronicsComputerComponentsRAM: 'electronicsComputerComponentsRamDetails',
@@ -170,7 +174,8 @@ const details = {
     sportingGoodsBowlingBalls: 'sportingGoodsBowlingBallsDetails',
     toys: 'toysDetails',
     toysBoardGames: 'toysBoardGamesDetails',
-    toysStuffedAnimals: 'toysStuffedAnimalsDetails'
+    toysStuffedAnimals: 'toysStuffedAnimalsDetails',
+    officeGoods: 'officeGoodsDetails'
 };
 
 const _objects = objectMap(obj)(objectNames) as Record<keyof typeof objectNames, ReturnType<typeof obj>>;

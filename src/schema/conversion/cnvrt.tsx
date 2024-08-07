@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import dayjs, { Dayjs } from 'dayjs';
 import Realm, { BSON, PropertySchema } from 'realm';
 import { getProperty } from '../../common/object/getProperty';
@@ -10,7 +11,7 @@ export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
     mixed: (value?: string) => (value == null ? undefined : value),
     string: (value?: string) =>
         value == null ? undefined
-        : value != null && value.trim().length === 0 ? undefined
+        : value != null && value.trim().length === 0 ? null
         : value.trim(),
     objectId: (value?: string | BSON.ObjectId) =>
         value == null ? undefined
@@ -52,7 +53,7 @@ export const cnvrtPrimitives = (): Record<string, ConvertFunction<any>> => ({
 });
 // 'toDate' in value ? value.toDate()
 
-export function normalizePropertySchema(type: any) {
+export function normalizePropertySchema(type: any): Exclude<Realm.PropertySchema, string> {
     const isOptional = type.includes('?');
     const isList = type.includes('[]');
     const isDictionary = type.includes('{}');
@@ -71,7 +72,7 @@ export function normalizePropertySchema(type: any) {
 export const cnvrt = (types: RealmSchema, objectType?: string) => ({
     ...(cnvrtPrimitives() as Record<'objectId', (value?: any) => any>),
     object: (value?: any, override = false): any => {
-        // console.log(`convert object`, objectType, types, value);
+        console.log(`convert object`, objectType, types, value);
         if (objectType == null) throw new Error(`no objectType`);
         const schema = types.find((x) => (x as any)?.name === objectType);
         if (schema == null) throw new Error(`schema not found for : ${objectType}`);
@@ -81,7 +82,7 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
             : value instanceof Realm.Object && !(embedded || override) ? value
             : Object.fromEntries(
                     Object.entries(schema.properties).map(([name, propSchema]) => {
-                        // console.log(`...${name}`);
+                        console.log(`...${name}`);
                         return [name, ofType(types, typeof propSchema === 'string' ? normalizePropertySchema(propSchema) : propSchema)(getProperty(name, value))];
                     })
                 )
@@ -92,6 +93,7 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
         // return cnvrt(types, objectType).objectId(value._id);
     },
     list: (value?: DBList<any> | any[]) => {
+        console.log(`in list`, value);
         if (objectType == null) throw new Error(`no objectType`);
         if (isPrimitive(objectType)) {
             const func = $cnvrt(types, objectType)[objectType];
@@ -124,7 +126,7 @@ export const cnvrt = (types: RealmSchema, objectType?: string) => ({
 function toConvert(func: (value?: any) => any) {
     return ({ optional, default: defaultValue }: PropertySchema) =>
         (value: any) => {
-            // console.log(`value`, value);
+            console.log(`value`, value);
             const opt = optional ?? false;
             const newValue = func(value);
             return (

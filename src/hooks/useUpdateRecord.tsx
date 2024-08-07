@@ -1,15 +1,14 @@
+/* eslint-disable no-console */
 import { useCallback } from 'react';
 import { MRT_RowData, MRT_TableInstance } from 'material-react-table';
 import { useMutation } from '@tanstack/react-query';
-import { BSON } from 'realm';
+import { BSON, UpdateMode } from 'realm';
 import { FieldErrors, UseFormReturn } from 'react-hook-form';
 import { useUpdateEntity } from './useUpdateEntity';
-import { useFailureNotification } from './useFailureNotification';
 import { useSuccessNotification } from './useSuccessNotification';
 import { useLocalRealm } from './useLocalRealm';
 import { useConvert } from './useConvert';
 import { runTransaction } from '../util/runTransaction';
-import { getProperty } from '../common/object/getProperty';
 import { useEffectiveCollection } from './useEffectiveCollection';
 import { IProduct } from '../types';
 import { calculateISBN10CheckDigit } from '../util/calculateISBN10CheckDigit';
@@ -29,7 +28,7 @@ export function calculateISBN13FromISBN10(value: string) {
     const digits = removeLeadingZeros(value).padStart(10, '0').slice(0, 9);
     const full = ['978', digits].join('');
     const checkdigit = calculateUPCCheckDigit(full);
-    return [full, checkdigit].join('')
+    return [full, checkdigit].join('');
 }
 
 export function calculateISBN10FromISBN13(value: string) {
@@ -69,18 +68,45 @@ export function checkBarcodes(dirtyFields: string[], product: IProduct): IProduc
     }
     return product;
 }
+export function evalDirty(key: string, value: boolean | any[] | Record<string, unknown>): string[] {
+     
+    console.log(`key`, key, value);
+    if (typeof value === 'boolean') {
+        return value === true ? [key] : [];
+    }
+    if (Array.isArray(value)) {
+        const result = value.map((x) => evalDirty(key, x)).reduce((pv, cv) => [...pv, ...cv], []);
+        return result.length > 0 ? [key] : [];
+    }
+    const entries = Object.entries(value);
+    return entries.map(([k, v]) => evalDirty([key, k].join('.'), v as any)).reduce((pv, cv) => [...pv, ...cv], []);
+}
+export function useDirtyFields(obj: Record<string, boolean | any[] | Record<string, unknown>>) {
+     
+    console.log(`useDirtyFields`, obj);
+    return Object.entries(obj)
+        .map(([k, v]) => evalDirty(k, v))
+        .reduce((pv, cv) => [...pv, ...cv], []);
+}
+// export function getPropertyType(obj: Realm.Object, fieldName: string) {
+//     if (fieldName.includes('.')) {
+//         const [head, ...tail] = fieldName.split('.');
+//         const type = obj.getPropertyType(head);
+//         if (type.startsWith('<')) {
+//             return getPropertyType((obj as any)[head] as any, tail.join('.'));
+//         }
+//         throw new Error(`head: ${head} tail: ${tail.join('.')} type: ${type}`);
+//     }
+//     return obj.getPropertyType(fieldName);
+// }
 export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(formContext: UseFormReturn<T, any>, id: string, table: MRT_TableInstance<T>, isEditing = false, objectType?: string) {
     const collection = useEffectiveCollection(objectType);
     const convert = useConvert('object', collection);
     const db = useLocalRealm();
-    const { dirtyFields } = formContext.formState;
+    // const { dirtyFields } = formContext.formState;
+    // const dirty = useDirtyFields(dirtyFields as any);
     const updater = useUpdateEntity<T>(collection);
-    const successMessage = useSuccessNotification((obj: RealmObj<any>) => `1 new record created. [${obj._id.toHexString()}]`, collection);
-    const failureMessage = useFailureNotification((errors: FieldErrors<T>) => {
-        // console.error(errors);
-        // console.error(errors.root);
-        return [errors.root?.message].join('\n');
-    });
+    const successMessage = useSuccessNotification(() => `Record created/updated.`, collection);
     const onSuccess = useCallback(
         async (result: T) => {
             table.setCreatingRow(null);
@@ -89,12 +115,11 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
         },
         [successMessage, table]
     );
-    const onError = useCallback(
-        async (errors: FieldErrors<T>) => {
-            failureMessage(errors);
-        },
-        [failureMessage]
-    );
+    const onError = useCallback(async (errors: FieldErrors<T>) => {
+         
+        console.error(errors);
+        // failureMessage(errors);
+    }, []);
     const { mutate } = useMutation({
         mutationFn: (values: T) => {
             const $isEditing = table.getState().editingRow != null;
@@ -102,22 +127,73 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
                 if (db == null) throw new Error('no db');
                 // console.log(`values`, values);
                 let converted = convert(values);
-                // console.log(`converted`, converted);
+                 
+                console.log(`converted`, converted);
                 const func = () => {
                     if (isEditing || $isEditing) {
+                        console.log(`IS EDITING`, id);
                         const obj = db.objectForPrimaryKey<T>(collection, new BSON.ObjectId(id) as any);
                         if (obj == null) throw new Error('could not find record');
                         if (collection === 'product') {
-                            converted = checkBarcodes(Object.keys(dirtyFields), converted);
+                            console.log(`checkBarcodes`);
+                            converted = checkBarcodes(Object.entries(formContext.formState.dirtyFields).filter((tuple) => tuple[1]).map((tuple) => tuple[0]), converted);
                         }
                         if (collection === 'product') {
+                            console.log(`compareProduct)`)
                             compareProduct(obj as any as IProduct, converted);
                         }
-                        // console.log(`dirtyFields`, Object.keys(dirtyFields));
-                        Object.keys(dirtyFields).map((field) => {
-                            (obj as any)[field] = getProperty(field, converted);
-                        });
-                        return resolve(updater(obj));
+                         
+
+                        // dirty.map((field) => {
+                        //     const type = getPropertyType(collection, field);
+                        //     // eslint-disable-next-line no-console
+                        //     console.info(field, type);
+                        //     if (type.startsWith('list<')) {
+                        //         const current: DBList<any> = (getProperty(field, obj) as DBList<any>) ?? ([] as any);
+                        //         const next: any[] = getProperty(field, converted) ?? [];
+                        //         const toAdd = next.filter((x) => !current.some(y => deepEqual(y, x)));
+                        //         const toRemove = current
+                        //             .filter((x) => !next.some(y => deepEqual(x, y)))
+                        //             .map((x) => current.indexOf(x))
+                        //             .sort((a, b) =>
+                        //                 a > b ? -1
+                        //                 : a < b ? 1
+                        //                 : 0
+                        //             );
+                        //         // eslint-disable-next-line no-console
+                        //         console.log(`current`, current, toAdd, toRemove);
+                        //         toRemove.forEach((item) => current.remove(item));
+                        //         toAdd.forEach((item) => current.push(item));
+                        //         if (getProperty(field, obj) == null) {
+                        //             const cmd = `(field, obj, value) => obj.${field} = value`;
+                        //             // eslint-disable-next-line no-console
+                        //             console.log(`cmd`, cmd);
+                        //             eval(cmd)(field, obj, current);
+                        //         }
+                        //     } else {
+                        //         const cmd = `(field, obj, converted) => {
+                        //             obj.${field} = converted.${field};
+                        //         }`;
+                        //         // eslint-disable-next-line no-console
+                        //         console.log(`cmd`, cmd);
+                        //         eval(cmd)(field, obj, converted);
+                        //         // (obj as any)[field] = getProperty(field, converted);
+                        //     }
+                        // });
+                        let result;
+                        try {
+                            result = db.create(collection, converted, UpdateMode.Modified);
+                        } catch (error) {
+                            console.log('ERROR CREATE', result);
+                            console.error(error);
+                        }
+                        try {
+                            updater(result);
+                        } catch (error) {
+                            console.log('ERROR UPDATER', result);
+                            console.error(error);
+                        }
+                        return resolve(result);
                     }
                     if (collection === 'product') compareProduct(undefined, converted);
                     return resolve(updater(db.create(collection, converted)));

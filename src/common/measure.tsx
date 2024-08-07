@@ -7,7 +7,7 @@ import { lookupFraction } from './number/parseNumber';
 import { truncateAuto } from './number/truncateAuto';
 import { EnumKey } from './EnumKey';
 import { standardizeOptions } from '../schema/defs/standardizeOptions';
-import $me from '../schema/enums';
+import $me, { ResolutionUnitOfMeasure } from '../schema/enums';
 
 function div(factor: number) {
     return (x?: number) => (x == null ? undefined : x / factor);
@@ -81,5 +81,6 @@ export const powerConsumption = fromMeasure<PowerConsumptionUnitsOfMeasure>($fst
 export const memorySpeed = fromMeasure<MemorySpeedUnitsOfMeasure>($fst, [], identity, undefined, false)('')('memorySpeedUnitOfMeasure');
 export const dataTransferRate = fromMeasure<DataTransferRateUnitsOfMeasure>($fst, [], identity, undefined, false)('')('dataTransferRateUnitOfMeasure');
 export const capacity = fromMeasure<CapacityUnitsOfMeasure>($fst, [], identity, undefined, false)('')('capacityUnitOfMeasure');
-export const duration = fromMeasure<MusicDurationUnitsOfMeasure>($fst, ['min'], identity, 60, false)('')('musicDurationUnitOfMeasure');
-export const runtime = fromMeasure<MusicDurationUnitsOfMeasure>($fst, ['hr'], identity, 60, false)('')('movieRuntimeUnitOfMeasure');
+export const duration = fromMeasure<MusicDurationUnitsOfMeasure>($fst, ['s'], identity, 60, false)('')('musicDurationUnitOfMeasure');
+export const runtime = fromMeasure<MusicDurationUnitsOfMeasure>($fst, ['m'], identity, 60, false)('')('movieRuntimeUnitOfMeasure');
+export const resolution = fromMeasure<ResolutionUnitOfMeasure>($fst, ['MP'], identity, 60, false)('')('resolutionUnitOfMeasure');

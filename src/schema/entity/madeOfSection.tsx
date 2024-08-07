@@ -20,15 +20,15 @@ export class MadeOfSection extends EntityBase<IMadeOfSection> implements IMadeOf
             section: $.double.dictionary
         }
     };
-    static stringify = (value?: IMadeOfSection) => () =>
+    static stringify = (value?: IMadeOfSection, returnUndef = false) => () =>
         value != null ?
             [
                 value.name,
                 Object.entries(value.section)
-                    .map(([k, v]) => [standardizeOptions($me.fabricTypes).asRecord[k], (v * 100).toFixed(0).concat('%')].join(': '))
+                    .map(([k, v]) => [standardizeOptions($me.fabricTypes).asRecord[k].text, (v * 100).toFixed(0).concat('%')].join(': '))
                     .join('\n')
             ].join('\n')
-        :   '';
+        :   returnUndef ? undefined : '';
     static liComponent = MadeOfSection.stringify;
     static update(item: IMadeOfSection): IMadeOfSection {
         return item;

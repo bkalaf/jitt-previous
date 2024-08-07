@@ -3,7 +3,7 @@ import { composeR } from './composeR.1';
 import { getLookupFunction } from './getLookupFunction';
 import { ISku } from '../types';
 
-export function fromLookup<T extends MRT_RowData>(ctor: MyClass<T>, getter: SkuGetter<T | undefined>) {
+export function fromLookup<T extends MRT_RowData>(ctor: MyClass<any>, getter: SkuGetter<T | undefined>) {
     return (sku: ISku) => {
         const value = composeR(getter, getLookupFunction(ctor))(sku);
         return value != null && value?.trim() !== '' ? value : undefined;

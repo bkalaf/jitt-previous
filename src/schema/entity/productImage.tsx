@@ -42,6 +42,9 @@ export class ProductImage extends EntityBase<IProductImage> implements IProductI
             } else if (item.selected == null && item.hasRemBG === false) {
                 item.disposition = ProductImageDisposition.bgRemoval;
             }
+            if (item.order == null) {
+                item.order = item.sku.getProductImages.length - 1;
+            }
         };
         runTransaction(ProductImage.localRealm, func);
     }
@@ -67,7 +70,8 @@ export class ProductImage extends EntityBase<IProductImage> implements IProductI
             selected: $.string.opt,
             stage: $.string.opt,
             hasRemBG: $.bool.default(false),
-            disposition: $.string.opt
+            disposition: $.string.opt,
+            order: $.int.opt
         }
     };
 

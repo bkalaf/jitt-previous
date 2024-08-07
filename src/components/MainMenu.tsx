@@ -216,8 +216,12 @@ export function Actions() {
             .objects<IBarcode>('barcode')
             .filtered('beenPrinted == $0', false)
             .filter((x) => x.kind === 'sku');
-        const lines = bcs.map((bc) => [surroundQuotesNoIgnore(bc.scanValue ?? ''), surroundQuotesNoIgnore(bc.linkedSkus[0]?.product?.brand?.name ?? '-'), surroundQuotesNoIgnore(bc.linkedSkus[0]?.getTitle ?? '')]).join(',');
-        const data = [['UPC', 'Brand', 'Description'].map(surroundQuotesIgnore).join(','), ...lines].join('\n');
+        const lines = bcs
+            .map((bc) =>
+                [surroundQuotesNoIgnore(bc.scanValue ?? ''), surroundQuotesNoIgnore(bc.linkedSkus[0]?.product?.brand?.name?.replaceAll('"', '\\"') ?? '-'), surroundQuotesNoIgnore(bc.linkedSkus[0]?.getTitle?.replaceAll('"', '\\"') ?? '')].join(', ')
+            )
+            .join('\n');
+        const data = [['UPC', 'Brand', 'Description'].map(surroundQuotesIgnore).join(','), lines].join('\n');
         const outputfile = [downloads, skuToPrint.split('\\').reverse()[0]].join('\\');
         fs.writeFileSync(outputfile, data);
         fs.writeFileSync(skuToPrint, data);
@@ -251,8 +255,8 @@ export function Actions() {
             .objects<IBarcode>('barcode')
             .filtered('beenPrinted == $0', false)
             .filter((x) => x.kind === 'bin');
-        const lines = bcs.map((bc) => [surroundQuotesNoIgnore(bc.scanValue ?? ''), surroundQuotesNoIgnore(bc.linkedBin[0].name ?? '-'), surroundQuotesNoIgnore(bc.linkedBin[0].notes ?? '')]).join(',');
-        const data = [['UPC', 'Name', 'Notes'].map(surroundQuotesIgnore).join(','), ...lines].join('\n');
+        const lines = bcs.map((bc) => [surroundQuotesNoIgnore(bc.scanValue ?? ''), surroundQuotesNoIgnore(bc.linkedBin[0].name ?? '-'), surroundQuotesNoIgnore(bc.linkedBin[0].notes ?? '')].join(', ')).join('\n');
+        const data = [['UPC', 'Name', 'Notes'].map(surroundQuotesIgnore).join(','), lines].join('\n');
         const outputfile = [downloads, binToPrint.split('\\').reverse()[0]].join('\\');
         fs.writeFileSync(outputfile, data);
         fs.writeFileSync(binToPrint, data);
@@ -273,7 +277,7 @@ export function Actions() {
                     <LinearProgress variant='determinate' value={progressValue} color='error' />
                 </DialogContent>
             </Dialog>
-            <MenuList dense>
+            <MenuList>
                 <CategoryMenuItem direction='right' Component={MenuItem} label='Admin'>
                     <MenuList dense>
                         <BaseMenuItem label='Run Brands' onClick={runBrands} disabled={fileNoExist(brands)} />
@@ -294,29 +298,37 @@ export function MainMenu() {
     return (
         <List component='nav' className='grid grid-cols-4'>
             <RootCategoryMenuItem header='Data' direction='down'>
-                <MenuList dense>
+                <MenuList>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Auctions'>
-                        <MenuList dense>
+                        <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='selfStorage' />
                             <MainMenuItem baseUrl='/data/v1/' segment='facility' />
                             <MainMenuItem baseUrl='/data/v1/' segment='auction' />
                         </MenuList>
                     </CategoryMenuItem>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Mercari'>
-                        <MenuList dense>
+                        <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='hashTag' />
                             <MainMenuItem baseUrl='/data/v1/' segment='mercariBrand' />
                             <MainMenuItem baseUrl='/data/v1/' segment='mercariTaxonomy' />
                         </MenuList>
                     </CategoryMenuItem>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Inventory'>
-                        <MenuList dense>
+                        <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='bin' />
                             <MainMenuItem baseUrl='/data/v1/' segment='barcode' />
                         </MenuList>
                     </CategoryMenuItem>
+                    <CategoryMenuItem direction='right' Component={MenuItem} label='Media'>
+                        <MenuList>
+                            <MainMenuItem baseUrl='/data/v1/' segment='album' />
+                            <MainMenuItem baseUrl='/data/v1/' segment='book' />
+                            <MainMenuItem baseUrl='/data/v1/' segment='tvSeries' />
+                            <MainMenuItem baseUrl='/data/v1/' segment='movie' />
+                        </MenuList>
+                    </CategoryMenuItem>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Products'>
-                        <MenuList dense>
+                        <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='brand' />
                             <MainMenuItem baseUrl='/data/v1/' segment='classifier' />
                             <MainMenuItem baseUrl='/data/v1/' segment='product' />
@@ -325,8 +337,13 @@ export function MainMenu() {
                         </MenuList>
                     </CategoryMenuItem>
                     <CategoryMenuItem direction='right' Component={MenuItem} label='Listings'>
-                        <MenuList dense>
+                        <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='draft' />
+                        </MenuList>
+                    </CategoryMenuItem>
+                    <CategoryMenuItem direction='right' Component={MenuItem} label='Admin'>
+                        <MenuList>
+                            <MainMenuItem baseUrl='/data/v1/' segment='adminTask' />
                         </MenuList>
                     </CategoryMenuItem>
                 </MenuList>

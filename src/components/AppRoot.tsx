@@ -11,7 +11,7 @@ export function AppRoot({ ProviderComponents }: { ProviderComponents: React.Func
         <React.Suspense
             fallback={
                 <Backdrop sx={{ color: '#fff', zIndex: 50 }} open={true}>
-                    <CircularProgress color='inherit' />
+                    <CircularProgress color='error'  />
                 </Backdrop>
             }>
             <RouterProvider router={appRouter(ProviderComponents)} />

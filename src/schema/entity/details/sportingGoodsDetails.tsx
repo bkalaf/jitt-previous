@@ -26,3 +26,10 @@ export const sportingGoodsGolfClubsDetails: <T extends MRT_RowData>(...dependenc
         groupCol(h, 'Lie', doubleMeasureColumns(h, 'angleUnitOfMeasure'), 'lie', 'bg-yellow-500', 'text-black')($productInfo.clubType.driver, ...dependencies),
         groupCol(h, 'Loft', doubleMeasureColumns(h, 'angleUnitOfMeasure'), 'loft', 'bg-violet-500', 'text-white')($productInfo.clubType.driver, ...dependencies)
     ] as MRT_ColumnDef<T>[];
+
+export const sportingGoodsBowlingBallsColumns: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[] = <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => [
+    helper.enum(...dependencies)('finish', 'Finish', { enumKey: 'finishes' }),
+    helper.enum(...dependencies)('laneCondition', 'Lane Condition', { enumKey: 'laneConditions' }),
+    helper.enum(...dependencies)('coverstock', 'Coverstock', { enumKey: 'coverstocks' }),
+    helper.double(...dependencies)('radiusOfGyration', 'Radius of Gyration', { min: 0 })
+] as MRT_ColumnDef<T>[];

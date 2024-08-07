@@ -11,7 +11,7 @@ import { resolveColumns } from '../../controls/resolveColumns';
 
 export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFunctionParams<T, DictionaryBack<TValue>>) {
     useWhyDidIUpdate('DBDictionaryControl', props);
-    const { LiComponent, append, cols, helperText, label, name, required, remove, readonly, value, objectType, KeyControl, keyType, isDisabled } = useFieldArrayControlForDictionary<T, TValue, 'objectType'>(props.column as any);
+    const { LiComponent, append, cols, helperText, label, name, required, remove, readonly, value, objectType, KeyControl, keyType, isDisabled, enumInfo } = useFieldArrayControlForDictionary<T, TValue, 'objectType' | 'enumInfo'>(props.column as any, 'enumInfo');
     if (objectType == null) throw new Error('no objectType on DictionaryControl');
     const [open, toggleOpen] = useToggler(false);
     return (
@@ -23,7 +23,7 @@ export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFu
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    {open && <DBDictionaryEditSubComponent append={append} columns={resolveColumns(cols)} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} isOpen={open} objectType={objectType} />}
+                    {open && <DBDictionaryEditSubComponent append={append} columns={resolveColumns(cols)} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} enumInfo={enumInfo} isOpen={open} objectType={objectType} />}
                     <List>
                         {Object.entries(value ?? {}).map(([key, v]) => (
                             <DBDictionaryItemSubComponent key={key} index={key} value={v} remove={remove} objectType={objectType} LIComponent={LiComponent} />

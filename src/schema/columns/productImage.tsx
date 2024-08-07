@@ -21,5 +21,6 @@ export const productImage: <T extends MRT_RowData>(...dependencies: IDependency<
         // helper.string()('selected', 'Selected', undefined, {}),
         groupCol(h, 'Facing', facing, 'facing', 'bg-red-500', 'text-white')(...dependencies),
         helper.flags(...dependencies)('flags', 'Flags', ['do-not-rembg', 'ignore']),
-        helper.radio(...dependencies)('disposition', 'Disposition', { enumKey: 'productImageDisposition' })
+        helper.radio(...dependencies)('disposition', 'Disposition', { enumKey: 'productImageDisposition' }),
+        helper.int(...dependencies)('order', 'Order', { min: 1 })
     ] as MRT_ColumnDef<T>[];

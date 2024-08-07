@@ -37,5 +37,7 @@ export const attributeColumns: <T extends MRT_RowData>(...dependencies: IDepende
                 const { Component } = attribute;
                 return <Component />;
             }
-        })
+        }),
+        helper.bool(...dependencies)('isList', 'Is List'),
+        helper.bool(...dependencies)('isDictionary', 'Is Dictionary')
     ] as MRT_ColumnDef<T>[];

@@ -60,7 +60,7 @@ export function ClothingCareControl<T extends MRT_RowData>(props: EditFunctionPa
     const WashControl = IndividualClothingCareControl('wash', 'clothingCare.wash', ...(dependencies ?? []));
     const WashTemperatureControl = IndividualClothingCareControl('washTemperature', 'clothingCare.washTemperature', ...(dependencies ?? []));
     return (
-        <div className='flex flex-col'>
+        <div className='flex flex-col col-span-2'>
             <BleachingControl />
             <DryCleanControl />
             <DryingControl />

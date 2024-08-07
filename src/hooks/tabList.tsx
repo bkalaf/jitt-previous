@@ -1,8 +1,8 @@
 import { renderProductImagePanel } from './ProductImageTab';
+import { renderAttachmentPanel } from './renderAttachmentPanel';
 import { ApparelBottomsDetails } from '../schema/entity/detailEntity/ApparelBottomsDetails';
 import { ApparelBottomsLeggedDetails } from '../schema/entity/detailEntity/ApparelBottomsLeggedDetails';
 import { ApparelBrasDetails } from '../schema/entity/detailEntity/ApparelBrasDetails';
-import { ApparelBrasSwimsuitDetails } from '../schema/entity/detailEntity/ApparelBrasSwimsuitDetails';
 import { ApparelDetails } from '../schema/entity/detailEntity/ApparelDetails';
 import { ApparelFootwearDetails } from '../schema/entity/detailEntity/ApparelFootwearDetails';
 import { ApparelTopsDetails } from '../schema/entity/detailEntity/ApparelTopsDetails';
@@ -44,54 +44,57 @@ import { ToysBoardGamesDetails } from '../schema/entity/detailEntity/ToysBoardGa
 import { ToysDetails } from '../schema/entity/detailEntity/ToysDetails';
 import { ToysStuffedAnimalsDetails } from '../schema/entity/detailEntity/ToysStuffedAnimalsDetails';
 import { IProductImage, ISku } from '../types';
-import { createUpdateTabPanel } from './createUpdateTabPanel';
 import { MRT_ColumnDef } from 'material-react-table';
+import { OfficeGoodsDetails } from '../schema/entity/detailEntity/OfficeGoodsDetails';
+import { createUpdateTabPanel } from './createUpdateTabPanel';
+import { ApparelAccessoriesDetails } from '../schema/entity/detailEntity/ApparelAccessoriesDetails';
+import { ElectronicsVisualCameraDetails } from '../schema/entity/detailEntity/ElectronicsVisualCameraDetails';
 
-export const detailsTabList: Record<string, DetailsClass> = {
-    apparelDetails: ApparelDetails,
-    apparelTopsDetails: ApparelTopsDetails,
-    apparelBottomsDetails: ApparelBottomsDetails,
-    apparelBottomsLeggedDetails: ApparelBottomsLeggedDetails,
-    apparelFootwearDetails: ApparelFootwearDetails,
-    apparelBrasDetails: ApparelBrasDetails,
-    apparelBrasSwimsuitDetails: ApparelBrasSwimsuitDetails,
-    cablesDetails: CablesDetails,
-    cablesDataDetails: CablesDataDetails,
-    cablesPowerDetails: CablesPowerDetails,
-    cablesVideoDetails: CablesVideoDetails,
-    electronicsDetails: ElectronicsDetails,
-    electronicsVisualDetails: ElectronicsVisualDetails,
-    electronicsVisualCellPhonesDetails: ElectronicsVisualCellPhonesDetails,
-    electronicsComputerComponentsDetails: ElectronicsComputerComponentsDetails,
-    electronicsComputerComponentsRamDetails: ElectronicsComputerComponentsRamDetails,
-    electronicsComputerComponentsBatteryDetails: ElectronicsComputerComponentsBatteryDetails,
-    electronicsComputerComponentsDrivesDetails: ElectronicsComputerComponentsDrivesDetails,
-    electronicsKitchenAppliancesDetails: ElectronicsKitchenAppliancesDetails,
-    generalDetails: GeneralDetails,
-    homeGoodsDetails: HomeGoodsDetails,
-    homeGoodsDecorDetails: HomeGoodsDecorDetails,
-    homeGoodsFlatwareDetails: HomeGoodsFlatwareDetails,
-    homeGoodsDinnerwareDetails: HomeGoodsDinnerwareDetails,
-    homeGoodsGlasswareDetails: HomeGoodsGlasswareDetails,
-    jewelryDetails: JewelryDetails,
-    mediaDetails: MediaDetails,
-    mediaBooksDetails: MediaBooksDetails,
-    mediaMusicDetails: MediaMusicDetails,
-    mediaVideoGamesDetails: MediaVideoGamesDetails,
-    mediaVideosDetails: MediaVideosDetails,
-    mediaVideosFilmDetails: MediaVideosFilmDetails,
-    mediaVideosTvSeriesDetails: MediaVideosTvSeriesDetails,
-    sportingGoodsDetails: SportingGoodsDetails,
-    sportingGoodsGolfDetails: SportingGoodsGolfDetails,
-    sportingGoodsGolfClubsDetails: SportingGoodsGolfClubsDetails,
-    sportingGoodsTennisDetails: SportingGoodsTennisDetails,
-    sportingGoodsTennisRacketsDetails: SportingGoodsTennisRacketsDetails,
-    sportingGoodsBowlingDetails: SportingGoodsBowlingDetails,
-    sportingGoodsBowlingBallsDetails: SportingGoodsBowlingBallsDetails,
-    toysDetails: ToysDetails,
-    toysBoardGamesDetails: ToysBoardGamesDetails,
-    toysStuffedAnimalsDetails: ToysStuffedAnimalsDetails
-};
+// export const detailsTabList: Record<string, DetailsClass> = {
+//     apparelDetails: ApparelDetails,
+//     apparelTopsDetails: ApparelTopsDetails,
+//     apparelBottomsDetails: ApparelBottomsDetails,
+//     apparelBottomsLeggedDetails: ApparelBottomsLeggedDetails,
+//     apparelFootwearDetails: ApparelFootwearDetails,
+//     apparelBrasDetails: ApparelBrasDetails,
+//     apparelBrasSwimsuitDetails: ApparelBrasSwimsuitDetails,
+//     cablesDetails: CablesDetails,
+//     cablesDataDetails: CablesDataDetails,
+//     cablesPowerDetails: CablesPowerDetails,
+//     cablesVideoDetails: CablesVideoDetails,
+//     electronicsDetails: ElectronicsDetails,
+//     electronicsVisualDetails: ElectronicsVisualDetails,
+//     electronicsVisualCellPhonesDetails: ElectronicsVisualCellPhonesDetails,
+//     electronicsComputerComponentsDetails: ElectronicsComputerComponentsDetails,
+//     electronicsComputerComponentsRamDetails: ElectronicsComputerComponentsRamDetails,
+//     electronicsComputerComponentsBatteryDetails: ElectronicsComputerComponentsBatteryDetails,
+//     electronicsComputerComponentsDrivesDetails: ElectronicsComputerComponentsDrivesDetails,
+//     electronicsKitchenAppliancesDetails: ElectronicsKitchenAppliancesDetails,
+//     generalDetails: GeneralDetails,
+//     homeGoodsDetails: HomeGoodsDetails,
+//     homeGoodsDecorDetails: HomeGoodsDecorDetails,
+//     homeGoodsFlatwareDetails: HomeGoodsFlatwareDetails,
+//     homeGoodsDinnerwareDetails: HomeGoodsDinnerwareDetails,
+//     homeGoodsGlasswareDetails: HomeGoodsGlasswareDetails,
+//     jewelryDetails: JewelryDetails,
+//     mediaDetails: MediaDetails,
+//     mediaBooksDetails: MediaBooksDetails,
+//     mediaMusicDetails: MediaMusicDetails,
+//     mediaVideoGamesDetails: MediaVideoGamesDetails,
+//     mediaVideosDetails: MediaVideosDetails,
+//     mediaVideosFilmDetails: MediaVideosFilmDetails,
+//     mediaVideosTvSeriesDetails: MediaVideosTvSeriesDetails,
+//     sportingGoodsDetails: SportingGoodsDetails,
+//     sportingGoodsGolfDetails: SportingGoodsGolfDetails,
+//     sportingGoodsGolfClubsDetails: SportingGoodsGolfClubsDetails,
+//     sportingGoodsTennisDetails: SportingGoodsTennisDetails,
+//     sportingGoodsTennisRacketsDetails: SportingGoodsTennisRacketsDetails,
+//     sportingGoodsBowlingDetails: SportingGoodsBowlingDetails,
+//     sportingGoodsBowlingBallsDetails: SportingGoodsBowlingBallsDetails,
+//     toysDetails: ToysDetails,
+//     toysBoardGamesDetails: ToysBoardGamesDetails,
+//     toysStuffedAnimalsDetails: ToysStuffedAnimalsDetails
+// };
 
 // const zinc = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-zinc-500', text: 'text-white', children: children.length > 1 ? children : undefined });
 // const pink = (Ctor: DetailsClass, ...children: Node[]): Node => ({ Ctor, bg: 'bg-pink-500', text: 'text-white', children: children.length > 1 ? children : undefined });
@@ -140,12 +143,13 @@ type DetailsTabs = {
 
 function fromDetailsClass(Ctor: DetailsClass) {
     const { columns, label, type } = Ctor;
-    return { label, type, Component: createUpdateTabPanel(columns as MRT_ColumnDef<any>[]) } as DetailsTabs;
+    return { label, type, Component: createUpdateTabPanel(columns as MRT_ColumnDef<any>[], type) } as DetailsTabs;
 }
 export const tabList: Record<string, DetailsTabs[]> = {
-    sku: [{ label: 'Images', type: 'images', Component: renderProductImagePanel<any>((sku?: ISku) => Array.from(sku?.getProductImages ?? []) as IProductImage[]) }],
+    sku: [{ label: 'Images', type: 'images', Component: renderProductImagePanel<any>((sku?: ISku) => Array.from(sku?.getProductImages ?? []) as IProductImage[]) }, { label: 'Attachments', type: '', Component: renderAttachmentPanel() }],
     product: [
         fromDetailsClass(ApparelDetails),
+        fromDetailsClass(ApparelAccessoriesDetails),
         fromDetailsClass(ApparelFootwearDetails),
         fromDetailsClass(ApparelBrasDetails),
         fromDetailsClass(ApparelTopsDetails),
@@ -158,6 +162,7 @@ export const tabList: Record<string, DetailsTabs[]> = {
         fromDetailsClass(ElectronicsDetails),
         fromDetailsClass(ElectronicsVisualDetails),
         fromDetailsClass(ElectronicsVisualCellPhonesDetails),
+        fromDetailsClass(ElectronicsVisualCameraDetails),
         fromDetailsClass(ElectronicsKitchenAppliancesDetails),
         fromDetailsClass(ElectronicsComputerComponentsDetails),
         fromDetailsClass(ElectronicsComputerComponentsDrivesDetails),
@@ -178,6 +183,7 @@ export const tabList: Record<string, DetailsTabs[]> = {
         fromDetailsClass(MediaVideosDetails),
         fromDetailsClass(MediaVideosFilmDetails),
         fromDetailsClass(MediaVideosTvSeriesDetails),
+        fromDetailsClass(OfficeGoodsDetails),
         fromDetailsClass(SportingGoodsDetails),
         fromDetailsClass(SportingGoodsGolfDetails),
         fromDetailsClass(SportingGoodsGolfClubsDetails),

@@ -16,7 +16,7 @@ export function deepEqual<T>(obj1?: T, obj2?: T): boolean {
                 : is.dbDictionary(obj) ? 'Realm.Dictionary'
                 : is.dbSet(obj) ? 'Realm.Set'
                 : is.realmObj(obj) ? 'Realm.Object'
-                : is.linkingObjects(obj) ? 'Realm.LinkingObjects'
+                // : is.linkingObjects(obj) ? 'Realm.LinkingObjects'
                 : is.arrayBuffer(obj) ? 'data'
                 : is.date(obj) ? 'date'
                 : is.objectId(obj) ? 'objectId'
@@ -73,8 +73,8 @@ export function deepEqual<T>(obj1?: T, obj2?: T): boolean {
                 :   deepEqual((obj1 as Realm.Object).toJSON(), (obj2 as Realm.Object).toJSON());
         // (obj1 as Realm.Object) === (obj2 as Realm.Object).objectSchema().name &&
         // Object.keys((obj1 as Realm.Object).objectSchema().properties).every((key) => deepEqual((obj1 as Realm.Object)[key as keyof Realm.Object], (obj2 as Realm.Object)[key as keyof Realm.Object]))
-        case 'Realm.LinkingObjects':
-            return false;
+        // case 'Realm.LinkingObjects':
+        //     return false;
         case 'data':
             return false;
         case 'object':

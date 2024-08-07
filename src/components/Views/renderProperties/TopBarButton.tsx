@@ -3,9 +3,13 @@ import { useId, useMemo } from 'react';
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form-mui';
 import { useFormEvents } from './useFormEvents';
 
-
 export function TopBarButton<T extends FieldValues>({
-    color, handleSubmit, enabled, label, defaultValues, children
+    color,
+    handleSubmit,
+    enabled,
+    label,
+    defaultValues,
+    children
 }: {
     color: ButtonProps['color'];
     label: string;

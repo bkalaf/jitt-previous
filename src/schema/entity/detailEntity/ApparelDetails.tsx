@@ -19,3 +19,4 @@ export class ApparelDetails extends EntityBase<IApparelDetails> implements IAppa
     static objectType = ApparelDetails.schema.name;
 }
 
+

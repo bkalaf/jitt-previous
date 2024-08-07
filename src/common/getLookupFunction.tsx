@@ -3,9 +3,9 @@ import { getProperty } from './object/getProperty';
 
 
 export function getLookupFunction<T extends MRT_RowData>(ctor: MyClass<T>) {
-    const [labelProperty, liComponent] = 'labelProperty' in ctor ? [ctor.labelProperty] : [undefined, (ctor as any).liComponent];
+    const [labelProperty, liComponent] = 'labelProperty' in ctor ? [ctor.labelProperty] : [undefined, (ctor as any).stringify];
     // console.log(`getLookupFunction`, ctor, labelProperty, liComponent);
     return (value?: T) => value == null ? undefined
         : labelProperty != null ? (getProperty(labelProperty as string, value) as string)
-            : (liComponent(value)({}) as string) ?? undefined;
+            : (liComponent(value, true)({}) as string) ?? undefined;
 }

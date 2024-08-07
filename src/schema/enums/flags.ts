@@ -21,14 +21,21 @@ export const mediaVideoFlags = {
     isUnrated: 'Unrated'
 };
 
+export const toysFlags = {
+    hasTags: 'Has Tags'
+}
+
+export type ToysFlags = keyof typeof toysFlags;
+export const toysFlagsOptions: ToysFlags[] = ['hasTags'];
+
 export type MediaFlags = keyof typeof mediaVideoFlags;
 export const mediaVideoFlagsOptions: MediaFlags[] = ['isDirectorsEdition', 'isCollectorsEdition', 'isUnrated', 'isWidescreen', 'isSubtitled', 'isClosedCaptioned'];
 
-export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaVideoFlags)).map((x) => [x[0], { text: x[1], key: x[0] }]));
+export const allFlags = Object.fromEntries(Object.entries(Object.assign({}, flags, mediaVideoFlags, toysFlags)).map((x) => [x[0], { text: x[1], key: x[0] }]));
 
 // console.log(allFlags);
 
-export type Flags = keyof typeof flags | keyof typeof mediaVideoFlags;
+export type Flags = keyof typeof flags | keyof typeof mediaVideoFlags | keyof typeof toysFlags;
 
 // console.log(Object.entries({ ...mediaVideoFlags, ...flags }).map(x => x.join(',').concat('\n')).join('\n'));
 

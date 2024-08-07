@@ -16,6 +16,7 @@ import { useUpdateEntity } from '../../../hooks/useUpdateEntity';
 import { useAnySelected } from './useAnySelected';
 import { CreateProductFromUPCBtn } from './CreateProductFromUPCBtn';
 import { RunApiSearchBtn } from './RunAPISearchBtn';
+import { MarkReadyToList } from './MarkReadyToList';
 
 export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init: () => T, resetSettings: () => void) {
     return function RenderTopToolbarCustomActions({ table }: Parameters<Exclude<MRT_TableOptions<T>['renderTopToolbarCustomActions'], undefined>>[0]) {
@@ -41,6 +42,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
             };
             runTransaction(db, func);
             invalidate();
+            table.setRowSelection({});
         }, [db, invalidate, nextBin, nextSku, route, table]);
         const onNewSku = useCallback(() => {
             const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as IProduct);
@@ -48,6 +50,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                 selected.map((product) => Sku.addFromProduct(product as IProduct));
             };
             runTransaction(db, func);
+            table.setRowSelection({});
         }, [db, table]);
         const { msg: draftCreatedMsg } = useToaster((id: BSON.ObjectId) => `Draft created: ${id.toHexString()}`);
         const notOnlyOneSelected = !(table.getSelectedRowModel().rows.length === 1);
@@ -55,6 +58,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
             const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as ISku)[0];
             const { _id } = Draft.createDraft(db, selected);
             draftCreatedMsg(_id);
+            table.setRowSelection({});
         }, [db, draftCreatedMsg, table]);
         const exportDraft = useCallback(() => {
             const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as Draft);
@@ -111,6 +115,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                 )}
                 <CreateProductFromUPCBtn />
                 <RunApiSearchBtn />
+                <MarkReadyToList table={table as any} />
             </Box>
         );
     };

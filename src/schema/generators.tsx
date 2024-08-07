@@ -3,8 +3,8 @@ import { prependIgnore } from '../common/prepend';
 import { capitalize } from '../common/text/capitalize';
 import fs from 'graceful-fs';
 
-export const MAX_INDEX = 78;
-export const MAX_IMPORTANCE = 196;
+export const MAX_INDEX = 90;
+export const MAX_IMPORTANCE = 250;
 
 export const TITLE_MAX_LENGTH = 80;
 export const DESCRIPTION_MAX_LENGTH = 1000;
@@ -44,12 +44,16 @@ export function $generateTitle(parts: Part[], maxImportance = MAX_IMPORTANCE): {
             : a.index > b.index ? 1
             : 0
         );
+    // eslint-disable-next-line no-console
+    console.info('filtered', filtered);
     const title = inner(
         filtered
             .map((x) => x.title.split(' ').map(capitalize).join(' '))
             .map(capitalize)
             .join(' ')
     );
+    // eslint-disable-next-line no-console
+    console.info(`title`, title);
     fs.appendFileSync('C:/Users/bobby/OneDrive/Desktop/title-narrative-output.txt', title.concat('\n'));
     const { title: boundTitle } = title.length > TITLE_MAX_LENGTH ? $generateTitle(parts, maxImportance - 1) : { title: title };
     return {

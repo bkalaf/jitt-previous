@@ -14,51 +14,6 @@ const token = process.env.BARCODE_SPIDER_TOKEN ?? '';
 export const getLookupUrl = (upc: string) => fetch(`https://api.barcodespider.com/v1/lookup?token=${token}&upc=${upc}`);
 const getUpcUrl = (upc: string) => fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${upc}`);
 
-export type BarcodeSpiderResponse = {
-    code: string;
-    total: number;
-    offset: number;
-    items: BarcodeSpiderItem[];
-};
-
-type BarcodeSpiderItem = {
-    ean: string;
-    title: string;
-    description: string;
-    isbn?: string;
-    publisher?: string;
-    category: string;
-    images: string[];
-    offers: BarcodeSpiderOffer[];
-    asin?: string;
-    upc?: string;
-    mpn?: string;
-    brand?: string;
-    model?: string;
-    color?: string;
-    size?: string;
-    dimension?: string;
-    weight?: string;
-    currency?: string;
-    lowest_recorded_price?: number;
-    highest_recorded_price?: number;
-    elid?: string;
-};
-
-type BarcodeSpiderOffer = {
-    merchant: string;
-    domain: string;
-    title: string;
-    currency: string;
-    list_price: string;
-    price: number;
-    shipping: string;
-    condition: string;
-    availability: string;
-    link: string;
-    updated_t: number;
-};
-
 export function CreateProductFromUPCBtn() {
     const [open, toggle] = useToggler(false);
     const db = useLocalRealm();

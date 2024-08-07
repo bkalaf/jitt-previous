@@ -14,12 +14,14 @@ export function toIsOptionEqualToValue<T>(comparator: (left: T, right: string) =
 export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?: (left: T, right: string) => Compared) {
     const getOptionLabel = useCallback(
         (option?: any): string => {
-            return labelProperty ? (toGetOptionLabel(labelProperty)(option) as string) : option?.toString() ?? '';
+            console.log(`getOptionLabel`, option);
+            return labelProperty ? option == null ? undefined : (toGetOptionLabel(labelProperty)(option) as string) : option?.toString() ?? '';
         },
         [labelProperty]
     );
     const isOptionEqualToValue = useCallback(
         (option: T, value: string) => {
+            console.log(`isOptionEqualToValue`, option, value);
             return toIsOptionEqualToValue(
                 comparator ??
                     ((l: any, r: any) =>
@@ -28,7 +30,7 @@ export function useAutoComplete<T>(labelProperty?: string & keyof T, comparator?
                         : 0)
             )(option, value);
         },
-        [comparator]
+        [comparator,]
     );
     return useMemo(
         () => ({

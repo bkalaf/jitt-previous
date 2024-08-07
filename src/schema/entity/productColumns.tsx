@@ -1,8 +1,7 @@
-import { IClassifier, IProduct } from '../../types';
+import { IProduct } from '../../types';
 import { flagOptions } from '../enums/flags';
 import { MRT_ColumnDef, MRT_RowData, createMRTColumnHelper } from 'material-react-table';
 import { col } from '../defs/col';
-import { UseFormReturn } from 'react-hook-form-mui';
 import { groupCol } from '../defs/groupCol';
 import { doubleMeasureColumns } from './details/measureColumns';
 import { $productInfo } from '../columns/$depend';
@@ -14,23 +13,23 @@ export const productColumns: <T extends MRT_RowData>(...dependencies: IDependenc
         helper.PK(),
         helper.lookup(...dependencies)('brand', 'Brand', { objectType: 'brand' }),
         helper.lookup(...dependencies)('classifier', 'Classifier', {
-            objectType: 'classifier',
-            onChange: (formContext: UseFormReturn<any, any, any>, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {
-                if (oldValue != null) {
-                    oldValue.allAttributes.forEach(({ path, value }) => {
-                        formContext.setValue(path, typeof value === 'boolean' ? !value : undefined);
-                    });
-                }
-                if (newValue != null) {
-                    newValue.allAttributes.forEach(({ path, unset, value }) => {
-                        if (unset) {
-                            formContext.setValue(path, undefined);
-                        } else {
-                            formContext.setValue(path, value);
-                        }
-                    });
-                }
-            }
+            objectType: 'classifier'
+            // onChange: (formContext: UseFormReturn<any, any, any>, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {
+            //     if (oldValue != null) {
+            //         oldValue.allAttributes.forEach(({ path, value }) => {
+            //             formContext.setValue(path, typeof value === 'boolean' ? !value : undefined);
+            //         });
+            //     }
+            //     if (newValue != null) {
+            //         newValue.allAttributes.forEach(({ path, unset, value }) => {
+            //             if (unset) {
+            //                 formContext.setValue(path, undefined);
+            //             } else {
+            //                 formContext.setValue(path, value);
+            //             }
+            //         });
+            //     }
+            // }
         }),
         helper.listOfEmbed(...dependencies)('includes', 'Includes', 'includedItem'),
         helper.listOfEmbed(...dependencies)('customAttributes', 'Custom Item Field', 'customItemField'),

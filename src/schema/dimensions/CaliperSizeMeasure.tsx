@@ -21,3 +21,5 @@ export class CaliperSizeMeasure extends DoubleMeasure<CaliperSizeUnitsOfMeasure>
     }
     static columns: MRT_ColumnDef<CaliperSizeMeasure>[] = doubleMeasureColumns<CaliperSizeMeasure>(createMRTColumnHelper<CaliperSizeMeasure>(), 'amperageUnits')() as MRT_ColumnDef<CaliperSizeMeasure>[];
 }
+
+

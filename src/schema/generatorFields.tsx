@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { $from, $fromMeasure, NarrativeFunc } from '../common/composeR';
 import { ISku } from '../types';
 import { BaseAward } from './entity/award';
@@ -1420,8 +1421,8 @@ const fields = [
         key: 'product.powerTypes',
         params: 'powerTypes',
         getter: (sku: ISku) => sku?.product?.powerTypes,
-        func: null,
-        titleFunc: null,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
         section: 'attributes'
     },
     {
@@ -1982,8 +1983,8 @@ const fields = [
         key: 'product.rnNo',
         params: Rn,
         getter: (sku: ISku) => sku?.product?.rnNo,
-        func: $from.lookup,
-        titleFunc: $from.lookup,
+        func: $from.rn,
+        titleFunc: $from.rn,
         section: 'attributes'
     },
     {
@@ -1997,7 +1998,427 @@ const fields = [
         titleFunc: $from.list.ofString,
         section: 'lists'
     },
-    { key: 'product.suggestedRetailPrice', getter: (sku: ISku) => sku?.product?.suggestedRetailPrice, importance: 197, header: 'SRP', params: null, section: 'attributes', func: $from.dollar, titleFunc: null, index: null }
+    {
+        header: 'SRP',
+        importance: 197,
+        index: null,
+        key: 'product.suggestedRetailPrice',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.suggestedRetailPrice,
+        func: $from.dollar,
+        titleFunc: $from.dollar,
+        section: 'attributes'
+    },
+    {
+        header: 'Finish',
+        importance: 196,
+        index: 77,
+        key: 'product.finish',
+        params: 'finishes',
+        getter: (sku: ISku) => sku?.product?.finish,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Coverstock',
+        importance: 199,
+        index: null,
+        key: 'product.coverstock',
+        params: 'coverstocks',
+        getter: (sku: ISku) => sku?.product?.coverstock,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Lane Condition',
+        importance: 200,
+        index: null,
+        key: 'product.laneCondition',
+        params: 'laneConditions',
+        getter: (sku: ISku) => sku?.product?.laneCondition,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Radius of Gyration',
+        importance: 201,
+        index: null,
+        key: 'product.radiusOfGyration',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.radiusOfGyration,
+        func: $from.double,
+        titleFunc: $from.double,
+        section: 'attributes'
+    },
+    {
+        header: 'Has Tags',
+        importance: 202,
+        index: null,
+        key: 'product.flags-hasTags',
+        params: {
+            key: 'hasTags',
+            asterisk: true
+        },
+        getter: (sku: ISku) => sku?.product?.flags,
+        func: $from.flags,
+        titleFunc: $from.flags,
+        section: 'flags'
+    },
+    {
+        header: 'Head Measurement',
+        importance: 203,
+        index: 50,
+        key: 'product.headSize',
+        params: 'lengthUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.headSize,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'Auto Focus',
+        importance: 204,
+        index: null,
+        key: 'product.autoFocusTechnology',
+        params: 'autofocusTechnologies',
+        getter: (sku: ISku) => sku?.product?.autoFocusTechnology,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
+        section: 'attributes'
+    },
+    {
+        header: 'Display Resolution',
+        importance: 205,
+        index: null,
+        key: 'product.displayResolution',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.displayResolution,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Photo Sensor Size',
+        importance: 206,
+        index: null,
+        key: 'product.photoSensorSize',
+        params: 'lengthUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.photoSensorSize,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'Photo Sensor',
+        importance: 207,
+        index: null,
+        key: 'product.photoSensorTechnology',
+        params: 'photoSensorTechnologies',
+        getter: (sku: ISku) => sku?.product?.photoSensorTechnology,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Still Resolution',
+        importance: 208,
+        index: 50,
+        key: 'product.effectiveStillResolution',
+        params: 'resolutionUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.effectiveStillResolution,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'White Balance Setting',
+        importance: 209,
+        index: null,
+        key: 'product.whiteBalanceSetting',
+        params: 'whiteBalanceSettings',
+        getter: (sku: ISku) => sku?.product?.whiteBalanceSetting,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Self Timer Duration',
+        importance: 210,
+        index: null,
+        key: 'product.selfTimerDuration',
+        params: 'musicDurationUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.selfTimerDuration,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'JPEG Quality',
+        importance: 211,
+        index: null,
+        key: 'product.jpegQualityLevel',
+        params: 'jpegQualityLevels',
+        getter: (sku: ISku) => sku?.product?.jpegQualityLevel,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Video Capture Formats',
+        importance: 212,
+        index: null,
+        key: 'product.videoCaptureFormats',
+        params: 'videoCaptureFormats',
+        getter: (sku: ISku) => sku?.product?.videoCaptureFormats,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
+        section: 'attributes'
+    },
+    {
+        header: 'Video Capture Resolution',
+        importance: 213,
+        index: null,
+        key: 'product.videoCaptureResolution',
+        params: 'videoCaptureResolutions',
+        getter: (sku: ISku) => sku?.product?.videoCaptureResolution,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Viewfinder Type',
+        importance: 214,
+        index: null,
+        key: 'product.viewfinderType',
+        params: 'viewfinderTypes',
+        getter: (sku: ISku) => sku?.product?.viewfinderType,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: null,
+        importance: 215,
+        index: null,
+        key: '',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.screenSize,
+        func: null,
+        titleFunc: null,
+        section: null
+    },
+    {
+        header: 'Camera Connectivity',
+        importance: 216,
+        index: null,
+        key: 'product.connectivityTechnology',
+        params: 'cameraConnectionTypes',
+        getter: (sku: ISku) => sku?.product?.connectivityTechnology,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Continuous Shooting Speed',
+        importance: 217,
+        index: null,
+        key: 'product.continuousShootingSpeed',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.continuousShootingSpeed,
+        func: $from.double,
+        titleFunc: $from.double,
+        section: 'attributes'
+    },
+    {
+        header: 'Memory Slots',
+        importance: 218,
+        index: null,
+        key: 'product.memorySlots',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.memorySlots,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Camera Size',
+        importance: 219,
+        index: null,
+        key: 'product.cameraFormFactor',
+        params: 'cameraSizes',
+        getter: (sku: ISku) => sku?.product?.cameraFormFactor,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Skill Level',
+        importance: 220,
+        index: null,
+        key: 'product.skillLevel',
+        params: 'skillLevels',
+        getter: (sku: ISku) => sku?.product?.skillLevel,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Lens Type',
+        importance: 221,
+        index: null,
+        key: 'product.lensType',
+        params: 'lensType',
+        getter: (sku: ISku) => sku?.product?.lensType,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Optical Zoom',
+        importance: 222,
+        index: null,
+        key: 'product.opticalZoom',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.opticalZoom,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Digital Zoom',
+        importance: 223,
+        index: null,
+        key: 'product.digitalZoom',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.digitalZoom,
+        func: $from.double,
+        titleFunc: $from.double,
+        section: 'attributes'
+    },
+    {
+        header: 'Max Apeture',
+        importance: 224,
+        index: null,
+        key: 'product.maximumApeture',
+        params: 'caliperSizeUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.maximumApeture,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'Zoom Type',
+        importance: 225,
+        index: null,
+        key: 'product.zoomType',
+        params: 'zoomTypes',
+        getter: (sku: ISku) => sku?.product?.zoomType,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
+        section: 'attributes'
+    },
+    {
+        header: 'Autofocus Pts',
+        importance: 226,
+        index: null,
+        key: 'product.autofocusPoints',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.autofocusPoints,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Mountings',
+        importance: 227,
+        index: null,
+        key: 'product.compatibleMountings',
+        params: 'compatibleMountings',
+        getter: (sku: ISku) => sku?.product?.compatibleMountings,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
+        section: 'attributes'
+    },
+    {
+        header: 'Focus Type',
+        importance: 228,
+        index: null,
+        key: 'product.focusType',
+        params: 'focusTypes',
+        getter: (sku: ISku) => sku?.product?.focusType,
+        func: $from.enum,
+        titleFunc: $from.enum,
+        section: 'attributes'
+    },
+    {
+        header: 'Min Focal Length',
+        importance: 229,
+        index: null,
+        key: 'product.minimumFocalLength',
+        params: 'caliperSizeUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.minimumFocalLength,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'Max Focal Length',
+        importance: 230,
+        index: null,
+        key: 'product.maximumFocalLength',
+        params: 'caliperSizeUnitOfMeasure',
+        getter: (sku: ISku) => sku?.product?.maximumFocalLength,
+        func: $fromMeasure,
+        titleFunc: $fromMeasure,
+        section: 'measurements'
+    },
+    {
+        header: 'Min Expanded ISO',
+        importance: 231,
+        index: null,
+        key: 'product.expandedISOMinimum',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.expandedISOMinimum,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Max Expanded ISO',
+        importance: 232,
+        index: null,
+        key: 'product.expandedISOMaximum',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.expandedISOMaximum,
+        func: $from.int,
+        titleFunc: $from.int,
+        section: 'attributes'
+    },
+    {
+        header: 'Max Shutter Speed',
+        importance: 233,
+        index: null,
+        key: 'product.maxShutterSpeed',
+        params: null,
+        getter: (sku: ISku) => sku?.product?.maxShutterSpeed,
+        func: $from.echo,
+        titleFunc: $from.echo,
+        section: 'attributes'
+    },
+    {
+        header: 'Shooting Modes',
+        importance: 234,
+        index: null,
+        key: 'product.shootingModes',
+        params: 'shootingModes',
+        getter: (sku: ISku) => sku?.product?.shootingModes,
+        func: $from.list.ofEnum,
+        titleFunc: $from.list.ofEnum,
+        section: 'attributes'
+    }
 ] as {
     header: string | null;
     importance: number | null;
@@ -2020,16 +2441,23 @@ const fields = [
     section: string | null;
 }[];
 
-export const $fields = (sku: ISku) =>
-    fields.map((x) => {
+export const $fields = (sku: ISku) => {
+    const interim = fields.map((x) => {
         function inner(f?: NarrativeFunc<any> | null) {
-            if (f == null) return { header: null, value: undefined };
-            const result = f(x.header ?? '')(x.params)(x.getter)(sku);
-            // console.log(`result for x`, x, result);
-            return {
-                header: result.header ?? null,
-                value: result.value ?? null
-            };
+            try {
+                if (f == null) return { header: null, value: undefined };
+                const result = f(x.header ?? '')(x.params)(x.getter)(sku);
+                // console.log(`result for x`, x, result);
+                return {
+                    header: result.header ?? null,
+                    value: result.value ?? null
+                };
+            } catch (error) {
+                console.error(error);
+                console.error(`field`, x);
+                console.error(`f`, f);
+                throw error;
+            }
         }
         const { header: narrativeHeader, value: narrativeValue } = inner(x.func as any);
         const { header: titleHeader, value: titleValue } = inner(x.titleFunc as any);
@@ -2049,3 +2477,7 @@ export const $fields = (sku: ISku) =>
             narrative: string | undefined;
         };
     });
+    // eslint-disable-next-line no-console
+    console.info('interim', interim);
+    return interim;
+}

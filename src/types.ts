@@ -38,7 +38,6 @@ import {
     BarcodeTypes,
     MovieGenres,
     MovieRatings,
-    TVRatings,
     VideoFormatTypes,
     VideoTypes,
     ConnectorGenders,
@@ -68,23 +67,56 @@ import {
     Materials,
     ShippingSpeeds,
     PayorTypes,
-    DriveType,
-    MemoryType,
-    MemoryFormFactor,
-    HardDriveFormFactor,
-    HardDriveConnectivity,
-    HardDriveInterface,
     CompatibleDevices,
-    CASLatency,
     Countries,
     AwardNames,
     HugoAwardCategories,
     EmmyAwardCategories,
     OscarAwardCategories,
     TonyAwardCategories,
-    PulitzerPrizeAwardCategories,
     GrammyAwardCategories,
-    NYTimesAwardCategories
+    AutofocusTechnologies,
+    PhotoSensorTechnologies,
+    ResolutionUnitOfMeasure,
+    WhiteBalanceSettings,
+    JpegQualityLevels,
+    VideoCaptureResolutions,
+    ViewfinderTypes,
+    CameraConnectionTypes,
+    CameraSizes,
+    SkillLevels,
+    LensType,
+    ZoomTypes,
+    CompatibleMountings,
+    FocusTypes,
+    ShootingModes,
+    NyTimesAwardCategories,
+    PulizerPrizeCategories,
+    DriveTypes,
+    DriveFormFactors,
+    DriveInterfaces,
+    Connectivity,
+    TvRatings,
+    MemoryFormFactors,
+    MemoryTypes,
+    CasLatency,
+    FileFormats,
+    BagTypes,
+    BottomTypes,
+    BraTypes,
+    EarringBackTypes,
+    EarringFrontTypes,
+    HatTypes,
+    JacketTypes,
+    JeansTypes,
+    LapelTypes,
+    RingTypes,
+    ShirtTypes,
+    ShoeTypes,
+    SkirtTypes,
+    SleepwearTypes,
+    TieTypes,
+    ZipperTypes
 } from './schema/enums';
 import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
 import { AttachmentStages } from './schema/choices/AttachmentStages';
@@ -207,10 +239,13 @@ export type IAttribute = {
     path: string;
     unset: boolean;
     value: Realm.Types.Mixed;
+    isList: Opt<boolean>;
+    isDictionary: Opt<boolean>;
 };
 
 export type DetailTypes =
     | 'apparel'
+    | 'apparel/accessories'
     | 'apparel/bottoms'
     | 'apparel/bottoms/legged'
     | 'apparel/bras'
@@ -223,6 +258,7 @@ export type DetailTypes =
     | 'cables/video'
     | 'electronics'
     | 'electronics/visual'
+    | 'electronics/visual/camera'
     | 'electronics/visual/cell-phones'
     | 'electronics/computer-components'
     | 'electronics/computer-components/drives'
@@ -243,6 +279,7 @@ export type DetailTypes =
     | 'media/videos'
     | 'media/videos/film'
     | 'media/videos/tv-series'
+    | 'office-goods'
     | 'sporting-goods'
     | 'sporting-goods/golf'
     | 'sporting-goods/golf/clubs'
@@ -414,9 +451,9 @@ export type IAwardHeader<T extends AwardNames> = {
         : 'oscar' extends T ? OscarAwardCategories
         : 'emmy' extends T ? EmmyAwardCategories
         : 'tony' extends T ? TonyAwardCategories
-        : 'pulitzer' extends T ? PulitzerPrizeAwardCategories
+        : 'pulitzer' extends T ? PulizerPrizeCategories
         : 'grammy' extends T ? GrammyAwardCategories
-        : 'ny-times' extends T ? NYTimesAwardCategories
+        : 'ny-times' extends T ? NyTimesAwardCategories
         : never
     >;
 };
@@ -498,7 +535,7 @@ export type ITVSeries = {
     _id: BSON.ObjectId;
     title: string;
     subtitle: Opt<string>;
-    rating: Opt<TVRatings>;
+    rating: Opt<TvRatings>;
     contributors: DBList<IContributor>;
     episodes: DBList<ITVSeriesEpisode>;
     network: Opt<Network>;
@@ -541,6 +578,7 @@ export type IScrape = {
 }
 
 export type IProduct = IApparel & {
+    shadowClassifier: Opt<IClassifier>;
     _id: BSON.ObjectId;
     asins: DBList<string>;
     brand?: Opt<IBrand>;
@@ -575,6 +613,9 @@ export type IProduct = IApparel & {
     clothingCare: Opt<IClothingCare>;
     madeOf: DBList<IMadeOfSection>;
     // apparel-bottoms
+    // apparel-accessories
+    headSize: Opt<IMeasure<LengthUnitsOfMeasure>>;
+
     closureType?: Opt<ClosureTypes>;
     fitType?: Opt<FitTypes>;
     inseamSize?: Opt<IMeasure<LengthUnitsOfMeasure>>;
@@ -656,23 +697,23 @@ export type IProduct = IApparel & {
     cellCarrier?: Opt<CellCarriers>;
     operatingSystem?: Opt<IOperatingSystemInfo>;
     // hard drive
-    driveType?: Opt<DriveType>;
-    driveForm?: Opt<HardDriveFormFactor>;
-    connectivity: DBList<HardDriveConnectivity>;
-    driveInterface?: Opt<HardDriveInterface>;
+    driveType?: Opt<DriveTypes>;
+    driveForm?: Opt<DriveFormFactors>;
+    connectivity: DBList<Connectivity>;
+    driveInterface?: Opt<DriveInterfaces>;
     writeSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; // MB/s
     readSpeed?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; //MB/s
     dataTransferRate?: Opt<IMeasure<DataTransferRateUnitsOfMeasure>>; // MBit/s
     rpm?: Opt<IMeasure<RotationalSpeedUnitsOfMeasure>>;
     cacheSize?: Opt<IMeasure<'MB'>>;
     // memory
-    memoryType?: Opt<MemoryType>;
-    memoryForm?: Opt<MemoryFormFactor>;
+    memoryType?: Opt<MemoryTypes>;
+    memoryForm?: Opt<MemoryFormFactors>;
     compatibleDevices: DBList<CompatibleDevices>;
     memorySpeed?: Opt<IMeasure<MemorySpeedUnitsOfMeasure>>;
     pinCount?: Opt<Int>;
     dataTransferBandwidth?: Opt<string>;
-    CASLatency?: Opt<CASLatency>;
+    CASLatency?: Opt<CasLatency>;
     // battery
     batteryCount?: Opt<Int>;
     batteryType?: Opt<BatteryTypes>;
@@ -714,9 +755,65 @@ export type IProduct = IApparel & {
     overrideTitle: boolean;
     partNumbers: DBList<IPartNumber>;
     type: DBList<DetailTypes>;
+    finish: Opt<string>;
+    coverstock: Opt<string>;
+    radiusOfGyration: Opt<Double>;
+    laneCondition: Opt<string>;
 
     // added 7/11
     suggestedRetailPrice: Opt<Double>;
+    // added 7/23 - camera
+    autoFocusTechnology: DBList<AutofocusTechnologies>;
+    displayResolution: Opt<Int>;
+    photoSensorSize: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    photoSensorTechnology: DBList<PhotoSensorTechnologies>;
+    effectiveStillResolution: Opt<IMeasure<ResolutionUnitOfMeasure>>;
+    whiteBalanceSetting: Opt<WhiteBalanceSettings>;
+    selfTimerDuration: Opt<IMeasure<MusicDurationUnitsOfMeasure>>;
+    jpegQualityLevel: Opt<JpegQualityLevels>;
+    videoCaptureFormats: DBList<FileFormats>;
+    videoCaptureResolution: Opt<VideoCaptureResolutions>;
+    viewfinderType: Opt<ViewfinderTypes>;
+    // screenSize: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    connectivityTechnology: Opt<CameraConnectionTypes>;
+    continuousShootingSpeed: Opt<Double>;
+    memorySlots: Opt<Int>;
+    cameraFormFactor: Opt<CameraSizes>;
+    skillLevel: Opt<SkillLevels>;
+    lensType: Opt<LensType>;
+    opticalZoom: Opt<Int>;
+    digitalZoom: Opt<Double>;
+    maximumApeture: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    zoomType: DBList<ZoomTypes>;
+    autofocusPoints: Opt<Int>;
+    compatibleMountings: DBList<CompatibleMountings>;
+    focusType: Opt<FocusTypes>;
+    minimumFocalLength: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    maximumFocalLength: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    expandedISOMinimum: Opt<Int>;
+    expandedISOMaximum: Opt<Int>;
+    maxShutterSpeed: Opt<string>;
+    shootingModes: DBList<ShootingModes>;
+
+
+    // 8/3/2024 - misc classification properties
+    bagType?: Opt<BagTypes>;
+    bottomType?: Opt<BottomTypes>;
+    braType?: Opt<BraTypes>;
+    earringBackType?: Opt<EarringBackTypes>;
+    earringFrontType?: Opt<EarringFrontTypes>;
+    hatType?: Opt<HatTypes>;
+    jacketType?: Opt<JacketTypes>;
+    jeansType?: Opt<JeansTypes>;
+    lapelType?: Opt<LapelTypes>;
+    ringType?: Opt<RingTypes>;
+    shirtType?: Opt<ShirtTypes>;
+    skirtType?: Opt<SkirtTypes>;
+    shoeType?: Opt<ShoeTypes>;
+    sleepwearType?: Opt<SleepwearTypes>;
+    tieType?: Opt<TieTypes>;
+    zipperType?: Opt<ZipperTypes>;
+    
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];
     readonly primaryColor: ProductColors | undefined;
@@ -747,6 +844,11 @@ export type IApiResult = {
     result: Opt<string>;
     obsolete: boolean;
     attributes: DBDictionary<string>;
+    request: Opt<string>;
+    status: Opt<Int>;
+    readonly $source: string;
+    readonly $params: Record<string, string | string[]>;
+    readonly $status: Opt<Int>;
 }
 
 export type IShipping = {
@@ -777,6 +879,7 @@ export type IProductImage = {
     takenOn?: Date;
     caption?: string;
     facing?: IFacing;
+    order?: number;
     selected?: 'original' | 'rembg';
     disposition: ProductImageDisposition;
     // fileSystemContext: IFileSystemContext;
@@ -801,28 +904,9 @@ export type IAttachment = {
     doNotUse: boolean;
     takenOn?: Date;
     attachmentType: AttachmentType;
-    attachmentDisposition: AttachmentDisposition;
-    attachmentPipelineStage: AttachmentStages;
     sharedLink?: string;
     tinyURL?: string;
-    readonly isIdle: boolean;
-    readonly nextStage: (this: IAttachment) => IAttachment;
-    readonly prevStage: (this: IAttachment) => IAttachment;
-    readonly nextDispo: (this: IAttachment) => IAttachment;
-    readonly prevDispo: (this: IAttachment) => IAttachment;
-    readonly fileTypeFolder?: string;
-    readonly originalFileFolder?: string;
-    readonly dropboxFileFolder?: string;
-    moveToOriginal: (this: IAttachment) => void;
-    copyToDropbox: (this: IAttachment) => void;
-    identifiedAsVideo: (this: IAttachment) => void;
-    identifiedAsAudio: (this: IAttachment) => void;
-    identifiedAsDocument: (this: IAttachment) => void;
-    provideCaption: (this: IAttachment, caption: string) => void;
-    createSharedLink: (this: IAttachment) => string;
-    revokeSharedLink: (this: IAttachment) => void;
-    createTinyURLForLink: (this: IAttachment, link: string) => string;
-    deleteTinyURLForLink: (this: IAttachment, link: string) => void;
+    readonly isActive: boolean;
 };
 
 export type IScan = {
@@ -850,6 +934,7 @@ export type ISku = {
     readonly getMaxWeight?: Opt<{ pounds: number; ounces: number }>;
     readonly getFolder: string;
     readonly getProductImages: Realm.Types.LinkingObjects<IProductImage, 'sku'>;
+    readonly getAttachments: Realm.Types.LinkingObjects<IAttachment, 'sku'>;
     readonly getIsMediaMail: boolean;
     addBarcode(this: ISku, generator: () => string): ISku;
     // addFromProduct(realm: Realm, product: IProduct): ISku;
@@ -916,6 +1001,9 @@ export type IDraft = {
 export type IApparelDetails = {
     value: unknown;
 };
+export type IApparelAccessoriesDetails = {
+    value: unknown;
+};
 export type IApparelTopsDetails = {
     value: unknown;
 };
@@ -941,6 +1029,7 @@ export type ICablesVideoDetails = { value: unknown };
 export type IElectronicsDetails = { value: unknown };
 export type IElectronicsVisualDetails = { value: unknown };
 export type IElectronicsVisualCellPhonesDetails = { value: unknown };
+export type IElectronicsVisualCameraDetails = { value: unknown };
 export type IElectronicsComputerComponentsDetails = { value: unknown };
 export type IElectronicsComputerComponentsRamDetails = { value: unknown };
 export type IElectronicsComputerComponentsBatteryDetails = { value: unknown };
@@ -961,6 +1050,8 @@ export type IMediaVideoGamesDetails = { value: unknown };
 export type IMediaVideosDetails = { value: unknown };
 export type IMediaVideosFilmDetails = { value: unknown };
 export type IMediaVideosTvSeriesDetails = { value: unknown };
+export type IOfficeGoodsDetails = { value: unknown };
+
 export type ISportingGoodsDetails = { value: unknown };
 export type ISportingGoodsGolfDetails = { value: unknown };
 export type ISportingGoodsGolfClubsDetails = { value: unknown };
@@ -973,6 +1064,7 @@ export type IToysBoardGamesDetails = { value: unknown };
 export type IToysStuffedAnimalsDetails = { value: unknown };
 export type IDetails = {
     apparel: IApparelDetails;
+    apparelAccessories: IApparelAccessoriesDetails;
     apparelTops: IApparelTopsDetails;
     apparelBottoms: IApparelBottomsDetails;
     apparelBottomsLegged: IApparelBottomsLeggedDetails;
@@ -985,6 +1077,7 @@ export type IDetails = {
     cablesVideo: ICablesVideoDetails;
     electronics: IElectronicsDetails;
     electronicsVisual: IElectronicsVisualDetails;
+    electronicsVisualCamera: IElectronicsVisualCameraDetails;
     electronicsVisualCellPhones: IElectronicsVisualCellPhonesDetails;
     electronicsComputerComponents: IElectronicsComputerComponentsDetails;
     electronicsComputerComponentsRAM: IElectronicsComputerComponentsRamDetails;
@@ -1006,6 +1099,7 @@ export type IDetails = {
     mediaVideos: IMediaVideosDetails;
     mediaVideosFilm: IMediaVideosFilmDetails;
     mediaVideosTvSeries: IMediaVideosTvSeriesDetails;
+    officeGoods: IOfficeGoodsDetails;
     sportingGoods: ISportingGoodsDetails;
     sportingGoodsGolf: ISportingGoodsGolfDetails;
     sportingGoodsGolfClubs: ISportingGoodsGolfClubsDetails;
@@ -1018,3 +1112,12 @@ export type IDetails = {
     toysStuffedAnimals: IToysStuffedAnimalsDetails;
 };
 
+export type AdminTaskTypes = 'mercari-promote' | 'mercari-import-brands' | 'mercari-import-shipping' | 'mercari-import-taxonomy' | 'mercari-import-hashtags' | 'mercari-import-custom-item-fields' | 'unknown'; 
+
+export type IAdminTask = {
+    _id: BSON.ObjectId;
+    timestamp: Date;
+    taskType: AdminTaskTypes;
+    wasSuccess: boolean;
+    result: DBDictionary<string>;
+}

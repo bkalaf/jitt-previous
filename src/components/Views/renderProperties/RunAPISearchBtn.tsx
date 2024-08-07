@@ -1,23 +1,21 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { useLocalRealm } from '../../../hooks/useLocalRealm';
 import { BSON } from 'realm';
 import { IApiResult } from '../../../types';
 import { runTransaction } from '../../../util/runTransaction';
 import { TopBarButton } from './TopBarButton';
 import { $$fileQueue } from './$$fileQueue';
-import { BarcodeSpiderResponse } from './CreateProductFromUPCBtn';
 import { $ } from '../../../schema/$';
 import { schemaName } from '../../../util/schemaName';
 import { useIsArrayInFileDataNotEmpty } from './useIsArrayInFileDataNotEmpty';
-import { distinctBy } from '../../../common/array/distinct';
-import { deepEqual } from '../../../common/deepEqual';
+import { sleep } from '../../../scripts/sleep';
 type Other = { brand: string } | { title: string } | { model: string } | { category: string };
 
 const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
 const token = process.env.BARCODE_SPIDER_TOKEN ?? '';
-export const fetchLookupBarcodeSpider = (upc: string) => fetch(`https://api.barcodespider.com/v1/lookup?token=${token}&upc=${upc}`);
+export const fetchLookupBarcodeSpider = (upc: string) => [fetch(`https://api.barcodespider.com/v1/lookup?token=${token}&upc=${upc}`), `https://api.barcodespider.com/v1/lookup?token=${token}&upc=${upc}`] as [Promise<Response>, string];
 
-const fetchLookupUPCItemDB = (upc: string) => fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${upc}`);
+const fetchLookupUPCItemDB = (upc: string) => [fetch(`https://api.upcitemdb.com/prod/trial/lookup?upc=${upc}`), `https://api.upcitemdb.com/prod/trial/lookup?upc=${upc}`] as [Promise<Response>, string];
 
 const fetchSearchBarcodeSpider = (...params: string[]) => {
     const url = new URL('https://api.barcodespider.com/v1/search');
@@ -25,7 +23,7 @@ const fetchSearchBarcodeSpider = (...params: string[]) => {
     url.searchParams.set('s', params.join(' '));
     const fullurl = url.toString();
     // console.log(fullurl);
-    return fetch(fullurl);
+    return [fetch(fullurl), fullurl] as [Promise<Response>, string];
 };
 const fetchSearchUPCItemDB = (s: string, other: Other, isBook = false) => {
     const baseUrl = `https://api.upcitemdb.com/prod/trial/search`;
@@ -39,98 +37,113 @@ const fetchSearchUPCItemDB = (s: string, other: Other, isBook = false) => {
     if ('title' in other) url.searchParams.set('title', other.title);
     const finalUrl = url.toString();
     // console.log(finalUrl);
-    return fetch(finalUrl);
+    return [fetch(finalUrl), finalUrl] as [Promise<Response>, string];
 };
-export type ProductSearchEntry =
-    | {
-          upc: string;
-      }
-    | { brandName: string; modelNo: string }
-    | { brandName: string; modelName: string }
-    | { category: string; modelNo: string }
-    | { elid: string }
-    | { asin: string }
-    | { category: string; modelName: string }
-    | { brandName: string; styleNo: string }
-    | { title: string };
 
-export async function runAPI(entry: ProductSearchEntry): Promise<[Response, string, string]> {
+
+export async function runAPI(entry: ProductSearchEntry): Promise<[Response, string]> {
     if ('asin' in entry) {
-        return [await fetchSearchBarcodeSpider(entry.asin), 'barcodespider.com', entry.asin];
+        const [res, url] = fetchSearchBarcodeSpider(entry.asin);
+        return [await res, url];
     } else if ('elid' in entry) {
-        return [await fetchSearchBarcodeSpider(entry.elid), 'barcodespider.com', entry.elid];
+        const [res, url] = fetchSearchBarcodeSpider(entry.elid);
+        return [await res, url];
     } else if ('title' in entry) {
-        return [await fetchSearchUPCItemDB('book', { title: entry.title }, true), 'upcitemdb.com', ['isBook == true', entry.title].join(' && ')];
+        const [res, url] = fetchSearchUPCItemDB('book', { title: entry.title }, true);
+        return [await res, url];
     } else if ('upc' in entry) {
-        const result = await fetchLookupBarcodeSpider(entry.upc);
-        if (result.status === 200) return [result, 'barcodespider.com', ''];
-        return [await fetchLookupUPCItemDB(entry.upc), 'upcitemdb.com', entry.upc];
+        const [res1, url] = fetchLookupBarcodeSpider(entry.upc);
+        if ((await res1).status === 200) return [await res1, url];
+        const [res2, url2] = fetchLookupUPCItemDB(entry.upc);
+        return [await res2, url2];
     } else if ('brandName' in entry) {
         const { brandName, ...other } = entry;
         if ('styleNo' in other) {
-            return [await fetchSearchUPCItemDB(brandName, { model: other.styleNo }), 'upcitemdb.com', [brandName, other.styleNo].join(' && ')];
+            const [res, url] = fetchSearchUPCItemDB(brandName, { model: other.styleNo });
+            return [await res, url];
         } else if ('modelName' in other) {
-            return [await fetchSearchBarcodeSpider(brandName, ...other.modelName.split(' ')), 'barcodespider.com', [brandName, other.modelName].join(' && ')];
+            const [res, url] = fetchSearchBarcodeSpider(brandName, ...other.modelName.split(' '));
+            return [await res, url];
         }
-        return [await fetchSearchUPCItemDB(brandName, { model: other.modelNo }), 'upcitemdb.com', [brandName, other.modelNo].join(' && ')];
+        const [res, url] = fetchSearchUPCItemDB(brandName, { model: other.modelNo });
+        return [await res, url];
     }
     const { category, modelNo, modelName } = { modelNo: undefined, modelName: undefined, ...entry };
-    return [await fetchSearchUPCItemDB(modelNo ?? modelName, { category }), 'upcitemdb.com', [category, modelNo, modelName].filter((x) => x != null && x.length > 0).join(' && ')];
+    const [res, url] = fetchSearchUPCItemDB(modelNo ?? modelName, { category });
+    return [await res, url];
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 
 export function RunApiSearchBtn() {
     const db = useLocalRealm();
+    const token = useRef<Promise<any>>(Promise.resolve());
     const handleSubmit = useCallback(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        async (data: any) => {
-            const innerFileData = distinctBy((left, right) => deepEqual(left, right), Array.from($$fileQueue));
-            const funcs = innerFileData.map((innerData) => async () => {
+         
+        async () => {
+            function addStep(promise: Promise<any>) {
+                const result = token.current.then(async () => {
+                    // eslint-disable-next-line no-console
+                    console.info('sleep 25 sec.');
+                    await sleep(25000);
+                    // eslint-disable-next-line no-console
+                    console.info('next step');
+                    return await promise;
+                });
+                token.current = result;
+            }
+            let $done: boolean = true;
+            while (!$done) {
+                const { value, done } = $$fileQueue.next();
+                $done = done ?? false;
                 // eslint-disable-next-line no-console
-                console.log(`innerFileData`, JSON.stringify(innerFileData, null, '\t'));
-                const [response, source, params] = await runAPI(innerData);
-                const body = response.status === 200 ? ((await response.json()) as BarcodeSpiderResponse) : ({} as Record<string, any>);
-                const attributes = Object.fromEntries(
-                    body?.items?.length > 0 ?
-                        Object.entries(body?.items[0] ?? {})
-                            .filter(([, v]) => typeof v === 'string' || typeof v === 'number')
-                            .map(([k, v]) => [k, v?.toString() ?? ''] as [string, string])
-                    :   []
+                console.log(JSON.stringify(value));
+                addStep(
+                    new Promise<void>((resolve) => {
+                        const func = async () => {
+                            const [response, request] = await runAPI(value as ProductSearchEntry);
+                            const body = response.status === 200 ? ((await response.json()) as BarcodeSpiderResponse) : ({} as Record<string, any>);
+                            const attributes = Object.fromEntries(
+                                body?.items?.length > 0 ?
+                                    Object.entries(body?.items[0] ?? {})
+                                        .filter(([, v]) => typeof v === 'string' || typeof v === 'number')
+                                        .map(([k, v]) => [k, v?.toString() ?? ''] as [string, string])
+                                :   []
+                            );
+                            const innerFunc = () => {
+                                db.create<IApiResult>(schemaName($.apiResult()), {
+                                    _id: new BSON.ObjectId(),
+                                    obsolete: response.status !== 200 ? true : false,
+                                    timestamp: new Date(Date.now()),
+                                    source: '',
+                                    params: '',
+                                    result: response.status === 200 ? JSON.stringify(body, null, '\t') : '{}',
+                                    attributes,
+                                    request,
+                                    status: response.status
+                                });
+                            };
+                            runTransaction(db, innerFunc);
+                        };
+                        // eslint-disable-next-line no-console
+                        func().finally(() => console.info('DONE!'));
+                        return resolve()
+                    })
                 );
-                const func = () => {
-                    db.create<IApiResult>(schemaName($.apiResult()), {
-                        _id: new BSON.ObjectId(),
-                        obsolete: response.status !== 200 ? true : false,
-                        timestamp: new Date(Date.now()),
-                        source,
-                        params,
-                        result: response.status === 200 ? JSON.stringify(body, null, '\t') : '{}',
-                        attributes
-                    });
-                };
-                setTimeout(() => runTransaction(db, func), 20 * 1000);
-            });
-            await funcs.reduce(
-                (pv, cv) => async () => {
-                    await pv();
-                    await cv();
-                },
-                async () => Promise.resolve()
-            )();
+            }
             // eslint-disable-next-line no-console
-            console.info('DONE!');
+            console.info('FINALLY DONE!');
         },
         [db]
     );
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const submitter = useCallback(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (x?: any) => {
-            handleSubmit({}).finally(() => alert('handleSubmit DONE!'));
+            handleSubmit().then(() => alert('step done!')).finally(() => alert('handleSubmit DONE!'));
         },
         [handleSubmit]
     );
-    const productSearchQueueArrayNotEmpty = useIsArrayInFileDataNotEmpty(PRODUCT_SEARCH_QUEUE)
+    const productSearchQueueArrayNotEmpty = useIsArrayInFileDataNotEmpty(PRODUCT_SEARCH_QUEUE);
     return <TopBarButton color='info' label='Run API Search' enabled={productSearchQueueArrayNotEmpty} handleSubmit={submitter} />;
     //     <Button color='info' variant='contained' onClick={onSubmit} disabled={!areRowsSelected()} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
     //         Run API Search

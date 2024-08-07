@@ -2,7 +2,7 @@ import { MRT_ColumnDef } from 'material-react-table';
 import { $ } from '../../$';
 import { DetailTypes, IElectronicsVisualDetails, IProduct } from '../../../types';
 import { EntityBase } from './../EntityBase';
-import { electronicsVisualDetails } from '../details/cellPhoneDetails';
+import { electronicsVisualDetails } from '../details/electronicsVisualDetails';
 
 export class ElectronicsVisualDetails extends EntityBase<IElectronicsVisualDetails> implements IElectronicsVisualDetails {
     static columns: MRT_ColumnDef<IProduct>[] = electronicsVisualDetails();
@@ -18,3 +18,4 @@ export class ElectronicsVisualDetails extends EntityBase<IElectronicsVisualDetai
     static type: DetailTypes = 'electronics/visual';
     static objectType = ElectronicsVisualDetails.schema.name;
 }
+

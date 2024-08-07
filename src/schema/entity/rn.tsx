@@ -29,7 +29,7 @@ export class Rn extends EntityBase<IRn> implements IRn {
             type: $.string(),
             no: $.int.default(0),
             legalBusinessName: $.string(),
-            companyName: $.string(),
+            companyName: $.string.opt,
             companyType: $.string.opt,
             businessType: $.string.list,
             productLine: $.string.list,

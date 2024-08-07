@@ -22,6 +22,107 @@ import './mui.d.ts';
 import { UseFormReturn } from 'react-hook-form';
 
 declare global {
+    export type ItemResponseType = {
+        code: number;
+        status: string;
+        page: string;
+        message: string;
+    };
+
+    export type ItemAttributeType = {
+        upc: string;
+        ean: string;
+        title: string;
+        category: string;
+        brand: string;
+        model: string;
+        mpn: string;
+        manufacturer: string;
+        publisher: string;
+        asin: string;
+        color: string;
+        size: string;
+        weight: string;
+        image: string;
+        description: string;
+    };
+
+    export type ItemStoresType = {
+        store_name: string;
+        title: string;
+        image: string;
+        price: string;
+        currency: string;
+        link: string;
+        updated: string;
+    };
+
+    export type ItemDataType = {
+        item_attributes: ItemAttributeType;
+        Stores: Array<ItemStoresType>;
+    };
+
+    export type RootResponseType = {
+        item_response: ItemResponseType;
+        Data: Array<ItemDataType>;
+    };
+
+    export type BarcodeSpiderResponse = {
+        code: string;
+        total: number;
+        offset: number;
+        items: BarcodeSpiderItem[];
+    };
+
+    export type BarcodeSpiderItem = {
+        ean: string;
+        title: string;
+        description: string;
+        isbn?: string;
+        publisher?: string;
+        category: string;
+        images: string[];
+        offers: BarcodeSpiderOffer[];
+        asin?: string;
+        upc?: string;
+        mpn?: string;
+        brand?: string;
+        model?: string;
+        color?: string;
+        size?: string;
+        dimension?: string;
+        weight?: string;
+        currency?: string;
+        lowest_recorded_price?: number;
+        highest_recorded_price?: number;
+        elid?: string;
+    };
+
+    export type BarcodeSpiderOffer = {
+        merchant: string;
+        domain: string;
+        title: string;
+        currency: string;
+        list_price: string;
+        price: number;
+        shipping: string;
+        condition: string;
+        availability: string;
+        link: string;
+        updated_t: number;
+    };
+    export type ProductSearchEntry =
+        | {
+              upc: string;
+          }
+        | { brandName: string; modelNo: string }
+        | { brandName: string; modelName: string }
+        | { category: string; modelNo: string }
+        | { elid: string }
+        | { asin: string }
+        | { category: string; modelName: string }
+        | { brandName: string; styleNo: string }
+        | { title: string };
     export type Opt<T> = T | undefined;
     export type AmperageUnitsOfMeasure = 'A' | 'mA';
     export type AngleUnitsOfMeasure = '°';
@@ -339,6 +440,28 @@ declare global {
         onShowGlobalFilterChange: StateSetter<Exclude<JITTTableState<T>['showGlobalFilter']>>;
         onSortingChange: StateSetter<Exclude<JITTTableState<T>['sorting']>>;
     };
+    export type ICustomItemFieldValue = {
+        readonly getParent: Realm.Types.LinkingObjects<ICustomItemField, 'options'>;
+        text: string;
+        id: string;
+        nextField: Opt<ICustomItemField>;
+    };
+    export type ICustomItemFieldType = {
+        readonly getMercariBrand: Realm.Types.LinkingObjects<IMercariBrand, 'customItemFields'>;
+        type: Opt<string>;
+        values: DBList<ICustomItemFieldValue>;
+    };
+    export type ICustomItemFieldTypes = {
+        types: DBList<ICustomItemFieldType>;
+    };
+    export type ICustomItemField = {
+        _id: BSON.ObjectId;
+        id: string;
+        linkedType: Opt<string>;
+        brandsMap: DBDictionary<ICustomItemFieldTypes>;
+        readonly getTaxonomy: Realm.Types.LinkingObjects<IMercariTaxonomy, 'customItemField'>;
+    };
+
 }
 
 export const i = 1;

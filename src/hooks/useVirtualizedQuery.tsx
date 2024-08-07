@@ -9,14 +9,13 @@ export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>,
     const route = useEffectiveCollection();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { initialState, state, resetCollectionState, setCollectionOption: _, ...options } = useViewSettings<T>(route);
-    const { columnFilters, sorting, globalFilter } = state;
     const realm = useLocalRealm();
     // const ctor = useCollectionSchema(route) as MyClass<any>;
     // const navigate = useNavigate();
     // const $match = useMatch('/data/v1/:collection');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { data, dataUpdatedAt, error, errorUpdatedAt, isLoading, isError } = useQuery<T[]>({
-        queryKey: [route, columnFilters, globalFilter, sorting],
+        queryKey: [route],
         queryFn: () => {
             // console.log('MATCH', $match);
             // const qp1 = new URLSearchParams();

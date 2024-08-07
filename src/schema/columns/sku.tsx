@@ -15,7 +15,7 @@ export const sku: <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]
         helper.lookup(...dependencies)('product', 'Product', { objectType: 'product' }),
         helper.lookup(...dependencies)('auction', 'Auction', { objectType: 'auction' }),
         helper.enum(...dependencies)('condition', 'Condition', { enumKey: 'itemConditions' }),
-        helper.listOfPrimitive($depend.in<ISku, 'condition'>('condition', true)('fair', 'poor', 'good', 'parts'), ...dependencies as IDependency<any, any>[])('defects', 'Defects', 'string'),
+        helper.listOfPrimitive(...dependencies as IDependency<any, any>[])('defects', 'Defects', 'string'),
         helper.enum(...dependencies)('disposition', 'Disposition', { enumKey: 'itemDispositions' }),
         helper.int(...dependencies)('quantity', 'Quantity', { min: 1, required: true }),
         helper.percent(...dependencies)('packingPercent', 'Packing Percent', { min: 1.0, required: true }),

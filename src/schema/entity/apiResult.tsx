@@ -6,6 +6,17 @@ import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';
 
 export class ApiResult extends EntityBase<IApiResult> implements IApiResult {
+    request: Opt<string>;
+    status: Opt<number>;
+    get $source(): string {
+        return new URL(this.request ?? '').hostname;
+    }
+    get $params(): Record<string, string | string[]> {
+        return Object.fromEntries(new URL(this.request ?? '').searchParams.entries()) ?? {};
+    }
+    get $status(): Opt<number> {
+        return 0;
+    }
     attributes: DBDictionary<string>;
     _id: BSON.ObjectId;
     source: string;
@@ -23,7 +34,9 @@ export class ApiResult extends EntityBase<IApiResult> implements IApiResult {
             timestamp: $.date.opt,
             result: $.string.opt,
             obsolete: $.bool.default(false),
-            attributes: $.string.dictionary
+            attributes: $.string.dictionary,
+            request: $.string.opt,
+            status: $.int.opt
         }
     };
     static update(item: IApiResult): IApiResult {

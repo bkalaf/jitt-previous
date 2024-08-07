@@ -7,5 +7,6 @@ export const cablesPowerDetails: <T extends MRT_RowData>(...dependencies: IDepen
     [
         groupCol(h, 'Input', currentSettingColumns, 'input', 'bg-red-500', 'text-white')(...dependencies),
         groupCol(h, 'Output', currentSettingColumns, 'output', 'bg-red-500', 'text-white')(...dependencies),
-        helper.listOfEmbed(...dependencies)('compatibleWith', 'Compatible With', 'partNumber')
+        helper.listOfEmbed(...dependencies)('compatibleWith', 'Compatible With', 'partNumber'),
+        helper.listOfEmbed(...dependencies)('connectors', 'Connectors', 'connector')
     ] as MRT_ColumnDef<T>[];

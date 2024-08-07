@@ -1,5 +1,6 @@
 export const detailsTypes = {
     apparel: 'apparel',
+    'apparel/accessories': 'apparel/accessories',
     'apparel/bottoms': 'apparel/bottoms',
     'apparel/bottoms/legged': 'apparel/bottoms/legged',
     'apparel/bras': 'apparel/bras',
@@ -17,6 +18,7 @@ export const detailsTypes = {
     'electronics/computer-components/drives': 'electronics/computer-components/drives',
     'electronics/computer-components/ram': 'electronics/computer-components/ram',
     'electronics/computer-components/battery': 'electronics/computer-components/battery',
+    'electronics/computer-components/networking': 'electronics/computer-components/networking',
     'electronics/kitchen-appliances': 'electronics/kitchen-appliances',
     'home-goods': 'home-goods',
     'home-goods/decor': 'home-goods/decor',
@@ -44,8 +46,9 @@ export const detailsTypes = {
     'jewelry/costume': 'jewelry/costume',
     toys: 'toys',
     'toys/board-games': 'toys/board-games',
-    'toys/stuffed-animals': 'toys/stuffed-animals'
-
+    'toys/stuffed-animals': 'toys/stuffed-animals',
+    'office-goods': 'office-goods',
+    
 };
 
 // console.log(JSON.stringify(Object.fromEntries(Object.keys(detailsTypes).map((x) => [x, x] as [string, string])), null, '\t'));

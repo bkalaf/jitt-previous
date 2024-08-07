@@ -1,8 +1,8 @@
 import fields from './fields.json';
 import { isUpper } from '../common/text/isUpper';
-import * as fs from 'graceful-fs';
 import { doubleQuote } from '../common/doubleQuote';
 import { singleQuote } from '../common/singleQuote';
+import * as fs from 'graceful-fs';
 
 const code = fields.map(({ func, header, importance, index, titleFunc, key, params, path, section }) => {
     return `{
@@ -21,4 +21,6 @@ const code = fields.map(({ func, header, importance, index, titleFunc, key, para
 const text = `const fields = [
 ${code}
 ]`
-fs.writeFileSync('generatorFields.tsx', text);
+// eslint-disable-next-line no-console
+console.log(text);
+fs.writeFileSync('$generatorFields.tsx', text);

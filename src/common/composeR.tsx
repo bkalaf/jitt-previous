@@ -25,20 +25,20 @@ import {
     powerConsumption,
     angleDegree,
     duration,
-    densisty
+    densisty,
+    resolution
 } from './measure';
 import { fromDimension } from './fromDimension';
 import { fromBarcode } from './fromBarcode';
 import { fromLookup, fromMappedLookup } from './fromLookup';
 import { fromSize } from './fromSize';
-import { ContributorRoles, IContributor, ISku } from '../types';
+import { ContributorRoles, DetailTypes, IConnector, IContributor, IRn, ISku } from '../types';
 import { ofEnum } from './ofEnum';
 import { konst } from './konst';
 import { $curry } from './$curry';
 import { PartNumber } from '../schema/entity/partNumber';
 import { OperatingSystemInfo } from '../schema/entity/operatingSystemInfo';
 import { MinMax } from '../schema/entity/minMax';
-import { Rn } from '../schema/entity/rn';
 import { getLookupFunction } from './getLookupFunction';
 import { Individual } from '../schema/entity/individual';
 import { prepend, prependIgnore } from './prepend';
@@ -46,6 +46,10 @@ import { is } from './is';
 import { composeR } from './composeR.1';
 import { parentheses } from './parentheses';
 import { EnumKey } from './EnumKey';
+import { fst } from './fst';
+import { truncateAuto } from './number/truncateAuto';
+import { Connector } from '../schema/entity/connector';
+import { upperToTitle } from './text/camelToKebab';
 
 export const fromTitleSubtitle = (getterSubtitle: (sku: ISku) => string | undefined) => (getterTitle: (sku: ISku) => string | undefined) => (sku: ISku) => {
     const { title, subtitle } = { title: getterTitle(sku), subtitle: getterSubtitle(sku) };
@@ -79,6 +83,22 @@ export function ofLookupList<T extends MRT_RowData>(ctor: MyClass<T>) {
     return (getter: SkuGetter<DBList<any>>) => ofList(func, getter, newLineSepList, '', finalList);
 }
 
+export function connectorList() {
+    return (getter: SkuGetter<DBList<IConnector<any>>>) => (sku: ISku) => {
+        const value = getter(sku);
+        if (value == null || value.length === 0) return undefined;
+        const result = (value.map(x => Connector.stringify(x, true)()).filter(x => x != null && x.trim() !== '') as string[]).join('\n');
+        return result;
+    }
+}
+export function connectorListTitle() {
+    return (getter: SkuGetter<DBList<IConnector<any>>>) => (sku: ISku) => {
+        const value = getter(sku);
+        if (value == null || value.length === 0) return undefined;
+        const result = (value.map((x) => Connector.stringify(x, true)()).filter((x) => x != null && x.trim() !== '') as string[]).join(' ');
+        return result;
+    };
+}
 export function singularOrPlural(getter: SkuGetter<number | undefined>) {
     return (tuple?: [string, string]) => (sku: ISku) => {
         if (tuple == null) return undefined;
@@ -150,25 +170,27 @@ export const enumList = (key: keyof typeof $me) => (getter: SkuGetter<DBList<str
 //     return ofList(getStringify(Ctor), getter, concatText, '');
 // }
 
-const returnUndef = konst(undefined);
+// const returnUndef = konst(undefined);
 export const contributor =
     ({ role, sep }: { role: ContributorRoles; sep: string }) =>
     (getter: SkuGetter<DBList<IContributor>>) =>
     (sku: ISku) => {
         const value = getter(sku) ?? [];
         const filtered = value.filter((x) => x.role === role);
-        return filtered.length === 0 ? undefined : filtered.map(({ individual, group, creditedAs }) => [group, Individual.stringify(individual, true), prependIgnore('as ')(creditedAs)].filter(is.not.nil).join(' ')).join(sep);
+        return filtered.length === 0 ? undefined : filtered.map(({ individual, group, creditedAs }) => [group, Individual.stringify(individual, true)(), prependIgnore('as ')(creditedAs)].filter(is.not.nil).join(' ')).join(sep);
     };
 const by = (header: string) => (params: { role: ContributorRoles; sep: string }) => (getter: SkuGetter<any>) => (sku: ISku) => {
-    const filtered = getter(sku).filter((x: any) => x.params.role === x.role);
+    const filtered = getter(sku).filter((x: any) => x.params?.role === x.role);
     return {
         header: [header, filtered.length > 1 ? 's' : ''].join(''),
-        value: composeR(contributor(params)(getter), prependIgnore('by '))(sku)
+        value: prependIgnore('by ')(contributor(params)(getter)(sku))
     };
 };
 const $for = (enumKey: EnumKey) => (getter: SkuGetter<any>) => composeR(fromEnum(enumKey)(getter), prependIgnore('for '));
 const echo = (getter: SkuGetter<any>) => (sku: ISku) => getter(sku);
 const fromInt = (getter: SkuGetter<number>) => (sku: ISku) => getter(sku)?.toFixed(0);
+const fromDouble = (getter: SkuGetter<number>) => (sku: ISku) => getter(sku)?.toString()
+
 const fromIntOverOne = (getter: SkuGetter<number>) => (sku: ISku) =>
     getter(sku) != null ?
         getter(sku)! > 1 ?
@@ -204,6 +226,11 @@ const append = toHeaderParams(
         (getter: SkuGetter<any>) =>
             composeR(getter, appendIgnore(text))
 );
+const rn = toHeaderParams(() => (getter: SkuGetter<IRn>) => (sku: ISku) => {
+    const result = getter(sku);
+    if (result == null) return undefined;
+    return [result?.no.toFixed(0), upperToTitle(result.legalBusinessName)].join(' - ');
+})
 export const $from: any = {
     quantity: toHeaderParams(konst((getter: SkuGetter<any>) => composeR(fromIntOverOne(getter), appendIgnore('x')))),
     append,
@@ -212,11 +239,15 @@ export const $from: any = {
     discCount: discs,
     appendText: appendText as any,
     contributor: toHeaderParams(contributor),
+    connectorList: toHeaderParams(connectorList),
+    connectorListTitle: toHeaderParams(connectorListTitle),
     by: by,
     for: toHeaderParams($for),
     date: toHeaderParams(konst(fromDate)),
+    rn: rn,
     dimension: fromDimension,
     dollar: toHeaderParams(konst(fromDollar)),
+    double: toHeaderParams(konst(fromDouble)),
     edition: {
         narrative: toHeaderParams(konst((getter: SkuGetter<number>) => composeR(getter, fromEditionNarrative))),
         title: toHeaderParams(konst((getter: SkuGetter<number>) => composeR(getter, fromEditionTitle)))
@@ -239,7 +270,7 @@ export const $from: any = {
         toHeaderParams(
             <T extends MRT_RowData>(myClass: ReferenceClass<T>) =>
                 (getter: SkuGetter<any>) =>
-                    fromLookup<T>(myClass, getter)
+                    fromLookup<T>(myClass as any, getter)
         )(header),
     // lookup: fromLookup,
     measure: {
@@ -249,7 +280,7 @@ export const $from: any = {
         capacityUnitOfMeasure: capacity,
         dataTransferRateUnitOfMeasure: dataTransferRate,
         densityUnitOfMeasure: densisty,
-        durationUnitOfMeasure: duration,
+        musicDurationUnitOfMeasure: duration,
         lengthUnitOfMeasure: lengthInchesToCentimeters,
         memorySpeedUnitOfMeasure: memorySpeed,
         powerConsumptionUnitOfMeasure: powerConsumption,
@@ -258,20 +289,43 @@ export const $from: any = {
         movieRuntimeUnitOfMeasure: duration,
         voltageUnitOfMeasure: voltageVolts,
         wattageUnitOfMeasure: wattageWatts,
-        weightUnitOfMeasure: weightGramsToPounds
+        weightUnitOfMeasure: weightGramsToPounds,
+        resolutionUnitOfMeasure: resolution
     },
-    minMax: $curry(fromLookup)(MinMax),
+    minMax: $curry(fromLookup)(MinMax as any),
     squareBracket: toHeaderParams(konst((getter: SkuGetter<any>) => composeR(getter, squareBrackets))),
     parentheses: toHeaderParams(konst((getter: SkuGetter<any>) => composeR(getter, parentheses))),
-    operatingSystemInfo: $curry(fromLookup)(OperatingSystemInfo),
-    partNumber: $curry(fromLookup)(PartNumber),
-    rn: $curry(fromLookup)(Rn),
+    operatingSystemInfo: $curry(fromLookup)(OperatingSystemInfo as any),
+    partNumber: $curry(fromLookup)(PartNumber as any),
     size: toHeaderParams(fromSize),
-    title: {
-        withSubtitle: fromTitleSubtitle as any,
-        only: fromTitleSubtitle(returnUndef)
-    },
-    echo: toHeaderParams(() => echo)
+    // title: {
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     withSubtitle: toHeaderParams(() => (getter) => fromTitleSubtitle(getter)(getter)) as any,
+    //     only: fromTitleSubtitle(returnUndef)
+    // },
+    echo: toHeaderParams(() => echo),
+    fst: toHeaderParams(() => (getter: SkuGetter<any>) => echo(composeR(getter, fst))),
+    modelNo: toHeaderParams(() => (getter) => (sku) => {
+        const [mpn, types] = getter(sku) as [string | undefined, DetailTypes[]];
+        if (types.includes('electronics') || types.includes('cables')) {
+            return `m/n ${mpn}`;
+        }
+        return undefined;
+    }),
+    cordLength: toHeaderParams(() => (getter) => (sku) => {
+        const length = getter(sku) as { value: number; uom: string } | undefined;
+        if (length == null) return undefined;
+        const { value, uom } = length;
+        if (value === 0) return undefined;
+        return [truncateAuto(value), uom].join('');
+    }),
+    headSize: toHeaderParams(() => (getter) => (sku) => {
+        const length = getter(sku) as { value: number; uom: string } | undefined;
+        if (length == null) return undefined;
+        const { value, uom } = length;
+        if (value === 0) return undefined;
+        return [truncateAuto(value), uom].join('');
+    })
 };
 export const $fromMeasure = (header: string) => (key: keyof typeof $from.measure) => {
     const func = $from.measure[key];

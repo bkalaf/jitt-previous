@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Realm, { BSON } from 'realm';
 import {
     AnyConnector,
@@ -82,7 +83,45 @@ import $me, {
     Countries,
     CompatibleDevices,
     AwardNames,
-    PowerTypes
+    PowerTypes,
+    AutofocusTechnologies,
+    CameraConnectionTypes,
+    CameraSizes,
+    CasLatency,
+    CompatibleMountings,
+    Connectivity,
+    DriveFormFactors,
+    DriveInterfaces,
+    DriveTypes,
+    FocusTypes,
+    JpegQualityLevels,
+    LensType,
+    MemoryFormFactors,
+    MemoryTypes,
+    PhotoSensorTechnologies,
+    ShootingModes,
+    SkillLevels,
+    VideoCaptureResolutions,
+    ViewfinderTypes,
+    WhiteBalanceSettings,
+    ZoomTypes,
+    FileFormats,
+    BagTypes,
+    BottomTypes,
+    EarringBackTypes,
+    EarringFrontTypes,
+    BraTypes,
+    HatTypes,
+    JeansTypes,
+    JacketTypes,
+    LapelTypes,
+    RingTypes,
+    ShirtTypes,
+    SkirtTypes,
+    ShoeTypes,
+    SleepwearTypes,
+    TieTypes,
+    ZipperTypes
 } from '../enums';
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
@@ -91,24 +130,31 @@ import { standardizeOptions } from '../defs/standardizeOptions';
 import { is } from '../../common/is';
 import { MRT_ColumnDef } from 'material-react-table';
 import { productColumns } from './productColumns';
+import { runTransaction } from '../../util/runTransaction';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
-    suggestedRetailPrice: Opt<number>;    
-    static matchKeys: (keyof IProduct & string)[] = [
-        'brand.name' as any,
-        'classifier.name' as any,
-        '_id',
-        'title',
-        'modelNo',
-        'upcs',
-        'modelName',
-        'brand.mercariBrand.name' as any,
-        '$title',
-        '$subtitle',
-        'studio',
-        'notes',
-        'description'
-    ]
+    bagType?: Opt<BagTypes>;
+    bottomType?: Opt<BottomTypes>;
+    earringBackType?: Opt<EarringBackTypes>;
+    earringFrontType?: Opt<EarringFrontTypes>;
+    braType?: Opt<BraTypes>;
+    hatType?: Opt<HatTypes>;
+    jeansType?: Opt<JeansTypes>;
+    jacketType?: Opt<JacketTypes>;
+    lapelType?: Opt<LapelTypes>;
+    ringType?: Opt<RingTypes>;
+    shirtType?: Opt<ShirtTypes>;
+    skirtType?: Opt<SkirtTypes>;
+    shoeType?: Opt<ShoeTypes>;
+    sleepwearType?: Opt<SleepwearTypes>;
+    tieType?: Opt<TieTypes>;
+    zipperType?: Opt<ZipperTypes>;
+    finish: Opt<string>;
+    coverstock: Opt<string>;
+    radiusOfGyration: Opt<number>;
+    laneCondition: Opt<string>;
+    suggestedRetailPrice: Opt<number>;
+    static matchKeys: (keyof IProduct & string)[] = ['brand.name' as any, 'classifier.name' as any, '_id', 'title', 'modelNo', 'upcs', 'modelName', 'brand.mercariBrand.name' as any, '$title', '$subtitle', 'studio', 'notes', 'description'];
     static columns: MRT_ColumnDef<IProduct>[] = productColumns();
     get $dims(): { length?: Opt<IMeasure<LengthUnitsOfMeasure>>; width?: Opt<IMeasure<LengthUnitsOfMeasure>>; height?: Opt<IMeasure<LengthUnitsOfMeasure>> } {
         return {
@@ -196,7 +242,6 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     collectionOf: DBList<string>;
     color: DBList<ProductColors>;
     compatibleDevices: DBList<CompatibleDevices>;
-    connectivity: DBList<string>;
     connectors: DBList<AnyConnector>;
     consoleType: Opt<ConsoleTypes>;
     cordLength?: Opt<IMeasure<LengthUnitsOfMeasure>>;
@@ -209,9 +254,6 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     dinnerwareInventory: Opt<Record<DinnerwareTypes, IPiece>>;
     dinnerwareType: Opt<DinnerwareTypes>;
     dressType: Opt<DressTypes>;
-    driveForm?: Opt<string>;
-    driveInterface?: Opt<string>;
-    driveType?: Opt<string>;
     edition: Opt<number>;
     ESRBRating: Opt<ESRBRatings>;
     features: DBList<string>;
@@ -244,9 +286,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     massInAir?: Opt<IMeasure<WeightUnitsOfMeasure>>;
     massWaterDisplaced?: Opt<IMeasure<WeightUnitsOfMeasure>>;
     material?: Opt<Materials>;
-    memoryForm?: Opt<string>;
     memorySpeed?: Opt<IMeasure<'MHz'>>;
-    memoryType?: Opt<string>;
     metal: Opt<MetalTypes>;
     modelName: Opt<string>;
     modelNo: Opt<string>;
@@ -457,7 +497,58 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             mediaTitle: $.string.opt,
             mediaSubtitle: $.string.opt,
             copyright: $.string.opt,
-            suggestedRetailPrice: $.double.opt
+            suggestedRetailPrice: $.double.opt,
+            finish: $.string.opt,
+            coverstock: $.string.opt,
+            laneCondition: $.string.opt,
+            radiusOfGyration: $.double.opt,
+            headSize: $.lengthMeasure(),
+            autoFocusTechnology: $.string.list,
+            displayResolution: $.int.opt,
+            photoSensorSize: $.lengthMeasure(),
+            photoSensorTechnology: $.string.list,
+            effecitveStillResolution: $.resolutionMeasure(),
+            whiteBalanceSetting: $.string.opt,
+            selfTimerDuration: $.musicDurationMeasure(),
+            jpegQualityLevel: $.string.opt,
+            videoCaptureFormats: $.string.list,
+            videoCaptureResolution: $.string.opt,
+            viewfinderType: $.string.opt,
+            connectivityTechnology: $.string.opt,
+            continuousShootingSpeed: $.double.opt,
+            memorySlots: $.int.opt,
+            cameraFormFactor: $.string.opt,
+            skillLevel: $.string.opt,
+            lensType: $.string.opt,
+            opticalZoom: $.int.opt,
+            digitalZoom: $.double.opt,
+            maximumApeture: $.caliperSizeMeasure(),
+            zoomType: $.string.list,
+            autofocusPoints: $.int.opt,
+            compatibleMoutings: $.string.list,
+            focusType: $.string.opt,
+            minimumFocalLength: $.caliperSizeMeasure(),
+            maximumFocalLength: $.caliperSizeMeasure(),
+            expandedISOMinimum: $.int.opt,
+            expandedISOMaximum: $.int.opt,
+            maxShutterSped: $.string.opt,
+            shootingModes: $.string.list,
+            bagType: $.string.opt,
+            bottomType: $.string.opt,
+            braType: $.string.opt,
+            earringBackType: $.string.opt,
+            earringFrontType: $.string.opt,
+            hatType: $.string.opt,
+            jacketType: $.string.opt,
+            jeansType: $.string.opt,
+            lapelType: $.string.opt,
+            ringType: $.string.opt,
+            shirtType: $.string.opt,
+            skirtType: $.string.opt,
+            shoeType: $.string.opt,
+            sleepwearType: $.string.opt,
+            tieType: $.string.opt,
+            zipperType: $.string.opt
         }
     };
     mediaSubtitle?: Opt<string>;
@@ -466,7 +557,6 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     batteryStats?: Opt<ICurrentSetting>;
     acAdapter?: Opt<ICurrentSetting>;
     origin?: Opt<Countries>;
-    CASLatency?: Opt<string>;
     dataTransferBandwidth?: Opt<string>;
     pinCount?: Opt<number>;
     voltage?: Opt<number>;
@@ -494,8 +584,65 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     }
     static labelProperty = 'title';
     static update(item: IProduct): IProduct {
+        console.log(`in update`);
+        const inAttributes = item.classifier?.allAttributes ?? [];
+        const func = () => {
+            for (const { path, value, isList, isDictionary } of inAttributes) {
+                console.log(`processing attribute`, path, isList, value);
+                if (!path.startsWith('flags')) {
+                    const $isList = isList ?? false;
+                    const $isDictionary = isDictionary ?? false;
+                    const $value = $isList ? [value] : $isDictionary ? { key: value } : value;
+                    console.log(`$value`, $value);
+                    (item as any)[path] = $value;
+                }
+            }
+        };
+        runTransaction(Product.localRealm, func);
         return item;
     }
+    constructor(realm: Realm, values: any) {
+        super(realm, values);
+    }
+    driveType?: Opt<DriveTypes>;
+    driveForm?: Opt<DriveFormFactors>;
+    connectivity: DBList<Connectivity>;
+    driveInterface?: Opt<DriveInterfaces>;
+    memoryType?: Opt<MemoryTypes>;
+    memoryForm?: Opt<MemoryFormFactors>;
+    CASLatency?: Opt<CasLatency>;
+    autoFocusTechnology: DBList<AutofocusTechnologies>;
+    displayResolution: Opt<number>;
+    photoSensorSize: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    photoSensorTechnology: DBList<PhotoSensorTechnologies>;
+    effectiveStillResolution: Opt<IMeasure<'MP'>>;
+    whiteBalanceSetting: Opt<WhiteBalanceSettings>;
+    selfTimerDuration: Opt<IMeasure<MusicDurationUnitsOfMeasure>>;
+    jpegQualityLevel: Opt<JpegQualityLevels>;
+    videoCaptureFormats: DBList<FileFormats>;
+    videoCaptureResolution: Opt<VideoCaptureResolutions>;
+    viewfinderType: Opt<ViewfinderTypes>;
+    connectivityTechnology: Opt<CameraConnectionTypes>;
+    continuousShootingSpeed: Opt<number>;
+    memorySlots: Opt<number>;
+    cameraFormFactor: Opt<CameraSizes>;
+    skillLevel: Opt<SkillLevels>;
+    lensType: Opt<LensType>;
+    opticalZoom: Opt<number>;
+    digitalZoom: Opt<number>;
+    maximumApeture: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    zoomType: DBList<ZoomTypes>;
+    autofocusPoints: Opt<number>;
+    compatibleMountings: DBList<CompatibleMountings>;
+    focusType: Opt<FocusTypes>;
+    minimumFocalLength: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    maximumFocalLength: Opt<IMeasure<CaliperSizeUnitsOfMeasure>>;
+    expandedISOMinimum: Opt<number>;
+    expandedISOMaximum: Opt<number>;
+    maxShutterSpeed: Opt<string>;
+    shootingModes: DBList<ShootingModes>;
+    headSize: Opt<IMeasure<LengthUnitsOfMeasure>>;
+    shadowClassifier: Opt<IClassifier>;
     static init(): InitValue<IProduct> {
         return {
             _id: new BSON.ObjectId(),
@@ -515,7 +662,13 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             compatibleWith: [],
             type: [],
             compatibleDevices: [],
-            connectivity: []
+            connectivity: [],
+            autoFocusTechnology: [],
+            videoCaptureFormats: [],
+            zoomType: [],
+            compatibleMountings: [],
+            shootingModes: [],
+            photoSensorTechnology: []
         };
     }
 }

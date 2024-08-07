@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 ///<reference path="./../global.d.ts" />
 import Realm, { BSON } from 'realm';
-import { isPrimitive } from '../schema/conversion/cnvrt';
+
+export const isPrimitive = (type: string) => ['objectId', 'uuid', 'string', 'int', 'double', 'float', 'decimal128', 'bool', 'date', 'data', 'mixed'].includes(type);
 
 function typeCheck<T>(name: string) {
     return function (obj?: any): obj is T {
@@ -67,9 +68,9 @@ type Is = {
     promise: TypeCheck<Promise<any>>;
     primitive: (s: string) => boolean;
     linkingObjects: TypeCheck<Realm.Types.LinkingObjects<any, any>>;
-    binary: TypeCheck<Realm.BSON.Binary>;
-    uuid: TypeCheck<Realm.BSON.UUID>;
-    objectId: TypeCheck<Realm.BSON.ObjectId>;
+    binary: TypeCheck<BSON.Binary>;
+    uuid: TypeCheck<BSON.UUID>;
+    objectId: TypeCheck<BSON.ObjectId>;
     arrayBuffer: TypeCheck<ArrayBuffer>;
     date: TypeCheck<Date>;
     map: TypeCheck<Map<any, any>>;

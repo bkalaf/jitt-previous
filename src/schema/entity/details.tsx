@@ -1,8 +1,11 @@
 import { $ } from '../$';
-import { IApparelBottomsDetails, IApparelBottomsLeggedDetails, IApparelBrasDetails, IApparelBrasSwimsuitDetails, IApparelDetails, IApparelFootwearDetails, IApparelTopsDetails, ICablesDataDetails, ICablesDetails, ICablesPowerDetails, ICablesVideoDetails, IDetails, IElectronicsComputerComponentsBatteryDetails, IElectronicsComputerComponentsDetails, IElectronicsComputerComponentsDrivesDetails, IElectronicsComputerComponentsNetworkingDetails, IElectronicsComputerComponentsRamDetails, IElectronicsDetails, IElectronicsKitchenAppliancesDetails, IElectronicsVisualCellPhonesDetails, IElectronicsVisualDetails, IGeneralDetails, IHomeGoodsDecorDetails, IHomeGoodsDetails, IHomeGoodsDinnerwareDetails, IHomeGoodsFlatwareDetails, IHomeGoodsGlasswareDetails, IJewelryDetails, IMediaBooksDetails, IMediaDetails, IMediaMusicDetails, IMediaVideoGamesDetails, IMediaVideosDetails, IMediaVideosFilmDetails, IMediaVideosTvSeriesDetails, ISportingGoodsBowlingBallsDetails, ISportingGoodsBowlingDetails, ISportingGoodsDetails, ISportingGoodsGolfClubsDetails, ISportingGoodsGolfDetails, ISportingGoodsTennisDetails, ISportingGoodsTennisRacketsDetails, IToysBoardGamesDetails, IToysDetails, IToysStuffedAnimalsDetails } from '../../types';
+import { IApparelAccessoriesDetails, IApparelBottomsDetails, IApparelBottomsLeggedDetails, IApparelBrasDetails, IApparelBrasSwimsuitDetails, IApparelDetails, IApparelFootwearDetails, IApparelTopsDetails, ICablesDataDetails, ICablesDetails, ICablesPowerDetails, ICablesVideoDetails, IDetails, IElectronicsComputerComponentsBatteryDetails, IElectronicsComputerComponentsDetails, IElectronicsComputerComponentsDrivesDetails, IElectronicsComputerComponentsNetworkingDetails, IElectronicsComputerComponentsRamDetails, IElectronicsDetails, IElectronicsKitchenAppliancesDetails, IElectronicsVisualCameraDetails, IElectronicsVisualCellPhonesDetails, IElectronicsVisualDetails, IGeneralDetails, IHomeGoodsDecorDetails, IHomeGoodsDetails, IHomeGoodsDinnerwareDetails, IHomeGoodsFlatwareDetails, IHomeGoodsGlasswareDetails, IJewelryDetails, IMediaBooksDetails, IMediaDetails, IMediaMusicDetails, IMediaVideoGamesDetails, IMediaVideosDetails, IMediaVideosFilmDetails, IMediaVideosTvSeriesDetails, IOfficeGoodsDetails, ISportingGoodsBowlingBallsDetails, ISportingGoodsBowlingDetails, ISportingGoodsDetails, ISportingGoodsGolfClubsDetails, ISportingGoodsGolfDetails, ISportingGoodsTennisDetails, ISportingGoodsTennisRacketsDetails, IToysBoardGamesDetails, IToysDetails, IToysStuffedAnimalsDetails } from '../../types';
 import { EntityBase } from './EntityBase';
 
 export class Details extends EntityBase<IDetails> implements IDetails {
+    electronicsVisualCamera: IElectronicsVisualCameraDetails;
+    apparelAccessories: IApparelAccessoriesDetails;
+    officeGoods: IOfficeGoodsDetails;
     apparel: IApparelDetails;
     apparelTops: IApparelTopsDetails;
     apparelBottoms: IApparelBottomsDetails;
@@ -53,6 +56,7 @@ export class Details extends EntityBase<IDetails> implements IDetails {
         properties: {
             _id: $.objectId(),
             apparel: 'apparelDetails?',
+            apparelAccessories: 'apparelAccessoriesDetails?',
             apparelTops: 'apparelTopsDetails?',
             apparelBottoms: 'apparelBottomsDetails?',
             apparelBottomsLegged: 'apparelBottomsLeggedDetails?',
@@ -65,6 +69,7 @@ export class Details extends EntityBase<IDetails> implements IDetails {
             cablesVideo: 'cablesVideoDetails?',
             electronics: 'electronicsDetails?',
             electronicsVisual: 'electronicsVisualDetails?',
+            electronicsVisualCamera: 'electronicsVisualCameraDetails?',
             electronicsVisualCellPhones: 'electronicsVisualCellPhonesDetails?',
             electronicsComputerComponents: 'electronicsComputerComponentsDetails?',
             electronicsComputerComponentsRAM: 'electronicsComputerComponentsRamDetails?',
@@ -86,6 +91,7 @@ export class Details extends EntityBase<IDetails> implements IDetails {
             mediaVideos: 'mediaVideosDetails?',
             mediaVideosFilm: 'mediaVideosFilmDetails?',
             mediaVideosTvSeries: 'mediaVideosTvSeriesDetails?',
+            officeGoods: 'officeGoodsDetails?',
             sportingGoods: 'sportingGoodsDetails?',
             sportingGoodsGolf: 'sportingGoodsGolfDetails?',
             sportingGoodsGolfClubs: 'sportingGoodsGolfClubsDetails?',

@@ -10,7 +10,7 @@ import { BarcodeTypes } from '../enums';
 import { EntityBase } from './EntityBase';
 import { MRT_ColumnDef } from 'material-react-table';
 import { barcodeColumns } from '../columns/barcode';
-import { barcodeFormatter } from '../../util/barcodeFormatter';
+import { formatBarcode } from '../../util/barcodeFormatter';
 
 export class Barcode extends EntityBase<IBarcode> implements IBarcode {
     beenPrinted: boolean;
@@ -98,7 +98,7 @@ export class Barcode extends EntityBase<IBarcode> implements IBarcode {
     static stringify(item?: IBarcode, returnUndef = false) {
         return () => {
             if (item == null) return returnUndef ? undefined : '';
-            return barcodeFormatter(item?.value);
+            return formatBarcode(item);
         };
     }
     static liComponent = (item?: IBarcode): () => string => Barcode.stringify(item, false) as () => string;

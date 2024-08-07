@@ -1,5 +1,5 @@
 import Realm, { BSON } from 'realm';
-import { IAuction, IBarcode, IDraft, IHashTag, IProduct, IProductImage, IScan, IShipping, ISku } from '../../types';
+import { IAttachment, IAuction, IBarcode, IDraft, IHashTag, IProduct, IProductImage, IScan, IShipping, ISku } from '../../types';
 import { ItemConditions, ItemDispositions, Shippers } from '../enums';
 import { barcodeFormatter } from '../../util/barcodeFormatter';
 import { $ } from '../$';
@@ -21,7 +21,10 @@ export class Sku extends EntityBase<ISku> implements ISku {
     scans: DBList<IScan>;
     static columns: MRT_ColumnDef<ISku>[] = sku();
     get $images(): string[] {
-        return this.getProductImages.filter(x => !x.flags.includes('ignore') && x.hasSelection).map(x => x.effective).filter(is.not.nil) as string[];
+        return this.getProductImages
+            .filter((x) => !x.flags.includes('ignore') && x.hasSelection)
+            .map((x) => x.effective)
+            .filter(is.not.nil) as string[];
     }
     get getShippingRate(): Opt<IShippingRate> {
         const { id } = this.getShipping;
@@ -129,6 +132,10 @@ export class Sku extends EntityBase<ISku> implements ISku {
     get getProductImages(): Realm.Types.LinkingObjects<IProductImage, 'sku'> {
         return this.linkingObjects(schemaName($.productImage()), 'sku') as any;
     }
+    get getAttachments(): Realm.Types.LinkingObjects<IAttachment, 'sku'> {
+        return this.linkingObjects(schemaName($.attachment()), 'sku') as any;
+    }
+
     get getTitle(): Opt<string> {
         return this.product?.title;
     }
@@ -144,7 +151,7 @@ export class Sku extends EntityBase<ISku> implements ISku {
                     item.disposition = 'ready-to-list';
                 }
             }
-            const {title} = $generateTitle($fields(item));
+            const { title } = $generateTitle($fields(item));
             if (item.product == null) throw new Error('no product');
             if (!item.product.overrideTitle) {
                 item.product.title = title;

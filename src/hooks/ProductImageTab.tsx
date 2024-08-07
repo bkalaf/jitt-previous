@@ -127,7 +127,7 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
             });
         };
         runTransaction(realm, func);
-        const originalDestination = [baseDestination, getBaseName(filename)].join('\\');
+        const originalDestination = [baseDestination, getBaseName(filename)].join('/');
         checkPath(originalDestination, true);
         fs.copyFileSync(filename, originalDestination);
         fs.rmSync(filename);
@@ -223,11 +223,17 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
                 </Dialog>
             )}
             <Grid columns={4} gap={2} className='w-full'>
-                {data.map((image, ix) => (
-                    <Item key={ix} className='flex w-full flex-col'>
-                        <Images productImage={image} width={width} />
-                    </Item>
-                ))}
+                {data
+                    .sort((a, b) =>
+                        (a.order ?? data.length) < (b.order ?? data.length) ? -1
+                        : (a.order ?? data.length) > (b.order ?? data.length) ? 1
+                        : 0
+                    )
+                    .map((image, ix) => (
+                        <Item key={ix} className='flex w-full flex-col'>
+                            <Images productImage={image} width={width} index={ix} data={data} />
+                        </Item>
+                    ))}
             </Grid>
         </div>
     );
@@ -236,6 +242,8 @@ export function ProductImageTab(props: { data: IProductImage[]; original: ISku }
 export function renderProductImagePanel<T extends MRT_RowData>(imageGetter: (value?: T) => IProductImage[]) {
     return function ProductImagePanel(props: RenderDetailTabPanelProps<any>) {
         const images = useMemo(() => imageGetter(props.row.original as any) as IProductImage[], [props.row.original]);
-        return <ProductImageTab data={images} original={props.row.original} />
+        return <ProductImageTab data={images} original={props.row.original} />;
     };
 }
+
+

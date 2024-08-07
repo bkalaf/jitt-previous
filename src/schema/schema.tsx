@@ -111,9 +111,15 @@ import { ScrapeKVP } from './entity/scrapeKVP';
 import { ScrapeStoreInfo } from './entity/scrapeStoreInfo';
 import { Scan } from './entity/scan';
 import { ApiResult } from './entity/apiResult';
+import { OfficeGoodsDetails } from './entity/detailEntity/OfficeGoodsDetails';
+import { ApparelAccessoriesDetails } from './entity/detailEntity/ApparelAccessoriesDetails';
+import { AdminTask } from './entity/adminTask';
+import { ResolutionMeasure } from './dimensions/ResolutionMeasure';
+import { ElectronicsVisualCameraDetails } from './entity/detailEntity/ElectronicsVisualCameraDetails';
 
 export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[] = [
     Address as EmbeddedClass<any>,
+    AdminTask as ReferenceClass<any>,
     Album as ReferenceClass<any>,
     AmperageMeasure as EmbeddedClass<any>,
     AngleMeasure as EmbeddedClass<any>,
@@ -164,6 +170,7 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     Product as ReferenceClass<any>,
     ProductImage as ReferenceClass<any>,
     RateOfEnergyCapacityMeasure as EmbeddedClass<any>,
+    ResolutionMeasure as EmbeddedClass<any>,
     Rn as ReferenceClass<any>,
     RotationalSpeedMeasure as EmbeddedClass<any>,
     Scan as EmbeddedClass<any>,    
@@ -190,6 +197,7 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     // TonyAward
     Details as any,
     ApparelDetails as DetailsClass,
+    ApparelAccessoriesDetails as DetailsClass,
     ApparelTopsDetails as DetailsClass,
     ApparelBottomsDetails as DetailsClass,
     ApparelBottomsLeggedDetails as DetailsClass,
@@ -203,6 +211,7 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     ElectronicsDetails as DetailsClass,
     ElectronicsVisualDetails as DetailsClass,
     ElectronicsVisualCellPhonesDetails as DetailsClass,
+    ElectronicsVisualCameraDetails as DetailsClass,
     ElectronicsComputerComponentsDetails as DetailsClass,
     ElectronicsComputerComponentsRamDetails as DetailsClass,
     ElectronicsComputerComponentsBatteryDetails as DetailsClass,
@@ -223,6 +232,7 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     MediaVideosDetails as DetailsClass,
     MediaVideosFilmDetails as DetailsClass,
     MediaVideosTvSeriesDetails as DetailsClass,
+    OfficeGoodsDetails as DetailsClass,
     SportingGoodsDetails as DetailsClass,
     SportingGoodsGolfDetails as DetailsClass,
     SportingGoodsGolfClubsDetails as DetailsClass,

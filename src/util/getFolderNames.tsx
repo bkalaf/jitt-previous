@@ -1,7 +1,7 @@
-import path from 'path-browserify';
+/* eslint-disable no-console */
 import { ISku } from '../types';
 import { barcodeFormatter } from './barcodeFormatter';
-import { getBaseName } from '../hooks/getBaseName';
+import { getBaseName, getExtension } from '../hooks/getBaseName';
 
 export function getFolderNames(sku: ISku) {
     const { product } = sku;
@@ -13,5 +13,15 @@ export function getFolderNames(sku: ISku) {
 }
 
 export function getRemBgName(filename: string, suffix: string, ext: string) {
-    return getBaseName(filename).replace(path.extname(filename), '').concat(suffix).concat('.').concat(ext);
+    const bn = getBaseName(filename);
+    console.info('baseName', bn);
+    const extension = getExtension(filename) ?? '';
+    console.info(`extension`, extension);
+    const replaced = bn.replace(extension, '');
+    console.info(`replaced`, replaced);
+    const concatending = suffix.concat('.').concat(ext);
+    console.info(`concatending`, concatending);
+    const final = [replaced, concatending].join('');
+    console.info(`final`, final);
+    return final;
 }

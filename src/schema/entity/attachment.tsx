@@ -2,11 +2,12 @@ import Realm, { BSON } from 'realm';
 import { IAttachment, ISku } from '../../types';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { AttachmentStages } from '../choices/AttachmentStages';
-import { AttachmentDisposition } from '../choices/AttachmentDisposition';
 import { AttachmentType } from '../choices/AttachmentType';
 import { EntityBase } from './EntityBase';
 import { MRT_ColumnDef } from 'material-react-table';
+import { runTransaction } from '../../util/runTransaction';
+import { getBaseName } from '../../hooks/getBaseName';
+import { fromExtensionToMimeType } from '../../util/fromExtensionToMimeType';
 
 // type ROP = GetNonReadOnlyProperties<IAttachment>;
 // type NFP = NonFunctionProperties<IAttachment>;
@@ -28,29 +29,18 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
     doNotUse: boolean;
     takenOn?: Date | undefined;
     attachmentType: AttachmentType;
-    attachmentDisposition: AttachmentDisposition;
-    attachmentPipelineStage: AttachmentStages;
     sharedLink?: string | undefined;
     tinyURL?: string | undefined;
-    isIdle: boolean;
-    nextStage: (this: IAttachment) => IAttachment;
-    prevStage: (this: IAttachment) => IAttachment;
-    nextDispo: (this: IAttachment) => IAttachment;
-    prevDispo: (this: IAttachment) => IAttachment;
-    fileTypeFolder?: string | undefined;
-    originalFileFolder?: string | undefined;
-    dropboxFileFolder?: string | undefined;
-    moveToOriginal: (this: IAttachment) => void;
-    copyToDropbox: (this: IAttachment) => void;
-    identifiedAsVideo: (this: IAttachment) => void;
-    identifiedAsAudio: (this: IAttachment) => void;
-    identifiedAsDocument: (this: IAttachment) => void;
-    provideCaption: (this: IAttachment, caption: string) => void;
-    createSharedLink: (this: IAttachment) => string;
-    revokeSharedLink: (this: IAttachment) => void;
-    createTinyURLForLink: (this: IAttachment, link: string) => string;
-    deleteTinyURLForLink: (this: IAttachment, link: string) => void;
-
+    get isActive() {
+        return this.sharedLink != null;
+    }
+    removeSharedLink() {
+        const func = () => {
+            this.sharedLink = undefined;
+            this.tinyURL = undefined;
+        }
+        runTransaction(Attachment.localRealm, func)
+    }
     static schema: Realm.ObjectSchema = {
         name: schemaName($.attachment()),
         primaryKey: '_id',
@@ -65,8 +55,6 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
             doNotUse: $.bool.default(false),
             takenOn: $.date.opt,
             attachmentType: $.string.default('unknown'),
-            attachmentDisposition: $.string.default(AttachmentDisposition.localOnly),
-            attachmentPipelineStage: $.string.default(AttachmentStages.idle),
             sharedLink: $.string.opt,
             tinyURL: $.string.opt
         }
@@ -80,12 +68,27 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
             sku: undefined as any,
             doNotUse: false,
             takenOn: new Date(Date.now()),
-            attachmentType: AttachmentType.unknown,
-            attachmentDisposition: AttachmentDisposition.localOnly,
-            attachmentPipelineStage: AttachmentStages.idle
+            attachmentType: AttachmentType.unknown
         };
     }
     static update(item: IAttachment) {
+        const func = () => {
+            if (item.filename == null || item.filename === '') {
+                item.filename = getBaseName(item.fullpath);
+                const ext = getBaseName(item.fullpath).split('.')[1];
+                item.extension = ext;
+                const mimeType = fromExtensionToMimeType(ext);
+                item.mimeType = mimeType;
+                if (item.attachmentType == null || item.attachmentType === AttachmentType.unknown) {
+                    item.attachmentType =
+                        mimeType.startsWith('application') ? AttachmentType.document
+                        : mimeType.startsWith('video') ? AttachmentType.video
+                        : mimeType.startsWith('image') ? AttachmentType.unknown
+                        : AttachmentType.unknown;
+                }
+            }
+        }
+        runTransaction(Attachment.localRealm, func);
         return item;
     }
     static columns: MRT_ColumnDef<IAttachment>[] = [];

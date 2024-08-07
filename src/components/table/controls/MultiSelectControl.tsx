@@ -24,14 +24,15 @@ export function MultiSelectControl<T extends MRT_RowData, U extends ListBack<str
     );
     const $onChange = useCallback(
         (ev: React.SyntheticEvent<Element>, newValue: { text: string; key: string }) => {
-            // console.log('onchange newvalue', newValue);
-            onChange(undefined, Array.isArray(newValue) ? newValue.map((x) => x.key) : newValue.key);
-            formContext.setValue(rest.name, Array.isArray(newValue) ? newValue.map((x) => x.key) : newValue.key);
+            // eslint-disable-next-line no-console
+            console.info('MultiSelectControl.$onChange', newValue);
+            onChange(undefined, Array.isArray(newValue) ? newValue.map((x) => (typeof x === 'string' ? x : x.key)) : newValue.key);
+            formContext.setValue(rest.name, Array.isArray(newValue) ? newValue.map((x) => (typeof x === 'string' ? x : x.key)) : newValue.key);
         },
         [formContext, onChange, rest.name]
     );
     const { getOptionLabel, isOptionEqualToValue } = useAutoComplete<{ text: string; key: string }>('text', (l, r) => (l?.key != null && r != null ? (l.key.localeCompare(r) as Compared) : ((l?.key ?? '').localeCompare(r ?? '') as Compared)));
-    const options = useMemo(() => enumInfo.asArray.filter((x) => !(excludeKeys ?? []).includes(x.key)), [enumInfo.asArray, excludeKeys]);
+    const options = useMemo(() => enumInfo.asArray.filter((x) => !(excludeKeys ?? []).includes(x.key)).sort((a, b) => a.text.localeCompare(b.text)), [enumInfo.asArray, excludeKeys]);
     return (
         <AutocompleteElement
             options={options}

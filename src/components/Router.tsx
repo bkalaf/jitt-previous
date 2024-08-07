@@ -89,6 +89,11 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                                 collectionRoute('sku'),
                                 collectionRoute('draft'),
                                 collectionRoute('attachment'),
+                                collectionRoute('book'),
+                                collectionRoute('album'),
+                                collectionRoute('movie'),
+                                collectionRoute('tvSeries'),
+                                collectionRoute('adminTask'),
                                 { index: true, element: <div>CATEGORY INDEX</div>, errorElement: <ErrorBoundary /> }
                             ]
                         },

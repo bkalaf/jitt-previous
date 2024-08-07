@@ -11,7 +11,10 @@ export const primitives = {
             header: 'Value',
             accessorKey: 'value',
             Cell: StringTableCell,
-            Edit: StringControl
+            Edit: StringControl,
+            meta: {
+                columnName: 'value'
+            }
         } as MRT_ColumnDef<{ value: any }>
     ],
     int: [
@@ -21,6 +24,7 @@ export const primitives = {
             Cell: StringTableCell,
             Edit: StringControl,
             meta: {
+                columnName: 'value',
                 type: 'number'
             }
         } as MRT_ColumnDef<{ value: any }>
@@ -32,6 +36,7 @@ export const primitives = {
             Cell: StringTableCell,
             Edit: StringControl,
             meta: {
+                columnName: 'value',
                 type: 'number'
             }
         } as MRT_ColumnDef<{ value: any }>
@@ -49,7 +54,10 @@ export const primitives = {
             header: 'Value',
             accessorKey: 'value',
             Cell: BoolTableCell,
-            Edit: BoolControl
+            Edit: BoolControl,
+            meta: {
+                columnName: 'value'
+            }
         } as MRT_ColumnDef<{ value: any }>
     ]
 };

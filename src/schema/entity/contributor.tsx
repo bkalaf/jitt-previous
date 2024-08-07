@@ -34,10 +34,10 @@ export class Contributor extends EntityBase<IContributor> implements IContributo
         () => {
             if (item == null) return returnUndefined ? undefined : '';
             if (item.role == null) throw new Error('no role');
-            const who = item.group ?? Individual.stringify(item.individual, true);
+            const who = item.group ?? Individual.stringify(item.individual, true)();
             return [[item.role, who].join(': '), surroundParensIgnore(item.creditedAs ? ['credited as:', item.creditedAs].join(' ') : undefined)].filter(is.not.nil).join(' ');
         };
-    static liComponent = Contributor.stringify;
+    static liComponent = (item: IContributor) =>  Contributor.stringify(item, true)();
     static init(): InitValue<IContributor> {
         return {};
     }

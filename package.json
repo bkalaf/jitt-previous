@@ -99,6 +99,7 @@
         "bson": "^6.7.0",
         "dayjs": "^1.11.10",
         "dotenv": "^16.4.5",
+        "dropbox": "^10.34.0",
         "electron-prompt": "^1.7.0",
         "electron-squirrel-startup": "^1.0.0",
         "eslint-plugin-functional": "^6.4.0",

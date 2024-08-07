@@ -3,6 +3,7 @@ import { useGetSchema } from './useGetSchema';
 
 export function useGetLabelProperty(objectType: string) {
     const thisSchema = useGetSchema(objectType);
+    if (objectType === 'n/a') return 'text';
     if (is.primitive(objectType)) {
         return undefined;
     }

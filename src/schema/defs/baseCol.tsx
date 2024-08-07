@@ -80,6 +80,7 @@ export function baseCol<T extends MRT_RowData, TValue>(
         muiTableBodyCellProps: {
             'aria-required': required,
             'aria-readonly': readonly
-        }
+        },
+        sortUndefined: -1
     }) as MRT_ColumnDef<T, TValue>;
 }

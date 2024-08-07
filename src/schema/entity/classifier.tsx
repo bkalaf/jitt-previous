@@ -41,7 +41,7 @@ export class Classifier extends EntityBase<IClassifier> implements IClassifier {
 
     static update(item: IClassifier): IClassifier {
         const func = () => {
-            const name = [item.parent?.name, item.shortName].join(' || ');
+            const name = [item.parent?.name, item.shortName].filter(x => x != null).join(' || ');
             if (name !== item.name) {
                 item.name = name;
             }

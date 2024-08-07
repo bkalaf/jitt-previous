@@ -11,6 +11,7 @@ import { useConvertListItem } from '../../hooks/useConvertListItem';
 import { EditControls } from './EditControls';
 import { useLogger } from '../../hooks/useLogger';
 import { resolveColumns } from './resolveColumns';
+import { ColumnMeta } from '@tanstack/table-core';
 
 export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(props: {
     append: (data: { key: string; value: TValue }) => void;
@@ -22,11 +23,12 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     objectType: string;
     KeyControl: React.FunctionComponent<EditFunctionParams<any>>;
     keyType?: string;
+    enumInfo?: ColumnMeta<any, any>['enumInfo']
 }) {
     const logger = useLogger();
     useWhyDidIUpdate('DLListEditSubComponent', props);
     logger(`DBListEditSubComponent`, props.objectType);
-    const { append, handleClose, isOpen, columns, objectType, KeyControl, keyType } = props;
+    const { append, handleClose, isOpen, columns, objectType, KeyControl, keyType, enumInfo } = props;
     const dictionaryColumns = useMemo(
         () =>
             [
@@ -36,12 +38,13 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
                     header: 'Key',
                     meta: {
                         columnName: 'key',
-                        keyType: keyType
+                        keyType: keyType,
+                        enumInfo: enumInfo
                     }
                 } as MRT_ColumnDef<any>,
                 ...(is.primitive(objectType) ? resolveColumns(columns) : [groupCol(createMRTColumnHelper<{ value: TValue }>(), 'Value', columns as any, 'value', 'bg-yellow-500', 'text-black')()])
             ] as MRT_ColumnDef<any>[],
-        [KeyControl, columns, keyType, objectType]
+        [KeyControl, columns, enumInfo, keyType, objectType]
     );
     const convertAppend = useConvertDictionaryItem(objectType, append);
     // console.log(`init`, objectType);
