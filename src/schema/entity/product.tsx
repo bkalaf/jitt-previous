@@ -126,7 +126,7 @@ import $me, {
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
 import { EntityBase } from './EntityBase';
-import { standardizeOptions } from '../defs/standardizeOptions';
+import { standardizeOptions } from '../../util/standardizeOptions';
 import { is } from '../../common/is';
 import { MRT_ColumnDef } from 'material-react-table';
 import { productColumns } from './productColumns';

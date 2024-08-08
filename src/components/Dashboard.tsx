@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Grid } from '../hooks/Grid';
+import { Grid } from './Grid';
 import { DashboardCategory, DashboardEntry } from './DashboardEntry';
 import { useLocalRealm } from '../hooks/useLocalRealm';
 import { IBarcode, ISku } from '../types';

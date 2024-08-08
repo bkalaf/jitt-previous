@@ -6,7 +6,7 @@ import { AttachmentType } from '../choices/AttachmentType';
 import { EntityBase } from './EntityBase';
 import { MRT_ColumnDef } from 'material-react-table';
 import { runTransaction } from '../../util/runTransaction';
-import { getBaseName } from '../../hooks/getBaseName';
+import { getBaseName } from '../../common/path/getBaseName';
 import { fromExtensionToMimeType } from '../../util/fromExtensionToMimeType';
 
 // type ROP = GetNonReadOnlyProperties<IAttachment>;

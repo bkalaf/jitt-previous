@@ -1,4 +1,4 @@
-import { standardizeOptions } from '../schema/defs/standardizeOptions';
+import { standardizeOptions } from '../util/standardizeOptions';
 import $me from '../schema/enums';
 import { EnumKey } from './EnumKey';
 

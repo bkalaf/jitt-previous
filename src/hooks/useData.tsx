@@ -41,7 +41,7 @@ import { RenderCaption } from './RenderCaption';
 import { useDataQuery } from './useVirtualizedQuery';
 import { useStaticColumns } from './useStaticColumns';
 import { createIcon } from './createIcon';
-import { createRenderVerticalTabs } from './createRenderVerticalTabs';
+import { createRenderVerticalTabs } from '../components/Tabs/createRenderVerticalTabs';
 import { BSON } from 'realm';
 
 export function useData<T extends MRT_RowData>(objectType?: string 

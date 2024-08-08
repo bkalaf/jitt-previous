@@ -4,7 +4,7 @@ import { $ } from '../$';
 import { IMadeOfSection } from '../../types';
 import { EntityBase } from './EntityBase';
 import $me from '../enums';
-import { standardizeOptions } from '../defs/standardizeOptions';
+import { standardizeOptions } from '../../util/standardizeOptions';
 import { MRT_ColumnDef } from 'material-react-table';
 import { madeOfSectionColumns } from '../columns/madeOfSection';
 

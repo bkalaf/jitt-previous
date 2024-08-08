@@ -1,14 +1,15 @@
 import { $ } from '../$';
 import { AwardStatus, IAward, IContributor } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import $me, { AwardNames, EmmyAwardCategories, GrammyAwardCategories, HugoAwardCategories, NYTimesAwardCategories, OscarAwardCategories, PulitzerPrizeAwardCategories, TonyAwardCategories } from '../enums';
+import $me, { AwardNames, EmmyAwardCategories, GrammyAwardCategories, HugoAwardCategories, NyTimesAwardCategories, OscarAwardCategories, TonyAwardCategories } from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
-import { getChoiceText } from './getChoiceText';
+import { getChoiceText } from '../../util/getChoiceText';
 import { is } from '../../common/is';
 import { surroundParensIgnore } from '../../common/text/surround';
 import { MRT_ColumnDef } from 'material-react-table';
 import { awardColumns } from '../columns/awardColumns';
+import { PulitzerPrizeAwardCategories } from '../../../dist/OneDrive/Desktop/Code/jitt/src/schema/enums/index';
 
 export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<TAwardName>> implements IAward<TAwardName> {
     static columns: MRT_ColumnDef<IAward<AwardNames>>[] = awardColumns();
@@ -21,7 +22,7 @@ export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<
         : 'tony' extends TAwardName ? TonyAwardCategories
         : 'pulitzer' extends TAwardName ? PulitzerPrizeAwardCategories
         : 'grammy' extends TAwardName ? GrammyAwardCategories
-        : 'ny-times' extends TAwardName ? NYTimesAwardCategories
+        : 'ny-times' extends TAwardName ? NyTimesAwardCategories
         : never
     >;
     year: Opt<string>;
@@ -58,7 +59,7 @@ export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<
 }
 
 export class NYTimesAward extends BaseAward<'ny-times'> {
-    category: Opt<NYTimesAwardCategories>;
+    category: Opt<NyTimesAwardCategories>;
     name = 'ny-times' as const;
 }
 export class OscarAward extends BaseAward<'oscar'> {
@@ -72,22 +73,18 @@ export class EmmyAward extends BaseAward<'emmy'> {
 export class GrammyAward extends BaseAward<'grammy'> {
     name = 'grammy' as const;
     category: Opt<GrammyAwardCategories>;
-
 }
 export class TonyAward extends BaseAward<'tony'> {
     name = 'tony' as const;
     category: Opt<TonyAwardCategories>;
-
 }
 export class HugoAward extends BaseAward<'hugo'> {
     name = 'hugo' as const;
     category: Opt<HugoAwardCategories>;
-
 }
 export class PulitzerAward extends BaseAward<'pulitzer'> {
     name = 'pulitzer' as const;
     category: Opt<PulitzerPrizeAwardCategories>;
-
 }
 
 const categoryFromName = {

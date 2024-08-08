@@ -3,7 +3,7 @@ import { $ } from '../$';
 import { is } from '../../common/is';
 import { IIndividual, Prefix, Suffix } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import { standardizeOptions } from '../defs/standardizeOptions';
+import { standardizeOptions } from '../../util/standardizeOptions';
 import $me from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm, { BSON } from 'realm';

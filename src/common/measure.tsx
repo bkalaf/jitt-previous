@@ -6,7 +6,7 @@ import { is } from './is';
 import { lookupFraction } from './number/parseNumber';
 import { truncateAuto } from './number/truncateAuto';
 import { EnumKey } from './EnumKey';
-import { standardizeOptions } from '../schema/defs/standardizeOptions';
+import { standardizeOptions } from '../util/standardizeOptions';
 import $me, { ResolutionUnitOfMeasure } from '../schema/enums';
 
 function div(factor: number) {

@@ -1,4 +1,4 @@
-import { getRange } from '../../schema/entity/getRange';
+import { getRange } from '../array/getRange';
 import { truncateAuto } from './truncateAuto';
 
 export function parseNumber(str: string | number) {

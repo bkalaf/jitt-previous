@@ -46,7 +46,7 @@ import { ToysStuffedAnimalsDetails } from '../schema/entity/detailEntity/ToysStu
 import { IProductImage, ISku } from '../types';
 import { MRT_ColumnDef } from 'material-react-table';
 import { OfficeGoodsDetails } from '../schema/entity/detailEntity/OfficeGoodsDetails';
-import { createUpdateTabPanel } from './createUpdateTabPanel';
+import { createUpdateTabPanel } from '../components/Tabs/createUpdateTabPanel';
 import { ApparelAccessoriesDetails } from '../schema/entity/detailEntity/ApparelAccessoriesDetails';
 import { ElectronicsVisualCameraDetails } from '../schema/entity/detailEntity/ElectronicsVisualCameraDetails';
 

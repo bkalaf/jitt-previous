@@ -3,7 +3,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '
 import { DefaultValues, FormProvider, useForm } from 'react-hook-form-mui';
 import { useCallback } from 'react';
 import { useInitial } from '../../../hooks/useInitial';
-import { Grid } from '../../../hooks/Grid';
+import { Grid } from '../../Grid';
 import { EditControls } from '../../controls/EditControls';
 import { useRealmCreate } from '../../../hooks/useRealmCreate';
 import { useDirectStaticColumns } from '../../../hooks/useDirectStaticColumns';

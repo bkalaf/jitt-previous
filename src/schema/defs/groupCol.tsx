@@ -1,6 +1,6 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { groupProps } from '../groupProps';
-import { toID } from '../../../util/toID';
+import { toID } from '../../util/toID';
 import { ColumnMeta } from '@tanstack/react-table';
 import { is } from '../../common/is';
 

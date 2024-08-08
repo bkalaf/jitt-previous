@@ -4,7 +4,7 @@ import { useWhyDidIUpdate } from '../../hooks/useWhyDidIUpdate';
 import { useEffectiveCollection } from '../../hooks/useEffectiveCollection';
 import { useData } from '../../hooks/useData';
 import { useEffect } from 'react';
-import { $storage } from '../../hooks/storage';
+import { $storage } from '../../globals/storage';
 import * as fs from 'graceful-fs';
 
 // const c: MRT_TableOptions<any>['getRowCanExpand'];

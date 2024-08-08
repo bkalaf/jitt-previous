@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
 import { ISku } from '../types';
 import { barcodeFormatter } from './barcodeFormatter';
-import { getBaseName, getExtension } from '../hooks/getBaseName';
+import { getBaseName } from '../common/path/getBaseName';
+import { getExtension } from 'src/hooks/getExtension';
 
 export function getFolderNames(sku: ISku) {
     const { product } = sku;

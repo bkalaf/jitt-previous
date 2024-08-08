@@ -5,7 +5,6 @@ import { IconBtn } from '../components/IconBtn';
 import { useDropbox } from './useDropbox';
 import { AttachmentModal } from './AttachmentModal';
 
-
 export function renderAttachmentPanel() {
     return function AttachmentPanel(props: RenderDetailTabPanelProps<any>) {
         const original = props.row.original as ISku;

@@ -1,5 +1,5 @@
-import { fromCharCode } from '../../schema/entity/fromCharCode';
-import { getRange } from '../../schema/entity/getRange';
+import { getRange } from '../array/getRange';
+import { fromCharCode } from './fromCharCode';
 import { toCharCode } from './toCharCode';
 
 export function removeNonAlphaNonNumberNonDash(str: string) {

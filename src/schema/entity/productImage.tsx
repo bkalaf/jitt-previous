@@ -2,7 +2,7 @@ import { IFacing, IProductImage, ISku, ProductImageFlags } from '../../types';
 import Realm, { BSON } from 'realm';
 import { schemaName } from '../../util/schemaName';
 import { $ } from '../$';
-import { ProductImageDisposition } from './ProductImageDisposition';
+import { ProductImageDisposition } from '../choices/ProductImageDisposition';
 import { getFolderNames, getRemBgName } from '../../util/getFolderNames';
 import { runTransaction } from '../../util/runTransaction';
 import { EntityBase } from './EntityBase';

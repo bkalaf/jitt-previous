@@ -5,7 +5,7 @@ import $me, { BarcodeTypes, CableTypes, HandOrientations, ProductColors } from '
 import { Flags, allFlags } from '../../../schema/enums/flags';
 import { barcodeFormatter } from '../../../util/barcodeFormatter';
 import { truncateAuto } from '../../../common/number/truncateAuto';
-import { converted } from '../../../schema/defs/colDBList';
+import { converted } from 'src/schema/defs/converted';
 import { convertFromGrams } from './convertFromGrams';
 import { getProperty } from '../../../common/object/getProperty';
 import { AngleMeasure } from '../../../schema/dimensions/AngleMeasure';

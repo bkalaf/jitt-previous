@@ -121,7 +121,7 @@ import {
 import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
 import { AttachmentStages } from './schema/choices/AttachmentStages';
 import { AttachmentType } from './schema/choices/AttachmentType';
-import { ProductImageDisposition } from './schema/entity/ProductImageDisposition';
+import { ProductImageDisposition } from './schema/choices/ProductImageDisposition';
 import { Flags } from './schema/enums/flags';
 import { IShippingRate } from './schema/enums/shippingRates';
 

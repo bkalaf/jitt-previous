@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Item } from '../hooks/Grid';
+import { Item } from './Item';
 import { $className } from '../util/$className';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';

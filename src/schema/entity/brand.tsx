@@ -5,7 +5,7 @@ import { IBrand, IHashTag, IMercariBrand } from '../../types';
 import { distinctByOID } from '../../common/array/distinct';
 import { EntityBase } from './EntityBase';
 import { runTransaction } from '../../util/runTransaction';
-import { createFolderName } from './createFolderName';
+import { checkFolderNameForInvalidCharacters } from '../../common/path/checkFolderNameForInvalidCharacters';
 import { MRT_ColumnDef } from 'material-react-table';
 import { brandColumns } from '../columns/brand';
 
@@ -35,7 +35,7 @@ export class Brand extends EntityBase<IBrand> implements IBrand {
     static update(item: IBrand): IBrand {
         const func = () => {
             if (item.folder == null || item.folder === '') {
-                item.folder = createFolderName(item.name);
+                item.folder = checkFolderNameForInvalidCharacters(item.name);
             }
         };
         runTransaction(Brand.localRealm, func);
