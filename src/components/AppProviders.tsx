@@ -13,6 +13,7 @@ import { FileSystemContextProvider } from './../contexts/FileSystemContextProvid
 import { EnvProvider } from './../contexts/EnvProvider';
 import { BarcodeGeneratorProvider } from '../contexts/BarcodeGeneratorProvider';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { DropboxProvider } from '../contexts/DropboxProvider';
 
 export function AppProviders({ children }: { children: Children }) {
     return (
@@ -23,14 +24,16 @@ export function AppProviders({ children }: { children: Children }) {
                         <EnvProvider>
                             <FileSystemContextProvider>
                                 <RealmProvider>
-                                    <QueryClientProvider client={queryClient}>
-                                        <ForagerProvider>
-                                            <ConfigurationProvider>
-                                                <BarcodeGeneratorProvider>{children}</BarcodeGeneratorProvider>
-                                            </ConfigurationProvider>
-                                        </ForagerProvider>
-                                        <ReactQueryDevtools initialIsOpen />
-                                    </QueryClientProvider>
+                                    <DropboxProvider>
+                                        <QueryClientProvider client={queryClient}>
+                                            <ForagerProvider>
+                                                <ConfigurationProvider>
+                                                    <BarcodeGeneratorProvider>{children}</BarcodeGeneratorProvider>
+                                                </ConfigurationProvider>
+                                            </ForagerProvider>
+                                            <ReactQueryDevtools initialIsOpen />
+                                        </QueryClientProvider>
+                                    </DropboxProvider>
                                 </RealmProvider>
                             </FileSystemContextProvider>
                         </EnvProvider>

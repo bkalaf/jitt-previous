@@ -4,6 +4,7 @@ import { getFolderNames } from '../util/getFolderNames';
 import { ISku } from '../types';
 import * as fs from 'graceful-fs';
 import { promisify } from 'util';
+import { checkPath } from './checkFolder';
 
 export type IDropboxContext = {
     client: Dropbox.Dropbox;
@@ -51,8 +52,8 @@ const requestOptions: (url: string) => RequestInit = (url: string) => {
 export async function runTinyURL(url: string) {
     const options = requestOptions(url);
     const response = await fetch('https://api.tinyurl.com/create', options);
-    const body: { data: { url: string } } = await response.json();
-    return body.data.url;
+    const body: { data: { domain: string; alias: string } } = await response.json();
+    return [body.data.domain, body.data.alias].join('/');
 }
 function getBaseName(file: string) {
     if (file.includes('/') || file.includes('\\')) {
@@ -96,6 +97,7 @@ export function useProvideDropboxContext(): IDropboxContext {
     const moveFile = useCallback(
         (file: File, sku: ISku) => {
             const destination = getPath(file, sku)(FILESYSTEM_ROOT);
+            checkPath(destination, true);
             return promisify(fs.copyFile)(file.path, destination);
         },
         [getPath]
@@ -127,12 +129,11 @@ export function useProvideDropboxContext(): IDropboxContext {
                     } else if (idx < allItems.length - 1) {
                         return acc.then(async function (sessionId: string) {
                             const cursor = { session_id: sessionId, offset: idx * MAX_BLOB };
-                            await client
-                                .filesUploadSessionAppendV2({
-                                    close: false,
-                                    cursor,
-                                    contents: blob
-                                });
+                            await client.filesUploadSessionAppendV2({
+                                close: false,
+                                cursor,
+                                contents: blob
+                            });
                             return sessionId;
                         });
                     } else {
@@ -159,7 +160,7 @@ export function useProvideDropboxContext(): IDropboxContext {
             return {
                 tinyURLLink,
                 dropboxSharedLink
-            }
+            };
         },
         [getSharedLink, moveFile, uploadFile]
     );
@@ -168,6 +169,5 @@ export function useProvideDropboxContext(): IDropboxContext {
         uploadAttachment: uploadAndShare,
         getPath,
         client
-    }
+    };
 }
-

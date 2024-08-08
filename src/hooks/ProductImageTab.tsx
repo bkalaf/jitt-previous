@@ -5,7 +5,7 @@ import { FacePOV, IFacing, IProductImage, ISku, ProductImageFlags } from '../typ
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/pro-solid-svg-icons';
 import { Images } from './Images';
-import { VisuallyHiddenInput } from './VisuallyHiddenInput';
+import { VisuallyHiddenInput } from '../components/VisuallyHiddenInput';
 import { useLocalRealm } from './useLocalRealm';
 import { BSON } from 'realm';
 import * as path from 'path';
@@ -24,7 +24,7 @@ import { getBaseName } from './getBaseName';
 import { ProductImageDisposition } from '../schema/entity/ProductImageDisposition';
 import { checkPath } from '../contexts/checkFolder';
 import { Grid, Item } from './Grid';
-import { useEventListener } from '../components/useEventListener';
+import { useEventListener } from './useEventListener';
 import { MRT_RowData } from 'material-react-table';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {

@@ -9,7 +9,7 @@ import { IconBtn } from './IconBtn';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { getCurrentWebContents } from '@electron/remote';
 import { useConfiguration } from '../hooks/useConfiguration';
-import { useEventListener } from './useEventListener';
+import { useEventListener } from '../hooks/useEventListener';
 import { NavLink as RRLink } from 'react-router-dom';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {

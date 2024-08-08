@@ -2,7 +2,6 @@ import { lookupFraction } from '../../../common/number/parseNumber';
 import { truncateAuto } from '../../../common/number/truncateAuto';
 import { is } from '../../../common/is';
 
-
 export function numberToString(n: number) {
     const integer = Math.floor(n);
     const decimal = n - integer;

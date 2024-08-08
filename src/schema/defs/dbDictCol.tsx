@@ -27,7 +27,7 @@ export function dbDictCol<T extends MRT_RowData>(helper: MRT_ColumnHelper<T>) {
             const { readonly, faceted, enumKey } = { readonly: false, faceted: false, enumKey: undefined, ...(opts ?? {}) };
             const enumInfo = enumKey != null ? standardizeOptions($me[enumKey as keyof typeof $me] ?? {}) : undefined;
             // eslint-disable-next-line no-console
-            console.info(`enumInfo`, enumInfo);
+            console.info(`enumInfo`, enumKey, enumInfo);
             // const Edit = createDBDictionaryControl(objectType, faceted, enumMap) as MRT_ColumnDef<T, DictionaryBack<any>>['Edit'];
             return baseCol<T, DictionaryBack<any>>(
                 helper,

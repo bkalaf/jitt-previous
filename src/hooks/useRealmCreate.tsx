@@ -11,7 +11,6 @@ import { useConvert } from './useConvert';
 import { runTransaction } from '../util/runTransaction';
 import { useInvalidateCollection } from './useInvalidateCollection';
 
-
 export function useRealmCreate<T extends MRT_RowData>(objectType: string, toggleDialog: () => void, finalCallback: (result: T) => void) {
     const convert = useConvert('object', objectType);
     const db = useLocalRealm();

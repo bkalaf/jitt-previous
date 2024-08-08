@@ -81,13 +81,13 @@ export function evalDirty(key: string, value: boolean | any[] | Record<string, u
     const entries = Object.entries(value);
     return entries.map(([k, v]) => evalDirty([key, k].join('.'), v as any)).reduce((pv, cv) => [...pv, ...cv], []);
 }
-export function useDirtyFields(obj: Record<string, boolean | any[] | Record<string, unknown>>) {
+// export function useDirtyFields(obj: Record<string, boolean | any[] | Record<string, unknown>>) {
      
-    console.log(`useDirtyFields`, obj);
-    return Object.entries(obj)
-        .map(([k, v]) => evalDirty(k, v))
-        .reduce((pv, cv) => [...pv, ...cv], []);
-}
+//     console.log(`useDirtyFields`, obj);
+//     return Object.entries(obj)
+//         .map(([k, v]) => evalDirty(k, v))
+//         .reduce((pv, cv) => [...pv, ...cv], []);
+// }
 // export function getPropertyType(obj: Realm.Object, fieldName: string) {
 //     if (fieldName.includes('.')) {
 //         const [head, ...tail] = fieldName.split('.');

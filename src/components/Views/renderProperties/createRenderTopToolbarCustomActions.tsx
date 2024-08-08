@@ -13,10 +13,10 @@ import { Draft } from '../../../schema/entity/draft';
 import { useToaster } from '../../../hooks/useToaster';
 import { BSON } from 'realm';
 import { useUpdateEntity } from '../../../hooks/useUpdateEntity';
-import { useAnySelected } from './useAnySelected';
 import { CreateProductFromUPCBtn } from './CreateProductFromUPCBtn';
 import { RunApiSearchBtn } from './RunAPISearchBtn';
 import { MarkReadyToList } from './MarkReadyToList';
+import { useGetAreNoRowsSelected } from '../../../hooks/useGetAreNoRowsSelected';
 
 export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init: () => T, resetSettings: () => void) {
     return function RenderTopToolbarCustomActions({ table }: Parameters<Exclude<MRT_TableOptions<T>['renderTopToolbarCustomActions'], undefined>>[0]) {
@@ -26,7 +26,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
         const invalidate = useInvalidateCollection();
         const { enqueueSnackbar } = useSnackbar();
         const { nextBin, nextSku } = useBarcodeGenerator();
-        const noneSelected = useAnySelected(table, true);
+        const noneSelected = useGetAreNoRowsSelected(table)
         const onNextBarcode = useCallback(() => {
             const selected = table.getSelectedRowModel().rows.map((x) => x.original as any as IBin | ISku);
             const next = route === 'sku' ? nextSku : nextBin;
@@ -94,12 +94,12 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                     Update
                 </Button>
                 {['sku', 'bin'].includes(route) && (
-                    <Button color='secondary' variant='contained' onClick={onNextBarcode} disabled={noneSelected} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
+                    <Button color='secondary' variant='contained' onClick={onNextBarcode} disabled={noneSelected()} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
                         Add Barcode
                     </Button>
                 )}
                 {route === 'product' && (
-                    <Button color='secondary' variant='contained' onClick={onNewSku} disabled={noneSelected} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
+                    <Button color='secondary' variant='contained' onClick={onNewSku} disabled={noneSelected()} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
                         Add SKU
                     </Button>
                 )}
@@ -109,7 +109,7 @@ export function createRenderTopToolbarCustomActions<T extends MRT_RowData>(init:
                     </Button>
                 )}
                 {route === 'draft' && (
-                    <Button color='secondary' variant='contained' onClick={exportDraft} disabled={noneSelected} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
+                    <Button color='secondary' variant='contained' onClick={exportDraft} disabled={noneSelected()} className='disabled:bg-neutral-300 disabled:text-slate-600 disabled:blur-md'>
                         Export Draft
                     </Button>
                 )}

@@ -77,14 +77,15 @@ export class Attachment extends EntityBase<IAttachment> implements IAttachment {
                 item.filename = getBaseName(item.fullpath);
                 const ext = getBaseName(item.fullpath).split('.')[1];
                 item.extension = ext;
-                const mimeType = fromExtensionToMimeType(ext);
+                const mimeType = fromExtensionToMimeType('.'.concat(ext));
                 item.mimeType = mimeType;
                 if (item.attachmentType == null || item.attachmentType === AttachmentType.unknown) {
                     item.attachmentType =
+                        mimeType != null ? 
                         mimeType.startsWith('application') ? AttachmentType.document
                         : mimeType.startsWith('video') ? AttachmentType.video
                         : mimeType.startsWith('image') ? AttachmentType.unknown
-                        : AttachmentType.unknown;
+                        : AttachmentType.unknown : AttachmentType.unknown;
                 }
             }
         }

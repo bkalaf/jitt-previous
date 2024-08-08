@@ -1,8 +1,8 @@
 import { MRT_ColumnDef, MRT_ColumnHelper, MRT_RowData } from 'material-react-table';
 import { baseCol } from './baseCol';
 import { ColumnMeta } from '@tanstack/table-core';
-import { TextTableCell } from '../../components/table/cells/StringTableCell';
 import { TextAreaControl } from '../../components/table/controls/TextAreaControl';
+import { TextTableCell } from '../../components/table/cells/TextTableCell';
 
 export function colText<T extends MRT_RowData, U>(helper: MRT_ColumnHelper<T>) {
     return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {

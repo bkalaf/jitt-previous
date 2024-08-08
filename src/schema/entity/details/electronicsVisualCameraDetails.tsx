@@ -13,7 +13,7 @@ export const electronicsVisualCameraDetails: <T extends MRT_RowData>(...dependen
         helper.listOfEnum(...dependencies)('photoSensorTechnology', 'Photo Sensor Technology', { enumKey: 'photoSensorTechnologies' }),
         helper.enum(...dependencies)('whiteBalanceSetting', 'White Balance Setting', { enumKey: 'whiteBalanceSettings' }),
         helper.enum(...dependencies)('jpegQualityLevel', 'JPEG Quality Level', { enumKey: 'jpegQualityLevels' }),
-        helper.listOfEnum(...dependencies)('videoCaptureFormats', 'Video Capture Formats', { enumKey: 'videoCaptureFormats' }),
+        helper.listOfEnum(...dependencies)('videoCaptureFormats', 'Video Capture Formats', { enumKey: 'fileFormats' }),
         helper.enum(...dependencies)('videoCaptureResolution', 'Video Capture Resolution', { enumKey: 'videoCaptureResolutions' }),
         helper.enum(...dependencies)('viewfinderType', 'Viewfinder Type', { enumKey: 'viewfinderTypes' }),
         helper.enum(...dependencies)('connectivityTechnology', 'Connectivity Technology', { enumKey: 'cameraConnectionTypes' }),

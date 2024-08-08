@@ -6,24 +6,7 @@ import { useEffectiveCollection } from '../../../hooks/useEffectiveCollection';
 import { numberToString } from './numberToString';
 import { useEditColumnMeta } from '../../../hooks/useEditColumnMeta';
 import { $className } from '../../../util/$className';
-import { useAnchorEl } from '../../../hooks/useAnchorEl';
-import { Popover, Typography } from '@mui/material';
 
-export function TextTableCell<T extends MRT_RowData, U>(props: CellFunctionParams<T, U>) {
-    useWhyDidIUpdate('TextTableCell', props);
-    const $value = props.cell.getValue<string>() ?? '';
-    const [anchorEl, open, onClick, onClose] = useAnchorEl();
-    return (
-        <>
-            <span onClick={onClick}>
-                ...
-            </span>
-            <Popover className='whitespace-pre' anchorEl={anchorEl} open={open} onClose={onClose}>
-                <Typography>{$value}</Typography>
-            </Popover>
-        </>
-    );
-}
 export function StringTableCell<T extends MRT_RowData, U>(props: CellFunctionParams<T, U>) {
     useWhyDidIUpdate('StringTableCell', props);
     const { columnName, formatter } = useEditColumnMeta(props, 'columnName', 'formatter');

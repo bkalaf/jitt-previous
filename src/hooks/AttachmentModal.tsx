@@ -1,7 +1,6 @@
 import { Dialog, DialogContent, DialogActions } from '@mui/material';
 import { useMemo } from 'react';
 import { IAttachment, ISku } from '../types';
-import { faSend } from '@fortawesome/pro-solid-svg-icons';
 import { useLocalRealm } from './useLocalRealm';
 import { BSON } from 'realm';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -9,10 +8,11 @@ import { runTransaction } from '../util/runTransaction';
 import { SelectElement, TextFieldElement } from 'react-hook-form-mui';
 import { Grid, Item } from './Grid';
 import { IDropboxContext } from '../contexts/DropboxContext';
-import { IconBtn } from '../components/IconBtn';
 import { AttachmentType } from '../schema/choices/AttachmentType';
 import { useInvalidateCollection } from './useInvalidateCollection';
-
+import { Attachment } from '../schema/entity/attachment';
+import { useMutation } from '@tanstack/react-query';
+import { LoadingButton } from '@mui/lab';
 
 export function AttachmentModal(props: { open: boolean; toggleOpen: () => void; original: ISku; uploadAttachment: IDropboxContext['uploadAttachment']; }) {
     const { open, toggleOpen, original, uploadAttachment } = props;
@@ -25,27 +25,28 @@ export function AttachmentModal(props: { open: boolean; toggleOpen: () => void; 
     });
     const realm = useLocalRealm();
     const invalidator = useInvalidateCollection('sku');
-    const onSubmit = useMemo(() => {
-        return formContext.handleSubmit(async (data, ev) => {
-            ev?.preventDefault();
-            ev?.stopPropagation();
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (args: { data: { caption: string, attachmentType: AttachmentType, files: File[] }, ev?: React.BaseSyntheticEvent<object, any, any> }) => {
+            args.ev?.preventDefault();
+            args.ev?.stopPropagation();
             try {
-                const file = data.files[0];
+                const file = args.data.files[0];
                 const { dropboxSharedLink, tinyURLLink } = await uploadAttachment(file, original);
                 const attachment = {
                     _id: new BSON.ObjectId(),
                     fullpath: file.path,
                     filename: '',
                     doNotUse: false,
-                    attachmentType: data.attachmentType,
+                    attachmentType: args.data.attachmentType,
                     takenOn: new Date(Date.now()),
-                    caption: data.caption,
+                    caption: args.data.caption,
                     sku: original as any,
                     sharedLink: dropboxSharedLink,
                     tinyURL: tinyURLLink
-                } as InitValue<IAttachment>;
+                } as IAttachment;
                 const func = () => {
-                    realm.create('attachment', attachment);
+                    const obj = realm.create<IAttachment>('attachment', attachment);
+                    Attachment.update(obj);
                 };
                 runTransaction(realm, func);
                 toggleOpen();
@@ -53,9 +54,12 @@ export function AttachmentModal(props: { open: boolean; toggleOpen: () => void; 
             } catch (error) {
                 // eslint-disable-next-line no-console
                 console.error(error);
-            }
-        });
-    }, [formContext, invalidator, original, realm, toggleOpen, uploadAttachment]);
+            } 
+        }
+    })
+    const onSubmit = useMemo(() => {
+        return formContext.handleSubmit((d, e) => mutate({ data: d, ev: e }));
+    }, [formContext, mutate]);
     return (
         <Dialog open={open} onClose={toggleOpen} maxWidth='xl'>
             <FormProvider {...formContext}>
@@ -73,7 +77,8 @@ export function AttachmentModal(props: { open: boolean; toggleOpen: () => void; 
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <IconBtn tooltip='Submit' icon={faSend} type='button' text='Submit' color='metal' onClick={onSubmit} />
+                    <LoadingButton variant='contained' size='medium' color='metal' type='button' loading={isPending} onClick={onSubmit}>Submit</LoadingButton>
+                    {/* <IconBtn tooltip='Submit' icon={faSend} type='button' text='Submit' color='metal' onClick={onSubmit} /> */}
                 </DialogActions>
             </FormProvider>
         </Dialog>

@@ -1,7 +1,3 @@
-import { useMemo } from 'react';
-import { useLocalRealm } from './useLocalRealm';
-import Realm from 'realm';
-import { primitives } from './primtivies';
 import { doubleQuote } from '../common/doubleQuote';
 import { surround } from '../common/text/surround';
 import { is } from '../common/is';
@@ -47,20 +43,20 @@ export function stringify(obj: any): string {
             return stringifyFunction(obj as Function)
     }
 }
-export function useTypes() {
-    const realm = useLocalRealm();
-    const types = useMemo(
-        () =>
-            [...Object.entries(primitives).map(([k, columns]) => ({ name: k, schema: { name: k }, ctor: { columns, schema: { name: k } } })), ...realm.schema] as (Realm.BaseObjectSchema & {
-                properties: Realm.CanonicalPropertiesTypes<any>;
-                ctor: MyClass<any>;
-            })[],
-        [realm.schema]
-    );
-    // const fn = [app.getPath('appData'), 'jitt', 'schema.json'].join('/');
-    // useEffect(() => {
-    //     console.log('columns', stringify(Object.fromEntries(realm.schema.map((x) => [x.name, (x.ctor as any)?.columns]))));
-    //     // fs.writeFileSync(fn, JSON.stringify(realm.schema, null, '\t'));
-    // }, []);
-    return types;
-}
+// export function useTypes() {
+//     const realm = useLocalRealm();
+//     const types = useMemo(
+//         () =>
+//             [...Object.entries(primitives).map(([k, columns]) => ({ name: k, schema: { name: k }, ctor: { columns, schema: { name: k } } })), ...realm.schema] as (Realm.BaseObjectSchema & {
+//                 properties: Realm.CanonicalPropertiesTypes<any>;
+//                 ctor: MyClass<any>;
+//             })[],
+//         [realm.schema]
+//     );
+//     // const fn = [app.getPath('appData'), 'jitt', 'schema.json'].join('/');
+//     // useEffect(() => {
+//     //     console.log('columns', stringify(Object.fromEntries(realm.schema.map((x) => [x.name, (x.ctor as any)?.columns]))));
+//     //     // fs.writeFileSync(fn, JSON.stringify(realm.schema, null, '\t'));
+//     // }, []);
+//     return types;
+// }
