@@ -5,7 +5,6 @@ import $me, { BarcodeTypes, CableTypes, HandOrientations, ProductColors } from '
 import { Flags, allFlags } from '../../../schema/enums/flags';
 import { barcodeFormatter } from '../../../util/barcodeFormatter';
 import { truncateAuto } from '../../../common/number/truncateAuto';
-import { converted } from 'src/schema/defs/converted';
 import { convertFromGrams } from './convertFromGrams';
 import { getProperty } from '../../../common/object/getProperty';
 import { AngleMeasure } from '../../../schema/dimensions/AngleMeasure';
@@ -22,6 +21,7 @@ import { AmperageMeasure } from '../../../schema/dimensions/AmperageMeasure';
 import { CapacityMeasure } from '../../../schema/dimensions/CapacityMeasure';
 import { WeightMeasure } from '../../../schema/dimensions/WeightMeasure';
 import { IProduct, IBarcode, IIncludedItem, ITrack, IPiece, ICurrentSetting, IClothingCare, IMinMax, IMadeOfSection, ISku } from '../../../types';
+import { converted } from '../../../schema/defs/converted';
 
 export const char = {
     newLine: '\n',
@@ -175,7 +175,7 @@ export function ofSuffix(suff: string, func: (value: Opt<any>) => string | undef
 }
 export function ofHandOrientation(value?: Opt<HandOrientations>) {
     if (value == null) return undefined;
-    return surroundSquareBracesIgnore(value === 'left-handed' ? 'LH' : 'RH');
+    return surroundSquareBracesIgnore(value === 'lh' ? 'LH' : 'RH');
 }
 export function ofBarcode(barcodeType: BarcodeTypes) {
     return (value: DBList<IBarcode>) => {

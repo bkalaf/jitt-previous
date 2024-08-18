@@ -24,9 +24,9 @@ import { getBaseName } from '../common/path/getBaseName';
 import { ProductImageDisposition } from '../schema/choices/ProductImageDisposition';
 import { checkPath } from '../contexts/checkFolder';
 import { Grid } from '../components/Grid';
-import { Item } from 'src/components/Item';
 import { useEventListener } from './useEventListener';
 import { MRT_RowData } from 'material-react-table';
+import { Item } from '../components/Item';
 
 export function ProductImageTab(props: { data: IProductImage[]; original: ISku }) {
     useWhyDidIUpdate('ProductImageTab', props);

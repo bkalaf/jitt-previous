@@ -10,7 +10,7 @@ const collection = client.db('jitt').collection('classifier');
 //         .join('')
 //         .toLowerCase();
 // }
-
+// mongodb+srv://@jitt-core.p62mz.mongodb.net/test
 collection
     .find({
         type: {

@@ -62,6 +62,7 @@ const objectNames = {
     brand: 'brand',
     capacity: 'capacity',
     classifier: 'classifier',
+    classification: 'classification',
     clothingCare: 'clothingCare',
     customItemField: 'customItemField',
     customItemFieldValue: 'customItemFieldValue',

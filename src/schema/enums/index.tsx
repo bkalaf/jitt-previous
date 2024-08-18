@@ -2,6 +2,7 @@ import React from 'react';
 import $masterEnum from './enum-info.json';
 import { useFormContext } from 'react-hook-form';
 import { CheckboxElement, TextFieldElement, SelectElement } from 'react-hook-form-mui';
+import { standardizeOptions } from '../../util/standardizeOptions';
 
 export type AdminTaskTypes = "unknown" | "mercari-promote" | "mercari-import-brands" | "mercari-import-shipping" | "mercari-import-taxonomy" | "mercari-import-hashtags" | "mercari-import-custom-item-fields";
 export type AmperageUnits = "A" | "mA";
@@ -13,13 +14,19 @@ export type AutofocusTechnologies = "selective-single" | "multi" | "single" | "l
 export type AwardNames = "oscar" | "emmy" | "tony" | "pulitzer" | "grammy" | "hugo" | "ny-times" | "unknown";
 export type AwardStatus = "unclear" | "won" | "nominated";
 export type BacklineTypes = "bare" | "bow" | "open" | "strappy" | "u-shape" | "v-shape" | "x-cross";
-export type BagTypes = "backpack" | "baguette" | "barrel" | "bucket" | "clutch" | "doctor" | "duffel" | "flap" | "frame" | "hobo" | "messenger" | "quilited" | "saddle" | "satchel" | "shopper" | "tote" | "wristlet";
+export type ApparelAccessoryTypes = "belt" | "carholder" | "gloves" | "handkerchief" | "turban" | "umbrella" | "wallet" | "fascinator";
+
+export type BagTypes = "baguette" | "barrel" | "clutch" | "doctor" | "duffel" | "flap" | "frame"  | "quilited" | "saddle" |"shopper" | "wristlet" | "backpack" | "bag" | "briefcase" | "bucket" | "cosmetic" | "cross-body" | "messenger" | "hobo" | "satchel" | "shoulder" | "tote" | "fanny-pack";
+export type HeadAccessoryTypes = "bandana" | "bow-tie" | "collar-stay" | "hat" | "ballcap" | "sunglasses" | "tie" | "hair-accessory" | "headband" | "hijab" | "scarf";
+
 export type BarcodeTypes = "upc" | "ean" | "isbn-10" | "isbn-13" | "locator" | "sku" | "unknown";
 export type BatteryTypes = "AA" | "AAA" | "C" | "D" | "CR2032" | "9V" | "li-ion";
 export type BookGenres = "fiction" | "history" | "mystery" | "sci-fi" | "biography" | "young-adult-fiction" | "romance" | "childrens" | "self-help" | "fantasy" | "poetry" | "cookbook" | "social-science" | "travel" | "reference-study" | "photography" | "business" | "technology" | "politics";
 export type BookTypes = "hb" | "pb" | "bb" | "tb";
 export type BootTypes = "ankle & bootie" | "mid-calf" | "knee-high" | "over-the-knee";
 export type BottomTypes = "5-pocket" | "bermuda-shorts" | "bermuda" | "boot-cut" | "bush-pants" | "cargo-pants" | "cargo" | "carpenter" | "flare" | "hot-pants" | "jodhpurs" | "jumpsuit" | "pegged" | "skinny" | "skort" | "stirrup" | "straight" | "sweat-pants" | "wide-leg";
+export type ShortsTypes = 'gym-shorts' | 'board-shorts' | 'cargo-shorts' | 'casual-shorts' | 'corduroy-shorts' | 'dress-shorts' | 'board-swim-trunks' | 'bermuda-shorts' | 'bike-shorts' | 'high-waisted-shorts' | 'skort' | 'short-shorts' | 'denim-shorts';	
+
 export type BraTypes = "bralette" | "bullet" | "plunge" | "push-up" | "soft-cup" | "sport" | "strapless" | "triangle" | "underwire";
 export type CableTypes = "data" | "power" | "video";
 export type CaliperSizeUnitOfMeasure = "mm" | "″";
@@ -49,7 +56,7 @@ export type DinnerwareTypes = "bread-butter" | "mug" | "dinner" | "salad";
 export type DisplayFixtureTypes = "articulating" | "fixed" | "tilting";
 export type DisplayTypes = "amoled" | "lcd" | "oled";
 export type DistanceUnitOfMeasure = "ft";
-export type DressTypes = "1-shoulder" | "a-line" | "ball-gown" | "jumper-dress" | "maxi" | "wrap-dress" | "above-knee" | "knee-length" | "midi" | "high-low";
+export type DressTypes = "1-shoulder" | "a-line" | "ball-gown" | "jumper-dress" | "maxi" | "wrap-dress" | "romper" | "maxi" | "above-knee" | "knee-length" | "midi" | "high-low";
 export type DriveFormFactors = "2.5" | "3.5";
 export type DriveInterfaces = "raid" | "fiber" | "pata" | "sas" | "sata" | "sataii" | "sataiii" | "scsi";
 export type DriveTypes = "int" | "ext";
@@ -89,7 +96,30 @@ export type JpegQualityLevels = "basic" | "fine" | "normal";
 export type LaneConditions = "dry" | "medium" | "medium-heavy" | "heavy";
 export type Languages = "en" | "es" | "ja";
 export type LapelTypes = "chesterfield" | "clover" | "fish-mouth" | "framed" | "l-shaped" | "napoleone" | "notch" | "notched-shawl" | "peak" | "shawl" | "t-shaped" | "tab" | "tuxedo" | "ulster";
-export type LegStyles = "ankle" | "baggy" | "cropped" | "boot-cut" | "flare" | "skinny" | "straight" | "tapered" | "trouser" | "wide";
+export type OuterwearTypes = "cape" | "fleece" | "bomber" | "jean" | "military" | "leather" | "parka" | "peacoat" | "puffer" | "raincoat" | "trenchcoat" | "baseball" | "vest" | "windbreaker" | "winter" | "hunting";
+
+export type MaterialStyles = "corduroys" | "denim" | "khakis" | "leather" | "linen" | "leather"
+;
+export type LegStyles = "baggy" | "bootcut" | "capri" | "cropped" | "flare" | "relaxed" | "skinny" | "slim" | "slimbootcut" | "straight" | "wide" | "short-shorts" | "skort" | "leggings"
+;
+// "ankle" | "baggy" | "cropped" | "boot-cut" | "flare" | "skinny" | "straight" | "tapered" | "trouser" | "wide";
+export type SweaterTypes =
+    | 'cardigan'
+    | 'crewneck-sweater'
+    | 'full-zip-sweater'
+    | 'polo-sweater'
+    | 'turtleneck-sweater'
+    | 'v-neck-sweater'
+    | 'vest'
+    | 'collared-sweater'
+    | 'henley'
+    | 'mock-sweater'
+    | 'scoop-sweater'
+    | 'shrug-sweater'
+    | 'sleeveless-sweater'
+    | 'sweater-vest'
+    | 'maternity-sweater';
+
 export type LengthUnitOfMeasure = "″" | "cm";
 export type LensType = "fisheye" | "macro" | "telephoto" | "wide-angle";
 export type LifestyleTypes = "business casual" | "casual" | "club" | "comfort" | "evening" | "formal";
@@ -136,18 +166,57 @@ export type ShaftTypes = "graphite" | "steel";
 export type ShapeTypes = "hexagon" | "square" | "rectangle";
 export type Shippers = "usps-ground" | "usps-media" | "ups-surepost" | "fedex-ground" | "ups-ground" | "fedex-home";
 export type ShippingSpeeds = "media-mail" | "standard";
-export type ShirtTypes = "blouse" | "dress-shirt" | "flannel-shirt" | "hawaiian-shirt" | "henley" | "hoody" | "jacket" | "jersey" | "polo" | "sleeveless-shirt" | "smock" | "sweater" | "sweatshirt" | "t-shirt" | "tank-top" | "tube-top" | "tunic" | "turtleneck" | "tuxedo" | "v-neck-shirt";
+export type YouthSize = '0-24M' | '2T-5T' | '4T+';
+export type CasualShirtTypes = "camisole" | "jersey" | "polo" | "rugby" | "snow-bib" | "sweater" | "sweatshirt" | "tank-top" | "t-shirt" | "tube-top" | "tunic";
+export type FormalShirtTypes = "blazer" | "blouse" | "button-down" | "cardigan" | "fitted" | "full-zip" | "hawaiian" | "knit-top" | "sport-coat" | "suit-jacket" | "vest";
+
+export type ShirtTypes = "blouse" | "dress-shirt" | "flannel-shirt" | "hawaiian-shirt" | "henley" | "hoody" | "jacket" | "jersey" | "polo" | "sleeveless-shirt" | "smock" | "sweater" | "sweatshirt" | "t-shirt" | "tank-top" | "tube-top" | "tunic" | "turtleneck" | "tuxedo" | "v-neck-shirt"; // "blazer" "camisole"
+export type PantStyles = "athletic" | "bermuda" | "bike" | "boyfriend" | "board" | "cargo" | "carpenter" | "casual" | "dress" | "high-waisted" | "overalls" | "pleated" | "short-shorts" | "skort" | "leggings";
+
 export type ShoeHeelTypes = "chunky" | "cone" | "cuban" | "curved" | "flared" | "italian" | "kitten" | "luigi-xv" | "spool" | "stiletto" | "wedge" | "block heel" | "platform";
+export type FootwearTypes = "sneakers" | "fashion-sneakers" | "loafers" | "clogs" | "boots" | "mules" | "oxfords" | "outdoors" | "sandals" | "slip-ons" | "slippers" | "work-shoes" | "safety-shoes" | "flats" | "heels" | "hunting";
+export type JewelryTypes = "bracelet" | "cufflinks" | "earrings" | "necklace" | "pin" | "ring" | "watch" | "nose-ring" | "toe-ring";
+
 export type ShoeTypes = "ankle-boot" | "ankle-strap" | "clog" | "country" | "deck" | "desert" | "dockside" | "espadrilla" | "espadrille" | "flip-flop" | "frye" | "jockey-boot" | "loafer" | "mary-jane" | "mocassin" | "moccasin" | "monk" | "mule" | "over-the-knee-boot" | "oxford" | "penny-loafer" | "pump" | "saddle" | "sandal" | "sling-back" | "slip-on" | "slipper" | "sneaker" | "snow-boot" | "t-strap" | "wellington" | "western-boot" | "wing-tip" | "winkle-picker";
+export type ActivewearTypes =
+    | 'athletic-dress'
+    | 'athletic-hoodie'
+    | 'athletic-long-sleeve-shirt'
+    | 'athletic-short-sleeve-shirt'
+    | 'athletic-t-shirt'
+    | 'athletic-tank-top'
+    | 'athletic-swimwear'
+    | 'athletic-polo'
+    | 'athletic-leggings'
+    | 'athletic-pants'
+    | 'athletic-skorts'
+    | 'athletic-skirts'
+    | 'athletic-tights'
+    | 'athletic-sweatsuit'
+    | 'jersey'
+    | 'activewear-jacket'
+    | 'activewear-shorts'
+    | 'activewear-snow-pants'
+    | 'activewear-socks'
+    | 'activewear-sports-bra'
+    | 'activewear-track-jacket'
+    | 'activewear-track-pants'
+    | 'activewear-track-suit'
+    | 'activewear-vest'
+    | 'activewear-snow-bib'
+    | 'activewear-snowsuit';
+export type BlazerTypes = 'double breasted' | 'one button' | 'two button' | 'three button' | 'four button';
 export type ShoeWidths = "extra-narrow" | "extra-wide" | "medium" | "narrow" | "wide";
 export type ShootingModes = "automatic" | "easy" | "landscape" | "manual" | "movie" | "portrait" | "sports";
 export type SkillLevels = "amateur" | "novice" | "professional";
-export type SkirtTypes = "a-line" | "asymmetric" | "layered" | "maxi" | "midi" | "mini" | "mini2" | "pencil" | "sheath" | "straight" | "surplice" | "tulip";
-export type SleepwearTypes = "basic-robe" | "chemise" | "duster" | "negligee" | "nightshirt" | "pajamas" | "ruffle-nightgown" | "teddy";
+export type SkirtTypes = "a-line" | "asymmetrical" | "bubble" | "full" | "maxi" | "mini" | "peasant" | "pleated" | "pencil" | "tiered" | "wrap" | "midi" | "pencil" | "tulip";
+export type SleepwearTypes = "robe" | "chemise" | "duster" | "negligee" | "nightshirt" | "pajamas" | "nightgown" | "teddy" | "nightgown" |  "pajama-top" | "pajama-bottom";
 export type SleeveLengths = "3/4 sleeve" | "half" | "short" | "long" | "sleeveless";
 export type SleeveTypes = "balloon" | "cap" | "cold-shoulder" | "cuff" | "flutter" | "batwing" | "bell" | "bishop" | "bracelet" | "butterfly" | "button-tab" | "cape" | "circular-cap" | "cowl" | "drop-shoulder" | "french" | "juliet" | "kimono" | "lantern" | "layered" | "leg-of-mutton" | "peasant" | "petal" | "poet" | "puffed" | "raglan" | "shirt" | "ruffle" | "split";
 export type StrapTypes = "adjustable-strap" | "ankle-strap" | "double-strap" | "padded-strap" | "single-strap" | "slingback-strap" | "strapless" | "t-strap" | "toe-strap" | "x-strap";
-export type SuitTypes = "1-button" | "2-button" | "3-button" | "4-button" | "tuxedo" | "double-breasted" | "dress suit" | "skirt suit" | "pantsuit";
+export type SwimwearTypes = "surf-trunks" | "swim-trunks" | "board-trunks" | "speedo" | "beach-accessories" | "cover-up" | "one-piece" | "two-piece";
+export type UndergarmentTypes = "socks" | "bra" | "g-string" | "thong" | "panties" | "thermals" | "briefs" | "boxers";
+export type SuitTypes = "snowsuit" | "tracksuit" | "tuxedo" | "sweatsuit" | "dress-suit" | "pant-suit" | "skirt-suit" | "bodysuit";
 export type SwimsuitBottomStyles = "brazilian" | "foldover" | "full-brief" | "high-cut" | "high-waist" | "hipster" | "skirted" | "thin-stringed" | "tie-side";
 export type SwimsuitTopStyles = "bandeau" | "bow" | "boyshorts" | "bra" | "flounced" | "halter" | "plunge" | "tankini" | "triangle" | "twisted-bandeau" | "v-wire" | "one-shoulder" | "racerback & crossback" | "underwire";
 export type TieTypes = "american-regimental" | "bolo" | "bow" | "british-regimental" | "club" | "knit";
@@ -184,7 +253,7 @@ export function TextValueControl() {
 }
 
 function toSelectValueControl(enumKey: keyof typeof $me) {
-    const options = $masterEnum[enumKey as keyof typeof $masterEnum].sort((l, r) => l.text?.localeCompare(r?.text ?? '') ?? 0);
+    const options = standardizeOptions($masterEnum[enumKey as keyof typeof $masterEnum] as any).asArray.sort((l, r) => l.text?.localeCompare(r?.text ?? '') ?? 0);
     return function SelectValueControl() {
         const formContext = useFormContext();
         return <SelectElement name='value' label='Value' labelKey='text' valueKey='key' control={formContext.control} options={options} />;

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import 'dotenv/config';
-import { BSON, MongoClient } from 'mongodb';
-import { IProduct, IProductImage } from '../types';
+import { MongoClient } from 'mongodb';
+import { IProduct } from '../types';
 import { distinctByString } from '../common/array/distinct';
 
 const ATLAS_USER = process.env.ATLAS_USER ?? '';

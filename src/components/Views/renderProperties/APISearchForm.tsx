@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
 import { FormProvider, TextFieldElement, useForm } from 'react-hook-form-mui';
 import { Grid } from '../../Grid';
-import { Item } from 'src/components/Item';
 import { ok } from '../../../hooks/compareProduct';
 import { addToQueueFile } from './addToQueueFile';
 import { isOk } from './isOk';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { calculateISBN10FromISBN13, calculateISBN13FromISBN10 } from '../../../hooks/useUpdateRecord';
 import { classifyBarcode } from '../../../util/classifyBarcode';
+import { Item } from '../../Item';
 
 const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
 

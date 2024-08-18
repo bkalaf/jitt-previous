@@ -7,13 +7,13 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { runTransaction } from '../util/runTransaction';
 import { SelectElement, TextFieldElement } from 'react-hook-form-mui';
 import { Grid } from '../components/Grid';
-import { Item } from 'src/components/Item';
 import { IDropboxContext } from '../contexts/DropboxContext';
 import { AttachmentType } from '../schema/choices/AttachmentType';
 import { useInvalidateCollection } from './useInvalidateCollection';
 import { Attachment } from '../schema/entity/attachment';
 import { useMutation } from '@tanstack/react-query';
 import { LoadingButton } from '@mui/lab';
+import { Item } from '../components/Item';
 
 export function AttachmentModal(props: { open: boolean; toggleOpen: () => void; original: ISku; uploadAttachment: IDropboxContext['uploadAttachment']; }) {
     const { open, toggleOpen, original, uploadAttachment } = props;

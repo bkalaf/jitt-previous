@@ -49,6 +49,7 @@ import { OfficeGoodsDetails } from '../schema/entity/detailEntity/OfficeGoodsDet
 import { createUpdateTabPanel } from '../components/Tabs/createUpdateTabPanel';
 import { ApparelAccessoriesDetails } from '../schema/entity/detailEntity/ApparelAccessoriesDetails';
 import { ElectronicsVisualCameraDetails } from '../schema/entity/detailEntity/ElectronicsVisualCameraDetails';
+import { createClassifyTabPanel } from '../components/Tabs/createClassifyTabPanel';
 
 // export const detailsTabList: Record<string, DetailsClass> = {
 //     apparelDetails: ApparelDetails,
@@ -148,6 +149,7 @@ function fromDetailsClass(Ctor: DetailsClass) {
 export const tabList: Record<string, DetailsTabs[]> = {
     sku: [{ label: 'Images', type: 'images', Component: renderProductImagePanel<any>((sku?: ISku) => Array.from(sku?.getProductImages ?? []) as IProductImage[]) }, { label: 'Attachments', type: '', Component: renderAttachmentPanel() }],
     product: [
+        { label: 'Classification', type: '', Component: createClassifyTabPanel() },
         fromDetailsClass(ApparelDetails),
         fromDetailsClass(ApparelAccessoriesDetails),
         fromDetailsClass(ApparelFootwearDetails),

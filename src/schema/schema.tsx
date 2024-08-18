@@ -116,6 +116,7 @@ import { ApparelAccessoriesDetails } from './entity/detailEntity/ApparelAccessor
 import { AdminTask } from './entity/adminTask';
 import { ResolutionMeasure } from './dimensions/ResolutionMeasure';
 import { ElectronicsVisualCameraDetails } from './entity/detailEntity/ElectronicsVisualCameraDetails';
+import { Classification } from './entity/classification';
 
 export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[] = [
     Address as EmbeddedClass<any>,
@@ -136,6 +137,7 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     CaliperSizeMeasure as EmbeddedClass<any>,
     CapacityMeasure as EmbeddedClass<any>,
     Classifier as ReferenceClass<any>,
+    Classification as ReferenceClass<any>,
     ClothingCare as EmbeddedClass<any>,
     Connector as EmbeddedClass<any>,
     Contributor as EmbeddedClass<any>,

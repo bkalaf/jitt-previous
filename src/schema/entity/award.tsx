@@ -1,7 +1,7 @@
 import { $ } from '../$';
 import { AwardStatus, IAward, IContributor } from '../../types';
 import { schemaName } from '../../util/schemaName';
-import $me, { AwardNames, EmmyAwardCategories, GrammyAwardCategories, HugoAwardCategories, NyTimesAwardCategories, OscarAwardCategories, TonyAwardCategories } from '../enums';
+import $me, { AwardNames, EmmyAwardCategories, GrammyAwardCategories, HugoAwardCategories, NyTimesAwardCategories, OscarAwardCategories, PulizerPrizeCategories, TonyAwardCategories } from '../enums';
 import { EntityBase } from './EntityBase';
 import Realm from 'realm';
 import { getChoiceText } from '../../util/getChoiceText';
@@ -9,7 +9,6 @@ import { is } from '../../common/is';
 import { surroundParensIgnore } from '../../common/text/surround';
 import { MRT_ColumnDef } from 'material-react-table';
 import { awardColumns } from '../columns/awardColumns';
-import { PulitzerPrizeAwardCategories } from '../../../dist/OneDrive/Desktop/Code/jitt/src/schema/enums/index';
 
 export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<TAwardName>> implements IAward<TAwardName> {
     static columns: MRT_ColumnDef<IAward<AwardNames>>[] = awardColumns();
@@ -20,7 +19,7 @@ export class BaseAward<TAwardName extends AwardNames> extends EntityBase<IAward<
         : 'oscar' extends TAwardName ? OscarAwardCategories
         : 'emmy' extends TAwardName ? EmmyAwardCategories
         : 'tony' extends TAwardName ? TonyAwardCategories
-        : 'pulitzer' extends TAwardName ? PulitzerPrizeAwardCategories
+        : 'pulitzer' extends TAwardName ? PulizerPrizeCategories
         : 'grammy' extends TAwardName ? GrammyAwardCategories
         : 'ny-times' extends TAwardName ? NyTimesAwardCategories
         : never
@@ -84,7 +83,7 @@ export class HugoAward extends BaseAward<'hugo'> {
 }
 export class PulitzerAward extends BaseAward<'pulitzer'> {
     name = 'pulitzer' as const;
-    category: Opt<PulitzerPrizeAwardCategories>;
+    category: Opt<PulizerPrizeCategories>;
 }
 
 const categoryFromName = {

@@ -114,6 +114,9 @@ declare module '@mui/material/Button' {
         tertiary: true;
     }
 }
+declare module '@mui/material/Checkbox' {
+    interface CheckboxPropsColorOverrides extends IPalletteColors<true> {}
+}
 declare module '@mui/material/IconButton' {
     interface IconButtonPropsColorOverrides extends IPalletteColors<true> {}
 }

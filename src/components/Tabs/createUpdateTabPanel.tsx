@@ -27,7 +27,7 @@ export function createUpdateTabPanel<T extends MRT_RowData>(columns: MRT_ColumnD
         const onClick = useMemo(() => formContext.handleSubmit((data) => handleSubmit(data as any)), [formContext, handleSubmit]);
         const db = useLocalRealm();
         const { data } = useSuspenseQuery({
-            queryKey: ['rn', 'rnNos' ],
+            queryKey: ['rn', 'rnNos'],
             queryFn: () => {
                 return Promise.resolve(db.objects<IRn>('rn').map((x) => x.no));
             }
@@ -46,7 +46,7 @@ export function createUpdateTabPanel<T extends MRT_RowData>(columns: MRT_ColumnD
                     alert('RN Table already contains this value.');
                 } else {
                     ipcRenderer.invoke('import-rn', result).then(() => invalidator());
-                }                
+                }
             });
         }, [data, invalidator]);
         return (

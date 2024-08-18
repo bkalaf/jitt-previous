@@ -6,13 +6,13 @@ import { runTransaction } from '../util/runTransaction';
 import { useConvert } from './useConvert';
 import { Realm } from 'realm';
 import { Grid } from '../components/Grid';
-import { Item } from 'src/components/Item';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import { Product } from '../schema/entity/product';
 import { EditControls } from '../components/controls/EditControls';
 import { toJSON } from '../components/Views/renderProperties/toJSON';
 import { useDirectStaticColumns } from './useDirectStaticColumns';
+import { Item } from '../components/Item';
 
 export function convertProduct(product: IProduct & Realm.Object<IProduct>) {
     const { testedOn, ...rest } = toJSON(product);

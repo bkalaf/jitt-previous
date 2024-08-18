@@ -314,12 +314,6 @@
     "bagTypes": [
         {
             "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/backpack.png",
-            "key": "backpack",
-            "text": "backpack"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/bagTypes/baguette.png",
             "key": "baguette",
             "text": "baguette"
@@ -329,12 +323,6 @@
             "image": "src/assets/images/enums/bagTypes/barrel.png",
             "key": "barrel",
             "text": "barrel"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/bucket.png",
-            "key": "bucket",
-            "text": "bucket"
         },
         {
             "aliases": [],
@@ -366,18 +354,7 @@
             "key": "frame",
             "text": "frame"
         },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/hobo.png",
-            "key": "hobo",
-            "text": "hobo"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/messenger.png",
-            "key": "messenger",
-            "text": "messenger"
-        },
+
         {
             "aliases": [],
             "image": "src/assets/images/enums/bagTypes/quilited.png",
@@ -390,12 +367,7 @@
             "key": "saddle",
             "text": "saddle"
         },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/satchel.png",
-            "key": "satchel",
-            "text": "satchel"
-        },
+
         {
             "aliases": [],
             "image": "src/assets/images/enums/bagTypes/shopper.png",
@@ -404,16 +376,45 @@
         },
         {
             "aliases": [],
-            "image": "src/assets/images/enums/bagTypes/tote.png",
-            "key": "tote",
-            "text": "tote"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/bagTypes/wristlet.png",
             "key": "wristlet",
             "text": "wristlet"
-        }
+        },
+        { "image": "src/assets/images/enums/bagTypes/backpack.png", "aliases": [], "key": "backpack", "text": "backpack" },
+        { "aliases": [], "key": "bag", "text": "bag" },
+        { "aliases": [], "key": "briefcase", "text": "briefcase" },
+        { "image": "src/assets/images/enums/bagTypes/bucket.png", "aliases": [], "key": "bucket", "text": "bucket" },
+        { "aliases": [], "key": "cosmetic", "text": "cosmetic" },
+        { "aliases": [], "key": "cross-body", "text": "cross-body" },
+        { "image": "src/assets/images/enums/bagTypes/messenger.png", "aliases": [], "key": "messenger", "text": "messenger" },
+        { "image": "src/assets/images/enums/bagTypes/hobo.png", "aliases": [], "key": "hobo", "text": "hobo" },
+        { "image": "src/assets/images/enums/bagTypes/satchel.png", "aliases": [], "key": "satchel", "text": "satchel" },
+        { "aliases": [], "key": "shoulder", "text": "shoulder" },
+        { "image": "src/assets/images/enums/bagTypes/tote.png", "aliases": [], "key": "tote", "text": "tote" },
+        { "aliases": [], "key": "fanny-pack", "text": "fanny-pack" }
+    ],
+    "apparelAccessoryTypes": [
+        { "aliases": [], "key": "belt", "text": "belt" },
+        { "aliases": [], "key": "carholder", "text": "carholder" },
+        { "aliases": [], "key": "gloves", "text": "gloves" },
+        { "aliases": [], "key": "handkerchief", "text": "handkerchief" },
+        { "aliases": [], "key": "turban", "text": "turban" },
+        { "aliases": [], "key": "umbrella", "text": "umbrella" },
+        { "aliases": [], "key": "wallet", "text": "wallet" },
+        { "aliases": [], "key": "fascinator", "text": "fascinator" }
+    ],
+    "headAccessoryTypes": [
+        { "aliases": [], "key": "bandana", "text": "bandana" },
+        { "aliases": [], "key": "bow-tie", "text": "bow-tie" },
+        { "aliases": [], "key": "collar-stay", "text": "collar-stay" },
+        { "aliases": [], "key": "hat", "text": "hat" },
+        { "aliases": [], "key": "ballcap", "text": "ballcap" },
+        { "aliases": [], "key": "sunglasses", "text": "sunglasses" },
+        { "aliases": [], "key": "tie", "text": "tie" },
+        { "aliases": [], "key": "hair-accessory", "text": "hair-accessory" },
+        { "aliases": [], "key": "headband", "text": "headband" },
+        { "aliases": [], "key": "hijab", "text": "hijab" },
+        { "aliases": [], "key": "scarf", "text": "scarf" }
     ],
     "barcodeTypes": [
         {
@@ -630,7 +631,130 @@
             "text": "over-the-knee"
         }
     ],
+    "shortsTypes": [
+        {
+            "key": "gym-shorts",
+            "text": "gym shorts",
+            "aliases": []
+        },
+        {
+            "key": "board-shorts",
+            "text": "board shorts",
+            "aliases": []
+        },
+        {
+            "key": "cargo-shorts",
+            "text": "cargo shorts",
+            "aliases": []
+        },
+        {
+            "key": "casual-shorts",
+            "text": "casual shorts",
+            "aliases": []
+        },
+        {
+            "key": "corduroy-shorts",
+            "text": "corduroy shorts",
+            "aliases": []
+        },
+        {
+            "key": "dress-shorts",
+            "text": "dress shorts",
+            "aliases": []
+        },
+        {
+            "key": "board-swim-trunks",
+            "text": "board swim trunks",
+            "aliases": []
+        },
+        {
+            "key": "bermuda-shorts",
+            "text": "bermuda shorts",
+            "aliases": []
+        },
+        {
+            "key": "bike-shorts",
+            "text": "bike shorts",
+            "aliases": []
+        },
+        {
+            "key": "high-waisted-shorts",
+            "text": "high-waisted shorts",
+            "aliases": []
+        },
+        {
+            "key": "skort",
+            "text": "skort",
+            "aliases": []
+        },
+        {
+            "key": "short-shorts",
+            "text": "short-shorts",
+            "aliases": []
+        },
+        {
+            "key": "denim-shorts",
+            "text": "denim shorts",
+            "aliases": []
+        }
+    ],
+    "materialStyles": [
+        { "bottomType": ["pants", "shorts"], "gender": ["mens", "womens"], "key": "chinos", "text": "chinos", "aliases": [] },
+        { "bottomType": ["pants", "shorts"], "gender": ["mens", "womens"], "key": "khakis", "text": "khakis", "aliases": [] },
+        { "bottomType": ["pants"], "gender": ["mens", "womens"], "key": "corduroys", "text": "corduroys", "aliases": [] },
+        { "bottomType": ["pants"], "gender": ["mens", "womens"], "key": "leather", "text": "leather", "aliases": [] },
+        { "bottomType": ["pants"], "gender": ["womens"], "key": "linen", "text": "linen", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["mens", "womens"], "key": "denim", "text": "denim", "aliases": [] }
+    ],
+    "pantStyles": [
+        { "bottomType": ["jeans", "pants", "shorts"], "gender": ["mens", "womens"], "key": "cargo", "text": "cargo", "aliases": [] },
+        { "bottomType": ["jeans", "pants", "shorts"], "gender": ["mens", "womens"], "key": "carpenter", "text": "carpenter", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "overalls", "text": "overalls", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["womens"], "key": "boyfriend", "text": "boyfriend", "aliases": [] },
+        { "bottomType": ["pants", "shorts"], "gender": ["mens", "womens"], "key": "casual", "text": "casual", "aliases": [] },
+        { "bottomType": ["pants", "shorts"], "gender": ["mens", "womens"], "key": "dress", "text": "dress", "aliases": [] },
+        { "bottomType": ["pants"], "gender": ["mens", "womens"], "key": "pleated", "text": "pleated", "aliases": [] },
+        { "bottomType": ["pants"], "gender": ["womens"], "key": "leggings", "text": "leggings", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["womens"], "key": "bermuda", "text": "bermuda", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["womens"], "key": "bike", "text": "bike", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["mens"], "key": "board", "text": "board" },
+        { "bottomType": ["shorts"], "gender": ["womens"], "key": "high-wasted", "text": "high-wasted", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["womens"], "key": "short-shorts", "text": "short-shorts", "aliases": [] },
+        { "bottomType": ["shorts"], "gender": ["womens"], "key": "skort", "text": "skort", "aliases": [] }
+    ],
+    "legStyles": [
+        { "bottomType": ["jeans", "pants"], "gender": ["womens"], "key": "capri", "text": "capri", "aliases": [] },
+        { "bottomType": ["jeans", "pants"], "gender": ["womens"], "key": "cropped", "text": "cropped", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "baggy", "text": "baggy", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "bootcut", "text": "bootcut", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "relaxed", "text": "relaxed", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "skinny", "text": "skinny", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "slim", "text": "slim", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["mens", "womens"], "key": "straight", "text": "straight", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["womens"], "key": "flare", "text": "flare", "aliases": [] },
+        { "bottomType": ["jeans"], "gender": ["womens"], "key": "slimbootcut", "text": "slimbootcut", "aliases": [] }
+    ],
     "bottomTypes": [
+        {
+            "aliases": [],
+            "key": "skirt",
+            "text": "skirt"
+        },
+        {
+            "aliases": [],
+            "key": "jeans",
+            "text": "jeans"
+        },
+        {
+            "aliases": [],
+            "key": "khakis",
+            "text": "khakis"
+        },
+        {
+            "aliases": [],
+            "key": "swim-trunks",
+            "text": "swim-trunks"
+        },
         {
             "aliases": [],
             "image": "src/assets/images/enums/bottomTypes/5-pocket.png",
@@ -720,6 +844,11 @@
             "image": "src/assets/images/enums/bottomTypes/skort.png",
             "key": "skort",
             "text": "skort"
+        },
+        {
+            "aliases": [],
+            "key": "shorts",
+            "text": "shorts"
         },
         {
             "aliases": [],
@@ -1461,27 +1590,21 @@
             "contributorType": "individual",
             "key": "author",
             "text": "author",
-            "types": [
-                "book"
-            ]
+            "types": ["book"]
         },
         {
             "aliases": [],
             "contributorType": "individual",
             "key": "illustrator",
             "text": "illustrator",
-            "types": [
-                "book"
-            ]
+            "types": ["book"]
         },
         {
             "aliases": [],
             "contributorType": "group",
             "key": "publisher",
             "text": "publisher",
-            "types": [
-                "book"
-            ]
+            "types": ["book"]
         },
         {
             "aliases": [],
@@ -1489,59 +1612,42 @@
             "key": "actor",
             "linkedField": "creditedAs",
             "text": "actor",
-            "types": [
-                "tvSeries",
-                "movie"
-            ]
+            "types": ["tvSeries", "movie"]
         },
         {
             "aliases": [],
             "contributorType": "individual",
             "key": "director",
             "text": "director",
-            "types": [
-                "tvSeries",
-                "movie"
-            ]
+            "types": ["tvSeries", "movie"]
         },
         {
             "aliases": [],
             "contributorType": "individual",
             "key": "producer",
             "text": "producer",
-            "types": [
-                "tvSeries",
-                "movie"
-            ]
+            "types": ["tvSeries", "movie"]
         },
         {
             "aliases": [],
             "contributorType": "group",
             "key": "studio",
             "text": "studio",
-            "types": [
-                "album",
-                "tvSeries",
-                "movie"
-            ]
+            "types": ["album", "tvSeries", "movie"]
         },
         {
             "aliases": [],
             "contributorType": "individual",
             "key": "performer",
             "text": "performer",
-            "types": [
-                "album"
-            ]
+            "types": ["album"]
         },
         {
             "aliases": [],
             "contributorType": "individual",
             "key": "songwriter",
             "text": "songwriter",
-            "types": [
-                "album"
-            ]
+            "types": ["album"]
         }
     ],
     "countries": [
@@ -3216,6 +3322,17 @@
             "text": "toys/stuffed-animals"
         }
     ],
+    "jewelryTypes": [
+        { "aliases": [], "key": "bracelet", "text": "bracelet" },
+        { "aliases": [], "key": "cufflinks", "text": "cufflinks" },
+        { "aliases": [], "key": "earrings", "text": "earrings" },
+        { "aliases": [], "key": "necklace", "text": "necklace" },
+        { "aliases": [], "key": "pin", "text": "pin" },
+        { "aliases": [], "key": "ring", "text": "ring" },
+        { "aliases": [], "key": "watch", "text": "watch" },
+        { "aliases": [], "key": "nose-ring", "text": "nose-ring" },
+        { "aliases": [], "key": "toe-ring", "text": "toe-ring" }
+    ],
     "dinnerwareTypes": [
         {
             "aliases": [],
@@ -3300,42 +3417,16 @@
         },
         {
             "aliases": [],
-            "image": "src/assets/images/enums/dressTypes/jumper-dress.png",
-            "key": "jumper-dress",
-            "text": "jumper-dress"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/dressTypes/maxi.png",
-            "key": "maxi",
-            "text": "maxi"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/dressTypes/wrap-dress.png",
             "key": "wrap-dress",
             "text": "wrap-dress"
         },
-        {
-            "aliases": [],
-            "key": "above-knee",
-            "text": "above-knee"
-        },
-        {
-            "aliases": [],
-            "key": "knee-length",
-            "text": "knee-length"
-        },
-        {
-            "aliases": [],
-            "key": "midi",
-            "text": "midi"
-        },
-        {
-            "aliases": [],
-            "key": "high-low",
-            "text": "high-low"
-        }
+        { "aliases": [], "key": "high-low", "text": "high-low" },
+        { "image": "src/assets/images/enums/dressTypes/jumper-dress.png", "aliases": [], "key": "jumpsuit", "text": "jumpsuit" },
+        { "aliases": [], "key": "romper", "text": "romper" },
+        { "aliases": [], "key": "knee-length", "text": "knee-length" },
+        { "image": "src/assets/images/enums/dressTypes/maxi.png", "aliases": [], "key": "maxi", "text": "maxi" },
+        { "aliases": [], "key": "midi", "text": "midi" }
     ],
     "driveFormFactors": [
         {
@@ -4066,16 +4157,12 @@
             "text": "loose-fit"
         },
         {
-            "aliases": [
-                "relaxed-fit"
-            ],
+            "aliases": ["relaxed-fit"],
             "key": "relaxed",
             "text": "relaxed-fit"
         },
         {
-            "aliases": [
-                "athletic-fit"
-            ],
+            "aliases": ["athletic-fit"],
             "key": "athletic",
             "text": "atheletic fit"
         },
@@ -4110,9 +4197,7 @@
             "text": "skinny"
         },
         {
-            "aliases": [
-                "slim-fit"
-            ],
+            "aliases": ["slim-fit"],
             "key": "slim",
             "text": "slim fit"
         },
@@ -4127,9 +4212,7 @@
             "text": "straight"
         },
         {
-            "aliases": [
-                "tailored"
-            ],
+            "aliases": ["tailored"],
             "key": "tailored",
             "text": "tailored-fit"
         }
@@ -4308,34 +4391,22 @@
     ],
     "genders": [
         {
-            "aliases": [
-                "men's",
-                "men"
-            ],
+            "aliases": ["men's", "men"],
             "key": "mens",
             "text": "mens"
         },
         {
-            "aliases": [
-                "women's",
-                "women"
-            ],
+            "aliases": ["women's", "women"],
             "key": "womens",
             "text": "womens"
         },
         {
-            "aliases": [
-                "boy",
-                "boy's"
-            ],
+            "aliases": ["boy", "boy's"],
             "key": "boys",
             "text": "boys"
         },
         {
-            "aliases": [
-                "girl",
-                "girl's"
-            ],
+            "aliases": ["girl", "girl's"],
             "key": "girls",
             "text": "girls"
         },
@@ -4769,18 +4840,12 @@
     ],
     "handOrientations": [
         {
-            "aliases": [
-                "right-handed",
-                "right handed"
-            ],
+            "aliases": ["right-handed", "right handed"],
             "key": "rh",
             "text": "right-handed"
         },
         {
-            "aliases": [
-                "left-handed",
-                "left handed"
-            ],
+            "aliases": ["left-handed", "left handed"],
             "key": "lh",
             "text": "left-handed"
         }
@@ -5085,34 +5150,27 @@
     "jacketTypes": [
         {
             "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/baseball.png",
-            "key": "baseball",
-            "text": "baseball"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/biker.png",
-            "key": "biker",
-            "text": "biker"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/jacketTypes/blazer.png",
             "key": "blazer",
             "text": "blazer"
         },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/bomber.png",
-            "key": "bomber",
-            "text": "bomber"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/denim.png",
-            "key": "denim",
-            "text": "denim"
-        },
+        { "aliases": [], "key": "cape", "text": "cape" },
+        { "aliases": [], "key": "fleece", "image": "src/assets/images/enums/jacketTypes/lumber.png", "text": "fleece" },
+        { "aliases": [], "key": "bomber", "image": "src/assets/images/enums/jacketTypes/bomber.png", "text": "bomber" },
+        { "aliases": [], "key": "hoodie", "text": "hoodie" },
+        { "aliases": [], "key": "jean", "image": "src/assets/images/enums/jacketTypes/denim.png", "text": "jean" },
+        { "aliases": [], "key": "military", "image": "src/assets/images/enums/jacketTypes/safari.png", "text": "military" },
+        { "aliases": [], "key": "leather", "text": "leather", "image": "src/assets/images/enums/jacketTypes/biker.png" },
+        { "aliases": [], "key": "parka", "text": "parka" },
+        { "aliases": [], "key": "peacoat", "text": "peacoat" },
+        { "aliases": [], "key": "puffer", "image": "src/assets/images/enums/jacketTypes/down.png", "text": "puffer" },
+        { "aliases": [], "key": "raincoat", "text": "raincoat" },
+        { "aliases": [], "key": "trenchcoat", "text": "trenchcoat" },
+        { "aliases": [], "key": "baseball", "text": "baseball", "image": "src/assets/images/enums/jacketTypes/baseball.png" },
+        { "aliases": [], "key": "vest", "text": "vest" },
+        { "aliases": [], "key": "windbreaker", "text": "windbreaker" },
+        { "aliases": [], "key": "winter", "text": "winter" },
+        { "aliases": [], "key": "hunting", "image": "src/assets/images/enums/jacketTypes/mackinaw.png", "text": "hunting" },
         {
             "aliases": [],
             "image": "src/assets/images/enums/jacketTypes/double-breasted.png",
@@ -5121,33 +5179,9 @@
         },
         {
             "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/down.png",
-            "key": "down",
-            "text": "down"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/lumber.png",
-            "key": "lumber",
-            "text": "lumber"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/mackinaw.png",
-            "key": "mackinaw",
-            "text": "mackinaw"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/jacketTypes/nehru.png",
             "key": "nehru",
             "text": "nehru"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/jacketTypes/safari.png",
-            "key": "safari",
-            "text": "safari"
         },
         {
             "aliases": [],
@@ -5396,67 +5430,133 @@
             "text": "ulster"
         }
     ],
-    "legStyles": [
+    "pantsTypes": [
         {
-            "aliases": [],
-            "key": "ankle",
-            "text": "ankle-leg"
+            "key": "athletic-sweatpants",
+            "text": "athletic sweatpants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "key": "baggy",
-            "text": "baggy"
+            "key": "athletic-pants",
+            "text": "athletic pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "key": "cropped",
-            "text": "cropped"
+            "key": "snow-pants",
+            "text": "snow pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "image": "src/assets/images/enums/legStyles/boot-cut.png",
-            "key": "boot-cut",
-            "text": "boot-cut"
+            "key": "track-pants",
+            "text": "track pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "image": "src/assets/images/enums/legStyles/flare.png",
-            "key": "flare",
-            "text": "flare"
+            "key": "casual-pants",
+            "text": "casual pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "image": "src/assets/images/enums/legStyles/skinny.png",
-            "key": "skinny",
-            "text": "skinny"
+            "key": "corduroys",
+            "text": "corduroys",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "image": "src/assets/images/enums/legStyles/straight.png",
-            "key": "straight",
-            "text": "straight"
+            "key": "pleated-pants",
+            "text": "pleated pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "key": "tapered",
-            "text": "tapered-leg"
+            "key": "dress-pants",
+            "text": "dress pants",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "key": "trouser",
-            "text": "trouser-leg"
+            "key": "khakis",
+            "text": "khakis",
+            "aliases": []
         },
         {
-            "aliases": [],
-            "key": "wide",
-            "text": "wide-leg"
+            "key": "sweatpants",
+            "text": "sweatpants",
+            "aliases": []
+        },
+        {
+            "key": "leather-pants",
+            "text": "leather pants",
+            "aliases": []
+        },
+        {
+            "key": "linen-pants",
+            "text": "linen pants",
+            "aliases": []
+        },
+        {
+            "key": "maternity-suit-pants",
+            "text": "maternity suit pants",
+            "aliases": []
         }
+    ],
+    "youthSizes": [
+        { "key": "0-24M", "text": "0-24M", "aliases": [] },
+        { "key": "2T-5T", "text": "2T-5T", "aliases": [] },
+        { "key": "4T+", "text": "4T+", "aliases": [] }
+    ],
+    "blazerTypes": [
+        { "key": "double-breasted", "text": "double breasted", "aliases": [] },
+        { "key": "one-button", "text": "one button", "aliases": [] },
+        { "key": "two-button", "text": "two button", "aliases": [] },
+        { "key": "three-button", "text": "three button", "aliases": [] },
+        { "key": "four-button", "text": "four button", "aliases": [] }
+    ],
+    "activewearTypes": [
+        { "key": "athletic-dress", "text": "athletic dress", "aliases": [] },
+        { "key": "athletic-hoodie", "text": "athletic hoodie", "aliases": [] },
+        { "key": "athletic-long-sleeve-shirt", "text": "athletic long sleeve shirt", "aliases": [] },
+        { "key": "athletic-short-sleeve-shirt", "text": "athletic short sleeve shirt", "aliases": [] },
+        { "key": "athletic-t-shirt", "text": "athletic t-shirt", "aliases": [] },
+        { "key": "athletic-tank-top", "text": "athletic tank top", "aliases": [] },
+        { "key": "athletic-swimwear", "text": "athletic swimwear", "aliases": [] },
+        { "key": "athletic-polo", "text": "athletic polo", "aliases": [] },
+        { "key": "athletic-leggings", "text": "athletic leggings", "aliases": [] },
+        { "key": "athletic-pants", "text": "athletic pants", "aliases": [] },
+        { "key": "athletic-skorts", "text": "athletic skorts", "aliases": [] },
+        { "key": "athletic-skirts", "text": "athletic skirts", "aliases": [] },
+        { "key": "athletic-tights", "text": "athletic tights", "aliases": [] },
+        { "key": "athletic-sweatsuit", "text": "athletic sweatsuit", "aliases": [] },
+        { "key": "jersey", "text": "jersey", "aliases": [] },
+        { "key": "activewear-jacket", "text": "activewear jacket", "aliases": [] },
+        { "key": "activewear-shorts", "text": "activewear shorts", "aliases": [] },
+        { "key": "activewear-snow-pants", "text": "activewear snow pants", "aliases": [] },
+        { "key": "activewear-socks", "text": "activewear socks", "aliases": [] },
+        { "key": "activewear-sports-bra", "text": "activewear sports bra", "aliases": [] },
+        { "key": "activewear-track-jacket", "text": "activewear track jacket", "aliases": [] },
+        { "key": "activewear-track-pants", "text": "activewear track pants", "aliases": [] },
+        { "key": "activewear-track-suit", "text": "activewear track suit", "aliases": [] },
+        { "key": "activewear-vest", "text": "activewear vest", "aliases": [] },
+        { "key": "activewear-snow-bib", "text": "activewear snow bib", "aliases": [] },
+        { "key": "activewear-snowsuit", "text": "activewear snowsuit", "aliases": [] }
+    ],
+    "footwearTypes": [
+        { "shoeTypes": ["sneakers"], "aliases": [], "key": "sneakers", "text": "sneakers" },
+        { "shoeTypes": ["sneakers"], "aliases": [], "key": "fashion-sneakers", "text": "fashion-sneakers" },
+        { "shoeTypes": ["deck", "loafer", "monk", "penny-loafer"], "aliases": [], "key": "loafers", "text": "loafers" },
+        { "shoeTypes": ["clog"], "aliases": [], "key": "clogs", "text": "clogs" },
+        { "shoeTypes": ["ankle-boot", "country", "desert", "frye", "jockey-boot", "over-the-knee-boot", "snow-boot", "wellington", "western-boot"], "aliases": [], "key": "boots", "text": "boots" },
+        { "shoeTypes": ["mule"], "aliases": [], "key": "mules", "text": "mules" },
+        { "shoeTypes": ["oxford", "saddle", "wing-tip", "winkle-picker"], "aliases": [], "key": "oxfords", "text": "oxfords" },
+        { "shoeTypes": [], "aliases": [], "key": "outdoors", "text": "outdoors" },
+        { "shoeTypes": ["flip-flop", "sandal"], "aliases": [], "key": "sandals", "text": "sandals" },
+        { "shoeTypes": ["dockside", "mocassin", "slip-on"], "aliases": [], "key": "slip-ons", "text": "slip-ons" },
+        { "shoeTypes": ["espadrilla", "slipper"], "aliases": [], "key": "slippers", "text": "slippers" },
+        { "shoeTypes": [], "aliases": [], "key": "work-shoes", "text": "work-shoes" },
+        { "shoeTypes": [], "aliases": [], "key": "safety-shoes", "text": "safety-shoes" },
+        { "shoeTypes": [], "aliases": [], "key": "flats", "text": "flats" },
+        { "shoeTypes": ["ankle-strap", "espadrille", "mary-jane", "pump", "sling-back", "t-strap"], "aliases": [], "key": "heels", "text": "heels" }
     ],
     "lengthUnitOfMeasure": [
         {
-            "aliases": [
-                "in"
-            ],
+            "aliases": ["in"],
             "key": "″",
             "text": "″"
         },
@@ -5791,10 +5891,7 @@
             "text": "UR"
         },
         {
-            "aliases": [
-                "Not Rated",
-                "No Rating"
-            ],
+            "aliases": ["Not Rated", "No Rating"],
             "key": "NR",
             "text": "NR"
         }
@@ -5976,12 +6073,12 @@
         {
             "aliases": [],
             "key": "collared",
-            "text": "collared-neck"
+            "text": "collared"
         },
         {
             "aliases": [],
             "key": "crew",
-            "text": "crew-neck"
+            "text": "crewneck"
         },
         {
             "aliases": [],
@@ -6040,7 +6137,7 @@
         {
             "aliases": [],
             "key": "henley",
-            "text": "henley-neck"
+            "text": "henley"
         },
         {
             "aliases": [],
@@ -6079,8 +6176,8 @@
         },
         {
             "aliases": [],
-            "key": "turtle",
-            "text": "turtle-neck"
+            "key": "turtleneck",
+            "text": "turtleneck"
         }
     ],
     "networks": [
@@ -6836,9 +6933,7 @@
             "text": "silver"
         },
         {
-            "aliases": [
-                "goldenrod"
-            ],
+            "aliases": ["goldenrod"],
             "classes": "bg-yellow-700 text-white border-black",
             "key": "gold",
             "selector": "#itemColorId-13",
@@ -6859,105 +6954,70 @@
             "text": "brown"
         },
         {
-            "aliases": [
-                "amber",
-                "copper"
-            ],
+            "aliases": ["amber", "copper"],
             "classes": "bg-orange-500 text-white border-black",
             "key": "orange",
             "selector": "#itemColorId-11",
             "text": "orange"
         },
         {
-            "aliases": [
-                "magenta",
-                "fuchsia"
-            ],
+            "aliases": ["magenta", "fuchsia"],
             "classes": "bg-pink-500 text-white border-black",
             "key": "pink",
             "selector": "#itemColorId-6",
             "text": "pink"
         },
         {
-            "aliases": [
-                "burgundy",
-                "rose",
-                "scarlet",
-                "crimson"
-            ],
+            "aliases": ["burgundy", "rose", "scarlet", "crimson"],
             "classes": "bg-red-500 text-white border-black",
             "key": "red",
             "selector": "#itemColorId-5",
             "text": "red"
         },
         {
-            "aliases": [
-                "violet"
-            ],
+            "aliases": ["violet"],
             "classes": "bg-purple-500 text-white border-black",
             "key": "purple",
             "selector": "#itemColorId-7",
             "text": "purple"
         },
         {
-            "aliases": [
-                "cyan",
-                "aqua",
-                "teal",
-                "navy",
-                "denim",
-                "light-blue"
-            ],
+            "aliases": ["cyan", "aqua", "teal", "navy", "denim", "light-blue"],
             "classes": "bg-sky-500 text-white border-black",
             "key": "blue",
             "selector": "#itemColorId-8",
             "text": "blue"
         },
         {
-            "aliases": [
-                "lime",
-                "emerald",
-                "dark-green",
-                "forest-green",
-                "sea-green"
-            ],
+            "aliases": ["lime", "emerald", "dark-green", "forest-green", "sea-green"],
             "classes": "bg-emerald-500 text-white border-black",
             "key": "green",
             "selector": "#itemColorId-9",
             "text": "green"
         },
         {
-            "aliases": [
-                "charcoal"
-            ],
+            "aliases": ["charcoal"],
             "classes": "bg-black text-white border-white",
             "key": "black",
             "selector": "#itemColorId-1",
             "text": "black"
         },
         {
-            "aliases": [
-                "cream",
-                "eggshell"
-            ],
+            "aliases": ["cream", "eggshell"],
             "classes": "bg-white text-black border-black",
             "key": "white",
             "selector": "#itemColorId-3",
             "text": "white"
         },
         {
-            "aliases": [
-                "grey"
-            ],
+            "aliases": ["grey"],
             "classes": "bg-neutral-500 text-white bg-black",
             "key": "gray",
             "selector": "#itemColorId-2",
             "text": "gray"
         },
         {
-            "aliases": [
-                "tan"
-            ],
+            "aliases": ["tan"],
             "classes": "bg-orange-300 text-white border-black",
             "key": "beige",
             "selector": "#itemColorId-4",
@@ -7843,6 +7903,12 @@
         },
         {
             "aliases": [],
+            "image": "src/assets/images/enums/shirtTypes/oxford.png",
+            "key": "oxford",
+            "text": "oxford"
+        },
+        {
+            "aliases": [],
             "image": "src/assets/images/enums/shirtTypes/polo.png",
             "key": "polo",
             "text": "polo"
@@ -7993,210 +8059,40 @@
         }
     ],
     "shoeTypes": [
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/ankle-boot.png",
-            "key": "ankle-boot",
-            "text": "ankle-boot"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/ankle-strap.png",
-            "key": "ankle-strap",
-            "text": "ankle-strap"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/clog.png",
-            "key": "clog",
-            "text": "clog"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/country.png",
-            "key": "country",
-            "text": "country"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/deck.png",
-            "key": "deck",
-            "text": "deck"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/desert.png",
-            "key": "desert",
-            "text": "desert"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/dockside.png",
-            "key": "dockside",
-            "text": "dockside"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/espadrilla.png",
-            "key": "espadrilla",
-            "text": "espadrilla"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/espadrille.png",
-            "key": "espadrille",
-            "text": "espadrille"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/flip-flop.png",
-            "key": "flip-flop",
-            "text": "flip-flop"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/frye.png",
-            "key": "frye",
-            "text": "frye"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/jockey-boot.png",
-            "key": "jockey-boot",
-            "text": "jockey-boot"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/loafer.png",
-            "key": "loafer",
-            "text": "loafer"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/mary-jane.png",
-            "key": "mary-jane",
-            "text": "mary-jane"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/mocassin.png",
-            "key": "mocassin",
-            "text": "mocassin"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/moccasin.png",
-            "key": "moccasin",
-            "text": "moccasin"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/monk.png",
-            "key": "monk",
-            "text": "monk"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/mule.png",
-            "key": "mule",
-            "text": "mule"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/over-the-knee-boot.png",
-            "key": "over-the-knee-boot",
-            "text": "over-the-knee-boot"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/oxford.png",
-            "key": "oxford",
-            "text": "oxford"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/penny-loafer.png",
-            "key": "penny-loafer",
-            "text": "penny-loafer"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/pump.png",
-            "key": "pump",
-            "text": "pump"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/saddle.png",
-            "key": "saddle",
-            "text": "saddle"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/sandal.png",
-            "key": "sandal",
-            "text": "sandal"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/sling-back.png",
-            "key": "sling-back",
-            "text": "sling-back"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/slip-on.png",
-            "key": "slip-on",
-            "text": "slip-on"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/slipper.png",
-            "key": "slipper",
-            "text": "slipper"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/sneaker.png",
-            "key": "sneaker",
-            "text": "sneaker"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/snow-boot.png",
-            "key": "snow-boot",
-            "text": "snow-boot"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/t-strap.png",
-            "key": "t-strap",
-            "text": "t-strap"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/wellington.png",
-            "key": "wellington",
-            "text": "wellington"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/western-boot.png",
-            "key": "western-boot",
-            "text": "western-boot"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/wing-tip.png",
-            "key": "wing-tip",
-            "text": "wing-tip"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/shoeTypes/winkle-picker.png",
-            "key": "winkle-picker",
-            "text": "winkle-picker"
-        }
+        { "image": "src/assets/images/enums/shoeTypes/ankle-boot.png", "aliases": [], "key": "ankle-boot", "text": "ankle-boot" },
+        { "image": "src/assets/images/enums/shoeTypes/ankle-strap.png", "aliases": [], "key": "ankle-strap", "text": "ankle-strap" },
+        { "image": "src/assets/images/enums/shoeTypes/clog.png", "aliases": [], "key": "clog", "text": "clog" },
+        { "image": "src/assets/images/enums/shoeTypes/country.png", "aliases": [], "key": "country", "text": "country" },
+        { "image": "src/assets/images/enums/shoeTypes/deck.png", "aliases": [], "key": "deck", "text": "deck" },
+        { "image": "src/assets/images/enums/shoeTypes/desert.png", "aliases": [], "key": "desert", "text": "desert" },
+        { "image": "src/assets/images/enums/shoeTypes/dockside.png", "aliases": [], "key": "dockside", "text": "dockside" },
+        { "image": "src/assets/images/enums/shoeTypes/espadrilla.png", "aliases": [], "key": "espadrilla", "text": "espadrilla" },
+        { "image": "src/assets/images/enums/shoeTypes/espadrille.png", "aliases": [], "key": "espadrille", "text": "espadrille" },
+        { "image": "src/assets/images/enums/shoeTypes/flip-flop.png", "aliases": [], "key": "flip-flop", "text": "flip-flop" },
+        { "image": "src/assets/images/enums/shoeTypes/frye.png", "aliases": [], "key": "frye", "text": "frye" },
+        { "image": "src/assets/images/enums/shoeTypes/jockey-boot.png", "aliases": [], "key": "jockey-boot", "text": "jockey-boot" },
+        { "image": "src/assets/images/enums/shoeTypes/loafer.png", "aliases": [], "key": "loafer", "text": "loafer" },
+        { "image": "src/assets/images/enums/shoeTypes/mary-jane.png", "aliases": [], "key": "mary-jane", "text": "mary-jane" },
+        { "image": "src/assets/images/enums/shoeTypes/mocassin.png", "aliases": [], "key": "mocassin", "text": "mocassin" },
+        { "image": "src/assets/images/enums/shoeTypes/moccasin.png", "aliases": [], "key": "moccasin", "text": "moccasin" },
+        { "image": "src/assets/images/enums/shoeTypes/monk.png", "aliases": [], "key": "monk", "text": "monk" },
+        { "image": "src/assets/images/enums/shoeTypes/mule.png", "aliases": [], "key": "mule", "text": "mule" },
+        { "image": "src/assets/images/enums/shoeTypes/over-the-knee-boot.png", "aliases": [], "key": "over-the-knee-boot", "text": "over-the-knee-boot" },
+        { "image": "src/assets/images/enums/shoeTypes/oxford.png", "aliases": [], "key": "oxford", "text": "oxford" },
+        { "image": "src/assets/images/enums/shoeTypes/penny-loafer.png", "aliases": [], "key": "penny-loafer", "text": "penny-loafer" },
+        { "image": "src/assets/images/enums/shoeTypes/pump.png", "aliases": [], "key": "pump", "text": "pump" },
+        { "image": "src/assets/images/enums/shoeTypes/saddle.png", "aliases": [], "key": "saddle", "text": "saddle" },
+        { "image": "src/assets/images/enums/shoeTypes/sandal.png", "aliases": [], "key": "sandal", "text": "sandal" },
+        { "image": "src/assets/images/enums/shoeTypes/sling-back.png", "aliases": [], "key": "sling-back", "text": "sling-back" },
+        { "image": "src/assets/images/enums/shoeTypes/slip-on.png", "aliases": [], "key": "slip-on", "text": "slip-on" },
+        { "image": "src/assets/images/enums/shoeTypes/slipper.png", "aliases": [], "key": "slipper", "text": "slipper" },
+        { "image": "src/assets/images/enums/shoeTypes/sneaker.png", "aliases": [], "key": "sneaker", "text": "sneaker" },
+        { "image": "src/assets/images/enums/shoeTypes/snow-boot.png", "aliases": [], "key": "snow-boot", "text": "snow-boot" },
+        { "image": "src/assets/images/enums/shoeTypes/t-strap.png", "aliases": [], "key": "t-strap", "text": "t-strap" },
+        { "image": "src/assets/images/enums/shoeTypes/wellington.png", "aliases": [], "key": "wellington", "text": "wellington" },
+        { "image": "src/assets/images/enums/shoeTypes/western-boot.png", "aliases": [], "key": "western-boot", "text": "western-boot" },
+        { "image": "src/assets/images/enums/shoeTypes/wing-tip.png", "aliases": [], "key": "wing-tip", "text": "wing-tip" },
+        { "image": "src/assets/images/enums/shoeTypes/winkle-picker.png", "aliases": [], "key": "winkle-picker", "text": "winkle-picker" }
     ],
     "shoeWidths": [
         {
@@ -8286,48 +8182,23 @@
             "key": "a-line",
             "text": "a-line"
         },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/asymmetric.png",
-            "key": "asymmetric",
-            "text": "asymmetric"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/layered.png",
-            "key": "layered",
-            "text": "layered"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/maxi.png",
-            "key": "maxi",
-            "text": "maxi"
-        },
+        { "image": "src/assets/images/enums/skirtTypes/asymmetric.png", "aliases": [], "key": "asymmetrical", "text": "asymmetrical" },
+        { "aliases": [], "key": "bubble", "text": "bubble" },
+        { "aliases": [], "key": "full", "text": "full" },
+        { "image": "src/assets/images/enums/skirtTypes/maxi.png", "aliases": [], "key": "maxi", "text": "maxi" },
+        { "image": "src/assets/images/enums/skirtTypes/mini.png", "aliases": [], "key": "mini", "text": "mini" },
+        { "aliases": [], "key": "peasant", "text": "peasant" },
+        { "aliases": [], "key": "pleated", "text": "pleated" },
+        { "image": "src/assets/images/enums/skirtTypes/pencil.png", "aliases": [], "key": "pencil", "text": "pencil" },
+        { "image": "src/assets/images/enums/skirtTypes/layered.png", "aliases": [], "key": "tiered", "text": "tiered" },
+        { "aliases": [], "key": "wrap", "text": "wrap" },
         {
             "aliases": [],
             "image": "src/assets/images/enums/skirtTypes/midi.png",
             "key": "midi",
             "text": "midi"
         },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/mini.png",
-            "key": "mini",
-            "text": "mini"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/mini2.png",
-            "key": "mini2",
-            "text": "mini2"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/skirtTypes/pencil.png",
-            "key": "pencil",
-            "text": "pencil"
-        },
+
         {
             "aliases": [],
             "image": "src/assets/images/enums/skirtTypes/sheath.png",
@@ -8353,13 +8224,23 @@
             "text": "tulip"
         }
     ],
+    "swimwearTypes": [
+        { "aliases": [], "key": "surf-trunks", "text": "surf-trunks" },
+        { "aliases": [], "key": "swim-trunks", "text": "swim-trunks" },
+        { "aliases": [], "key": "board-trunks", "text": "board-trunks" },
+        { "aliases": [], "key": "speedo", "text": "speedo" },
+        { "aliases": [], "key": "beach-accessories", "text": "beach-accessories" },
+        { "aliases": [], "key": "cover-up", "text": "cover-up" },
+        { "aliases": [], "key": "one-piece", "text": "one-piece" },
+        { "aliases": [], "key": "two-piece", "text": "two-piece" }
+    ],
     "sleepwearTypes": [
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/sleepwearType/basic-robe.png",
-            "key": "basic-robe",
-            "text": "basic-robe"
-        },
+        { "image": "src/assets/images/enums/sleepwearType/ruffle-nightgown.png", "aliases": [], "key": "nightgowns", "text": "nightgowns" },
+        { "image": "src/assets/images/enums/sleepwearType/nightshirt.png", "aliases": [], "key": "sleep-shirt", "text": "sleep-shirt" },
+        { "image": "src/assets/images/enums/sleepwearType/pajamas.png", "aliases": [], "key": "pajamas", "text": "pajamas" },
+        { "aliases": [], "key": "pajama-top", "text": "pajama-top" },
+        { "aliases": [], "key": "pajama-bottom", "text": "pajama-bottom" },
+        { "image": "src/assets/images/enums/sleepwearType/basic-robe.png", "aliases": [], "key": "robe", "text": "robe" },
         {
             "aliases": [],
             "image": "src/assets/images/enums/sleepwearType/chemise.png",
@@ -8380,34 +8261,41 @@
         },
         {
             "aliases": [],
-            "image": "src/assets/images/enums/sleepwearType/nightshirt.png",
-            "key": "nightshirt",
-            "text": "nightshirt"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/sleepwearType/pajamas.png",
-            "key": "pajamas",
-            "text": "pajamas"
-        },
-        {
-            "aliases": [],
-            "image": "src/assets/images/enums/sleepwearType/ruffle-nightgown.png",
-            "key": "ruffle-nightgown",
-            "text": "ruffle-nightgown"
-        },
-        {
-            "aliases": [],
             "image": "src/assets/images/enums/sleepwearType/teddy.png",
             "key": "teddy",
             "text": "teddy"
         }
     ],
+    "casualShirtTypes": [
+        { "key": "camisole", "text": "camisole", "aliases": [] },
+        { "key": "jersey", "text": "jersey", "aliases": [] },
+        { "key": "polo", "text": "polo", "aliases": [] },
+        { "key": "rugby", "text": "rugby", "aliases": [] },
+        { "key": "snow-bib", "text": "snow-bib", "aliases": [] },
+        { "key": "sweater", "text": "sweater", "aliases": [] },
+        { "key": "sweatshirt", "text": "sweatshirt", "aliases": [] },
+        { "key": "tank-top", "text": "tank-top", "aliases": [] },
+        { "key": "t-shirt", "text": "t-shirt", "aliases": [] },
+        { "key": "tube-top", "text": "tube-top", "aliases": [] },
+        { "key": "tunic", "text": "tunic", "aliases": [] }
+    ],
+    "formalShirtTypes": [
+        { "aliases": [], "key": "blazer", "text": "blazer" },
+        { "aliases": [], "key": "blouse", "text": "blouse" },
+        { "aliases": [], "key": "button-down", "text": "button-down" },
+        { "aliases": [], "key": "cardigan", "text": "cardigan" },
+        { "aliases": [], "key": "fitted", "text": "fitted" },
+        { "aliases": [], "key": "full-zip", "text": "full-zip" },
+        { "aliases": [], "key": "hawaiian", "text": "hawaiian" },
+        { "aliases": [], "key": "knit-top", "text": "knit-top" },
+        { "aliases": [], "key": "oxford-shirt", "text": "oxford shirt" },
+        { "aliases": [], "key": "sport-coat", "text": "sport-coat" },
+        { "aliases": [], "key": "suit-jacket", "text": "suit-jacket" },
+        { "aliases": [], "key": "vest", "text": "vest" }
+    ],
     "sleeveLengths": [
         {
-            "aliases": [
-                "3/4"
-            ],
+            "aliases": ["3/4"],
             "key": "3/4 sleeve"
         },
         {
@@ -8430,6 +8318,23 @@
             "key": "sleeveless",
             "text": "sleeveless"
         }
+    ],
+    "outerwearTypes": [
+        { "aliases": [], "key": "cape", "text": "cape" },
+        { "aliases": [], "key": "fleece", "text": "fleece" },
+        { "aliases": [], "key": "bomber", "text": "bomber" },
+        { "aliases": [], "key": "jean", "text": "jean" },
+        { "aliases": [], "key": "military", "text": "military" },
+        { "aliases": [], "key": "leather", "text": "leather" },
+        { "aliases": [], "key": "parka", "text": "parka" },
+        { "aliases": [], "key": "peacoat", "text": "peacoat" },
+        { "aliases": [], "key": "puffer", "text": "puffer" },
+        { "aliases": [], "key": "raincoat", "text": "raincoat" },
+        { "aliases": [], "key": "trenchcoat", "text": "trenchcoat" },
+        { "aliases": [], "key": "varsity", "text": "varsity" },
+        { "aliases": [], "key": "vest", "text": "vest" },
+        { "aliases": [], "key": "windbreaker", "text": "windbreaker" },
+        { "aliases": [], "key": "winter", "text": "winter" }
     ],
     "sleeveTypes": [
         {
@@ -8653,68 +8558,14 @@
         }
     ],
     "suitTypes": [
-        {
-            "aliases": [
-                "1-button suit",
-                "one button suit"
-            ],
-            "key": "1-button",
-            "text": "one-button"
-        },
-        {
-            "aliases": [
-                "2-button suit",
-                "two button suit"
-            ],
-            "key": "2-button",
-            "text": "two-button"
-        },
-        {
-            "aliases": [
-                "3 button suit",
-                "3-button suit"
-            ],
-            "key": "3-button",
-            "text": "three-button"
-        },
-        {
-            "aliases": [
-                "4 button suit",
-                "4-button suit"
-            ],
-            "key": "4-button",
-            "text": "four-button"
-        },
-        {
-            "aliases": [
-                "tuxedo suit"
-            ],
-            "key": "tuxedo",
-            "text": "tuxedo"
-        },
-        {
-            "aliases": [
-                "double breasted suit",
-                "double-breasted-suit"
-            ],
-            "key": "double-breasted",
-            "text": "double-breasted"
-        },
-        {
-            "aliases": [],
-            "key": "dress suit",
-            "text": "dress"
-        },
-        {
-            "aliases": [],
-            "key": "skirt suit",
-            "text": "skirt"
-        },
-        {
-            "aliases": [],
-            "key": "pantsuit",
-            "text": "pantsuit"
-        }
+        { "aliases": [], "key": "snowsuit", "text": "snowsuit" },
+        { "aliases": [], "key": "tracksuit", "text": "tracksuit" },
+        { "aliases": [], "key": "tuxedo", "text": "tuxedo" },
+        { "aliases": [], "key": "sweatsuit", "text": "sweatsuit" },
+        { "aliases": [], "key": "dress-suit", "text": "dress-suit" },
+        { "aliases": [], "key": "pant-suit", "text": "pant-suit" },
+        { "aliases": [], "key": "skirt-suit", "text": "skirt-suit" },
+        { "aliases": [], "key": "bodysuit", "text": "bodysuit" }
     ],
     "swimsuitBottomStyles": [
         {
@@ -8854,6 +8705,16 @@
             "key": "underwire",
             "text": "underwire"
         }
+    ],
+    "undergarmentTypes": [
+        { "aliases": [], "key": "socks", "text": "socks" },
+        { "aliases": [], "key": "bra", "text": "bra" },
+        { "aliases": [], "key": "g-string", "text": "g-string" },
+        { "aliases": [], "key": "thong", "text": "thong" },
+        { "aliases": [], "key": "panties", "text": "panties" },
+        { "aliases": [], "key": "thermals", "text": "thermals" },
+        { "aliases": [], "key": "briefs", "text": "briefs" },
+        { "aliases": [], "key": "boxers", "text": "boxers" }
     ],
     "tieTypes": [
         {
@@ -9057,9 +8918,7 @@
             "text": "TV-Y7"
         },
         {
-            "aliases": [
-                "TV-Y7-FV "
-            ],
+            "aliases": ["TV-Y7-FV "],
             "key": "TV-Y7-FV"
         },
         {
@@ -9083,9 +8942,7 @@
             "text": "TV-MA"
         },
         {
-            "aliases": [
-                "No Rating"
-            ],
+            "aliases": ["No Rating"],
             "key": "Not Rated",
             "text": "Not Rated"
         }
@@ -9276,28 +9133,19 @@
     "videoFormatTypes": [
         {
             "aliases": [],
-            "countText": [
-                "disc",
-                "discs"
-            ],
+            "countText": ["disc", "discs"],
             "key": "dvd",
             "text": "dvd"
         },
         {
             "aliases": [],
-            "countText": [
-                "disc",
-                "discs"
-            ],
+            "countText": ["disc", "discs"],
             "key": "blu-ray",
             "text": "blu-ray"
         },
         {
             "aliases": [],
-            "countText": [
-                "tape",
-                "tapes"
-            ],
+            "countText": ["tape", "tapes"],
             "key": "vhs",
             "text": "vhs"
         }
@@ -9371,19 +9219,13 @@
         {
             "aliases": [],
             "key": "lb",
-            "tenses": [
-                "lb",
-                "lbs"
-            ],
+            "tenses": ["lb", "lbs"],
             "text": "lb"
         },
         {
             "aliases": [],
             "key": "oz",
-            "tenses": [
-                "oz",
-                "ozs"
-            ],
+            "tenses": ["oz", "ozs"],
             "text": "oz"
         }
     ],
@@ -9494,5 +9336,22 @@
             "key": "optical",
             "text": "Optical Zoom"
         }
+    ],
+    "sweaterType": [
+        { "key": "cardigan", "text": "cardigan", "aliases": [] },
+        { "key": "crewneck-sweater", "text": "crewneck sweater", "aliases": [] },
+        { "key": "full-zip-sweater", "text": "full-zip sweater", "aliases": [] },
+        { "key": "polo-sweater", "text": "polo sweater", "aliases": [] },
+        { "key": "turtleneck-sweater", "text": "turtleneck sweater", "aliases": [] },
+        { "key": "v-neck-sweater", "text": "v-neck sweater", "aliases": [] },
+        { "key": "vest", "text": "vest", "aliases": [] },
+        { "key": "collared-sweater", "text": "collared sweater", "aliases": [] },
+        { "key": "henley", "text": "henley", "aliases": [] },
+        { "key": "mock-sweater", "text": "mock sweater", "aliases": [] },
+        { "key": "scoop-sweater", "text": "scoop sweater", "aliases": [] },
+        { "key": "shrug-sweater", "text": "shrug sweater", "aliases": [] },
+        { "key": "sleeveless-sweater", "text": "sleeveless sweater", "aliases": [] },
+        { "key": "sweater-vest", "text": "sweater vest", "aliases": [] },
+        { "key": "maternity-sweater", "text": "maternity sweater", "aliases": [] }
     ]
 }

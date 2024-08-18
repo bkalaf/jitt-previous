@@ -25,7 +25,8 @@ import {
     Year,
     IPartNumber,
     IRn,
-    IContributor
+    IContributor,
+    IClassification
 } from '../../types';
 
 import { schemaName } from '../../util/schemaName';
@@ -121,7 +122,19 @@ import $me, {
     ShoeTypes,
     SleepwearTypes,
     TieTypes,
-    ZipperTypes
+    ZipperTypes,
+    ApparelAccessoryTypes,
+    BlazerTypes,
+    CasualShirtTypes,
+    FootwearTypes,
+    FormalShirtTypes,
+    HeadAccessoryTypes,
+    JewelryTypes,
+    MaterialStyles,
+    PantStyles,
+    SwimwearTypes,
+    UndergarmentTypes,
+    YouthSize
 } from '../enums';
 import { productColors } from '../enums/productColors';
 import { Flags } from './../enums/flags';
@@ -133,6 +146,18 @@ import { productColumns } from './productColumns';
 import { runTransaction } from '../../util/runTransaction';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
+    accessoryType?: Opt<ApparelAccessoryTypes>;
+    blazerType?: Opt<BlazerTypes>;
+    casualShirtType?: Opt<CasualShirtTypes>;
+    footwearType?: Opt<FootwearTypes>;
+    formalShirtType?: Opt<FormalShirtTypes>;
+    headAccessoryType?: Opt<HeadAccessoryTypes>;
+    jewelryType?: Opt<JewelryTypes>;
+    materialStyle?: Opt<MaterialStyles>;
+    pantStyle?: Opt<PantStyles>;
+    swimwearType?: Opt<SwimwearTypes>;
+    undergarmentType?: Opt<UndergarmentTypes>;
+    youthSize?: Opt<YouthSize>;
     bagType?: Opt<BagTypes>;
     bottomType?: Opt<BottomTypes>;
     earringBackType?: Opt<EarringBackTypes>;
@@ -548,7 +573,21 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             shoeType: $.string.opt,
             sleepwearType: $.string.opt,
             tieType: $.string.opt,
-            zipperType: $.string.opt
+            zipperType: $.string.opt,
+            path: $.string.list,
+            classification: $.classification(),
+            jewelryType: $.string.opt,
+            accessoryType: $.string.opt,
+            headAccessoryType: $.string.opt,
+            youthSize: $.string.opt,
+            footwearType: $.string.opt,
+            undergarmentType: $.string.opt,
+            swimwearType: $.string.opt,
+            blazerType: $.string.opt,
+            casualShirtType: $.string.opt,
+            formalShirtType: $.string.opt,
+            pantStyle: $.string.opt,
+            materialStyle: $.string.opt
         }
     };
     mediaSubtitle?: Opt<string>;
@@ -592,7 +631,10 @@ export class Product extends EntityBase<IProduct> implements IProduct {
                 if (!path.startsWith('flags')) {
                     const $isList = isList ?? false;
                     const $isDictionary = isDictionary ?? false;
-                    const $value = $isList ? [value] : $isDictionary ? { key: value } : value;
+                    const $value =
+                        $isList ? [value]
+                        : $isDictionary ? { key: value }
+                        : value;
                     console.log(`$value`, $value);
                     (item as any)[path] = $value;
                 }
@@ -604,6 +646,8 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     constructor(realm: Realm, values: any) {
         super(realm, values);
     }
+    classification: Opt<IClassification>;
+    path: DBList<string>;
     driveType?: Opt<DriveTypes>;
     driveForm?: Opt<DriveFormFactors>;
     connectivity: DBList<Connectivity>;
@@ -668,7 +712,8 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             zoomType: [],
             compatibleMountings: [],
             shootingModes: [],
-            photoSensorTechnology: []
+            photoSensorTechnology: [],
+            path: []
         };
     }
 }

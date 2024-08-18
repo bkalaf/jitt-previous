@@ -116,14 +116,24 @@ import {
     SkirtTypes,
     SleepwearTypes,
     TieTypes,
-    ZipperTypes
+    ZipperTypes,
+    JewelryTypes,
+    ApparelAccessoryTypes,
+    YouthSize,
+    FootwearTypes,
+    UndergarmentTypes,
+    SwimwearTypes,
+    BlazerTypes,
+    CasualShirtTypes,
+    FormalShirtTypes,
+    PantStyles,
+    MaterialStyles
 } from './schema/enums';
-import { AttachmentDisposition } from './schema/choices/AttachmentDisposition';
-import { AttachmentStages } from './schema/choices/AttachmentStages';
 import { AttachmentType } from './schema/choices/AttachmentType';
 import { ProductImageDisposition } from './schema/choices/ProductImageDisposition';
 import { Flags } from './schema/enums/flags';
 import { IShippingRate } from './schema/enums/shippingRates';
+import { HeadAccessoryTypes } from './schema/enums/index';
 
 export type OperatingSystemNames = 'unknown' | 'android' | 'ios' | 'blackberry' | 'linux' | 'nucleus' | 'symbian' | 'macOS' | 'fire' | 'windows';
 export type Int = number;
@@ -577,8 +587,19 @@ export type IScrape = {
     storeInfos: DBList<IScrapeStoreInfo>;
 }
 
+export type IClassification = {
+    _id: BSON.ObjectId;
+    path: DBList<string>;
+    attributes: DBDictionary<string>;
+    flags: DBList<string>;
+    itemType: string;
+    taxonomy: Opt<IMercariTaxonomy>;
+};
+
 export type IProduct = IApparel & {
     shadowClassifier: Opt<IClassifier>;
+    classification: Opt<IClassification>;
+    path: DBList<string>;
     _id: BSON.ObjectId;
     asins: DBList<string>;
     brand?: Opt<IBrand>;
@@ -810,9 +831,23 @@ export type IProduct = IApparel & {
     shirtType?: Opt<ShirtTypes>;
     skirtType?: Opt<SkirtTypes>;
     shoeType?: Opt<ShoeTypes>;
-    sleepwearType?: Opt<SleepwearTypes>;
     tieType?: Opt<TieTypes>;
     zipperType?: Opt<ZipperTypes>;
+    
+    // 8/17 Classification Adds
+    jewelryType?: Opt<JewelryTypes>;
+    accessoryType?: Opt<ApparelAccessoryTypes>;
+    youthSize?: Opt<YouthSize>;
+    headAccessoryType?: Opt<HeadAccessoryTypes>;
+    footwearType?: Opt<FootwearTypes>;
+    undergarmentType?: Opt<UndergarmentTypes>;
+    sleepwearType?: Opt<SleepwearTypes>;
+    swimwearType?: Opt<SwimwearTypes>;
+    blazerType?: Opt<BlazerTypes>;
+    casualShirtType?: Opt<CasualShirtTypes>;
+    formalShirtType?: Opt<FormalShirtTypes>;
+    pantStyle?: Opt<PantStyles>;
+    materialStyle?: Opt<MaterialStyles>;    
     
     readonly allHashTags: IHashTag[];
     readonly detailTypes: DetailTypes[];
