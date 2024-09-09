@@ -5,8 +5,8 @@ import { DBListControl } from '../../components/table/controls/DBListControl';
 
 export function realmListColumnDefinition<T extends MRT_RowData, TValue>(helper: MRT_ColumnHelper<T>) {
     return function <TKey extends keyof T>(...dependencies: IDependency<T, TKey>[]) {
-        return function (name: keyof T & string, header: string, objectType: string, readonly = false): MRT_ColumnDef<T, ListBack<TValue>> {
-            return baseCol<T, ListBack<TValue>>(helper, name, ListTableCell, DBListControl, header, false, readonly, { objectType }, undefined, ...dependencies);
+        return function (name: keyof T & string, header: string, objectType: string, ModalComponent?: ModalFunctionComponent<any>, readonly = false): MRT_ColumnDef<T, ListBack<TValue>> {
+            return baseCol<T, ListBack<TValue>>(helper, name, ListTableCell, DBListControl, header, false, readonly, { objectType, ModalComponent }, undefined, ...dependencies);
         };
     };
 }

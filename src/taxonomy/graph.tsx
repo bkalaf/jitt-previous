@@ -1,55 +1,13 @@
-import { UseFormSetValue, useFormContext } from 'react-hook-form-mui';
+import { UseFormSetValue, useFormContext, useWatch } from 'react-hook-form-mui';
 import { distinctByString } from '../common/array/distinct';
 import { deepEqual } from '../common/deepEqual';
 import { Genders, YouthSize } from '../schema/enums';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useCallback } from 'react';
 import { Item } from '../components/Item';
+import { ClassificationOption, EndPoint, IGraph } from './igraph';
+import { useMatchClassificationPath } from '../components/Tabs/useMatchClassificationPath';
 
-export type FlagOptions = {
-    isMLB?: [string, string, string];
-    isNBA?: [string, string, string];
-    isNCAA?: [string, string, string];
-    isNHL?: [string, string, string];
-    isNFL?: [string, string, string];
-    isAthletic?: [string, string | null, string | null];
-    isMaternity?: [string, null, string];
-};
-export type ApparelTaxonomy = [string | null, string | null, [string | null, string | null, string | null] | null, [string | null, string | null, string | null] | null];
-export type ClassificationOption = [string, string, ApparelTaxonomy, FlagOptions?];
-export type EndPoint<TKey extends string> = Record<TKey, ClassificationOption[]>;
-
-export type IGraph = {
-    bag: EndPoint<'bagType'>;
-    jewelry: EndPoint<'jewelryType'>;
-    apparel: {
-        accessories: {
-            misc: EndPoint<'accessoryType'>;
-            head: EndPoint<'headAccessoryType'>;
-        };
-        footwear: EndPoint<'shoeType' | 'footwearType'>;
-        undergarments: {
-            misc: EndPoint<'undergarmentType'>;
-            sleepwear: EndPoint<'sleepwearType'>;
-            swimwear: EndPoint<'swimwearType'>;
-        };
-        fullbody: {
-            dress: EndPoint<'dressType'>;
-            suit: EndPoint<'blazerType' | 'suitType'>;
-        };
-        tops: {
-            coats: EndPoint<'jacketType'>;
-            pullOver: EndPoint<'casualShirtType' | 'sleeveLength' | 'neckType'>;
-            buttonUp: EndPoint<'blazerType' | 'formalShirtType' | 'sleeveLength' | 'neckType'>;
-        };
-        bottoms: {
-            skirt: EndPoint<'skirtType'>;
-            pants: EndPoint<'materialStyle' | 'pantStyle'>;
-            jeans: EndPoint<'legStyle' | 'pantStyle'>;
-            shorts: EndPoint<'materialStyle' | 'pantStyle'>;
-        };
-    };
-};
 export const $graph: IGraph = {
     bag: {
         bagType: [
@@ -2103,7 +2061,12 @@ export const $graph: IGraph = {
                     [
                         'bermuda',
                         'bermuda shorts',
-                        ['Men::Shorts::Other', 'Women::Shorts::Bermuda', null, null],
+                        [
+                            'Men::Shorts::Other',
+                            'Women::Shorts::Bermuda',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['bermuda shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2111,7 +2074,12 @@ export const $graph: IGraph = {
                     [
                         'bike',
                         'bike shorts',
-                        ['Men::Shorts::Other', 'Women::Shorts::Bike', null, null],
+                        [
+                            'Men::Shorts::Other',
+                            'Women::Shorts::Bike',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['bike shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2119,7 +2087,12 @@ export const $graph: IGraph = {
                     [
                         'board',
                         'board shorts',
-                        ['Men::Shorts::Board, surf', 'Women::Shorts::Other', null, null],
+                        [
+                            'Men::Shorts::Board, surf',
+                            'Women::Shorts::Other',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['board shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2127,7 +2100,12 @@ export const $graph: IGraph = {
                     [
                         'cargo',
                         'cargo shorts',
-                        ['Men::Shorts::Cargo', 'Women::Shorts::Cargo', null, null],
+                        [
+                            'Men::Shorts::Cargo',
+                            'Women::Shorts::Cargo',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['cargo shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2135,7 +2113,12 @@ export const $graph: IGraph = {
                     [
                         'carpenter',
                         'carpenter shorts',
-                        ['Men::Shorts::Carpenter, utility', null, null, null],
+                        [
+                            'Men::Shorts::Carpenter, utility',
+                            null,
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['carpenter shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2143,7 +2126,12 @@ export const $graph: IGraph = {
                     [
                         'casual',
                         'casual shorts',
-                        ['Men::Shorts::Casual shorts', 'Women::Shorts::Other', null, null],
+                        [
+                            'Men::Shorts::Casual shorts',
+                            'Women::Shorts::Other',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['casual shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2151,7 +2139,12 @@ export const $graph: IGraph = {
                     [
                         'dress',
                         'dress shorts',
-                        ['Men::Shorts::Dress shorts', 'Women::Shorts::Other', null, null],
+                        [
+                            'Men::Shorts::Dress shorts',
+                            'Women::Shorts::Other',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['dress shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2159,7 +2152,12 @@ export const $graph: IGraph = {
                     [
                         'high-waisted',
                         'high-waisted shorts',
-                        [null, 'Women::Shorts::High-waisted', null, null],
+                        [
+                            null,
+                            'Women::Shorts::High-waisted',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['high-waisted shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2167,7 +2165,12 @@ export const $graph: IGraph = {
                     [
                         'short-shorts',
                         'short-shorts',
-                        [null, 'Women::Shorts::Short shorts', null, null],
+                        [
+                            null,
+                            'Women::Shorts::Short shorts',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['short-shorts', 'Men::Shorts::Athletic', 'Women::Athletic apparel::Shorts']
                         }
@@ -2175,7 +2178,12 @@ export const $graph: IGraph = {
                     [
                         'skort',
                         'skort',
-                        [null, 'Women::Shorts::Skort', null, null],
+                        [
+                            null,
+                            'Women::Shorts::Skort',
+                            ['Kids::Boys bottoms::Boys 0-24 mos', 'Kids::Boys bottoms::Boys 2T-5T', 'Kids::Boys bottoms::Boys (4+)'],
+                            ['Kids::Girls bottoms::Girls 0-24 mos', 'Kids::Girls bottoms::Girls 2T-5T', 'Kids::Girls bottoms::Girls (4+)']
+                        ],
                         {
                             isAthletic: ['skort', null, 'Women::Athletic apparel::Athletic Skorts']
                         }
@@ -2684,28 +2692,44 @@ export function buildPathNodes(value: Record<string, any> | EndPoint<string>, pa
     return accum;
 }
 
-export const $$pathNodes = buildPathNodes($graph);
-console.log(JSON.stringify($$pathNodes, null, '\t'));
-console.log(distinctByString($$pathNodes.map((x) => x.attributes).reduce((pv, cv) => [...pv, ...cv], [])));
+// export const $$pathNodes = buildPathNodes($graph);
+// console.log(JSON.stringify($$pathNodes, null, '\t'));
+// console.log(distinctByString($$pathNodes.map((x) => x.attributes).reduce((pv, cv) => [...pv, ...cv], [])));
 
-export function PathStepControl({ path, index, setValue }: { path: string[], index: number, setValue: UseFormSetValue<{ path: string[] }> }) {
+export function PathStepControl({ path, index, setValue }: { path: string[]; index: number; setValue: UseFormSetValue<{ path: string[] }> }) {
     const value = path[index];
-    const node = $$pathNodes.find(x => deepEqual(x.path, path.slice(0, index)));
-    if (node == null) throw new Error('no node');
-    const { options } = node;
-    const onChange = useCallback((ev: SelectChangeEvent<string>) => {
-        const value = ev.target.value;
-        setValue('path', [...path.slice(0, index), value]);
-    }, [index, path, setValue])
-    return <Select label={`Path ${index}`} value={value ?? ''} onChange={onChange}>
-        {options.map((x, ix) => <MenuItem key={ix} value={x}>{x}</MenuItem>)}
-    </Select>
+    const { selectOptions } = useMatchClassificationPath(path.slice(0, index))
+    // if (selectOptions.length === 0) throw new Error('no node');
+    const onChange = useCallback(
+        (ev: SelectChangeEvent<string>) => {
+            const value = ev.target.value;
+            setValue('path', [...path.slice(0, index), value]);
+        },
+        [index, path, setValue]
+    );
+    return (
+        selectOptions.length > 0 ?
+        <Select label={`Path ${index}`} value={value ?? ''} onChange={onChange}>
+            {selectOptions.map((x, ix) => (
+                <MenuItem key={ix} value={x}>
+                    {x}
+                </MenuItem>
+            ))}
+        </Select> :  null
+    );
 }
 export function PathControl() {
     const formContext = useFormContext<{ path: string[] }>();
-    const path = formContext.watch('path') as string[];
-    
-    return <Item>
-        {[...path, ''].map((_, ix) => <PathStepControl key={ix} index={ix} path={path} setValue={formContext.setValue} />)}
-    </Item>
+    const path = useWatch({
+        control: formContext.control,
+        name: 'path'
+    });
+    // const path = formContext.watch('path') as string[];
+    return (
+        <Item>
+            {[...path ?? [], ''].map((_, ix) => (
+                <PathStepControl key={ix} index={ix} path={path ?? []} setValue={formContext.setValue} />
+            ))}
+        </Item>
+    );
 }

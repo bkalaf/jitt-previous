@@ -2,8 +2,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { BaseDashboardEntry } from '../DashboardEntry';
 import { IBarcode } from '../../types';
-import React from 'react';
-
 
 export function BarcodeDoubleReference(props: { className?: string; start?: number; }) {
     const db = useLocalRealm();

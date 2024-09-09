@@ -1,12 +1,13 @@
 import { $ } from '../$';
 import { schemaName } from '../../util/schemaName';
-import { IHashTag, IHashTagUsage } from '../../types';
+import { IHashTag, IHashTagCondition, IHashTagUsage } from '../../types';
 import Realm, { BSON } from 'realm';
 import { EntityBase } from './EntityBase';
 import { MRT_ColumnDef } from 'material-react-table';
 import { hashTagColumns } from '../columns/hashTag';
 
-export class HashTag extends EntityBase<IHashTag> {
+export class HashTag extends EntityBase<IHashTag> implements IHashTag {
+    matches: DBList<IHashTagCondition>;
     static columns: MRT_ColumnDef<IHashTag>[] = hashTagColumns();
     _id: BSON.ObjectId;
     name: string;

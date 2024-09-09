@@ -7,9 +7,9 @@ import { Grid } from '../../Grid';
 import { EditControls } from '../../controls/EditControls';
 import { useRealmCreate } from '../../../hooks/useRealmCreate';
 import { useDirectStaticColumns } from '../../../hooks/useDirectStaticColumns';
+import { IClassification } from '../../../types';
 
-
-export function CreateModal<T extends MRT_RowData>(props: { objectType: string; finalCallback: (result: T) => void; toggleOpen: () => void; open: boolean; }) {
+export function CreateModal<T extends MRT_RowData>(props: { objectType: string; finalCallback: (result: T) => void; toggleOpen: () => void; open: boolean; classification: IClassification }) {
     const { objectType, finalCallback, open, toggleOpen } = props;
     const init = useInitial<T>(objectType);
     const handleSubmit = useRealmCreate<T>(objectType, toggleOpen, finalCallback);
@@ -37,7 +37,7 @@ export function CreateModal<T extends MRT_RowData>(props: { objectType: string; 
         (ev: React.MouseEvent) => {
             ev.preventDefault();
             ev.stopPropagation();
-            formContext.handleSubmit(x => handleSubmit(x))(ev);
+            formContext.handleSubmit((x) => handleSubmit(x))(ev);
         },
         [formContext, handleSubmit]
     );
@@ -61,7 +61,7 @@ export function CreateModal<T extends MRT_RowData>(props: { objectType: string; 
                         </Grid>
                     </DialogContent>
                     <DialogActions>
-                        <Box className='flex justify-end w-full gap-x-2'>
+                        <Box className='flex w-full justify-end gap-x-2'>
                             <Button className='inline-flex' type='button' color='tertiary' onClick={onCancel}>
                                 Cancel
                             </Button>

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export type FlagOptions = {
     isMLB?: [string, string, string];
     isNBA?: [string, string, string];
@@ -1199,6 +1200,7 @@ const value = {
 }
       
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function addNull(value: [string, string, string | null, string | null, FlagOptions | undefined][]) {
     function internal([key, itemType, male, female, options]: [string, string, string | null, string | null, FlagOptions | undefined]) {
         return options ? [key, itemType, [male, female, null, null], options] : [key, itemType, [male, female, null, null]];

@@ -2,7 +2,6 @@
 import 'dotenv/config';
 import { MongoClient } from 'mongodb';
 import { IMercariTaxonomy, IProduct } from '../types';
-import { distinctByString } from '../common/array/distinct';
 
 const ATLAS_USER = process.env.ATLAS_USER ?? '';
 const ATLAS_PASSWORD = process.env.ATLAS_PASSWORD ?? '';

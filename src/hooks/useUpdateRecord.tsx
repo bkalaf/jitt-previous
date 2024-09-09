@@ -18,6 +18,7 @@ import { removeLeadingZeros } from '../util/removeLeadingZero';
 import { compareProduct } from './compareProduct';
 import { classifyBarcode } from '../util/classifyBarcode';
 import { BarcodeTypes } from '../schema/enums';
+import { useInvalidateCollection } from './useInvalidateCollection';
 
 export const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
 
@@ -106,14 +107,16 @@ export function useUpdateRecord<T extends MRT_RowData & { _id: BSON.ObjectId }>(
     // const { dirtyFields } = formContext.formState;
     // const dirty = useDirtyFields(dirtyFields as any);
     const updater = useUpdateEntity<T>(collection);
+    const invalidator = useInvalidateCollection(objectType);
     const successMessage = useSuccessNotification(() => `Record created/updated.`, collection);
     const onSuccess = useCallback(
         async (result: T) => {
             table.setCreatingRow(null);
             table.setEditingRow(null);
             successMessage(result);
+            await invalidator();
         },
-        [successMessage, table]
+        [invalidator, successMessage, table]
     );
     const onError = useCallback(async (errors: FieldErrors<T>) => {
          

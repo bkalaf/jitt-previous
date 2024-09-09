@@ -14,7 +14,16 @@ export function useFieldArrayControl<T extends MRT_RowData, TValue, TKeys extend
         objectType,
         keyType,
         ...rest
-    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName'>({ column } as any, 'objectType', 'required', 'readonly', 'keyType', 'columnName', ...keys);
+    } = useEditColumnMeta<T, TValue, TKeys | 'keyType' | 'objectType' | 'required' | 'readonly' | 'dependencies' | 'columnName' | 'ModalComponent'>(
+        { column } as any,
+        'objectType',
+        'required',
+        'readonly',
+        'keyType',
+        'columnName',
+        'ModalComponent',
+        ...keys
+    );
     const label = column.columnDef.header;
     const formContext = useFormContext();
     if (name == null) throw new Error('no name');

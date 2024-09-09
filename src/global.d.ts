@@ -22,6 +22,7 @@ import './mui.d.ts';
 import { UseFormReturn } from 'react-hook-form';
 
 declare global {
+    export type MasterEnum = Record<keyof typeof $masterEnum, { key: string; text: string; aliases: string[]; selector?: string; color?: string; image?: string; bottomType?: string[]; gender?: string[] }[]>;
     export type ItemResponseType = {
         code: number;
         status: string;
@@ -209,6 +210,7 @@ declare global {
         dependency: IDeps<T, TKey>;
         isLocal?: boolean;
     };
+    export type ValueOf<T> = T extends Record<string, infer R> ? R : never;
     export type OnChangeFn = (formContext: UseFormReturn<any, any, any>, oldValue: any, newValue: any) => void;
     // export interface Window {
     //     columns: Record<string, <T extends MRT_RowData>(...dependencies: IDependency<T, any>[]) => MRT_ColumnDef<T>[]>;
@@ -461,7 +463,15 @@ declare global {
         brandsMap: DBDictionary<ICustomItemFieldTypes>;
         readonly getTaxonomy: Realm.Types.LinkingObjects<IMercariTaxonomy, 'customItemField'>;
     };
-
+    export type MasterEnumValue = ArrayOf<ValueOf<MasterEnum>>;
+    export type ModalFunctionComponent<T extends MRT_RowData> = React.FunctionComponent<{
+        open: boolean;
+        toggleOpen: () => void;
+        objectType: string;
+        finalCallback: (result: T) => void;
+        classification: T;
+        columns: MRT_ColumnDef<T>[];
+    }>;
 }
 
 export const i = 1;

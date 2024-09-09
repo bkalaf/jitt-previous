@@ -36,7 +36,7 @@ export type CameraSizes = "compact" | "slr-style" | "large-sensor";
 export type CapacityUnitOfMeasure = "KB" | "MB" | "GB" | "TB";
 export type CasLatency = "CL6" | "CL36" | "CL38" | "CL22" | "CL3" | "CL19" | "CL18" | "CL17" | "CL15" | "CL11" | "CL16" | "CL7" | "CL9" | "CL40" | "CL42";
 export type CellCarriers = "at&t" | "blue" | "boost" | "consumer-cellular" | "cricket" | "h20" | "net-10" | "simple" | "sprint" | "straight-talk" | "t-mobile" | "ting" | "total" | "tracfone" | "unlocked" | "us-celluar" | "verizon" | "virgin";
-export type ClosureTypes = "backstrap" | "buckle" | "bungee" | "button" | "clip" | "drawstring" | "half-zip" | "hook & bar" | "hook & eye" | "hook & loop" | "lace-up" | "magnetic" | "pull-on" | "slip-on" | "snap" | "speed laces" | "tie" | "zipper";
+export type ClosureTypes = "backstrap" | "buckle" | "bungee" | "button" | "clip" | "drawstring" | "half-zip" | "hook & bar" | "hook & eye" | "hook & loop" | "lace-up" | "magnetic" | "pull-on" | "slip-on" | "snap" | "speed laces" | "tie" | "full-zip" | "quarter-zip";
 export type ClubTypes = "iron" | "driver" | "putter" | "wedge";
 export type CollarTypes = "button-down" | "classic" | "club" | "mandarin" | "spread" | "wing-tip" | "band" | "camp" | "collarless" | "cutaway" | "hidden-button-down" | "lapel" | "point" | "tab";
 export type CompatibleDevices = "desktop-computers" | "laptop-computers" | "smart-phones" | "tablet" | "e-readers";
@@ -47,6 +47,7 @@ export type ConsoleTypes = "nes" | "snes" | "n64" | "gameboy" | "gameboy-advance
 export type ContributorRoles = "author" | "illustrator" | "publisher" | "actor" | "director" | "producer" | "studio" | "performer" | "songwriter";
 export type Countries = "AD" | "AE" | "AF" | "AG" | "AI" | "AL" | "AM" | "AO" | "AQ" | "AR" | "AS" | "AT" | "AU" | "AW" | "AX" | "AZ" | "BA" | "BB" | "BD" | "BE" | "BF" | "BG" | "BH" | "BI" | "BJ" | "BL" | "BM" | "BN" | "BO" | "BQ" | "BR" | "BS" | "BT" | "BV" | "BW" | "BY" | "BZ" | "CA" | "CC" | "CD" | "CF" | "CG" | "CH" | "CI" | "CK" | "CL" | "CM" | "CN" | "CO" | "CR" | "CU" | "CV" | "CW" | "CX" | "CY" | "CZ" | "DE" | "DJ" | "DK" | "DM" | "DO" | "DZ" | "EC" | "EE" | "EG" | "EH" | "ER" | "ES" | "ET" | "FI" | "FJ" | "FK" | "FM" | "FO" | "FR" | "GA" | "GB" | "GD" | "GE" | "GF" | "GG" | "GH" | "GI" | "GL" | "GM" | "GN" | "GP" | "GQ" | "GR" | "GS" | "GT" | "GU" | "GW" | "GY" | "HK" | "HM" | "HN" | "HR" | "HT" | "HU" | "ID" | "IE" | "IL" | "IM" | "IN" | "IO" | "IQ" | "IR" | "IS" | "IT" | "JE" | "JM" | "JO" | "JP" | "KE" | "KG" | "KH" | "KI" | "KM" | "KN" | "KP" | "KR" | "KW" | "KY" | "KZ" | "LA" | "LB" | "LC" | "LI" | "LK" | "LR" | "LS" | "LT" | "LU" | "LV" | "LY" | "MA" | "MC" | "MD" | "ME" | "MF" | "MG" | "MH" | "MK" | "ML" | "MM" | "MN" | "MO" | "MP" | "MQ" | "MR" | "MS" | "MT" | "MU" | "MV" | "MW" | "MX" | "MY" | "MZ" | "NA" | "NC" | "NE" | "NF" | "NG" | "NI" | "NL" | "NO" | "NP" | "NR" | "NU" | "NZ" | "OM" | "PA" | "PE" | "PF" | "PG" | "PH" | "PK" | "PL" | "PM" | "PN" | "PR" | "PS" | "PT" | "PW" | "PY" | "QA" | "RE" | "RO" | "RS" | "RU" | "RW" | "SA" | "SB" | "SC" | "SD" | "SE" | "SG" | "SH" | "SI" | "SJ" | "SK" | "SL" | "SM" | "SN" | "SO" | "SR" | "SS" | "ST" | "SV" | "SX" | "SY" | "SZ" | "TC" | "TD" | "TF" | "TG" | "TH" | "TJ" | "TK" | "TL" | "TM" | "TN" | "TO" | "TR" | "TT" | "TV" | "TW" | "TZ" | "UA" | "UG" | "UM" | "US" | "UY" | "UZ" | "VA" | "VC" | "VE" | "VG" | "VI" | "VN" | "VU" | "WF" | "WS" | "YE" | "YT" | "ZA" | "ZM" | "ZW";
 export type Coverstocks = "reactive-resin";
+export type PackageSizeTypes = "single-pack" | "multi-pack" | "boxed-set";
 export type CuffTypes = "angle-cut" | "french" | "neapolitan" | "one-button" | "rounded" | "two-button" | "barrel" | "double" | "ribbed" | "single";
 export type DataConnectorTypes = "usb-micro-b-superspeed" | "lightning" | "usb-3-micro-b" | "usb-3-type-a-f" | "usb-3-type-a-m" | "usb-3-type-b" | "usb-micro-a" | "usb-mini-a" | "usb-type-a-f" | "usb-type-a-m" | "usb-type-b-f" | "usb-type-b-m" | "usb-type-c-f" | "usb-type-c-m";
 export type DataTransferRateUnitOfMeasure = "MB/s" | "MBit/s";
@@ -64,7 +65,7 @@ export type EarringBackTypes = "clip-on" | "fish-hoob" | "screw-back" | "snap-ba
 export type EarringFrontTypes = "bajoran" | "barbell" | "c-hoop" | "cartilage" | "chain-ear-cuff" | "chain" | "chandeliers" | "cluster" | "crawler" | "cuff" | "dangle-2" | "dangle" | "drop-2" | "drop" | "hoop-2" | "hoop" | "huggies" | "jacket" | "lobe" | "pierced" | "stud" | "tassel" | "teardrop" | "threader" | "two-sided";
 export type EmmyAwardCategories = "comedy" | "drama" | "limited" | "reality" | "variety" | "talk" | "movie" | "directing-comedy" | "directing-drama" | "directing-limited" | "directing-variety" | "writing-comedy" | "writing-drama" | "writing-limited" | "writing-variety" | "actor-comedy" | "actor-drama" | "actor-limited" | "actress-comedy" | "actress-drama" | "actress-limited" | "supporting-actor-comedy" | "supporting-actor-drama" | "supporting-actor-limited" | "supporting-actress-comedy" | "supporting-actress-drama" | "supporting-actress-limited" | "documentary-series" | "documentary-special" | "animated";
 export type ESRBRatings = "E" | "E10+" | "T" | "M" | "AO" | "RP" | "RPLM" | "NR";
-export type FabricTypes = "metallic" | "acrylic" | "cashmere" | "cotton" | "denim" | "lace" | "leather" | "linen" | "modal" | "nylon" | "organicCotton" | "polyester" | "rayon" | "satin" | "silk" | "spandex" | "suede" | "velvet" | "viscose" | "wool";
+export type FabricTypes = "metallic" | "acrylic" | "cashmere" | "cotton" | "denim" | "lace" | "leather" | "linen" | "modal" | "nylon" | "organicCotton" | "polyester" | "rayon" | "satin" | "silk" | "spandex" | "suede" | "velvet" | "viscose" | "wool" | "fur" | "faux-fur" | "faux-leather";
 export type FacePOV = "barcode" | "inner" | "tag" | "defect" | "enhancer" | "logo" | "product-info";
 export type FaceX = "left" | "right";
 export type FaceY = "front" | "back";
@@ -103,6 +104,8 @@ export type MaterialStyles = "corduroys" | "denim" | "khakis" | "leather" | "lin
 export type LegStyles = "baggy" | "bootcut" | "capri" | "cropped" | "flare" | "relaxed" | "skinny" | "slim" | "slimbootcut" | "straight" | "wide" | "short-shorts" | "skort" | "leggings"
 ;
 // "ankle" | "baggy" | "cropped" | "boot-cut" | "flare" | "skinny" | "straight" | "tapered" | "trouser" | "wide";
+export type ProSportsTeam = string;
+export type Holidays = string;
 export type SweaterTypes =
     | 'cardigan'
     | 'crewneck-sweater'
@@ -251,7 +254,10 @@ export function TextValueControl() {
     const formContext = useFormContext();
     return <TextFieldElement name='value' label='Value' control={formContext.control} type='text' />;
 }
-
+export function NumberControl() {
+    const formContext = useFormContext();
+    return <TextFieldElement name='value' label='Value' control={formContext.control} type='number' />;
+}
 function toSelectValueControl(enumKey: keyof typeof $me) {
     const options = standardizeOptions($masterEnum[enumKey as keyof typeof $masterEnum] as any).asArray.sort((l, r) => l.text?.localeCompare(r?.text ?? '') ?? 0);
     return function SelectValueControl() {
@@ -301,13 +307,18 @@ export const attributePaths = [
         Component: toSelectValueControl('bagTypes')
     },
     {
+        key: 'pieceCount',
+        text: 'pieceCount',
+        Component: NumberControl
+    },
+    {
         key: 'batteryType',
         text: 'batteryType',
         Component: toSelectValueControl('batteryTypes')
     },
     {
-        key: 'bookGenre',
-        text: 'bookGenre',
+        key: 'book.bookGenre',
+        text: 'book.bookGenre',
         Component: toSelectValueControl('bookGenres')
     },
     {

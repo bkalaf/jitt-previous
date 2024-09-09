@@ -11,6 +11,7 @@ import { getCurrentWebContents } from '@electron/remote';
 import { useConfiguration } from '../hooks/useConfiguration';
 import { useEventListener } from '../hooks/useEventListener';
 import { NavLink as RRLink } from 'react-router-dom';
+import '../taxonomy/igraph';
 
 export function BreadcrumbItem({ path, name }: { path: string; name: string }) {
     return (

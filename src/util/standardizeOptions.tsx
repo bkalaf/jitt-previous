@@ -1,5 +1,7 @@
 import { ColumnMeta } from '@tanstack/react-table';
+import $masterEnum from './../schema/enums/enum-info.json';
 
+const $me: MasterEnum = $masterEnum;
 export function standardizeOptions(inc: Record<string, string | { text: string; key: string }> | Array<{ text: string; key: string; aliases?: string[] } | string>): Exclude<ColumnMeta<any, any>['enumInfo'], undefined> {
     if (Array.isArray(inc)) {
         const asArray1 = inc.map((v) => (typeof v === 'string' ? { key: v, text: v, aliases: [] } : { aliases: [], ...v })) as { text: string; key: string; aliases: string[] }[];
@@ -19,4 +21,15 @@ export function standardizeOptions(inc: Record<string, string | { text: string; 
         asArray,
         asRecord
     };
+}
+
+export function standardizeEnum(value: ValueOf<MasterEnum>) {
+    return {
+        asArray: value,
+        asRecord: Object.fromEntries(value.map((x) => [x.key, x] as [string, ArrayOf< ValueOf<MasterEnum>>])) as Record<string, ArrayOf<ValueOf<MasterEnum>>>
+    };
+}
+
+export function standardizeFromEnumKey(enumKey: keyof MasterEnum) {
+    return standardizeEnum($me[enumKey])
 }

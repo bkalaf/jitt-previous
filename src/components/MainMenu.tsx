@@ -17,6 +17,7 @@ import { BSON } from 'realm';
 import * as cp from 'child_process';
 import { ignore } from '../common/ignore';
 import { useInvalidateCollection } from '../hooks/useInvalidateCollection';
+import { createRunClassifiers } from './createRunClassifiers';
 // const mainMenuOptions = {
 //     auctions: {
 //         selfStorage: $.selfStorage(),
@@ -241,6 +242,7 @@ export function Actions() {
                 .map((x) => x.kind === 'bin').length === 0,
         [db]
     );
+    const runClassifiers = useMemo(() => createRunClassifiers(db), [db]);
     const invalidateBarcode = useInvalidateCollection('barcode');
     const removeOrphanedBarcodes = useCallback(() => {
         const func = () => {
@@ -288,6 +290,8 @@ export function Actions() {
                         <BaseMenuItem label='Print Bin Labels' onClick={exportBinBarcodes} disabled={hasBinToExport()} />
                         <Divider />
                         <BaseMenuItem label='Remove orphaned barcodes' onClick={removeOrphanedBarcodes} />
+                        <Divider />
+                        <BaseMenuItem label="Run Classifiers" onClick={runClassifiers} />
                     </MenuList>
                 </CategoryMenuItem>
             </MenuList>
@@ -331,6 +335,7 @@ export function MainMenu() {
                         <MenuList>
                             <MainMenuItem baseUrl='/data/v1/' segment='brand' />
                             <MainMenuItem baseUrl='/data/v1/' segment='classifier' />
+                            <MainMenuItem baseUrl='/data/v1/' segment='classification' />
                             <MainMenuItem baseUrl='/data/v1/' segment='product' />
                             <MainMenuItem baseUrl='/data/v1/' segment='productImage' />
                             <MainMenuItem baseUrl='/data/v1/' segment='sku' />

@@ -23,7 +23,7 @@ export function DBDictionaryControl<T extends MRT_RowData, TValue>(props: EditFu
                 </legend>
                 <small>{helperText}</small>
                 <div>
-                    {open && <DBDictionaryEditSubComponent append={append} columns={resolveColumns(cols)} handleClose={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} enumInfo={enumInfo} isOpen={open} objectType={objectType} />}
+                    {open && <DBDictionaryEditSubComponent append={append} columns={resolveColumns(cols)} toggleOpen={toggleOpen} KeyControl={KeyControl as any} keyType={keyType} enumInfo={enumInfo} open={open} objectType={objectType} />}
                     <List>
                         {Object.entries(value ?? {}).map(([key, v]) => (
                             <DBDictionaryItemSubComponent key={key} index={key} value={v} remove={remove} objectType={objectType} LIComponent={LiComponent} />

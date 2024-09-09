@@ -144,6 +144,7 @@ import { is } from '../../common/is';
 import { MRT_ColumnDef } from 'material-react-table';
 import { productColumns } from './productColumns';
 import { runTransaction } from '../../util/runTransaction';
+import { dbListCompare } from '../../components/Tabs/createClassifyTabPanel';
 
 export class Product extends EntityBase<IProduct> implements IProduct {
     accessoryType?: Opt<ApparelAccessoryTypes>;
@@ -179,6 +180,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     radiusOfGyration: Opt<number>;
     laneCondition: Opt<string>;
     suggestedRetailPrice: Opt<number>;
+    proSportsTeam?: Opt<string>;
     static matchKeys: (keyof IProduct & string)[] = ['brand.name' as any, 'classifier.name' as any, '_id', 'title', 'modelNo', 'upcs', 'modelName', 'brand.mercariBrand.name' as any, '$title', '$subtitle', 'studio', 'notes', 'description'];
     static columns: MRT_ColumnDef<IProduct>[] = productColumns();
     get $dims(): { length?: Opt<IMeasure<LengthUnitsOfMeasure>>; width?: Opt<IMeasure<LengthUnitsOfMeasure>>; height?: Opt<IMeasure<LengthUnitsOfMeasure>> } {
@@ -587,7 +589,9 @@ export class Product extends EntityBase<IProduct> implements IProduct {
             casualShirtType: $.string.opt,
             formalShirtType: $.string.opt,
             pantStyle: $.string.opt,
-            materialStyle: $.string.opt
+            materialStyle: $.string.opt,
+            proSportsTeam: $.string.opt,
+            holiday: $.string.opt
         }
     };
     mediaSubtitle?: Opt<string>;
@@ -600,6 +604,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     pinCount?: Opt<number>;
     voltage?: Opt<number>;
     season?: Opt<number>;
+    holiday?: Opt<string>;
 
     get sizeText(): string | undefined {
         return sizeLookup(this.size)?.text;
@@ -625,6 +630,7 @@ export class Product extends EntityBase<IProduct> implements IProduct {
     static update(item: IProduct): IProduct {
         console.log(`in update`);
         const inAttributes = item.classifier?.allAttributes ?? [];
+        const realm = Product.localRealm;
         const func = () => {
             for (const { path, value, isList, isDictionary } of inAttributes) {
                 console.log(`processing attribute`, path, isList, value);
@@ -639,6 +645,24 @@ export class Product extends EntityBase<IProduct> implements IProduct {
                     (item as any)[path] = $value;
                 }
             }
+            const classifications = realm.objects<IClassification>('classification').filtered('taxonomy <> nil');
+            const filtered1 = classifications.filter(x => dbListCompare(x.path ?? [], item.path ?? []));
+            console.info(`filtered1`, filtered1);
+            const filtered2 = filtered1.filter(x => x.flags.length === 0 || x.flags.every(flag => item.flags.includes(flag as  Flags)));
+            console.info(`filtered2`, filtered2);
+            const filtered3 = filtered2.filter(x => Object.entries(x.attributes ?? {}).length === 0 || Object.entries(x.attributes ?? {}).every(([k, v]) => {
+                console.info(`key`, k, `value`, v, `item.key`, item, (item as any)[k])
+                return (item as any)[k as any] === v
+            }))
+            const filtered4 = filtered3.sort((a, b) => ((a?.flags.length ?? 0) > (b?.flags.length ?? 0) ? -1 : (a?.flags.length ?? 0) < (b?.flags.length ?? 0) ? 1 : 0));
+            console.info(`filtered3`, filtered4);
+            if (filtered4.length === 0) {
+                alert('NO CLASSIFICATION MATCH');
+            } else {
+                console.error(`classification match`, filtered4[0])
+                item.classification = filtered3[0]
+            }
+
         };
         runTransaction(Product.localRealm, func);
         return item;

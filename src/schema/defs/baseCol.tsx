@@ -54,6 +54,7 @@ export function baseCol<T extends MRT_RowData, TValue>(
         filterFn?: MRT_ColumnDef<T>['filterFn'];
         filterVariant?: MRT_ColumnDef<T>['filterVariant'];
         filterSelectOptions?: MRT_ColumnDef<T>['filterSelectOptions'];
+        ModalComponent?: ModalFunctionComponent<T>;
     } = {},
     onChange?: OnChangeFn,
     ...dependencies: IDependency<T, any>[]

@@ -3,7 +3,6 @@ import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { BaseDashboardEntry } from '../DashboardEntry';
 import { IMercariBrand } from '../../types';
 import dayjs from 'dayjs';
-import React from 'react';
 
 
 export function LastRunBrandScrape(props: { className?: string; start?: number; }) {

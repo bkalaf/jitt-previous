@@ -6,8 +6,7 @@ import { BSON } from 'realm';
 import { Link } from '@mui/material';
 import { useWhyDidIUpdate } from '../../../hooks/useWhyDidIUpdate';
 import { useColumnMeta } from '../../../hooks/useColumnMeta';
-import { getProperty } from '../../../common/object/getProperty';
-import { useGetLabelProperty } from '../../../hooks/useGetLabelProperty';
+import { useGetLIComponent } from '../../../hooks/useGetLIComponent';
 
 export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & { _id: BSON.ObjectId }>(props: CellFunctionParams<T, U | undefined>) {
     useWhyDidIUpdate('LookupTableCell', props);
@@ -16,7 +15,7 @@ export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams({ _id: value != null ? (value as { _id: BSON.ObjectId })._id.toHexString() : '' });
     const onClick = useCallback(() => navigate(`/data/v1/${objectType}?${searchParams.toString()}`), [navigate, objectType, searchParams]);
-    const labelProperty = useGetLabelProperty(objectType);
+    const labelProperty = useGetLIComponent(objectType);
     if (labelProperty == null) throw new Error(`no labelProperty for ${objectType}`);
     return (
         <Link
@@ -25,7 +24,7 @@ export function LookupTableCell<T extends MRT_RowData, U extends MRT_RowData & {
             variant='button'
             component='button'
             onClick={onClick}>
-            {value == null ? '' : (getProperty(labelProperty as any, value) as string)}
+            {value == null ? '' : (labelProperty(value) as string)}
         </Link>
     );
 }

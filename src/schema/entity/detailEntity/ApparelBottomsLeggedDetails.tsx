@@ -15,6 +15,6 @@ export class ApparelBottomsLeggedDetails extends EntityBase<IApparelBottomsLegge
         }
     };
     static label = 'Apparel Bottoms Legged';
-    static type: DetailTypes = 'apparel/bottoms/legged';
+    static type: DetailTypes = 'apparel/bottoms';
     static objectType = ApparelBottomsLeggedDetails.schema.name;
 }

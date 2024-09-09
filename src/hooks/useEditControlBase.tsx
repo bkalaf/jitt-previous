@@ -32,10 +32,11 @@ export function useEditControlBase<T extends MRT_RowData, TValue, TKeys extends 
         'onChange',
         ...keys
     );
+    
     // const $dependencies = useMemo(() => dependencies, [dependencies]);
     const validation = useMemo(() => createRules({ required, min, max, minLength, maxLength, pattern, validate }), [max, maxLength, min, minLength, pattern, required, validate]);
     const { accessorKey, id, header: label } = props.column.columnDef;
-    const name = columnName ?? accessorKey ?? id ?? 'n/a';
+    const name = columnName ?? accessorKey as string ?? id ?? 'n/a';
     const formContext = useFormContext();
     const invalidator = useInvalidateCollection();
     const { control, getFieldState, getValues } = formContext;

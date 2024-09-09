@@ -17,7 +17,8 @@
     "strictFunctionTypes": true,
     "declaration": true,
     "types": ["node"],
-    "allowUmdGlobalAccess": true
+    "allowUmdGlobalAccess": true,
+    "noUnusedLocals": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/renderer.ts", "./tailwind.config.ts", "bin/**/*.ts", "bin/**/*.tsx" ]
 }

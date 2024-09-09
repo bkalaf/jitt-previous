@@ -18,8 +18,8 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     // index: number;
     // value: Record<string, any>;
     columns: JITTColumns<T>;
-    isOpen: boolean;
-    handleClose: () => void;
+    open: boolean;
+    toggleOpen: () => void;
     objectType: string;
     KeyControl: React.FunctionComponent<EditFunctionParams<any>>;
     keyType?: string;
@@ -28,7 +28,7 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     const logger = useLogger();
     useWhyDidIUpdate('DLListEditSubComponent', props);
     logger(`DBListEditSubComponent`, props.objectType);
-    const { append, handleClose, isOpen, columns, objectType, KeyControl, keyType, enumInfo } = props;
+    const { append, toggleOpen, open, columns, objectType, KeyControl, keyType, enumInfo } = props;
     const dictionaryColumns = useMemo(
         () =>
             [
@@ -64,13 +64,13 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
     return (
         <FormProvider {...formContext}>
             <form>
-                <Dialog open={isOpen} onClose={handleClose}>
+                <Dialog open={open} onClose={toggleOpen}>
                     <DialogTitle>Insert New List Item</DialogTitle>
                     <DialogContent>
                         <EditControls columns={dictionaryColumns} />
                     </DialogContent>
                     <DialogActions>
-                        <Button type='button' variant='contained' className='inline-flex' color='metal' onClick={handleClose}>
+                        <Button type='button' variant='contained' className='inline-flex' color='metal' onClick={toggleOpen}>
                             Cancel
                         </Button>
                         <Button
@@ -81,7 +81,7 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
                             onClick={formContext.handleSubmit((data) => {
                                 // console.info(`handleSubmit(data) = `, data);
                                 convertAppend(data as any);
-                                handleClose();
+                                toggleOpen();
                             })}>
                             Submit
                         </Button>
@@ -93,18 +93,18 @@ export function DBDictionaryEditSubComponent<T extends MRT_RowData, TValue>(prop
 }
 export function DBListEditSubComponent<T extends MRT_RowData>(props: {
     // control: Control<FieldValues, any>;
-    append: UseFieldArrayReturn['append'];
+    finalCallback: UseFieldArrayReturn['append'];
     // index: number;
     // value: Record<string, any>;
     columns: JITTColumns<T>;
-    isOpen: boolean;
-    handleClose: () => void;
+    open: boolean;
+    toggleOpen: () => void;
     objectType: string;
 }) {
     const logger = useLogger();
     useWhyDidIUpdate('DLListEditSubComponent', props);
     logger(`DBListEditSubComponent`, props.objectType);
-    const { append, handleClose, isOpen, columns, objectType } = props;
+    const { finalCallback, toggleOpen, open, columns, objectType } = props;
     const convertValue = useConvertListItem(objectType);
     const init = useInitial<T>(objectType);
     const defaultValues = useMemo(() => init(), [init]);
@@ -126,13 +126,13 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
     return (
         <FormProvider {...formContext}>
             <form>
-                <Dialog open={isOpen} onClose={handleClose}>
+                <Dialog open={open} onClose={toggleOpen}>
                     <DialogTitle>Insert New List Item</DialogTitle>
                     <DialogContent>
                         <EditControls columns={resolveColumns(columns)} />
                     </DialogContent>
                     <DialogActions>
-                        <Button type='button' variant='contained' className='inline-flex' color='metal' onClick={handleClose}>
+                        <Button type='button' variant='contained' className='inline-flex' color='metal' onClick={toggleOpen}>
                             Cancel
                         </Button>
                         <Button
@@ -144,8 +144,8 @@ export function DBListEditSubComponent<T extends MRT_RowData>(props: {
                                 // console.info(`handleSubmit(data) = `, data);
                                 const converted = convertValue(data as any);
                                 // console.info(`convertedValue`, converted);
-                                append(converted);
-                                handleClose();
+                                finalCallback(converted);
+                                toggleOpen();
                             })}>
                             Submit
                         </Button>

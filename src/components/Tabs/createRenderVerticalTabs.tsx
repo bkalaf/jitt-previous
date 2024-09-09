@@ -10,7 +10,7 @@ export function createRenderVerticalTabs<T extends MRT_RowData>(collection: stri
     const tabs = tabList[collection];
     return function VerticalTabPanel(props: RenderDetailTabPanelProps<T>) {
         const collection = useEffectiveCollection();
-        const effectiveTabs = useMemo(() => (collection === 'product' ? [tabs[0], ...tabs.slice(1).filter((x) => (props.row.original as any as IProduct).detailTypes.includes(x.type as DetailTypes))] : tabs), [collection, props.row.original]);
+        const effectiveTabs = useMemo(() => (collection === 'product' ? [tabs[0], ...tabs.slice(1).filter((x) => (props.row.original as any as IProduct).path.join('/').includes(x.type as DetailTypes))] : tabs), [collection, props.row.original]);
         const [value, setValue] = useState(0);
         const handleChange = useCallback((ev: SyntheticEvent, newValue: number) => {
             // console.log(`handleChange-tabs`, ev, newValue);

@@ -1,5 +1,7 @@
 // import $masterEnum from './schema/enums/enum-info.json';
 
+import { MRT_RowData } from 'material-react-table';
+
 // export type EnumName = keyof typeof $masterEnum;
 
 export interface IPalletteColors<T> {
@@ -49,6 +51,7 @@ declare module '@tanstack/table-core' {
             asRecord: Record<string, { text: string; selector?: string; key: string }>;
         };
         dependencies?: IDependency<T, any>[];
+        ModalComponent?: ModalFunctionComponent<MRT_RowData>;
     }
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface TableMeta<TData extends RowData> {

@@ -4,7 +4,15 @@ import { QueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { Backdrop, CircularProgress } from '@mui/material';
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            // initialData: [],
+            refetchOnWindowFocus: false,
+            staleTime: Infinity
+        }
+    }
+});
 
 export function AppRoot({ ProviderComponents }: { ProviderComponents: React.FunctionComponent<{ children: Children }> }) {
     return (

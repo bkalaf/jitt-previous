@@ -90,6 +90,8 @@ export default [{
         "@typescript-eslint/no-explicit-any": "off",
         "react/jsx-uses-react": "error",
         'import/namespace': 'off',
-        'no-console': 'warn'
+        'no-console': 'warn',
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': ['error']
     },
 }];

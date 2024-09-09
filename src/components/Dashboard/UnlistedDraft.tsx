@@ -2,7 +2,6 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { BaseDashboardEntry } from '../DashboardEntry';
 import { IDraft } from '../../types';
-import React from 'react';
 
 
 export function UnlistedDraft(props: { className?: string; start?: number; }) {

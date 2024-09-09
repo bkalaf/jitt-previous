@@ -4,7 +4,6 @@ import { BaseDashboardEntry } from '../DashboardEntry';
 import { IHashTag } from '../../types';
 import dayjs from 'dayjs';
 import { CircularProgress } from '@mui/material';
-import React from 'react';
 
 
 export function LastRunHashTagScrape(props: { className?: string; start?: number; }) {

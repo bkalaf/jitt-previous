@@ -9,6 +9,8 @@ export const generalDetails: <T extends MRT_RowData>(...dependencies: IDependenc
     [
         helper.date(...dependencies)('testedOn', 'Tested On', { dateType: 'past' }),
         helper.string(...dependencies)('itemType', 'Item Type', undefined, {}),
+        helper.enum(...dependencies)('proSportsTeam', 'Pro Sports Team', { enumKey: 'proSportsTeams' }),
+        helper.enum(...dependencies)('holiday', 'Holiday', { enumKey: 'holidays' }),
         helper.enum(...dependencies)('bagType', 'Bag Type', { enumKey: 'bagTypes' }),
         helper.enum(...dependencies)('bottomType', 'Bottom Type', { enumKey: 'bottomTypes' }),
         helper.enum(...dependencies)('braType', 'Bra Type', { enumKey: 'braTypes' }),

@@ -3,8 +3,7 @@ import { Grid } from './Grid';
 import { DashboardCategory, DashboardEntry } from './DashboardEntry';
 import { useLocalRealm } from '../hooks/useLocalRealm';
 import { IBarcode, ISku } from '../types';
-import {
-    ObsoleteApiResults} from './Dashboard/ObsoleteApiResults';
+import { ObsoleteApiResults } from './Dashboard/ObsoleteApiResults';
 import { LastRunHashTagScrape } from './Dashboard/LastRunHashTagScrape';
 import { LastRunTaxonomyScrape } from './Dashboard/LastRunTaxonomyScrape';
 import { LastRunBrandScrape } from './Dashboard/LastRunBrandScrape';
@@ -16,10 +15,11 @@ import { SkuWithoutImages } from './Dashboard/SkuWithoutImages';
 import { UnlistedDraft } from './Dashboard/UnlistedDraft';
 import { SkuWithoutBarcode } from './Dashboard/SkuWithoutBarcode';
 import { SkuWithoutDraft } from './Dashboard/SkuWithoutDraft';
-import { ProductWithoutSku } from './Dashboard/ProductWithoutSku';
+import { PastFourteenDays, PastOneDay, PastSevenDays, PastThirtyDays, ProductWithoutSku } from './Dashboard/ProductWithoutSku';
 import { ProductSearchPending } from './Dashboard/ProductSearchPending';
 import { DashboardItem } from './Dashboard/DashboardItem';
 import { ImagesUnapproved } from './Dashboard/ImagesUnapproved';
+import { ProductWithoutClassification } from './Dashboard/ProductWithoutClassification';
 
 export function Dashboard() {
     const db = useLocalRealm();
@@ -37,6 +37,7 @@ export function Dashboard() {
             <Grid gap={2} columns={6} className='m-1.5'>
                 <DashboardCategory label='PRODUCT & SKUS' className='border-violet-200 bg-indigo-800 text-white shadow-white' />
                 <DashboardItem Component={ProductWithoutSku} className='border-slate-700 bg-indigo-500 text-black shadow-white' start={1} />
+                <DashboardItem Component={ProductWithoutClassification} className='border-slate-700 bg-indigo-500 text-black shadow-white' />
                 <DashboardItem Component={SkuWithoutDraft} className='border-slate-700 bg-indigo-500 text-black shadow-white' />
                 <DashboardItem Component={UnlistedDraft} className='border-slate-700 bg-indigo-500 text-black shadow-white' />
                 <DashboardItem Component={SkuWithoutBarcode} className='border-slate-700 bg-indigo-500 text-black shadow-white' />
@@ -48,6 +49,12 @@ export function Dashboard() {
                 <DashboardCategory className='border-pink-200 bg-red-800 text-white shadow-white' label='EXTERNAL COMMANDS' />
                 <DashboardItem Component={ProductSearchPending} className='border-slate-700 bg-pink-500 text-black shadow-white' start={1} />
                 <DashboardItem Component={ObsoleteApiResults} className='border-slate-700 bg-pink-500 text-black shadow-white' />
+
+                <DashboardCategory className='border-purple-200 bg-purple-800 text-white shadow-white' label='PROMOTIONS' />
+                <DashboardItem Component={PastOneDay} className='border-slate-700 bg-purple-500 text-black shadow-white' start={1} />
+                <DashboardItem Component={PastSevenDays} className='border-slate-700 bg-purple-500 text-black shadow-white' />
+                <DashboardItem Component={PastFourteenDays} className='border-slate-700 bg-purple-500 text-black shadow-white' />
+                <DashboardItem Component={PastThirtyDays} className='border-slate-700 bg-purple-500 text-black shadow-white' />
 
                 <DashboardCategory className='border-amber-200 bg-amber-700 text-white shadow-white' label='ADMIN ACTION' />
                 <DashboardEntry className='border-slate-700 bg-amber-500 text-black shadow-white' label='LAST RUN INVENTORY' start={1} query={lastRunInventory} collection='sku' subName='scans.scanDate max' isDate limit={20} />

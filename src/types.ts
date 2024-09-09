@@ -127,7 +127,9 @@ import {
     CasualShirtTypes,
     FormalShirtTypes,
     PantStyles,
-    MaterialStyles
+    MaterialStyles,
+    ProSportsTeam,
+    Holidays
 } from './schema/enums';
 import { AttachmentType } from './schema/choices/AttachmentType';
 import { ProductImageDisposition } from './schema/choices/ProductImageDisposition';
@@ -208,7 +210,18 @@ export type IHashTag = {
     readonly maxCount: number;
     readonly mostRecent: Date;
 };
-
+export type IMaterialCondition = {
+    material: FabricTypes;
+    anyValue: boolean;
+    value: Opt<number>;
+}
+export type IHashTagCondition = {
+    attributes: DBList<IAttribute>;
+    brands: DBList<IBrand>;
+    conditions: DBList<string>;
+    material: DBList<IMaterialCondition>;
+    hashTags: DBList<IHashTag>;
+};
 export type IBrand = {
     _id: BSON.ObjectId;
     name: string;
@@ -587,6 +600,15 @@ export type IScrape = {
     storeInfos: DBList<IScrapeStoreInfo>;
 }
 
+export type IHashTagAssignment = {
+    hashTags: DBList<IHashTag>;
+    flags: DBList<string>;
+    traits: DBList<string>;
+    brands: DBList<IBrand>;
+    readonly attributes: Record<string, string>;
+    readonly classification: Realm.Results<RealmObj<IClassification>>;
+    match(product: IProduct): IHashTag[];
+}
 export type IClassification = {
     _id: BSON.ObjectId;
     path: DBList<string>;
@@ -594,6 +616,18 @@ export type IClassification = {
     flags: DBList<string>;
     itemType: string;
     taxonomy: Opt<IMercariTaxonomy>;
+    equalTo(this: Omit<IClassification, '_id'>, other: Omit<InitValue<IClassification>, '_id'>): boolean;
+    hashTags: DBList<IHashTag>;
+    additionalPaths: DBList<string>;
+    parent: Opt<IClassification>;
+    hashTagAssignments: DBList<IHashTagAssignment>;
+    hashTagConditions: DBList<IHashTagCondition>;
+    readonly allHashTagConditions: IHashTagCondition[];
+    readonly paths: string[];
+    readonly allHashTags: IHashTag[];
+    readonly allHashTagAssignments: IHashTagAssignment[];
+    readonly subRows: Realm.Results<IClassification>;
+    match(product: IProduct): IHashTag[];
 };
 
 export type IProduct = IApparel & {
@@ -675,6 +709,8 @@ export type IProduct = IApparel & {
     suitType?: Opt<SuitTypes>;
     mediaTitle?: Opt<string>;
     mediaSubtitle?: Opt<string>;
+    proSportsTeam?: Opt<ProSportsTeam>;
+    holiday?: Opt<Holidays>;
     // // media
     book?: Opt<IBook>;
     movie?: Opt<IMovie>;

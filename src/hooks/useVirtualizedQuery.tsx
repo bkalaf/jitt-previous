@@ -14,7 +14,7 @@ export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>,
     // const navigate = useNavigate();
     // const $match = useMatch('/data/v1/:collection');
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { data, dataUpdatedAt, error, errorUpdatedAt, isLoading, isError } = useQuery<T[]>({
+    const { data, isLoading, isError } = useQuery<T[]>({
         queryKey: [route],
         queryFn: () => {
             // console.log('MATCH', $match);
@@ -26,8 +26,10 @@ export function useDataQuery<T extends MRT_RowData>(): Omit<MRT_TableOptions<T>,
             // const pathTo = ['/data/v1', prependIgnore('/')($match?.params.collection), prependIgnore('?')(searchString) ?? ''].join('');
             // navigate(pathTo);
             const result = realm.objects<T>(route) as any as Realm.Results<T>;
+            const result1 = route === 'classification' ? result.filtered('path == $0', []) : result;
+            console.log(`result`, route, result1.map(x => x.toJSON()));
             // console.log(`result`, result, result.length);
-            return Promise.resolve(Array.from(result));
+            return Promise.resolve(Array.from(result1));
         }
     });
     const muiToolbarAlertBannerProps = useMemo(

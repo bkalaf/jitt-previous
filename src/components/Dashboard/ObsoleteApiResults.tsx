@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { BaseDashboardEntry } from '../DashboardEntry';
-import React from 'react';
 
 export const PRODUCT_SEARCH_QUEUE = process.env.PRODUCT_SEARCH_QUEUE ?? '';
 

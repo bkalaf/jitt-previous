@@ -14,7 +14,7 @@ import { useInvalidateCollection } from './useInvalidateCollection';
 export function useRealmCreate<T extends MRT_RowData>(objectType: string, toggleDialog: () => void, finalCallback: (result: T) => void) {
     const convert = useConvert('object', objectType);
     const db = useLocalRealm();
-    const updater = useUpdateEntity<T>(objectType);
+    const updater = useUpdateEntity(objectType);
     const successMessage = useSuccessNotification((obj: RealmObj<any>) => `1 new record created. [${obj._id.toHexString()}]`, objectType);
     const invalidator = useInvalidateCollection(objectType);
     const failureMessage = useFailureNotification((errors: FieldErrors<T>) => {

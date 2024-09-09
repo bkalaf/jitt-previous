@@ -1,4 +1,4 @@
-import { createHashRouter, Navigate, Outlet } from 'react-router-dom';
+import { createHashRouter, Link, Navigate, Outlet } from 'react-router-dom';
 import { ErrorBoundary } from './ErrorBoundary';
 import { App } from './App';
 import { CollectionView } from './Views/CollectionView';
@@ -59,6 +59,12 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
             errorElement: <ErrorBoundary />,
             children: [
                 {
+                    path: 'dashboard',
+                    index: true,
+                    errorElement: <ErrorBoundary />,
+                    element: <Dashboard />
+                },
+                {
                     path: 'queries',
                     errorElement: <ErrorBoundary />,
                     children: [
@@ -94,6 +100,7 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                                 collectionRoute('movie'),
                                 collectionRoute('tvSeries'),
                                 collectionRoute('adminTask'),
+                                collectionRoute('classification'),
                                 { index: true, element: <div>CATEGORY INDEX</div>, errorElement: <ErrorBoundary /> }
                             ]
                         },
@@ -102,7 +109,9 @@ export const appRouter = (ProviderComponent: React.FunctionComponent<{ children:
                 },
                 {
                     index: true,
-                    element: <Dashboard />,
+                    element: <>
+                        <Link to='dashboard'>Go to Dashboard</Link>
+                    </>,
                     errorElement: <ErrorBoundary />
                 }
             ]

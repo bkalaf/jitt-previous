@@ -1,6 +1,5 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { BaseDashboardEntry } from '../DashboardEntry';
-import React from 'react';
 import * as fs from 'graceful-fs';
 import { PRODUCT_SEARCH_QUEUE } from './ObsoleteApiResults';
 

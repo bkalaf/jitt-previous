@@ -12,6 +12,7 @@ export const productColumns: <T extends MRT_RowData>(...dependencies: IDependenc
     [
         helper.PK(),
         helper.lookup(...dependencies)('brand', 'Brand', { objectType: 'brand' }),
+        helper.lookup(...dependencies)('classification', 'Classification', { objectType: 'classification' }),
         helper.lookup(...dependencies)('classifier', 'Classifier', {
             objectType: 'classifier'
             // onChange: (formContext: UseFormReturn<any, any, any>, oldValue: Opt<IClassifier>, newValue: Opt<IClassifier>) => {

@@ -61,7 +61,7 @@ export function createUpdateTabPanel<T extends MRT_RowData>(columns: MRT_ColumnD
                     :   null}
                     <EditControls columns={columns} />
                     <Item className='col-span-4 col-start-1 flex w-full justify-center'>
-                        <Button type='button' variant='contained' color='metal' disabled={!formContext.formState.isDirty} onClick={onClick}>
+                        <Button type='button' variant='contained' color='metal' onClick={onClick}>
                             Submit
                         </Button>
                     </Item>

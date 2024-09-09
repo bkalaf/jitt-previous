@@ -391,7 +391,9 @@
         { "image": "src/assets/images/enums/bagTypes/satchel.png", "aliases": [], "key": "satchel", "text": "satchel" },
         { "aliases": [], "key": "shoulder", "text": "shoulder" },
         { "image": "src/assets/images/enums/bagTypes/tote.png", "aliases": [], "key": "tote", "text": "tote" },
-        { "aliases": [], "key": "fanny-pack", "text": "fanny-pack" }
+        { "aliases": [], "key": "fanny-pack", "text": "fanny-pack" },
+        { "aliases": [], "key": "suitcase", "text": "suitcase" },
+        { "aliases": [], "key": "carry-on", "text": "carry-on bag" }
     ],
     "apparelAccessoryTypes": [
         { "aliases": [], "key": "belt", "text": "belt" },
@@ -717,7 +719,7 @@
         { "bottomType": ["pants"], "gender": ["womens"], "key": "leggings", "text": "leggings", "aliases": [] },
         { "bottomType": ["shorts"], "gender": ["womens"], "key": "bermuda", "text": "bermuda", "aliases": [] },
         { "bottomType": ["shorts"], "gender": ["womens"], "key": "bike", "text": "bike", "aliases": [] },
-        { "bottomType": ["shorts"], "gender": ["mens"], "key": "board", "text": "board" },
+        { "bottomType": ["shorts"], "gender": ["mens"], "key": "board", "text": "board", "aliases": [] },
         { "bottomType": ["shorts"], "gender": ["womens"], "key": "high-wasted", "text": "high-wasted", "aliases": [] },
         { "bottomType": ["shorts"], "gender": ["womens"], "key": "short-shorts", "text": "short-shorts", "aliases": [] },
         { "bottomType": ["shorts"], "gender": ["womens"], "key": "skort", "text": "skort", "aliases": [] }
@@ -1300,8 +1302,13 @@
         },
         {
             "aliases": [],
-            "key": "zipper",
-            "text": "zipper"
+            "key": "full-zip",
+            "text": "full-zip"
+        },
+        {
+            "aliases": [],
+            "key": "quarter-zip",
+            "text": "quarter-zip"
         }
     ],
     "clubTypes": [
@@ -1518,6 +1525,11 @@
         }
     ],
     "consoleTypes": [
+        {
+            "aliases": [],
+            "key": "psp",
+            "text": "Playstation Portable"
+        },
         {
             "aliases": [],
             "key": "nes",
@@ -3672,6 +3684,23 @@
             "text": "two-sided"
         }
     ],
+    "holidays": [
+        { "aliases": [], "key": "christmas", "text": "Christmas" },
+        { "aliases": [], "key": "halloween", "text": "Halloween" },
+        { "aliases": [], "key": "all-hallows-eve", "text": "All Hallow's Eve" },
+        { "aliases": [], "key": "easter", "text": "Easter" },
+        { "aliases": [], "key": "new-years-eve", "text": "New Year's Eve" },
+        { "aliases": [], "key": "valentines-day", "text": "Valentine's Day" },
+        { "aliases": [], "key": "st-patricks-day", "text": "St Patrick's Day" },
+        { "aliases": [], "key": "cinco-de-mayo", "text": "Cinco de Mayo" },
+        { "aliases": [], "key": "thanksgiving", "text": "Thanksgiving" },
+        { "aliases": [], "key": "fourth-of-july", "text": "Fourth of July" },
+        { "aliases": [], "key": "fathers-day", "text": "Father's Day" },
+        { "aliases": [], "key": "mothers-day", "text": "Mother's Day" },
+        { "aliases": [], "key": "birthday", "text": "Birthday" },
+        { "aliases": [], "key": "passover", "text": "Passover" },
+        { "aliases": [], "key": "hanukkah", "text": "Hanukkah" }
+    ],
     "emmyAwardCategories": [
         {
             "aliases": [],
@@ -3897,6 +3926,26 @@
         }
     ],
     "fabricTypes": [
+        {
+            "aliases": [],
+            "key": "corduroy",
+            "text": "corduroy"
+        },
+        {
+            "aliases": [],
+            "key": "fur",
+            "text": "fur"
+        },
+        {
+            "aliases": [],
+            "key": "faux-fur",
+            "text": "faux-fur"
+        },
+        {
+            "aliases": [],
+            "key": "faux-leather",
+            "text": "faux-leather"
+        },
         {
             "aliases": [],
             "key": "metallic",
@@ -6927,6 +6976,13 @@
     "productColors": [
         {
             "aliases": [],
+            "classes": "bg-white text-black border-black",
+            "key": "plaid",
+            "selector": null,
+            "text": "plaid"
+        },
+        {
+            "aliases": [],
             "classes": "bg-neutral-800 text-white border-black",
             "key": "silver",
             "selector": "#itemColorId-14",
@@ -7697,6 +7753,11 @@
             "text": "wrap"
         }
     ],
+    "packageSizeTypes": [
+        { "aliases": [], "key": "single-pack", "text": "single-pack" },
+        { "aliases": [], "key": "multi-pack", "text": "multi-pack" },
+        { "aliases": [], "key": "boxed-set", "text": "boxed-set" }
+    ],
     "riseTypes": [
         {
             "aliases": [],
@@ -8296,7 +8357,8 @@
     "sleeveLengths": [
         {
             "aliases": ["3/4"],
-            "key": "3/4 sleeve"
+            "key": "3/4 sleeve",
+            "text": "3/4 sleeve"
         },
         {
             "aliases": [],
@@ -8906,6 +8968,132 @@
             "text": "Best Performance by a Featured Actress in a Musical"
         }
     ],
+    "proSportsTeams": [
+        { "aliases": [], "key": "mlb-arizona", "text": "Arizona Diamondbacks" },
+        { "aliases": [], "key": "mlb-atlanta", "text": "Atlanta Braves" },
+        { "aliases": [], "key": "mlb-baltimore", "text": "Baltimore Orioles" },
+        { "aliases": [], "key": "mlb-boston", "text": "Boston Red Sox" },
+        { "aliases": [], "key": "mlb-chicago-cubs", "text": "Chicago Cubs" },
+        { "aliases": [], "key": "mlb-chicago-sox", "text": "Chicago White Sox" },
+        { "aliases": [], "key": "mlb-cincinnati", "text": "Cincinnati Reds" },
+        { "aliases": [], "key": "mlb-cleveland", "text": "Cleveland Guardians" },
+        { "aliases": [], "key": "mlb-colorado", "text": "Colorado Rockies" },
+        { "aliases": [], "key": "mlb-detroit", "text": "Detroit Tigers" },
+        { "aliases": [], "key": "mlb-houston", "text": "Houston Astros" },
+        { "aliases": [], "key": "mlb-kansas-city", "text": "Kansas City Royals" },
+        { "aliases": [], "key": "mlb-la-angels", "text": "Los Angeles Angels" },
+        { "aliases": [], "key": "mlb-la-dodgers", "text": "Los Angeles Dodgers" },
+        { "aliases": [], "key": "mlb-miami", "text": "Miami Marlins" },
+        { "aliases": [], "key": "mlb-milwaukee", "text": "Milwaukee Brewers" },
+        { "aliases": [], "key": "mlb-minnesota", "text": "Minnesota Twins" },
+        { "aliases": [], "key": "mlb-ny-yankees", "text": "New York Yankees" },
+        { "aliases": [], "key": "mlb-ny-mets", "text": "New York Mets" },
+        { "aliases": [], "key": "mlb-oakland", "text": "Oakland Athletics" },
+        { "aliases": [], "key": "mlb-philadelphia", "text": "Philadelphia Phillies" },
+        { "aliases": [], "key": "mlb-pittsburgh", "text": "Pittsburgh Pirates" },
+        { "aliases": [], "key": "mlb-san-diego", "text": "San Diego Padres" },
+        { "aliases": [], "key": "mlb-san-francisco", "text": "San Francisco Giants" },
+        { "aliases": [], "key": "mlb-seattle", "text": "Seattle Mariners" },
+        { "aliases": [], "key": "mlb-st-louis", "text": "St. Louis Cardinals" },
+        { "aliases": [], "key": "mlb-tampa-bay", "text": "Tampa Bay Rays" },
+        { "aliases": [], "key": "mlb-texas", "text": "Texas Rangers" },
+        { "aliases": [], "key": "mlb-toronto", "text": "Toronto Blue Jays" },
+        { "aliases": [], "key": "mlb-washington", "text": "Washington Nationals" },
+        { "aliases": [], "key": "nba-atlanta", "text": "Atlanta Hawks" },
+        { "aliases": [], "key": "nba-boston", "text": "Boston Celtics" },
+        { "aliases": [], "key": "nba-brooklyn", "text": "Brooklyn Nets" },
+        { "aliases": [], "key": "nba-charlotte", "text": "Charlotte Hornets" },
+        { "aliases": [], "key": "nba-chicago", "text": "Chicago Bulls" },
+        { "aliases": [], "key": "nba-cleveland", "text": "Cleveland Cavaliers" },
+        { "aliases": [], "key": "nba-dallas", "text": "Dallas Mavericks" },
+        { "aliases": [], "key": "nba-denver", "text": "Denver Nuggets" },
+        { "aliases": [], "key": "nba-detroit", "text": "Detroit Pistons" },
+        { "aliases": [], "key": "nba-golden-state", "text": "Golden State Warriors" },
+        { "aliases": [], "key": "nba-houston", "text": "Houston Rockets" },
+        { "aliases": [], "key": "nba-indiana", "text": "Indiana Pacers" },
+        { "aliases": [], "key": "nba-la-clippers", "text": "Los Angeles Clippers" },
+        { "aliases": [], "key": "nba-la-lakers", "text": "Los Angeles Lakers" },
+        { "aliases": [], "key": "nba-memphis", "text": "Memphis Grizzlies" },
+        { "aliases": [], "key": "nba-miami", "text": "Miami Heat" },
+        { "aliases": [], "key": "nba-milwaukee", "text": "Milwaukee Bucks" },
+        { "aliases": [], "key": "nba-minnesota", "text": "Minnesota Timberwolves" },
+        { "aliases": [], "key": "nba-new-orleans", "text": "New Orleans Pelicans" },
+        { "aliases": [], "key": "nba-new-york", "text": "New York Knicks" },
+        { "aliases": [], "key": "nba-oklahoma-city", "text": "Oklahoma City Thunder" },
+        { "aliases": [], "key": "nba-orlando", "text": "Orlando Magic" },
+        { "aliases": [], "key": "nba-philadelphia", "text": "Philadelphia 76ers" },
+        { "aliases": [], "key": "nba-phoenix", "text": "Phoenix Suns" },
+        { "aliases": [], "key": "nba-portland-trail", "text": "Portland Trail Blazers" },
+        { "aliases": [], "key": "nba-sacramento", "text": "Sacramento Kings" },
+        { "aliases": [], "key": "nba-san-antonio", "text": "San Antonio Spurs" },
+        { "aliases": [], "key": "nba-toronto", "text": "Toronto Raptors" },
+        { "aliases": [], "key": "nba-utah", "text": "Utah Jazz" },
+        { "aliases": [], "key": "nba-washington", "text": "Washington Wizards" },
+        { "aliases": [], "key": "nfl-arizona", "text": "Arizona Cardinals" },
+        { "aliases": [], "key": "nfl-atlanta", "text": "Atlanta Falcons" },
+        { "aliases": [], "key": "nfl-baltimore", "text": "Baltimore Ravens" },
+        { "aliases": [], "key": "nfl-buffalo", "text": "Buffalo Bills" },
+        { "aliases": [], "key": "nfl-carolina", "text": "Carolina Panthers" },
+        { "aliases": [], "key": "nfl-chicago", "text": "Chicago Bears" },
+        { "aliases": [], "key": "nfl-cincinnati", "text": "Cincinnati Bengals" },
+        { "aliases": [], "key": "nfl-cleveland", "text": "Cleveland Browns" },
+        { "aliases": [], "key": "nfl-dallas", "text": "Dallas Cowboys" },
+        { "aliases": [], "key": "nfl-denver", "text": "Denver Broncos" },
+        { "aliases": [], "key": "nfl-detroit", "text": "Detroit Lions" },
+        { "aliases": [], "key": "nfl-green-bay", "text": "Green Bay Packers" },
+        { "aliases": [], "key": "nfl-houston", "text": "Houston Texans" },
+        { "aliases": [], "key": "nfl-indianapolis", "text": "Indianapolis Colts" },
+        { "aliases": [], "key": "nfl-jacksonville", "text": "Jacksonville Jaguars" },
+        { "aliases": [], "key": "nfl-kansas-city", "text": "Kansas City Chiefs" },
+        { "aliases": [], "key": "nfl-la-chargers", "text": "Los Angeles Chargers" },
+        { "aliases": [], "key": "nfl-la-rams", "text": "Los Angeles Rams" },
+        { "aliases": [], "key": "nfl-las-vegas", "text": "Las Vegas Raiders" },
+        { "aliases": [], "key": "nfl-miami", "text": "Miami Dolphins" },
+        { "aliases": [], "key": "nfl-minnesota", "text": "Minnesota Vikings" },
+        { "aliases": [], "key": "nfl-new-england", "text": "New England Patriots" },
+        { "aliases": [], "key": "nfl-new-orleans", "text": "New Orleans Saints" },
+        { "aliases": [], "key": "nfl-ny-giants", "text": "New York Giants" },
+        { "aliases": [], "key": "nfl-ny-jets", "text": "New York Jets" },
+        { "aliases": [], "key": "nfl-philadelphia", "text": "Philadelphia Eagles" },
+        { "aliases": [], "key": "nfl-pittsburgh", "text": "Pittsburgh Steelers" },
+        { "aliases": [], "key": "nfl-san-francisco", "text": "San Francisco 49ers" },
+        { "aliases": [], "key": "nfl-seattle", "text": "Seattle Seahawks" },
+        { "aliases": [], "key": "nfl-tampa-bay", "text": "Tampa Bay Buccaneers" },
+        { "aliases": [], "key": "nfl-tennessee", "text": "Tennessee Titans" },
+        { "aliases": [], "key": "nfl-washington", "text": "Washington Commanders" },
+        { "aliases": [], "key": "nhl-anaheim", "text": "Anaheim Ducks" },
+        { "aliases": [], "key": "nhl-boston", "text": "Boston Bruins" },
+        { "aliases": [], "key": "nhl-buffalo", "text": "Buffalo Sabres" },
+        { "aliases": [], "key": "nhl-calgary", "text": "Calgary Flames" },
+        { "aliases": [], "key": "nhl-carolina", "text": "Carolina Hurricanes" },
+        { "aliases": [], "key": "nhl-chicago", "text": "Chicago Blackhawks" },
+        { "aliases": [], "key": "nhl-colorado", "text": "Colorado Avalanche" },
+        { "aliases": [], "key": "nhl-columbus", "text": "Columbus Blue Jackets" },
+        { "aliases": [], "key": "nhl-dallas", "text": "Dallas Stars" },
+        { "aliases": [], "key": "nhl-detroit", "text": "Detroit Red Wings" },
+        { "aliases": [], "key": "nhl-edmonton", "text": "Edmonton Oilers" },
+        { "aliases": [], "key": "nhl-florida", "text": "Florida Panthers" },
+        { "aliases": [], "key": "nhl-los-angeles", "text": "Los Angeles Kings" },
+        { "aliases": [], "key": "nhl-minnesota", "text": "Minnesota Wild" },
+        { "aliases": [], "key": "nhl-montreal", "text": "Montreal Canadiens" },
+        { "aliases": [], "key": "nhl-nashville", "text": "Nashville Predators" },
+        { "aliases": [], "key": "nhl-new-jersey", "text": "New Jersey Devils" },
+        { "aliases": [], "key": "nhl-ny-islanders", "text": "New York Islanders" },
+        { "aliases": [], "key": "nhl-ny-rangers", "text": "New York Rangers" },
+        { "aliases": [], "key": "nhl-ottawa", "text": "Ottawa Senators" },
+        { "aliases": [], "key": "nhl-philadelphia", "text": "Philadelphia Flyers" },
+        { "aliases": [], "key": "nhl-pittsburgh", "text": "Pittsburgh Penguins" },
+        { "aliases": [], "key": "nhl-san-jose", "text": "San Jose Sharks" },
+        { "aliases": [], "key": "nhl-seattle", "text": "Seattle Kraken" },
+        { "aliases": [], "key": "nhl-st-louis", "text": "St. Louis Blues" },
+        { "aliases": [], "key": "nhl-tampa-bay", "text": "Tampa Bay Lightning" },
+        { "aliases": [], "key": "nhl-toronto", "text": "Toronto Maple Leafs" },
+        { "aliases": [], "key": "nhl-utah", "text": "Utah Hockey Club" },
+        { "aliases": [], "key": "nhl-vancouver", "text": "Vancouver Canucks" },
+        { "aliases": [], "key": "nhl-vegas", "text": "Vegas Golden Knights" },
+        { "aliases": [], "key": "nhl-washington", "text": "Washington Capitals" },
+        { "aliases": [], "key": "nhl-winnipeg", "text": "Winnipeg Jets" }
+    ],
     "tvRatings": [
         {
             "aliases": [],
@@ -8919,7 +9107,8 @@
         },
         {
             "aliases": ["TV-Y7-FV "],
-            "key": "TV-Y7-FV"
+            "key": "TV-Y7-FV",
+            "text": "TV-Y7-FV"
         },
         {
             "aliases": [],

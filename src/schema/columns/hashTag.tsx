@@ -11,5 +11,6 @@ export const hashTagColumns: <T extends MRT_RowData>(...dependencies: IDependenc
         helper.string(...dependencies)('name', 'Name', undefined, { maxLength: 150, pattern: /^[a-z0-9]{3,150}$/, minLength: 3 }),
         helper.listOfEmbed(...dependencies)('usage', 'Usage', 'hashTagUsage'),
         helper.date(...dependencies)('mostRecent', 'Most Recent', {}, false, true),
-        helper.int(...dependencies)('maxCount', 'Max Count', { readonly: true })
+        helper.int(...dependencies)('maxCount', 'Max Count', { readonly: true }),
+        helper.listOfEmbed(...dependencies)('matches', 'Matches', 'hashTagCondition')
     ] as MRT_ColumnDef<T>[];

@@ -117,6 +117,8 @@ import { AdminTask } from './entity/adminTask';
 import { ResolutionMeasure } from './dimensions/ResolutionMeasure';
 import { ElectronicsVisualCameraDetails } from './entity/detailEntity/ElectronicsVisualCameraDetails';
 import { Classification } from './entity/classification';
+import { HashTagAssignment } from './entity/hashTagAssignment';
+import { HashTagCondition, MaterialCondition } from './entity/hashTagCondition';
 
 export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[] = [
     Address as EmbeddedClass<any>,
@@ -152,11 +154,14 @@ export const schema: (EmbeddedClass<any> | DetailsClass | ReferenceClass<any>)[]
     Facility as ReferenceClass<any>,
     Facing as EmbeddedClass<any>,
     HashTag as ReferenceClass<any>,
+    HashTagAssignment as EmbeddedClass<any>,
+    HashTagCondition as EmbeddedClass<any>,
     HashTagUsage as EmbeddedClass<any>,
     IncludedItem as EmbeddedClass<any>,
     Individual as ReferenceClass<any>,
     LengthMeasure as EmbeddedClass<any>,
     MadeOfSection as EmbeddedClass<any>,
+    MaterialCondition as EmbeddedClass<any>,
     MemorySpeedMeasure as EmbeddedClass<any>,
     MercariBrand as ReferenceClass<any>,
     MercariCategory as EmbeddedClass<any>,

@@ -1,8 +1,8 @@
+/* eslint-disable no-console */
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useLocalRealm } from '../../hooks/useLocalRealm';
 import { BaseDashboardEntry } from '../DashboardEntry';
 import { ISku } from '../../types';
-import React from 'react';
 
 
 export function SkuWithoutDraft(props: { className?: string; start?: number; }) {

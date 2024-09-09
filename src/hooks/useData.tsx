@@ -6,7 +6,7 @@ import { createRenderEditRowDialogContent } from '../components/Views/renderProp
 import { ColumnResizeMode, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues } from '@tanstack/react-table';
 import { ColumnMeta } from '@tanstack/table-core';
 import { useEffectiveCollection } from './useEffectiveCollection';
-import { TableCellProps, TableContainerProps, TableRowProps } from '@mui/material';
+import { IconButtonProps, TableCellProps, TableContainerProps, TableRowProps } from '@mui/material';
 import { createRenderRowActions, fromOID } from '../components/Views/renderProperties/createRenderRowActions';
 import { useGetTableCanExpand } from './useGetTableCanExpand';
 import {
@@ -94,7 +94,7 @@ export function useData<T extends MRT_RowData>(objectType?: string
         onSortingChange,
     } = useDataQuery<T>()
 
-    // const t: MRT_TableOptions<any>['getRowCanExpand']
+    // const t: MRT_TableOptions<any>['muiExpandButtonProps']
 
     return useMaterialReactTable<T>({
         autoResetExpanded: false,
@@ -159,7 +159,7 @@ export function useData<T extends MRT_RowData>(objectType?: string
         getFacetedMinMaxValues: getFacetedMinMaxValues() as any,
         getFacetedRowModel: getFacetedRowModel() as any,
         getFacetedUniqueValues: getFacetedUniqueValues() as any,
-        getRowCanExpand: () => getTableCanExpand(route),
+        getRowCanExpand: (row) => getTableCanExpand(route) && row.subRows.length > 0,
         getRowId,
         getSubRows: getTableCanExpand(route) ? (original: T) => original.subRows : undefined,
         groupedColumnMode: 'remove' as MRT_TableOptions<T>['groupedColumnMode'],
@@ -198,6 +198,21 @@ export function useData<T extends MRT_RowData>(objectType?: string
         muiDetailPanelProps: {
             className: 'w-screen'
         },
+        muiExpandButtonProps: (props: Parameters<Exclude<MRT_TableOptions<T>['muiExpandButtonProps'], IconButtonProps | undefined>>[0]) => ({
+            className:
+                props.row.getCanExpand() ?
+                    props.row.getIsExpanded() ?
+                        ''
+                    :   ''
+                :   'hidden',
+            color:
+                props.row.getCanExpand() ?
+                    props.row.getIsExpanded() ?
+                        'highlight'
+                    :   'metal'
+                :   'metal'
+        }),
+
         muiTableBodyCellProps: (props: Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyCellProps'], TableCellProps | undefined>>[0]) => {
             const selector = `tr[data-index="${props.row.index}"] > td[data-column-name="${(props.column.columnDef?.meta as ColumnMeta<any, any>)?.columnName}"]`;
             const func = () => {
@@ -216,6 +231,7 @@ export function useData<T extends MRT_RowData>(objectType?: string
                     'before:pinned:bg-slate-600 pinned:bg-slate-600 pinned:text-white whitespace-pre font-medium group-data-[row-depth="4"]:text-white group-data-[row-depth="5"]:text-white group-data-[row-depth="6"]:text-white aria-readonly:bg-black aria-readonly:text-white group'
             };
         },
+
         muiTableBodyRowProps: useCallback(
             (props: Parameters<Exclude<MRT_TableOptions<T>['muiTableBodyRowProps'], TableRowProps | undefined>>[0]) =>
                 ({
@@ -272,7 +288,7 @@ export function useData<T extends MRT_RowData>(objectType?: string
         paginationDisplayMode: 'pages',
         renderBottomToolbarCustomActions,
         renderCaption: RenderCaption,
-        renderCreateRowDialogContent: createRenderCreateRowDialogContent<T & {_id: BSON.ObjectId}>() as any,
+        renderCreateRowDialogContent: createRenderCreateRowDialogContent<T & { _id: BSON.ObjectId }>() as any,
         renderEditRowDialogContent: createRenderEditRowDialogContent(),
         renderRowActions: createRenderRowActions(),
         renderTopToolbarCustomActions: createRenderTopToolbarCustomActions<T>(init as () => T, resetCollectionState),
